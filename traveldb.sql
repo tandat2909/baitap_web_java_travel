@@ -1,232 +1,321 @@
-create table if not exists ages
-(
-	ageID varchar(100) charset utf8 not null
-		primary key,
-	name varchar(50) charset utf8 not null
-);
+-- MySQL Workbench Forward Engineering
 
-create table if not exists province
-(
-	provinceID varchar(100) charset utf8 not null
-		primary key,
-	provinceName varchar(100) charset utf8 not null
-);
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
-create table if not exists landmarks
-(
-	landMarkID varchar(100) charset utf8 not null
-		primary key,
-	provinceID varchar(100) charset utf8 not null,
-	landMarkName varchar(200) charset utf8 default '' not null,
-	details varchar(2000) charset utf8 null,
-	constraint fk_landmarks_province1
-		foreign key (provinceID) references province (provinceID)
-)
-comment 'địa danh';
+-- -----------------------------------------------------
+-- Schema traveldb
+-- -----------------------------------------------------
 
-create index fk_landmarks_province1_idx
-	on landmarks (provinceID);
+-- -----------------------------------------------------
+-- Schema traveldb
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `traveldb` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ;
+USE `traveldb` ;
 
-create table if not exists role
-(
-	roleID varchar(100) charset utf8 not null
-		primary key,
-	name varchar(100) charset utf8 not null,
-	description varbinary(300) null
-);
+-- -----------------------------------------------------
+-- Table `traveldb`.`role`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `traveldb`.`role` (
+  `roleID` VARCHAR(100) CHARACTER SET 'utf8' NOT NULL,
+  `name` VARCHAR(100) CHARACTER SET 'utf8' NOT NULL,
+  `description` VARBINARY(300) NULL DEFAULT NULL,
+  PRIMARY KEY (`roleID`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_unicode_ci;
 
-create table if not exists account
-(
-	accountID varchar(100) charset utf8 not null
-		primary key,
-	userName varchar(50) charset utf8 not null,
-	pw varchar(300) charset utf8 not null,
-	status tinyint default 1 not null comment '1 active
-0 inactive',
-	roleID varchar(100) charset utf8 not null,
-	constraint fk_account_role1
-		foreign key (roleID) references role (roleID)
-)
-comment 'thông tin tài khoản';
 
-create index fk_account_role1_idx
-	on account (roleID);
+-- -----------------------------------------------------
+-- Table `traveldb`.`account`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `traveldb`.`account` (
+  `accountID` VARCHAR(100) CHARACTER SET 'utf8' NOT NULL,
+  `userName` VARCHAR(50) CHARACTER SET 'utf8' NOT NULL,
+  `pw` VARCHAR(300) CHARACTER SET 'utf8' NOT NULL,
+  `status` TINYINT NOT NULL DEFAULT '1' COMMENT '1 active\\n0 inactive',
+  `roleID` VARCHAR(100) CHARACTER SET 'utf8' NOT NULL,
+  PRIMARY KEY (`accountID`),
+  INDEX `fk_account_role1_idx` (`roleID` ASC) VISIBLE,
+  CONSTRAINT `fk_account_role1`
+    FOREIGN KEY (`roleID`)
+    REFERENCES `traveldb`.`role` (`roleID`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_unicode_ci
+COMMENT = 'thông tin tài khoản';
 
-create table if not exists customer
-(
-	customerID varchar(100) charset utf8 not null,
-	firstName varchar(50) charset utf8 null,
-	lastName varchar(50) charset utf8 not null,
-	email varchar(100) charset utf8 null,
-	birthDay date not null,
-	CCID int not null,
-	phoneNumber varchar(40) charset utf8 null,
-	accountID varchar(100) charset utf8 not null,
-	primary key (customerID, accountID),
-	constraint account_accountID_UNIQUE
-		unique (accountID),
-	constraint fk_customer_account
-		foreign key (accountID) references account (accountID)
-)
-comment 'bảnh lưu khách hàng';
 
-create index fk_customer_account_idx
-	on customer (accountID);
+-- -----------------------------------------------------
+-- Table `traveldb`.`ages`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `traveldb`.`ages` (
+  `ageID` VARCHAR(100) CHARACTER SET 'utf8' NOT NULL,
+  `name` VARCHAR(50) CHARACTER SET 'utf8' NOT NULL,
+  PRIMARY KEY (`ageID`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_unicode_ci;
 
-create table if not exists employees
-(
-	employeeID varchar(100) charset utf8 not null
-		primary key,
-	firstName varchar(50) charset utf8 not null,
-	lastName varchar(50) charset utf8 null,
-	email varchar(100) charset utf8 null,
-	CCID varchar(50) charset utf8 null,
-	birthDay date not null,
-	phoneNumber varchar(50) charset utf8 null,
-	address varchar(200) charset utf8 null,
-	accountID varchar(100) charset utf8 not null,
-	constraint fk_employees_account1
-		foreign key (accountID) references account (accountID)
-)
-comment 'bảng thông tin nhân viên';
 
-create table if not exists booking
-(
-	bookingID varchar(100) charset utf8 not null
-		primary key,
-	customerID varchar(100) charset utf8 not null,
-	employeesID varchar(100) charset utf8 not null,
-	BookingDate datetime not null,
-	totalMoney decimal default 0 null,
-	constraint fk_booking_customer1
-		foreign key (customerID) references customer (customerID),
-	constraint fk_booking_employees
-		foreign key (employeesID) references employees (employeeID)
-);
+-- -----------------------------------------------------
+-- Table `traveldb`.`customer`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `traveldb`.`customer` (
+  `customerID` VARCHAR(100) CHARACTER SET 'utf8' NOT NULL,
+  `firstName` VARCHAR(50) CHARACTER SET 'utf8' NULL DEFAULT NULL,
+  `lastName` VARCHAR(50) CHARACTER SET 'utf8' NOT NULL,
+  `email` VARCHAR(100) CHARACTER SET 'utf8' NULL DEFAULT NULL,
+  `birthDay` DATE NOT NULL,
+  `CCID` INT NOT NULL,
+  `phoneNumber` VARCHAR(40) CHARACTER SET 'utf8' NULL DEFAULT NULL,
+  `accountID` VARCHAR(100) CHARACTER SET 'utf8' NOT NULL,
+  PRIMARY KEY (`customerID`),
+  UNIQUE INDEX `account_accountID_UNIQUE` (`accountID` ASC) VISIBLE,
+  INDEX `fk_customer_account_idx` (`accountID` ASC) VISIBLE,
+  CONSTRAINT `fk_customer_account`
+    FOREIGN KEY (`accountID`)
+    REFERENCES `traveldb`.`account` (`accountID`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_unicode_ci
+COMMENT = 'bảnh lưu khách hàng';
 
-create index fk_booking_customer1_idx
-	on booking (customerID);
 
-create index fk_booking_employees_idx
-	on booking (employeesID);
+-- -----------------------------------------------------
+-- Table `traveldb`.`employees`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `traveldb`.`employees` (
+  `employeeID` VARCHAR(100) CHARACTER SET 'utf8' NOT NULL,
+  `firstName` VARCHAR(50) CHARACTER SET 'utf8' NOT NULL,
+  `lastName` VARCHAR(50) CHARACTER SET 'utf8' NULL DEFAULT NULL,
+  `email` VARCHAR(100) CHARACTER SET 'utf8' NULL DEFAULT NULL,
+  `CCID` VARCHAR(50) CHARACTER SET 'utf8' NULL DEFAULT NULL,
+  `birthDay` DATE NOT NULL,
+  `phoneNumber` VARCHAR(50) CHARACTER SET 'utf8' NULL DEFAULT NULL,
+  `address` VARCHAR(200) CHARACTER SET 'utf8' NULL DEFAULT NULL,
+  `accountID` VARCHAR(100) CHARACTER SET 'utf8' NOT NULL,
+  PRIMARY KEY (`employeeID`, `accountID`),
+  INDEX `fk_employees_account1_idx` (`accountID` ASC) VISIBLE,
+  UNIQUE INDEX `accountID_UNIQUE` (`accountID` ASC) VISIBLE,
+  CONSTRAINT `fk_employees_account1`
+    FOREIGN KEY (`accountID`)
+    REFERENCES `traveldb`.`account` (`accountID`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_unicode_ci
+COMMENT = 'bảng thông tin nhân viên';
 
-create index fk_employees_account1_idx
-	on employees (accountID);
 
-create table if not exists pricedetails
-(
-	bookingID varchar(100) charset utf8 not null,
-	ageID varchar(100) charset utf8 not null,
-	quantity int not null,
-	price decimal not null,
-	primary key (bookingID, ageID),
-	constraint fk_priceDetails_ages1
-		foreign key (ageID) references ages (ageID),
-	constraint fk_priceDetails_booking1
-		foreign key (bookingID) references booking (bookingID)
-);
+-- -----------------------------------------------------
+-- Table `traveldb`.`booking`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `traveldb`.`booking` (
+  `bookingID` VARCHAR(100) CHARACTER SET 'utf8' NOT NULL,
+  `customerID` VARCHAR(100) CHARACTER SET 'utf8' NOT NULL,
+  `employeesID` VARCHAR(100) CHARACTER SET 'utf8' NOT NULL,
+  `BookingDate` DATETIME NOT NULL,
+  `totalMoney` DECIMAL(10,0) NULL DEFAULT '0',
+  PRIMARY KEY (`bookingID`),
+  INDEX `fk_booking_customer1_idx` (`customerID` ASC) VISIBLE,
+  INDEX `fk_booking_employees_idx` (`employeesID` ASC) VISIBLE,
+  CONSTRAINT `fk_booking_customer1`
+    FOREIGN KEY (`customerID`)
+    REFERENCES `traveldb`.`customer` (`customerID`),
+  CONSTRAINT `fk_booking_employees`
+    FOREIGN KEY (`employeesID`)
+    REFERENCES `traveldb`.`employees` (`employeeID`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_unicode_ci;
 
-create index fk_priceDetails_ages1_idx
-	on pricedetails (ageID);
 
-create index fk_priceDetails_booking1_idx
-	on pricedetails (bookingID);
+-- -----------------------------------------------------
+-- Table `traveldb`.`tour`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `traveldb`.`tour` (
+  `tourID` VARCHAR(100) CHARACTER SET 'utf8' NOT NULL,
+  `tourName` VARCHAR(100) CHARACTER SET 'utf8' NOT NULL,
+  `vehicle` VARCHAR(100) CHARACTER SET 'utf8' NULL DEFAULT NULL,
+  `price` DECIMAL(10,0) NOT NULL DEFAULT '0',
+  `startDay` DATETIME NOT NULL,
+  `maxseats` INT NOT NULL DEFAULT '1' COMMENT 'số người đi tối đa trong 1 tour',
+  PRIMARY KEY (`tourID`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_unicode_ci
+COMMENT = 'thông tin tour -- seats người đi trong 1 tour -- startday ngày giời tour bắt đầu';
 
-create table if not exists ticket
-(
-	ticketID varbinary(100) not null
-		primary key,
-	bookingID varchar(100) charset utf8 not null,
-	employeesID varchar(100) charset utf8 not null,
-	ageID varchar(100) charset utf8 not null,
-	constraint fk_ticket_ages1
-		foreign key (ageID) references ages (ageID),
-	constraint fk_ticket_booking1
-		foreign key (bookingID) references booking (bookingID),
-	constraint fk_ticket_employees1
-		foreign key (employeesID) references employees (employeeID)
-);
 
-create index fk_ticket_ages1_idx
-	on ticket (ageID);
+-- -----------------------------------------------------
+-- Table `traveldb`.`bookingdetails`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `traveldb`.`bookingdetails` (
+  `bookingID` VARCHAR(100) CHARACTER SET 'utf8' NOT NULL,
+  `tourID` VARCHAR(100) CHARACTER SET 'utf8' NOT NULL,
+  `seats` INT NOT NULL,
+  `DepartureDay` DATETIME NOT NULL COMMENT 'thời gian khỏi hành\\n',
+  PRIMARY KEY (`bookingID`),
+  INDEX `fk_bookingDetails_booking1_idx` (`bookingID` ASC) VISIBLE,
+  INDEX `fk_bookingDetails_tour1_idx` (`tourID` ASC) VISIBLE,
+  CONSTRAINT `fk_bookingDetails_booking1`
+    FOREIGN KEY (`bookingID`)
+    REFERENCES `traveldb`.`booking` (`bookingID`),
+  CONSTRAINT `fk_bookingDetails_tour1`
+    FOREIGN KEY (`tourID`)
+    REFERENCES `traveldb`.`tour` (`tourID`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_unicode_ci;
 
-create index fk_ticket_booking1_idx
-	on ticket (bookingID);
 
-create index fk_ticket_employees1_idx
-	on ticket (employeesID);
+-- -----------------------------------------------------
+-- Table `traveldb`.`province`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `traveldb`.`province` (
+  `provinceID` VARCHAR(100) CHARACTER SET 'utf8' NOT NULL,
+  `provinceName` VARCHAR(100) CHARACTER SET 'utf8' NOT NULL,
+  PRIMARY KEY (`provinceID`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_unicode_ci;
 
-create table if not exists tour
-(
-	tourID varchar(100) charset utf8 not null
-		primary key,
-	tourName varchar(100) charset utf8 not null,
-	vehicle varchar(100) charset utf8 null,
-	price decimal default 0 not null,
-	startDay datetime not null,
-	maxseats int default 1 not null comment 'số người đi tối đa trong 1 tour'
-)
-comment 'thông tin tour -- seats người đi trong 1 tour -- startday ngày giời tour bắt đầu';
 
-create table if not exists bookingdetails
-(
-	bookingID varchar(100) charset utf8 not null
-		primary key,
-	tourID varchar(100) charset utf8 not null,
-	seats int not null,
-	DepartureDay datetime not null comment 'thời gian khỏi hành
-',
-	constraint fk_bookingDetails_booking1
-		foreign key (bookingID) references booking (bookingID),
-	constraint fk_bookingDetails_tour1
-		foreign key (tourID) references tour (tourID)
-);
+-- -----------------------------------------------------
+-- Table `traveldb`.`landmarks`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `traveldb`.`landmarks` (
+  `landMarkID` VARCHAR(100) CHARACTER SET 'utf8' NOT NULL,
+  `provinceID` VARCHAR(100) CHARACTER SET 'utf8' NOT NULL,
+  `landMarkName` VARCHAR(200) CHARACTER SET 'utf8' NOT NULL DEFAULT '',
+  `details` VARCHAR(2000) CHARACTER SET 'utf8' NULL DEFAULT NULL,
+  PRIMARY KEY (`landMarkID`),
+  INDEX `fk_landmarks_province1_idx` (`provinceID` ASC) VISIBLE,
+  CONSTRAINT `fk_landmarks_province1`
+    FOREIGN KEY (`provinceID`)
+    REFERENCES `traveldb`.`province` (`provinceID`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_unicode_ci
+COMMENT = 'địa danh';
 
-create index fk_bookingDetails_booking1_idx
-	on bookingdetails (bookingID);
 
-create index fk_bookingDetails_tour1_idx
-	on bookingdetails (tourID);
+-- -----------------------------------------------------
+-- Table `traveldb`.`diadiemdi`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `traveldb`.`diadiemdi` (
+  `landMarkID` VARCHAR(100) CHARACTER SET 'utf8' NOT NULL,
+  `tour_tourID` VARCHAR(100) CHARACTER SET 'utf8' NOT NULL,
+  PRIMARY KEY (`landMarkID`, `tour_tourID`),
+  INDEX `fk_diadiemdi_landmarks1_idx` (`landMarkID` ASC) VISIBLE,
+  INDEX `fk_diadiemdi_tour1_idx` (`tour_tourID` ASC) VISIBLE,
+  CONSTRAINT `fk_diadiemdi_landmarks1`
+    FOREIGN KEY (`landMarkID`)
+    REFERENCES `traveldb`.`landmarks` (`landMarkID`),
+  CONSTRAINT `fk_diadiemdi_tour1`
+    FOREIGN KEY (`tour_tourID`)
+    REFERENCES `traveldb`.`tour` (`tourID`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_unicode_ci;
 
-create table if not exists diadiemdi
-(
-	landMarkID varchar(100) charset utf8 not null,
-	tour_tourID varchar(100) charset utf8 not null,
-	primary key (landMarkID, tour_tourID),
-	constraint fk_diadiemdi_landmarks1
-		foreign key (landMarkID) references landmarks (landMarkID),
-	constraint fk_diadiemdi_tour1
-		foreign key (tour_tourID) references tour (tourID)
-);
 
-create index fk_diadiemdi_landmarks1_idx
-	on diadiemdi (landMarkID);
+-- -----------------------------------------------------
+-- Table `traveldb`.`pricedetails`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `traveldb`.`pricedetails` (
+  `bookingID` VARCHAR(100) CHARACTER SET 'utf8' NOT NULL,
+  `ageID` VARCHAR(100) CHARACTER SET 'utf8' NOT NULL,
+  `quantity` INT NOT NULL,
+  `price` DECIMAL(10,0) NOT NULL,
+  PRIMARY KEY (`bookingID`, `ageID`),
+  INDEX `fk_priceDetails_ages1_idx` (`ageID` ASC) VISIBLE,
+  INDEX `fk_priceDetails_booking1_idx` (`bookingID` ASC) VISIBLE,
+  CONSTRAINT `fk_priceDetails_ages1`
+    FOREIGN KEY (`ageID`)
+    REFERENCES `traveldb`.`ages` (`ageID`),
+  CONSTRAINT `fk_priceDetails_booking1`
+    FOREIGN KEY (`bookingID`)
+    REFERENCES `traveldb`.`booking` (`bookingID`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_unicode_ci;
 
-create index fk_diadiemdi_tour1_idx
-	on diadiemdi (tour_tourID);
 
-create table if not exists tourdetails
-(
-	tourID varchar(100) charset utf8 not null
-		primary key,
-	contents varchar(2000) charset utf8 null,
-	constraint fk_tourdetails_tour1
-		foreign key (tourID) references tour (tourID)
-);
+-- -----------------------------------------------------
+-- Table `traveldb`.`ticket`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `traveldb`.`ticket` (
+  `ticketID` VARBINARY(100) NOT NULL,
+  `bookingID` VARCHAR(100) CHARACTER SET 'utf8' NOT NULL,
+  `customerID` VARCHAR(100) CHARACTER SET 'utf8' NOT NULL,
+  `ageID` VARCHAR(100) CHARACTER SET 'utf8' NOT NULL,
+  PRIMARY KEY (`ticketID`),
+  INDEX `fk_ticket_ages1_idx` (`ageID` ASC) VISIBLE,
+  INDEX `fk_ticket_booking1_idx` (`bookingID` ASC) VISIBLE,
+  INDEX `fk_ticket_customer_idx` (`customerID` ASC) VISIBLE,
+  CONSTRAINT `fk_ticket_ages1`
+    FOREIGN KEY (`ageID`)
+    REFERENCES `traveldb`.`ages` (`ageID`),
+  CONSTRAINT `fk_ticket_booking1`
+    FOREIGN KEY (`bookingID`)
+    REFERENCES `traveldb`.`booking` (`bookingID`),
+  CONSTRAINT `fk_ticket_customer`
+    FOREIGN KEY (`customerID`)
+    REFERENCES `traveldb`.`customer` (`customerID`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_unicode_ci;
 
-create table if not exists tourprices
-(
-	ageID varchar(100) charset utf8 not null,
-	tourID varchar(100) charset utf8 not null,
-	price decimal default 0 not null,
-	primary key (ageID, tourID),
-	constraint fk_tourprices_ages1
-		foreign key (ageID) references ages (ageID),
-	constraint fk_tourprices_tour1
-		foreign key (tourID) references tour (tourID)
-)
-comment 'bảng giá của một tour';
 
-create index fk_tourprices_tour1_idx
-	on tourprices (tourID);
+-- -----------------------------------------------------
+-- Table `traveldb`.`tourdetails`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `traveldb`.`tourdetails` (
+  `tourID` VARCHAR(100) CHARACTER SET 'utf8' NOT NULL,
+  `contents` VARCHAR(2000) CHARACTER SET 'utf8' NULL DEFAULT NULL,
+  UNIQUE INDEX `tourID_UNIQUE` (`tourID` ASC),
+  CONSTRAINT `fk_tourdetails_tour1`
+    FOREIGN KEY (`tourID`)
+    REFERENCES `traveldb`.`tour` (`tourID`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_unicode_ci;
 
+
+-- -----------------------------------------------------
+-- Table `traveldb`.`tourprices`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `traveldb`.`tourprices` (
+  `ageID` VARCHAR(100) CHARACTER SET 'utf8' NOT NULL,
+  `tourID` VARCHAR(100) CHARACTER SET 'utf8' NOT NULL,
+  `price` DECIMAL(10,0) NOT NULL DEFAULT '0',
+  INDEX `fk_tourprices_tour1_idx` (`tourID` ASC) VISIBLE,
+  PRIMARY KEY (`ageID`, `tourID`),
+  CONSTRAINT `fk_tourprices_ages1`
+    FOREIGN KEY (`ageID`)
+    REFERENCES `traveldb`.`ages` (`ageID`),
+  CONSTRAINT `fk_tourprices_tour1`
+    FOREIGN KEY (`tourID`)
+    REFERENCES `traveldb`.`tour` (`tourID`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_unicode_ci
+COMMENT = 'bảng giá của một tour';
+
+
+-- -----------------------------------------------------
+-- Table `traveldb`.`sysconfig`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `traveldb`.`sysconfig` (
+  `key` VARCHAR(50) NOT NULL,
+  `value` VARCHAR(200) NOT NULL,
+  PRIMARY KEY (`key`),
+  UNIQUE INDEX `key_UNIQUE` (`key` ASC) VISIBLE)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
