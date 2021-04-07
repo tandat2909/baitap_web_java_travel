@@ -1,5 +1,7 @@
 package com.travels.springmvc.pojo;
 
+import com.travels.springmvc.Annotation.GeneratedValueUUID;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
@@ -10,6 +12,7 @@ import java.util.Objects;
 @Table(name = "employees")
 public class Employees implements Serializable {
     @Id
+    @GeneratedValueUUID
     @Column(name = "employeeID", nullable = false, length = 100)
     private String employeeId;
     private String firstName;

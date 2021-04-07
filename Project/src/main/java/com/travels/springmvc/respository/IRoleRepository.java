@@ -1,11 +1,13 @@
 package com.travels.springmvc.respository;
 
 import com.travels.springmvc.pojo.Role;
+import com.travels.springmvc.respository.Enum.ERole;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
 public interface IRoleRepository extends IGenericsRepository<Role,String> {
-    List<Role> getRoleAll();
+
+    Role getRoleByEnum(ERole eRole);
+
 }

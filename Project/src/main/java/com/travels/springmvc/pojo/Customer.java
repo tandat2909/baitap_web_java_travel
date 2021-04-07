@@ -1,5 +1,7 @@
 package com.travels.springmvc.pojo;
 
+import com.travels.springmvc.Annotation.GeneratedValueUUID;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
@@ -10,6 +12,7 @@ import java.util.Objects;
 @Table(name = "customer")
 public class Customer implements Serializable {
     @Id
+    @GeneratedValueUUID
     @Column(name = "customerID", nullable = false, length = 100)
     private String customerId;
     private String firstName;
@@ -138,5 +141,18 @@ public class Customer implements Serializable {
 
     public void setTickets(Collection<Ticket> tickets) {
         this.tickets = tickets;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "customerId='" + customerId + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", birthDay=" + birthDay +
+                ", ccid=" + ccid +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                '}';
     }
 }
