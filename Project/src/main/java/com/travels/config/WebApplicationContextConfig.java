@@ -28,20 +28,15 @@ public class WebApplicationContextConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/css/**")
+                .addResourceLocations("/resources/css/");
         registry.addResourceHandler("/img/**")
-                .addResourceLocations("/resources/");
+                .addResourceLocations("/resources/images/");
+        registry.addResourceHandler("/js1/**")
+                .addResourceLocations("/resources/js/");
     }
 
-    @Bean
-    public InternalResourceViewResolver getInternalResourceViewResolver() {
-        InternalResourceViewResolver resolver
-                = new InternalResourceViewResolver();
-        resolver.setViewClass(JstlView.class);
-        resolver.setPrefix("/WEB-INF/jsp/");
-        resolver.setSuffix(".jsp");
 
-        return resolver;
-    }
 
     //Chỉ định đọc các tập tin properties
     @Bean

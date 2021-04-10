@@ -20,6 +20,11 @@ public class HomeController {
     public String index(Model model) {
         System.out.println("tìm kiém:\n"+accountService.getElementById("ssss"));
         model.addAttribute("lsaccount",accountService.getAll());
-        return "welcome";
+        return "index";
+    }
+    @RequestMapping("/TrangChu")
+    public String test(Model model) {
+        return "TrangChu";
     }
     }
+
