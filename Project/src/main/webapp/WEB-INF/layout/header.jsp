@@ -8,38 +8,26 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!-- header -->
-<div class="header">
-    <div class="header-top">
-        <input type="text" placeholder="Search" required=" ">
-    </div>
-    <div class="clearfix"> </div>
-    <div class="header-bottom">
-        <div class="header-bottom-left">
-            <a href="index.html">Eco<span>travel</span></a>
-        </div>
-        <div class="header-bottom-right">
-            <span class="menu">MENU</span>
-            <ul class="nav1">
-                <li class="cap"><a href="index.html">HOME</a></li>
-                <li><a href="about.html">ABOUT</a></li>
-                <li><a href="events.html">EVENTS</a></li>
-                <li><a href="services.html">SERVICES</a></li>
-                <li><a href="gallery.html">GALLERIES</a></li>
-                <li><a href="blog.html">BLOG</a></li>
-                <li><a href="contact.html">CONTACT</a></li>
+<header>
+    <div class="container">
+        <!-- nav -->
+        <nav class="py-md-4 py-3 d-lg-flex">
+            <div id="logo">
+                <h1 class="mt-md-0 mt-2"> <a href="/TrangChu"><span class="fa fa-map-signs"></span> Grand Tour </a></h1>
+            </div>
+            <label for="drop" class="toggle"><span class="fa fa-bars"></span></label>
+            <input type="checkbox" id="drop" />
+            <ul class="menu ml-auto mt-1">
+                <li class="active"><a href="/TrangChu">Home</a></li>
+                <li class=""><a href="/About">About Us</a></li>
+                <li class=""><a href="/Services">Services</a></li>
+                <li class=""><a href="/Packages">Packages</a></li>
+                <li class=""><a href="/Contact">Contact</a></li>
+                <li class="booking"><a href="/Booking">Book Now</a></li>
             </ul>
-            <!-- script for menu -->
-            <script>
-                $( "span.menu" ).click(function() {
-                    $( "ul.nav1" ).slideToggle( 300, function() {
-                        // Animation complete.
-                    });
-                });
-            </script>
-            <!-- //script for menu -->
-        </div>
-        <div class="clearfix"> </div>
+        </nav>
+        <!-- //nav -->
     </div>
-</div>
+</header>
 <!-- //header -->
 

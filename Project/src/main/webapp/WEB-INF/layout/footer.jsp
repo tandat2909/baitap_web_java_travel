@@ -9,66 +9,87 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!-- footer -->
-<div class="footer-top">
-    <div class="container">
-        <div class="footer-top-grids">
-            <div class="col-md-4 footer-top-grid">
-                <h3>About Eco Travel</h3>
-                <p>"At vero eos et accusamus et iusto odio dignissimos ducimus
-                    qui blanditiis praesentium voluptatum deleniti atque corrupti quos
-                    dolores et quas molestias excepturi sint occaecati cupiditate non
-                    provident, similique sunt in culpa qui officia deserunt mollitia animi,
-                    id est laborum et dolorum fuga. </p>
-                <div class="read1">
-                    <a href="single.html">Read More</a>
+<footer>
+    <section class="footer footer_w3layouts_section_1its py-5">
+        <div class="container py-lg-4 py-3">
+            <div class="row footer-top">
+                <div class="col-lg-3 col-sm-6 footer-grid_section_1its_w3">
+                    <div class="footer-title">
+                        <h3>Address</h3>
+                    </div>
+                    <div class="footer-text">
+                        <p>Location : 1234 lock, Charlotte, North Carolina, United States</p>
+                        <p>Phone : +12 534894364</p>
+                        <p>Email : <a href="mailto:info@example.com">info@example.com</a></p>
+                        <p>Fax : +12 534894364</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 footer-grid_section mt-sm-0 mt-4">
+                    <div class="footer-title">
+                        <h3>About Us</h3>
+                    </div>
+                    <div class="footer-text">
+                        <p>Vivamus magna justo, laci niats eget consectetur sed, conval lis at tellus. Nulla quis lorem ipnt libero.
+                            Lorem ipsum dolor.</p>
+                    </div>
+                    <ul class="social_section_1info">
+                        <li class="mb-2 facebook"><a href="#"><span class="fa fa-facebook"></span></a></li>
+                        <li class="mb-2 twitter"><a href="#"><span class="fa fa-twitter"></span></a></li>
+                        <li class="google"><a href="#"><span class="fa fa-google-plus"></span></a></li>
+                        <li class="linkedin"><a href="#"><span class="fa fa-linkedin"></span></a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-sm-6 mt-lg-0 mt-4 footer-grid_section_1its_w3">
+                    <div class="footer-title">
+                        <h3>Travel Places</h3>
+                    </div>
+                    <div class="row">
+                        <ul class="col-6 links">
+                            <li><a href="#choose" class="scroll">New Zealand </a></li>
+                            <li><a href="#overview" class="scroll">Paris, France </a></li>
+                            <li><a href="#pricing" class="scroll">Los Angles</a></li>
+                            <li><a href="#faq" class="scroll"> Darlington</a></li>
+                            <li><a href="#testimonials" class="scroll">Canada </a></li>
+                            <li><a href="#contact" class="scroll"> South Africa </a></li>
+                        </ul>
+                        <ul class="col-6 links">
+                            <li><a href="#">Spain </a></li>
+                            <li><a href="#">Turkey </a></li>
+                            <li><a href="#faq" class="scroll">Europe </a></li>
+                            <li><a href="#">Italy </a></li>
+                            <li><a href="#">Sweden </a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 mt-lg-0 mt-4 footer-grid_section_1its_w3">
+                    <div class="footer-title">
+                        <h3>Newsletter</h3>
+                    </div>
+                    <div class="footer-text">
+                        <p>By subscribing to our mailing list you will always get latest news and updates from us.</p>
+                        <form action="#" method="post">
+                            <input type="email" name="Email" placeholder="Enter your email..." required="">
+                            <button class="btn1"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+                            <div class="clearfix"> </div>
+                        </form>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-4 footer-top-grid">
-                <h3>Connect With Us</h3>
-                <div class="twi-txt">
-                    <div class="twi">
-                        <a href="#" class="twitter"></a>
-                    </div>
-                    <div class="twi-text">
-                        <p><a href="#">Follow Us On Twitter</a></p>
-                    </div>
-                    <div class="clearfix"> </div>
-                </div>
-                <div class="twi-txt1">
-                    <div class="twi">
-                        <a href="#" class="flickr"> </a>
-                    </div>
-                    <div class="twi-text">
-                        <p><a href="#">Check Us Out On Flickr</a></p>
-                    </div>
-                    <div class="clearfix"> </div>
-                </div>
-                <div class="twi-txt1">
-                    <div class="twi">
-                        <a href="#" class="facebook"> </a>
-                    </div>
-                    <div class="twi-text">
-                        <p><a href="#">Become a Fan On Facebook</a></p>
-                    </div>
-                    <div class="clearfix"> </div>
-                </div>
-            </div>
-            <div class="col-md-4 footer-top-grid">
-                <h3>Extra Features</h3>
-                <ul class="last">
-                    <li><a href="#">Temporibus autem quibusdam</a></li>
-                    <li><a href="#">Et aut officiis debitis aut</a></li>
-                    <li><a href="#">Necessitatibus saepe eveniet</a></li>
-                    <li><a href="#">Ut et voluptates repudiandae</a></li>
-                    <li><a href="#">Molestiae non recusandae earum</a></li>
-                    <li><a href="#">Rerum hic tenetur a sapiente delectus</a></li>
-                </ul>
-            </div>
-            <div class="clearfix"> </div>
         </div>
-    </div>
-    <div class="footer">
-        <p>Copyright © 2015 Eco Travel. All Rights Reserved | Design by<a href="http://w3layouts.com/"> W3layouts</a></p>
-    </div>
-</div>
+    </section>
+</footer>
 <!-- //footer -->
+<!-- copyright -->
+<div class="copyright py-3 text-center">
+    <p>© 2019 Grand Tour. All Rights Reserved | Design by <a href="http://w3layouts.com/" target="=_blank"> W3layouts </a></p>
+</div>
+<!-- //copyright -->
+
+<!-- move top -->
+<div class="move-top text-right">
+    <a href="#home" class="move-top">
+        <span class="fa fa-angle-up  mb-3" aria-hidden="true"></span>
+    </a>
+</div>
+<!-- move top -->
+
