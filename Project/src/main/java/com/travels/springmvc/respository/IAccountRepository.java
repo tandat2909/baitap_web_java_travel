@@ -7,7 +7,13 @@ import java.util.List;
 
 
 public interface IAccountRepository extends IGenericsRepository<Account,String> {
-    List<Account> getAccountAll() ;
-    boolean CreateAccount(Account account);
+    boolean createAccount(Account account,Object o);
+    boolean isUserNameExist(String userName);
+    boolean isUserNameExist(Account account);
+    boolean isAccountExist(Account account);
+    boolean isCheckActive(String id) throws NullPointerException;
+    boolean isCheckActive(Account account) throws NullPointerException;
+
+
 
 }

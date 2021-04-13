@@ -1,5 +1,7 @@
 package com.travels.springmvc.pojo;
 
+import com.travels.springmvc.Annotation.GeneratedValueUUID;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
@@ -10,13 +12,14 @@ import java.util.Objects;
 @Table(name = "customer")
 public class Customer implements Serializable {
     @Id
+    @GeneratedValueUUID
     @Column(name = "customerID", nullable = false, length = 100)
     private String customerId;
     private String firstName;
     private String lastName;
     private String email;
     private Date birthDay;
-    private int ccid;
+    private String ccid;
     private String phoneNumber;
 
     @OneToMany(mappedBy = "customer")
@@ -81,11 +84,11 @@ public class Customer implements Serializable {
 
     @Basic
     @Column(name = "CCID", nullable = false)
-    public int getCcid() {
+    public String getCcid() {
         return ccid;
     }
 
-    public void setCcid(int ccid) {
+    public void setCcid(String ccid) {
         this.ccid = ccid;
     }
 
@@ -138,5 +141,18 @@ public class Customer implements Serializable {
 
     public void setTickets(Collection<Ticket> tickets) {
         this.tickets = tickets;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "customerId='" + customerId + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", birthDay=" + birthDay +
+                ", ccid=" + ccid +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                '}';
     }
 }

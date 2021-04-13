@@ -1,5 +1,7 @@
 package com.travels.springmvc.pojo;
 
+import com.travels.springmvc.Annotation.GeneratedValueUUID;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -11,6 +13,7 @@ import java.util.Objects;
 public class Booking implements Serializable {
 
     @Id
+    @GeneratedValueUUID
     @Column(name = "bookingID", nullable = false, length = 100)
     private String bookingId;
     private Timestamp bookingDate;

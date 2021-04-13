@@ -1,9 +1,19 @@
 package com.travels.springmvc.pojo;
 
+
+import com.travels.springmvc.Annotation.GeneratedValueUUID;
+import org.hibernate.annotations.GenerationTime;
+import org.hibernate.annotations.GeneratorType;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.ValueGenerationType;
+import org.hibernate.tuple.ValueGenerator;
+import org.springframework.beans.factory.annotation.Value;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Objects;
+import java.util.UUID;
 
 @Entity
 @Table(name = "account")
@@ -11,25 +21,43 @@ public class Account implements Serializable {
 
     @Id
     @Column(name = "accountID", nullable = false, length = 100)
+    @GeneratedValueUUID
     private String accountId;
     private String userName;
     private String pw;
-    private byte status;
 
-    @ManyToOne
-    @JoinColumn(name = "roleID", nullable = false)
-    private Role roleID;
+    @Transient
+    private String confirmPw;
+    private boolean status;
+    @Column(name = "roleID")
+    private String roleID;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "roleID", nullable = false,insertable = false,updatable = false)
+    private Role role;
     @OneToMany(mappedBy = "account")
     private Collection<Customer> customers;
     @OneToMany(mappedBy = "account")
     private Collection<Employees> employees;
 
-    public Role getRoleID() {
+    public boolean isStatus() {
+        return status;
+    }
+
+    public String getRoleID() {
         return roleID;
     }
 
-    public void setRoleID(Role roleID) {
+    public void setRoleID(String roleID) {
         this.roleID = roleID;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public String getAccountId() {
@@ -62,12 +90,20 @@ public class Account implements Serializable {
 
     @Basic
     @Column(name = "status", nullable = false)
-    public byte getStatus() {
+    public boolean getStatus() {
         return status;
     }
 
-    public void setStatus(byte status) {
+    public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    public String getConfirmPw() {
+        return confirmPw;
+    }
+
+    public void setConfirmPw(String confirmPw) {
+        this.confirmPw = confirmPw;
     }
 
     @Override
@@ -90,7 +126,7 @@ public class Account implements Serializable {
         int result = accountId != null ? accountId.hashCode() : 0;
         result = 31 * result + (userName != null ? userName.hashCode() : 0);
         result = 31 * result + (pw != null ? pw.hashCode() : 0);
-        result = 31 * result + (int) status;
+        result = 31 * result + (status ?1:0);
         return result;
     }
 
@@ -101,7 +137,7 @@ public class Account implements Serializable {
                 ", userName='" + userName + '\'' +
                 ", pw='" + pw + '\'' +
                 ", status=" + status +
-                ", role name = "+ roleID.getName()+
+                ", role ID = "+roleID+
                 '}';
     }
 
