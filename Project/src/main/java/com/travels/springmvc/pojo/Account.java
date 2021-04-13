@@ -25,22 +25,39 @@ public class Account implements Serializable {
     private String accountId;
     private String userName;
     private String pw;
+
+    @Transient
+    private String confirmPw;
     private boolean status;
+    @Column(name = "roleID")
+    private String roleID;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "roleID", nullable = false)
-    private Role roleID;
+    @JoinColumn(name = "roleID", nullable = false,insertable = false,updatable = false)
+    private Role role;
     @OneToMany(mappedBy = "account")
     private Collection<Customer> customers;
     @OneToMany(mappedBy = "account")
     private Collection<Employees> employees;
 
-    public Role getRoleID() {
+    public boolean isStatus() {
+        return status;
+    }
+
+    public String getRoleID() {
         return roleID;
     }
 
-    public void setRoleID(Role roleID) {
+    public void setRoleID(String roleID) {
         this.roleID = roleID;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public String getAccountId() {
@@ -81,6 +98,14 @@ public class Account implements Serializable {
         this.status = status;
     }
 
+    public String getConfirmPw() {
+        return confirmPw;
+    }
+
+    public void setConfirmPw(String confirmPw) {
+        this.confirmPw = confirmPw;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -112,7 +137,7 @@ public class Account implements Serializable {
                 ", userName='" + userName + '\'' +
                 ", pw='" + pw + '\'' +
                 ", status=" + status +
-                ", role name = "+ (roleID == null ?"NULL" : roleID.getName())+
+                ", role ID = "+roleID+
                 '}';
     }
 

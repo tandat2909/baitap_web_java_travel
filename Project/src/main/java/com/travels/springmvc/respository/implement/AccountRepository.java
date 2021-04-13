@@ -20,9 +20,6 @@ import java.util.UUID;
 @Transactional
 public class AccountRepository extends GenericsRepository<Account, String> implements IAccountRepository {
 
-    @Autowired
-    IRoleRepository roleRepository;
-
     @Override
     public boolean createAccount(Account account, Object o) {
         Session session = currentSession();
@@ -30,29 +27,25 @@ public class AccountRepository extends GenericsRepository<Account, String> imple
             if (!isUserNameExist(account)) {
                 if (o instanceof Customer) {
                     Customer customer = (Customer) o;
-                    try{
-                        if(customer.getAccount() != null)throw new Exception();
-                        if (customer.getCustomerId() == null || customer.getCustomerId().isEmpty()){
-                            customer.setCustomerId(UUID.randomUUID().toString());
-                            account.setRoleID(roleRepository.getRoleByEnum(ERole.customer));
-                            customer.setAccount(account);
-                        }
-                    }catch (Exception exception){
-                        throw new Exception("Khách hàng đã có tài khoản");
+
+                    if (customer.getAccount() != null) throw new Exception("Khách hàng đã có tài khoản");
+                    if (customer.getCustomerId() == null || customer.getCustomerId().isEmpty()) {
+                        customer.setCustomerId(UUID.randomUUID().toString());
+                        account.setRoleID(ERole.ROLE_CUSTOMER.name());
+                        customer.setAccount(account);
                     }
+
                 }
-
-
                 if (o instanceof Employees) {
                     Employees employees = (Employees) o;
-                    try{
-                        if(employees.getAccount() != null) throw new Exception();
-                        if (employees.getEmployeeId() == null || employees.getEmployeeId().isEmpty()){
-                            account.setRoleID(roleRepository.getRoleByEnum(ERole.employee));
+                    try {
+                        if (employees.getAccount() != null) throw new Exception();
+                        if (employees.getEmployeeId() == null || employees.getEmployeeId().isEmpty()) {
+                            account.setRoleID(ERole.ROLE_EMPLOYEE.name());
                             employees.setEmployeeId(UUID.randomUUID().toString());
                             employees.setAccount(account);
                         }
-                    }catch (Exception exception){
+                    } catch (Exception exception) {
                         throw new Exception("Nhân viên dã có tài khoản");
                     }
                 }
@@ -108,10 +101,10 @@ public class AccountRepository extends GenericsRepository<Account, String> imple
 
     @Override
     public boolean isCheckActive(String id) throws NullPointerException {
-        if(id == null ||id.isEmpty())
+        if (id == null || id.isEmpty())
             throw new NullPointerException("Lỗi không có ID");
         Account account = getElementById(id);
-        if(account == null){
+        if (account == null) {
             throw new NullPointerException("Lỗi không có tài khoản với id: " + id);
         }
         return account.getStatus();
@@ -130,7 +123,6 @@ public class AccountRepository extends GenericsRepository<Account, String> imple
 
 
     }
-
 
 
 }

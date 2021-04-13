@@ -19,7 +19,7 @@ public class Customer implements Serializable {
     private String lastName;
     private String email;
     private Date birthDay;
-    private int ccid;
+    private String ccid;
     private String phoneNumber;
 
     @OneToMany(mappedBy = "customer")
@@ -84,11 +84,11 @@ public class Customer implements Serializable {
 
     @Basic
     @Column(name = "CCID", nullable = false)
-    public int getCcid() {
+    public String getCcid() {
         return ccid;
     }
 
-    public void setCcid(int ccid) {
+    public void setCcid(String ccid) {
         this.ccid = ccid;
     }
 

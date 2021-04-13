@@ -3,61 +3,21 @@ package com.travels.springmvc.modelView;
 import com.travels.springmvc.pojo.Account;
 import com.travels.springmvc.pojo.Customer;
 import com.travels.springmvc.pojo.Employees;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class InforAccount {
-    String username;
-    String pw;
-    String phoneNumber;
-    String firstName;
-    String lastName;
+    @Autowired
+    Account account;
+    @Autowired
+    Employees employees;
+    @Autowired
+    Customer customer;
+
     String date;
-    String ccid;
-    String email;
-    String address;
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPw() {
-        return pw;
-    }
-
-    public void setPw(String pw) {
-        this.pw = pw;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
 
     public String getDate() {
         return date;
@@ -67,43 +27,36 @@ public class InforAccount {
         this.date = date;
     }
 
-    public String getCcid() {
-        return ccid;
+    public Account getAccount() {
+        return account;
     }
 
-    public void setCcid(String ccid) {
-        this.ccid = ccid;
+    public void setAccount(Account account) {
+        this.account = account;
     }
 
-    public String getEmail() {
-        return email;
+    public Employees getEmployees() {
+        if(employees != null && date !=null)
+            employees.setBirthDay(Date.valueOf(date));
+        return employees;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setEmployees(Employees employees) {
+
+        employees.setBirthDay(Date.valueOf(date));
+        this.employees = employees;
     }
 
-    public String getAddress() {
-        return address;
+    public Customer getCustomer() {
+        if(customer != null && date !=null)
+            customer.setBirthDay(Date.valueOf(date));
+        return customer;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setCustomer(Customer customer) {
+
+        this.customer = customer;
     }
 
 
-    @Override
-    public String toString() {
-        return "InforAccount{" +
-                "username='" + username + '\'' +
-                ", pw='" + pw + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", date=" + date +
-                ", ccid='" + ccid + '\'' +
-                ", email='" + email + '\'' +
-                ", address='" + address + '\'' +
-                '}';
-    }
 }
