@@ -49,8 +49,7 @@ public class HomeController {
     public String Booking(Model model) { return "Booking"; }
 
     @RequestMapping("/admin")
-    public String admin(Model model) {
-        return "TrangAdmin";
-    }
+    public String admin(Model model) { return "TrangAdmin"; }
+
     }
 
