@@ -1,6 +1,7 @@
 package com.travels.springmvc.controller;
 
 import com.travels.springmvc.services.IAccountService;
+import com.travels.springmvc.services.ICustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,15 +16,11 @@ import java.util.Map;
 public class HomeController {
     @Autowired
     private IAccountService accountService;
+    @Autowired
+    ICustomerService customerService;
 
-    @RequestMapping(value = {"/", "/home"})
-    public String index(Model model) {
-        System.out.println("tìm kiém:\n"+accountService.getElementById("ssss"));
-        model.addAttribute("lsaccount",accountService.getAll());
-        return "";
-    }
 
-    @RequestMapping("/TrangChu")
+    @RequestMapping(value = {"/", "/home", "TrangChu"})
     public String TrangChu(Model model) {
         return "TrangChu";
     }
@@ -44,13 +41,15 @@ public class HomeController {
     }
 
     @RequestMapping("/Contact")
-    public String Contact(Model model) { return "Contact"; }
+    public String Contact(Model model) {
+        return "Contact";
+    }
 
     @RequestMapping("/Booking")
-    public String Booking(Model model) { return "Booking"; }
-
-    @RequestMapping("/admin")
-    public String admin(Model model) { return "TrangAdmin"; }
-
+    public String Booking(Model model) {
+        return "Booking";
     }
+
+
+}
 

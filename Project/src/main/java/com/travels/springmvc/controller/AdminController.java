@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/admin")
 public class AdminController {
 
-    @RequestMapping(value = {"","index","home"})
+    @RequestMapping(value = {"","/index","/home"})
     public String index(){
-        return "TrangChu";
+        return "TrangAdmin";
     }
 }
 

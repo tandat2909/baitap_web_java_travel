@@ -24,6 +24,8 @@
                 <li class=""><a href="/Packages">Packages</a></li>
                 <li class=""><a href="/Contact">Contact</a></li>
                 <li class="booking"><a href="/Booking">Book Now</a></li>
+                <li class=""><a href="/Contact">Contact</a></li>
+
             </ul>
         </nav>
         <!-- //nav -->
