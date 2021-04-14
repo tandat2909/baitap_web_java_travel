@@ -139,4 +139,18 @@ public class Customer implements Serializable {
     public void setTickets(Collection<Ticket> tickets) {
         this.tickets = tickets;
     }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "customerId='" + customerId + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", birthDay=" + birthDay +
+                ", ccid=" + ccid +
+                ", phoneNumber='" + phoneNumber + '\'' +
+
+                '}';
+    }
 }

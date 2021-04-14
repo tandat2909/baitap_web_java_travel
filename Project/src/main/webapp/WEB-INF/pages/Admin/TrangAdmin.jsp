@@ -13,11 +13,10 @@
            uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="tiles"
            uri="http://tiles.apache.org/tags-tiles" %>
-<!-- main content start -->
-<div class="main-content">
+
 
     <!-- content -->
-    <div class="container-fluid content-top-gap">
+
 
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb my-breadcrumb">
@@ -421,7 +420,6 @@
         </section>
         <!-- //modals -->
 
-    </div>
+
     <!-- //content -->
-</div>
-<!-- main content end-->
+

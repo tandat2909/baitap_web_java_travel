@@ -29,6 +29,8 @@
 
     <!-- google fonts -->
     <link href="http://fonts.googleapis.com/css?family=Nunito:300,400,600,700,800,900&display=swap" rel="stylesheet">
+    <!-- DataTable -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
 </head>
 <body>
     <div class="se-pre-con"></div>
@@ -85,7 +87,13 @@
     </div>
     <!-- //sidebar menu end -->
         <tiles:insertAttribute name="adminHeader" />
-        <tiles:insertAttribute name="adminContent" />
+    <!-- main content start -->
+        <div class="main-content" style="margin-top: 100px;">
+            <div class="container-fluid content-top-gap">
+                <tiles:insertAttribute name="adminContent" />
+            </div>
+        </div>
+    <!-- main content end-->
 </section>
     <tiles:insertAttribute name="adminFooter" />
 
@@ -167,7 +175,34 @@
     <!--// loading-gif Js -->
 
     <!-- Bootstrap Core JavaScript -->
+
     <script src="<c:url value="/admin/js/bootstrap.min.js"/>"></script>
+    <script src="<c:url value="/admin/js/main.js"/>"></script>
+
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
+
+    <!--// datatable -->
+    <script>
+        $(document).ready(function() {
+            var table = $('#example').DataTable();
+
+            $('#example tbody').on( 'click', 'tr', function () {
+                if ( $(this).hasClass('selected') ) {
+                    $(this).removeClass('selected');
+                }
+                else {
+                    table.$('tr.selected').removeClass('selected');
+                    $(this).addClass('selected');
+                }
+            } );
+
+            $('#example').DataTable( {
+                select: {
+                    items: 'column'
+                }
+            } );
+        } );
+    </script>
 </body>
 
 </html>

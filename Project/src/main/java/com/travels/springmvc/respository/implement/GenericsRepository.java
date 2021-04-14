@@ -1,6 +1,8 @@
 package com.travels.springmvc.respository.implement;
 
+import com.travels.springmvc.pojo.Customer;
 import com.travels.springmvc.respository.IGenericsRepository;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
@@ -38,21 +40,32 @@ class GenericsRepository<T, K extends Serializable> implements IGenericsReposito
 
     @Override
     public boolean saveOrUpdate(T obj) {
-        return false;
+        try{
+            currentSession().saveOrUpdate(obj);
+            return true;
+        } catch (HibernateException e) {
+            return false;
+        }
     }
 
     @Override
     public boolean remove(T obj) {
-        return false;
+        try{
+            currentSession().delete(obj);
+            return true;
+        } catch (HibernateException e) {
+            return false;
+        }
     }
 
     @Override
     public void update(T entity) {
-
+        currentSession().update(entity);
     }
 
     @Override
     public boolean add(T obj) {
+        Customer cus = new Customer();
         return false;
     }
 
