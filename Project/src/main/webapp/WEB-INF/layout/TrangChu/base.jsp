@@ -45,6 +45,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <link href="http://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <!-- //google fonts -->
 
+
+
 </head>
 <body>
     <tiles:insertAttribute name="header" />
@@ -53,6 +55,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <tiles:insertAttribute name="footer" />
 
 </body>
-
-
+<script src="<c:url value="/TrangChu/js/jquery-3.3.1.min.js"/>"type="text/javascript" ></script>
+<script src="<c:url value="/TrangChu/js/popper.min.js"/> "></script>
+<script src="<c:url value="/TrangChu/js/bootstrap.min.js"/>"></script>
 </html>

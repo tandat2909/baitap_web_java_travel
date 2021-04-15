@@ -11,7 +11,7 @@ public class Tourdetails implements Serializable {
     private String tourID;
     private String contents;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "tourID")
     private Tour tour;
 
@@ -53,5 +53,14 @@ public class Tourdetails implements Serializable {
 
     public void setTour(Tour tour) {
         this.tour = tour;
+    }
+
+    @Override
+    public String toString() {
+        return "Tourdetails{" +
+                "tourID='" + tourID + '\'' +
+                ", contents='" + contents + '\'' +
+                ", tour=" + tour +
+                '}';
     }
 }

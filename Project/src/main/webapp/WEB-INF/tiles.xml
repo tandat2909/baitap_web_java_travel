@@ -3,6 +3,7 @@
 Software Foundation//DTD Tiles Configuration 3.0//EN"
         "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
+   <!-- template Trang chủ-->
     <definition name="baseLayout"
                 template="/WEB-INF/layout/TrangChu/base.jsp">
         <put-attribute name="title" value="" />
@@ -50,8 +51,13 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
                        value="/WEB-INF/pages/TrangChu/booking.jsp" />
     </definition>
 
+    <definition name="template_tourdetail" extends="baseLayout" >
+
+        <put-attribute name="content" value="/WEB-INF/pages/TrangChu/tourdetail.jsp"/>
+    </definition>
 
 
+   <!-- template admin-->
     <definition name="adminLayout"
                 template="/WEB-INF/layout/Admin/admin.jsp">
         <put-attribute name="title" value="" />
@@ -73,6 +79,17 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
                        value="/WEB-INF/pages/Admin/adminTable.jsp" />
     </definition>
 
+
+
+    <definition name="template_login" template="/WEB-INF/pages/login.jsp" >
+        <put-attribute name="title" value="Login"/>
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/login.jsp"/>
+    </definition>
+    <definition name="template_signup" template="/WEB-INF/pages/SignUpCustomer.jsp" >
+        <put-attribute name="title" value="Sign Up"/>
+
+    </definition>
 
 
 </tiles-definitions>

@@ -13,16 +13,14 @@ public class TilesConfig {
         UrlBasedViewResolver viewResolver
                 = new UrlBasedViewResolver();
         viewResolver.setViewClass(TilesView.class);
-        viewResolver.setOrder(-2);
+
         return viewResolver;
     }
-
     @Bean
     public TilesConfigurer tilesConfigurer() {
         TilesConfigurer configurer = new TilesConfigurer();
         configurer.setDefinitions("/WEB-INF/tiles.xml");
         configurer.setCheckRefresh(true);
-
         return configurer;
     }
 }

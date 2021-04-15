@@ -1,12 +1,10 @@
 package com.travels.springmvc.services;
 
 import com.travels.springmvc.pojo.Customer;
-import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+public interface ICustomerService extends IGenericsService<Customer,String> {
 
-@Service
-@Transactional
-public interface ICustomerService extends IGenericsService<Customer, String> {
+    Customer getCustomerByUserName(String userName);
+    Customer getCustomerByAccountId(String accountId);
 
 }

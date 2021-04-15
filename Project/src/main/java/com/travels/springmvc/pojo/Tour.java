@@ -23,8 +23,24 @@ public class Tour implements Serializable {
     private Collection<Bookingdetails> bookingdetails;
 
     @OneToOne(mappedBy = "tour", cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY, optional = false)
+            fetch = FetchType.EAGER, optional = false)
     private Tourdetails tourdetail;
+
+    public Tourdetails getTourdetail() {
+        return tourdetail;
+    }
+
+    public void setTourdetail(Tourdetails tourdetail) {
+        this.tourdetail = tourdetail;
+    }
+
+    public Collection<Landmarks> getLandmarkss() {
+        return landmarkss;
+    }
+
+    public void setLandmarkss(Collection<Landmarks> landmarkss) {
+        this.landmarkss = landmarkss;
+    }
 
     @OneToMany(mappedBy = "tour")
     private Collection<Tourprices> tourprices;
@@ -127,5 +143,17 @@ public class Tour implements Serializable {
 
     public void setTourprices(Collection<Tourprices> tourprices) {
         this.tourprices = tourprices;
+    }
+
+    @Override
+    public String toString() {
+        return "Tour{" +
+                "tourId='" + tourId + '\'' +
+                ", tourName='" + tourName + '\'' +
+                ", vehicle='" + vehicle + '\'' +
+                ", price=" + price +
+                ", startDay=" + startDay +
+                ", maxseats=" + maxseats +
+                '}';
     }
 }
