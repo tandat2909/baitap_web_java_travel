@@ -13,6 +13,7 @@ public interface IAccountRepository extends IGenericsRepository<Account,String> 
     boolean isAccountExist(Account account);
     boolean isCheckActive(String id) throws NullPointerException;
     boolean isCheckActive(Account account) throws NullPointerException;
+    Account getAccountByUserName(String userName);
 
 
 

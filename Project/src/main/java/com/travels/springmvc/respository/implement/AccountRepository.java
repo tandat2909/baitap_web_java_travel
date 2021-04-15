@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -25,9 +26,10 @@ public class AccountRepository extends GenericsRepository<Account, String> imple
         Session session = currentSession();
         try {
             if (!isUserNameExist(account)) {
+//                long millis=System.currentTimeMillis();
+//                java.sql.Date date=new java.sql.Date(millis);
                 if (o instanceof Customer) {
                     Customer customer = (Customer) o;
-
                     if (customer.getAccount() != null) throw new Exception("Khách hàng đã có tài khoản");
                     if (customer.getCustomerId() == null || customer.getCustomerId().isEmpty()) {
                         customer.setCustomerId(UUID.randomUUID().toString());
@@ -38,8 +40,10 @@ public class AccountRepository extends GenericsRepository<Account, String> imple
                 }
                 if (o instanceof Employees) {
                     Employees employees = (Employees) o;
+
                     try {
                         if (employees.getAccount() != null) throw new Exception();
+                        //if((date.getYear() - employees.getBirthDay().getYear()) > 18)
                         if (employees.getEmployeeId() == null || employees.getEmployeeId().isEmpty()) {
                             account.setRoleID(ERole.ROLE_EMPLOYEE.name());
                             employees.setEmployeeId(UUID.randomUUID().toString());
@@ -122,6 +126,16 @@ public class AccountRepository extends GenericsRepository<Account, String> imple
         }
 
 
+    }
+
+    @Override
+    public Account getAccountByUserName(String userName) {
+        try {
+            return getElementsByKeyWordOnField(userName,Account.class.getDeclaredField("userName")).get(0);
+        } catch (NoSuchFieldException e) {
+            System.err.println("Không có thông tin account của user: " + userName );
+            return null;
+        }
     }
 
 

@@ -13,7 +13,7 @@
            uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="tiles"
            uri="http://tiles.apache.org/tags-tiles" %>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML>
 <html lang="en">
 
@@ -22,7 +22,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Collective Admin Panel a Flat Bootstrap Responsive Website Template | Home :: W3Layouts</title>
+    <title><tiles:insertAttribute name="title"/></title>
 
     <!-- Template CSS -->
     <link rel="stylesheet" href="<c:url value="/admin/css/style-starter.css"/>">

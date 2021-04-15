@@ -33,8 +33,6 @@ public class InitializerClass {
     public Customer customer() {
         return new Customer();
     }
-    @Bean
-    public ICustomerService customerService(){return new CustomerService();
-    }
+
 
 }

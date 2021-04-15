@@ -7,12 +7,14 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
+
 
 
 @Configuration
@@ -28,12 +30,12 @@ public class WebApplicationContextConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/css/**")
+        /*registry.addResourceHandler("/css/**")
                 .addResourceLocations("/resources/css/");
         registry.addResourceHandler("/img/**")
                 .addResourceLocations("/resources/images/");
         registry.addResourceHandler("/js/**")
-                .addResourceLocations("/resources/js/");
+                .addResourceLocations("/resources/js/");*/
         //login
         registry.addResourceHandler("/login/**")
                 .addResourceLocations("/resources/admin/");
@@ -69,8 +71,17 @@ public class WebApplicationContextConfig implements WebMvcConfigurer {
     public MessageSource messageSource() {
         ResourceBundleMessageSource resource = new ResourceBundleMessageSource();
         resource.setBasename("messages");
+
         return resource;
     }
+    @Bean(name = "validator")
+    public LocalValidatorFactoryBean getvalidator() {
+        LocalValidatorFactoryBean bean
+                = new LocalValidatorFactoryBean();
+        bean.setValidationMessageSource(messageSource());
+        return bean;
+    }
+
 
 
 

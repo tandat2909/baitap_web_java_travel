@@ -20,7 +20,6 @@ import java.util.Set;
 
 @Service("userDetailsService")
 @Transactional
-@SpringBootApplication
 public class AccountService extends GenericsService<Account, String> implements IAccountService {
 
     @Autowired
@@ -48,6 +47,17 @@ public class AccountService extends GenericsService<Account, String> implements 
     @Override
     public boolean isCheckActive(Account account) throws NullPointerException {
         return accountRepository.isCheckActive(account);
+    }
+
+    @Override
+    public Account getAccountByUserName(String userName) {
+        try {
+            return getElementsByKeyWordOnField(userName,Account.class.getDeclaredField("userName")).get(0);
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+            return null;
+        }
+
     }
 
 

@@ -9,5 +9,5 @@ public interface IAccountService extends IGenericsService<Account,String>, UserD
     boolean activeAccountByGmail(String idAccount);
     boolean isCheckActive(String id) throws NullPointerException;
     boolean isCheckActive(Account account) throws NullPointerException;
-
+    Account getAccountByUserName(String userName);
 }

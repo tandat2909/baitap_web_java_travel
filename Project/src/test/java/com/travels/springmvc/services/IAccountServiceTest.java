@@ -9,6 +9,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,15 +23,14 @@ import java.sql.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@ExtendWith(SpringExtension.class)
-@RunWith(SpringRunner.class)
-@Service
 class IAccountServiceTest {
 
-@Autowired
     IAccountService accountService ;
-@Autowired
-    ICustomerService customerService;
+
+    @BeforeAll
+    void setup(){
+        accountService = Mockito.mock(IAccountService.class);
+    }
 
     @Test
     void createAccount() throws NoSuchFieldException {
@@ -43,8 +44,6 @@ class IAccountServiceTest {
         c.setBirthDay(Date.valueOf("2000-2-2"));
         c.setFirstName("@323");
         c.setLastName("@#24234");
-        accountService.createAccount(a,c);
-        Assertions.assertEquals(accountService.getElementsByKeyWordOnField(a.getUserName(),Account.class.getDeclaredField("userName")).get(0).getUserName(),a.getUserName());
     }
 
     @Test
