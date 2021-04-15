@@ -10,6 +10,7 @@
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <h1 class="text-center" style="padding: 20px 0;">Thông tin khách hàng</h1>
 <form class="form-inline" action="/action_page.php">
+    <input type="hidden" id="editid">
     <div class="form-group">
         <label class="mr-sm-2">First name:</label>
         <input class="form-control mb-2 mr-sm-2" placeholder="Enter first name" id="fname">
@@ -28,7 +29,7 @@
         <input type="email" class="form-control mb-2 mr-sm-2" placeholder="Enter phone number" id="pnumber">
     </div>
     <br>
-    <button type="button" class="btn btn-success">Lưu</button>
+    <button type="button" class="btn btn-success" onclick="updateCustomer()">Lưu</button>
 </form>
 
 <table class="table table-bordered" id="example" class="display">
@@ -60,7 +61,7 @@
 
             <td><a href="javascript:;">thêm</a></td>
             <td><a href="javascript:;" onclick="deleteCustomer(${cus.customerId})">xóa</a></td>
-            <td><a href="javascript:;">sửa</a></td>
+            <td><a href="javascript:;" onclick="layDL('${cus.customerId}')">sửa</a></td>
         </tr>
     </c:forEach>
     </tbody>

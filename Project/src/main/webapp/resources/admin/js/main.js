@@ -15,12 +15,22 @@ function deleteCustomer(customerId) {
     }
 }
 
-function updateCustomer(customerId) {
+function updateCustomer() {
+    var customerId = $("#editid").val()
     if (confirm("Bạn chắc chắn muốn sửa không?") == true) {
-        fetch(`/api/customers/${customerId}`, {
-            method: "update",
+        fetch(`/customers/update/${customerId}`, {
+            method: "post",
             headers: {
                 "Content-Type": "application/json"
+            },
+            body: {
+                "customerID": $("#editid").val(),
+                "firstName": $("#fname").val(),
+                "lastName": $("#lname").val(),
+                "email": $("#email").val(),
+                "birthDay": $("#bday").val(),
+                "ccid": $("#ccid").val(),
+                "phoneNumber": $("#pnumber").val(),
             }
         }).then(res => {
             if (res.status == 200) {
@@ -33,13 +43,13 @@ function updateCustomer(customerId) {
 }
 
 
-function layDL() {
-    // document.getElementById("fname").value = document.getElementById("fn").value;
-    // document.getElementById("lname").value = document.getElementById("ln").value;
-    // document.getElementById("email").value = document.getElementById("em").value;
-    // document.getElementById("bday").value = document.getElementById("bd").value;
-    // document.getElementById("ccid").value = document.getElementById("cc").value;
-    // document.getElementById("pnumber").value = document.getElementById("pn").value;
-
-
+function layDL(id) {
+    var a = $("td", $("#cus" + id))
+    $("#editid").val(id)
+    $("#fname").val(a[1].textContent)
+    $("#lname").val(a[2].textContent)
+    $("#email").val(a[3].textContent)
+    $("#bday").val(a[4].textContent)
+    $("#ccid").val(a[5].textContent)
+    $("#pnumber").val(a[6].textContent)
 }

@@ -7,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -39,8 +36,10 @@ public class CustomerController {
     public void deleteCustomer(@PathVariable(name = "customerId") String customerId) {
         this.customerService.remove(customerService.getElementById(customerId));
     }
-
+    @PostMapping("/customers/update/{customerId}")
     public void updateCustomer(@PathVariable(name = "customerId") String customerId){
+        System.out.println(customerId);
+
         this.customerService.saveOrUpdate(customerService.getElementById(customerId));
     }
 }
