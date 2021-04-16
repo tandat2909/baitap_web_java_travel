@@ -17,16 +17,16 @@ public class Employees implements Serializable {
     @GeneratedValueUUID
     @Column(name = "employeeID", nullable = false, length = 100)
     private String employeeId;
-    @NotNull
+//    @NotNull
     private String firstName;
-    @NotNull
+//    @NotNull
     private String lastName;
-    @NotNull
-    @Pattern(regexp = "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$",message = "{account.email.error}")
+//    @NotNull
+//    @Pattern(regexp = "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$",message = "{account.email.error}")
     private String email;
-    @NotNull
+//    @NotNull
     private String ccid;
-    @NotNull
+//    @NotNull
     private Date birthDay;
 
     private String phoneNumber;

@@ -23,21 +23,18 @@ public class Account implements Serializable {
     @Id
     @Column(name = "accountID", nullable = false, length = 100)
     @GeneratedValueUUID
-    @NotNull
     private String accountId;
-    @NotNull
-    @Pattern(regexp = "[a-zA-Z0-9]{5,}" , message = "{account.username.error}")
+//    @NotNull
+//    @Pattern(regexp = "[a-zA-Z0-9]{5,}" , message = "{account.username.error}")
     private String userName;
-    @NotNull
-    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$",message = "{account.password.error}")
+//    @NotNull
+//    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$", message = "{account.password.error}")
     private String pw;
 
     @Transient
-    @NotNull
     private String confirmPw;
     private boolean status;
     @Column(name = "roleID")
-    @NotNull
     private String roleID;
 
     @ManyToOne(fetch = FetchType.EAGER)
