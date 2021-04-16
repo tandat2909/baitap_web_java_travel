@@ -11,7 +11,6 @@ import com.travels.springmvc.services.IAccountService;
 import com.travels.springmvc.services.IRoleService;
 import com.travels.springmvc.services.ISysconfigService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.MessageSource;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

@@ -1,6 +1,8 @@
 package com.travels.config;
 
 
+import org.springframework.boot.SpringBootConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -72,18 +74,15 @@ public class WebApplicationContextConfig implements WebMvcConfigurer {
 
         return resource;
     }
-    @Bean(name = "validator")
-    public LocalValidatorFactoryBean validator() {
-        LocalValidatorFactoryBean bean
-                = new LocalValidatorFactoryBean();
-        bean.setValidationMessageSource(messageSource());
-        return bean;
-    }
-
-    @Override
-    public Validator getValidator(){
-        return validator();
-    }
+//    @Bean
+//    public LocalValidatorFactoryBean getvalidator() {
+//        LocalValidatorFactoryBean bean
+//                = new LocalValidatorFactoryBean();
+//        bean.setValidationMessageSource(messageSource());
+//        return bean;
+//    }
+//
+//
 
 
 
