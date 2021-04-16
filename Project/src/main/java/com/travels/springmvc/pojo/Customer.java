@@ -1,6 +1,9 @@
 package com.travels.springmvc.pojo;
 
+import com.travels.springmvc.Annotation.GeneratedValueUUID;
+
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.Collection;
@@ -18,13 +21,13 @@ public class Customer implements Serializable {
     @NotNull
     private String lastName;
     @NotNull
-    @Pattern(regexp = "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$",message = "{account.email.error}")
+    @Pattern(regexp = "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$",message = "")
     private String email;
     @NotNull
     private Date birthDay;
     private String ccid;
     @NotNull
-    @Pattern(regexp = "(84|0[3|5|7|8|9])+([0-9]{8})\\b", message = "customer.phone.error")
+    @Pattern(regexp = "(84|0[3|5|7|8|9])+([0-9]{8})\\b", message = "")
     private String phoneNumber;
 
     @OneToMany(mappedBy = "customer")

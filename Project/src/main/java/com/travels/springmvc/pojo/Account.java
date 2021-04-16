@@ -26,10 +26,10 @@ public class Account implements Serializable {
     @NotNull
     private String accountId;
     @NotNull
-    @Pattern(regexp = "[a-zA-Z0-9]{5,}" , message = "{account.username.error}")
+    @Pattern(regexp = "[a-zA-Z0-9]{5,}" , message = "")
     private String userName;
     @NotNull
-    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$",message = "{account.password.error}")
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$",message = "")
     private String pw;
 
     @Transient

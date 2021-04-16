@@ -20,4 +20,5 @@ public class CustomerRepository extends GenericsRepository<Customer,String> impl
     public Customer getCustomerByAccountId(String accountId) {
         return (Customer) currentSession().createQuery("FROM Customer where account.accountId = :acid").setParameter("acid",accountId).getResultList().get(0);
     }
+
 }

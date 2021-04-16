@@ -35,7 +35,7 @@ function updateCustomer() {
         }).then(res => {
             if (res.status == 200) {
                 let d = document.getElementById(`cus${customerId}`);
-                d.style.display = "none";
+                // d.style.display = "none";
             } else
                 alert("Something wrong!!!");
         })

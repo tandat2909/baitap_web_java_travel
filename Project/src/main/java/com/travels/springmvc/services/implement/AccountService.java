@@ -31,6 +31,7 @@ public class AccountService extends GenericsService<Account, String> implements 
     public boolean createAccount(Account account, Object obj) {
 
         account.setPw(bCryptPasswordEncoder.encode(account.getPw()));
+        System.out.println(account.getPw());
         return accountRepository.createAccount(account, obj);
     }
 
