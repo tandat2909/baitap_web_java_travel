@@ -30,7 +30,7 @@
                 <div class="card-body">
                     <!-- form -->
                     <%--@elvariable id="user" type="com.travels.springmvc.modelView.InforAccount"--%>
-                    <form:form action="/SignUp" method="POST" modelAttribute="user">
+                    <form:form action="${pageContext.request.contextPath}/SignUp" method="POST" modelAttribute="user">
                         <div class="register__header text-center mb-lg-5 mb-4">
                             <h3 class="register__title mb-2"> Signup</h3>
                             <p>Create your account here, and continue </p>
