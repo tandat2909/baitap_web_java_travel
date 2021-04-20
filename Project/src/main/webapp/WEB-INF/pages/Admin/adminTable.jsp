@@ -10,32 +10,32 @@
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <h1 class="text-center" style="padding: 20px 0;">Thông tin khách hàng</h1>
-<form:form modelAttribute="Customer"  class="form-inline" action="/them" method="post">
+<form:form modelAttribute="Customer"  class="form-inline" action="${pageContext.request.contextPath}/update" method="post">
     <input type="hidden" id="editid">
     <div class="form-group">
         <label class="mr-sm-2">First name:</label>
-        <input class="form-control mb-2 mr-sm-2" placeholder="Enter first name" id="fname" name="firstName">
+        <form:input class="form-control mb-2 mr-sm-2" placeholder="Enter first name" id="fname" name="firstName" path="firstName" />
         <label class="mr-sm-2">Last name:</label>
-        <input class="form-control mb-2 mr-sm-2" placeholder="Enter last name" id="lname" name="lastName">
+        <form:input class="form-control mb-2 mr-sm-2" placeholder="Enter last name" id="lname" name="lastName" path="lastName" />
         <label for="email" class="mr-sm-2">email:</label>
-        <input type="email" class="form-control mb-2 mr-sm-2" placeholder="Enter email" id="email" name="email">
+        <form:input type="email" class="form-control mb-2 mr-sm-2" placeholder="Enter email" id="email" name="email" path="email" />
     </div>
 
     <div class="form-group">
         <label class="mr-sm-2">birthday:</label>
-        <input class="form-control mb-2 mr-sm-2" placeholder="birthday" id="bday" name="birthDay">
+        <form:input class="form-control mb-2 mr-sm-2" placeholder="birthday" id="bday" name="birthDay" path="birthDay" />
         <label class="mr-sm-2">ccid:</label>
-        <input class="form-control mb-2 mr-sm-2" placeholder="Enter ccid" id="ccid" name="ccid">
+        <form:input class="form-control mb-2 mr-sm-2" placeholder="Enter ccid" id="ccid" name="ccid" path="ccid" />
         <label for="email" class="mr-sm-2">phone number:</label>
-        <input class="form-control mb-2 mr-sm-2" placeholder="Enter phone number" id="pnumber" name="phoneNumber">
+        <form:input class="form-control mb-2 mr-sm-2" placeholder="Enter phone number" id="pnumber" name="phoneNumber" path="phoneNumber" />
     </div>
     <br>
 
 
-<button type="button" class="btn btn-success" onclick="updateCustomer()">Lưu</button>
-<button type="submit" class="btn btn-success">thêm</button>
+<button type="button" class="btn btn-success" onclick="updateCustomer()">thêm</button>
+<button type="submit" class="btn btn-success">lưu</button>
 </form:form>
-<table class="table table-bordered" id="example" class="display">
+<table class="table table-bordered" id="bang" class="display">
     <thead>
     <tr>
         <th>customerId</th>

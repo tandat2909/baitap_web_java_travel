@@ -184,9 +184,9 @@
     <!--// datatable -->
     <script>
         $(document).ready(function() {
-            var table = $('#example').DataTable();
+            var table = $('#bang').DataTable();
 
-            $('#example tbody').on( 'click', 'tr', function () {
+            $('#bang tbody').on( 'click', 'tr', function () {
                 if ( $(this).hasClass('selected') ) {
                     $(this).removeClass('selected');
                 }
@@ -196,7 +196,7 @@
                 }
             } );
 
-            $('#example').DataTable( {
+            $('#bang').DataTable( {
                 select: {
                     items: 'column'
                 }

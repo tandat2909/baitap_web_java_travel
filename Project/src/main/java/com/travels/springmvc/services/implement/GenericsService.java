@@ -39,6 +39,7 @@ public abstract class GenericsService<T, K> implements IGenericsService<T, K> {
     @Override
     public void update(T entity) {
         genericsRepository.update(entity);
+
     }
 
     protected void setValueFieldId(T obj) throws IllegalAccessException {
