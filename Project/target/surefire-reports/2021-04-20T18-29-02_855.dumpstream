@@ -1,0 +1,12 @@
+# Created at 2021-04-20T18:29:04.434
+Apr 20, 2021 6:29:04 PM org.junit.jupiter.engine.discovery.MethodSelectorResolver resolve
+
+# Created at 2021-04-20T18:29:04.434
+WARNING: Possible configuration error: method [void com.travels.springmvc.services.implement.AccountServiceTest.createAccount(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String) throws java.lang.Exception] resulted in multiple TestDescriptors [org.junit.jupiter.engine.descriptor.TestTemplateTestDescriptor, org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor]. This is typically the result of annotating a method with multiple competing annotations such as @Test, @RepeatedTest, @ParameterizedTest, @TestFactory, etc.
+
+# Created at 2021-04-20T18:29:04.484
+Apr 20, 2021 6:29:04 PM org.junit.jupiter.engine.discovery.MethodSelectorResolver resolve
+
+# Created at 2021-04-20T18:29:04.484
+WARNING: Possible configuration error: method [void com.travels.springmvc.services.implement.AccountServiceTest.createAccount(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String) throws java.lang.Exception] resulted in multiple TestDescriptors [org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor, org.junit.jupiter.engine.descriptor.TestTemplateTestDescriptor]. This is typically the result of annotating a method with multiple competing annotations such as @Test, @RepeatedTest, @ParameterizedTest, @TestFactory, etc.
+

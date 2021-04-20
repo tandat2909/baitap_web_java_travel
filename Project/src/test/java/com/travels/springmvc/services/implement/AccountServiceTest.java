@@ -16,52 +16,54 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
 
 
 @SpringBootTest
 class AccountServiceTest {
-
+   
     @Autowired
     IAccountService accountService;
 
     @Autowired
     IAccountRepository accountRepository;
-    @BeforeEach
-    void setUp() {
-    }
-
-    @AfterEach
-    void tearDown() {
-    }
-
-    @Test
-    void getAll() {
-
-    }
-
-    @Test
-    void saveOrUpdate() {
-    }
-
-    @Test
-    void remove() {
-    }
-
-    @Test
-    void update() {
-    }
-
-    @Test
-    void setValueFieldId() {
-    }
-
-    @Test
-    void add() {
-    }
-
-    @Test
-    void testAdd() {
-    }
+//    @BeforeEach
+//    void setUp() {
+//    }
+//
+//    @AfterEach
+//    void tearDown() {
+//    }
+//
+//    @Test
+//    void getAll() {
+//
+//    }
+//
+//    @Test
+//    void saveOrUpdate() {
+//    }
+//
+//    @Test
+//    void remove() {
+//    }
+//
+//    @Test
+//    void update() {
+//    }
+//
+//    @Test
+//    void setValueFieldId() {
+//    }
+//
+//    @Test
+//    void add() {
+//    }
+//
+//    @Test
+//    void testAdd() {
+//    }
 
     @Test
     void getElementById() {
@@ -72,43 +74,46 @@ class AccountServiceTest {
         assertEquals(returnedWidget.getAccountId(), "25a13416-bd56-47ae-a475-d8c4272a2e98");
     }
 
-    @Test
-    void getElementsByKeyWordOnField() {
-    }
+//    @Test
+//    void getElementsByKeyWordOnField() {
+//    }
 
-    @Test
-    void createAccount() throws Exception {
+    
+    @ParameterizedTest
+    @CsvFileSource(resources="/login_signup.csv")
+    void createAccount(String userName, String email, String ccid, String phoneNumber,
+            String confirm, String pass, String firstName, String lastName, String birthDay) throws Exception {
         InforAccount inforAccount = new InforAccount();
-        inforAccount.setUserName("tandat1234");
-        inforAccount.setEmail("v@s.com");
-        inforAccount.setCCID("093234433");
-        inforAccount.setPhoneNumber("0987652435");
-        inforAccount.setConfirmPassword("Tandat@123");
-        inforAccount.setPassword("Tandat@123");
-        inforAccount.setFirstName("Tan");
-        inforAccount.setLastName("Dat");
-        inforAccount.setBirthDay("2000-10-2");
+        inforAccount.setUserName(userName);
+        inforAccount.setEmail(email);
+        inforAccount.setCCID(ccid);
+        inforAccount.setPhoneNumber(phoneNumber);
+        inforAccount.setConfirmPassword(confirm);
+        inforAccount.setPassword(pass);
+        inforAccount.setFirstName(firstName);
+        inforAccount.setLastName(lastName);
+        inforAccount.setBirthDay(birthDay);
         assertTrue(accountService.createAccount(inforAccount.getAccount(),inforAccount.getCustomer()));
         assertEquals(accountService.getAccountByUserName(inforAccount.getUserName()).getUserName(),inforAccount.getUserName());
     }
 
-    @Test
-    void activeAccountByGmail() {
-    }
-
-    @Test
-    void isCheckActive() {
-    }
-
-    @Test
-    void testIsCheckActive() {
-    }
-
-    @Test
-    void getAccountByUserName() {
-    }
-
-    @Test
-    void loadUserByUsername() {
-    }
+//    @Test
+//    void activeAccountByGmail() {
+//    }
+//
+//    @Test
+//    void isCheckActive() {
+//    }
+//
+//    @Test
+//    void testIsCheckActive() {
+//    }
+//
+//    @Test
+//    void getAccountByUserName() {
+//    }
+//
+//    @Test
+//    void loadUserByUsername() {
+//    }
 }

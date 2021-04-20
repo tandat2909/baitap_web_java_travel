@@ -1,0 +1,40 @@
+-------------------------------------------------------------------------------
+Test set: com.travels.springmvc.services.implement.AccountServiceTest
+-------------------------------------------------------------------------------
+Tests run: 10, Failures: 0, Errors: 9, Skipped: 0, Time elapsed: 9.22 s <<< FAILURE! - in com.travels.springmvc.services.implement.AccountServiceTest
+createAccount{String, String, String, String, String, String, String, String, String}[1]  Time elapsed: 0.246 s  <<< ERROR!
+java.lang.Exception: User tồn tại
+	at com.travels.springmvc.services.implement.AccountServiceTest.createAccount(AccountServiceTest.java:96)
+
+createAccount{String, String, String, String, String, String, String, String, String}[2]  Time elapsed: 0.029 s  <<< ERROR!
+java.lang.Exception: User tồn tại
+	at com.travels.springmvc.services.implement.AccountServiceTest.createAccount(AccountServiceTest.java:96)
+
+createAccount{String, String, String, String, String, String, String, String, String}[3]  Time elapsed: 0.044 s  <<< ERROR!
+java.lang.Exception: User tồn tại
+	at com.travels.springmvc.services.implement.AccountServiceTest.createAccount(AccountServiceTest.java:96)
+
+createAccount{String, String, String, String, String, String, String, String, String}[4]  Time elapsed: 0.044 s  <<< ERROR!
+java.lang.Exception: User tồn tại
+	at com.travels.springmvc.services.implement.AccountServiceTest.createAccount(AccountServiceTest.java:96)
+
+createAccount{String, String, String, String, String, String, String, String, String}[5]  Time elapsed: 0.043 s  <<< ERROR!
+java.lang.Exception: User tồn tại
+	at com.travels.springmvc.services.implement.AccountServiceTest.createAccount(AccountServiceTest.java:96)
+
+createAccount{String, String, String, String, String, String, String, String, String}[6]  Time elapsed: 0.017 s  <<< ERROR!
+java.lang.IllegalArgumentException
+	at com.travels.springmvc.services.implement.AccountServiceTest.createAccount(AccountServiceTest.java:96)
+
+createAccount{String, String, String, String, String, String, String, String, String}[7]  Time elapsed: 0.04 s  <<< ERROR!
+java.lang.Exception: User tồn tại
+	at com.travels.springmvc.services.implement.AccountServiceTest.createAccount(AccountServiceTest.java:96)
+
+createAccount{String, String, String, String, String, String, String, String, String}[8]  Time elapsed: 0.04 s  <<< ERROR!
+java.lang.Exception: User tồn tại
+	at com.travels.springmvc.services.implement.AccountServiceTest.createAccount(AccountServiceTest.java:96)
+
+createAccount{String, String, String, String, String, String, String, String, String}[9]  Time elapsed: 0.01 s  <<< ERROR!
+java.lang.IllegalArgumentException
+	at com.travels.springmvc.services.implement.AccountServiceTest.createAccount(AccountServiceTest.java:96)
+
