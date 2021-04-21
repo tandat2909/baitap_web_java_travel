@@ -42,7 +42,7 @@ public class Tour implements Serializable {
         this.landmarkss = landmarkss;
     }
 
-    @OneToMany(mappedBy = "tour")
+    @OneToMany(mappedBy = "tour",fetch = FetchType.EAGER)
     private Collection<Tourprices> tourprices;
 
     @ManyToMany()

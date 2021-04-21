@@ -2,19 +2,11 @@ package com.travels.springmvc.pojo;
 
 
 import com.travels.springmvc.Annotation.GeneratedValueUUID;
-import org.hibernate.annotations.GenerationTime;
-import org.hibernate.annotations.GeneratorType;
-import org.hibernate.annotations.Type;
-import org.hibernate.annotations.ValueGenerationType;
-import org.hibernate.tuple.ValueGenerator;
-import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Objects;
-import java.util.UUID;
 
 @Entity
 @Table(name = "account")

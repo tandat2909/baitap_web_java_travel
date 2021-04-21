@@ -49,16 +49,6 @@ public class HomeController {
         return "Contact";
     }
 
-    @RequestMapping("/Booking")
-    public String Booking(Model model) {
-        return "Booking";
-    }
-
-    @RequestMapping("/tourdetail")
-    public String TourDetail(Model model ,@RequestParam(value = "tourid") String tourid ){
-        model.addAttribute("tour",tourService.getElementById(tourid));
-        return "template_tourdetail";
-    }
 
 }
 

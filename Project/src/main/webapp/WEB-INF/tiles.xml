@@ -44,18 +44,16 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
                        value="/WEB-INF/pages/TrangChu/contact.jsp" />
     </definition>
 
-    <definition name="Booking" extends="baseLayout">
+    <definition name="template_tourdetail" extends="baseLayout" >
+        <put-attribute name="title" value="Chi tiết tour"/>
+        <put-attribute name="content" value="/WEB-INF/pages/TrangChu/tourdetail.jsp"/>
+    </definition>
+
+    <definition name="template_booking" extends="baseLayout">
         <put-attribute name="title" value="Booking" />
         <put-attribute name="content"
                        value="/WEB-INF/pages/TrangChu/booking.jsp" />
     </definition>
-
-    <definition name="template_tourdetail" extends="baseLayout" >
-
-        <put-attribute name="content" value="/WEB-INF/pages/TrangChu/tourdetail.jsp"/>
-    </definition>
-
-
    <!-- template admin-->
     <definition name="adminLayout"
                 template="/WEB-INF/layout/Admin/admin.jsp">

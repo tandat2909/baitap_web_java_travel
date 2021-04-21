@@ -3,8 +3,6 @@ package com.travels.springmvc.pojo;
 import com.travels.springmvc.Annotation.GeneratedValueUUID;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.Collection;
@@ -34,7 +32,7 @@ public class Customer implements Serializable {
     @OneToMany(mappedBy = "customer")
     private Collection<Booking> bookings;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "accountID", referencedColumnName = "accountID", nullable = false,unique = true)
     private Account account;
 
