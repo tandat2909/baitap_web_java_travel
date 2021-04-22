@@ -2,6 +2,10 @@ package com.travels.springmvc.pojo;
 
 
 import com.travels.springmvc.Annotation.GeneratedValueUUID;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -29,7 +33,8 @@ public class Account implements Serializable {
     @Column(name = "roleID")
     private String roleID;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "roleID", nullable = false,insertable = false,updatable = false)
     private Role role;
     @OneToMany(mappedBy = "account")

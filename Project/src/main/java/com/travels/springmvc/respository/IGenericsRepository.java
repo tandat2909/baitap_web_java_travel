@@ -15,6 +15,6 @@ public interface IGenericsRepository <T,K> {
     void save(T obj, boolean GeneratedValueId);
     T getElementById(K key);
     List<T> getElementsByKeyWordOnField(String kw, Field field);
-
+    List<T> SearchKeyWordOnField(String kw, Field field);
 
 }

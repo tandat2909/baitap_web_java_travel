@@ -33,8 +33,8 @@ public class Employees implements Serializable {
     @OneToMany(mappedBy = "employee")
     private Collection<Booking> bookings;
 
-    @ManyToOne
-    @JoinColumn(name = "accountID", referencedColumnName = "accountID", nullable = false,unique = true)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "accountID" , nullable = false,unique = true)
     private Account account;
 
 

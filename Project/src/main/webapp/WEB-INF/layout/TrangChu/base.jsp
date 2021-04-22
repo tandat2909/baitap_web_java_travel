@@ -16,7 +16,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Grand Tour Travel Category Flat Bootstrap Responsive Web Template | Home :: w3layouts</title>
+    <title></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
     <meta name="keywords" content="Grand Tour Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
@@ -45,12 +45,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <link href="http://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <!-- //google fonts -->
 
-
-
 </head>
 <body>
     <tiles:insertAttribute name="header" />
-
     <tiles:insertAttribute name="content" />
     <tiles:insertAttribute name="footer" />
 
@@ -58,4 +55,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script src="<c:url value="/TrangChu/js/jquery-3.3.1.min.js"/>"type="text/javascript" ></script>
 <script src="<c:url value="/TrangChu/js/popper.min.js"/> "></script>
 <script src="<c:url value="/TrangChu/js/bootstrap.min.js"/>"></script>
+<script src="<c:url value="/TrangChu/js/script_main.js"/>"></script>
+
 </html>

@@ -15,7 +15,6 @@ public class Province  implements Serializable {
     @GeneratedValueUUID
     private String provinceId;
     private String provinceName;
-
     @OneToMany(mappedBy = "province")
     private Collection<Landmarks> landmarks;
 

@@ -3,6 +3,7 @@ package com.travels.springmvc.respository.implement;
 import com.travels.springmvc.Annotation.GeneratedValueUUID;
 import com.travels.springmvc.respository.IGenericsRepository;
 import org.apache.commons.lang.NullArgumentException;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
@@ -12,6 +13,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.management.Query;
 import javax.persistence.Id;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
@@ -110,7 +115,7 @@ abstract class GenericsRepository<T, K extends Serializable> implements IGeneric
         currentSession().save(obj);
     }
 
-    @Transactional
+    @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public T getElementById(K key) {
         return (T) currentSession().get(getClassType(), key);
@@ -119,8 +124,32 @@ abstract class GenericsRepository<T, K extends Serializable> implements IGeneric
     @Transactional
     @Override
     public List<T> getElementsByKeyWordOnField(String kw, Field field) {
+
         String hsql = String.format("from %s where %s like :kw",getClassType().getSimpleName(),field.getName());
         List<T> list = currentSession().createQuery(hsql).setParameter("kw",kw).getResultList();
         return list;
     }
+    @Transactional
+    @Override
+    public List<T> SearchKeyWordOnField(String kw, Field field) {
+        return executionCriteriaBase((builder, query, root, args) -> {
+            Predicate search = builder.like(root.get(args[1]).as(String.class),String.format("%%%s%%",args[0]));
+            query.where(search);
+            return query;
+        }, kw,field.getName());
+    }
+
+    private List<T> executionCriteriaBase(QueryCriteria c, String... args){
+        CriteriaBuilder cb = currentSession().getCriteriaBuilder();
+        CriteriaQuery<T> cr = cb.createQuery(getClassType());
+        Root<T> root = cr.from(getClassType());
+        cr.select(root);
+        cr = c.getWhere(cb, cr, root, args);
+        return currentSession().createQuery(cr).getResultList();
+    }
+
+
+}
+interface QueryCriteria{
+    CriteriaQuery getWhere(CriteriaBuilder builder, CriteriaQuery query, Root root, String... args);
 }

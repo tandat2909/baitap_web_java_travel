@@ -24,4 +24,5 @@ public interface IGenericsService<T, K> {
 
     T getElementById(K key);
     List<T> getElementsByKeyWordOnField(String kw, Field field);
+    List<T> SearchKeyWordOnField(String kw, Field field);
 }

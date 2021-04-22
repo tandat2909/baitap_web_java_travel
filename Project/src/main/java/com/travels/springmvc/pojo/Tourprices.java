@@ -16,10 +16,10 @@ public class Tourprices implements Serializable {
 
     private int price;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ageID", nullable = false)
     private Ages ages;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tourID", nullable = false)
     private Tour tour;
 

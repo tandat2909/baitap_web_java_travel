@@ -1,5 +1,11 @@
 package com.travels.springmvc.pojo;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+import org.springframework.context.annotation.Lazy;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Arrays;
@@ -16,7 +22,8 @@ public class Role implements Serializable {
     private String name;
     private byte[] description;
 
-    @OneToMany(mappedBy = "role",fetch = FetchType.EAGER)
+
+    @OneToMany(mappedBy = "role")
     private Set<Account> accounts;
 
 

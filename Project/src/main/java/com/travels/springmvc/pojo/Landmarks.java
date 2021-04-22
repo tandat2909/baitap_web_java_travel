@@ -2,6 +2,7 @@ package com.travels.springmvc.pojo;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -15,10 +16,12 @@ public class Landmarks implements Serializable{
     private String landMarkName;
     private String details;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "provinceID", referencedColumnName = "provinceID", nullable = false)
     private Province province;
 
+    @ManyToMany(mappedBy = "landmarkss")
+    private Collection<Tour> tours;
 
     public String getLandMarkId() {
         return landMarkId;
@@ -63,13 +66,29 @@ public class Landmarks implements Serializable{
     }
 
 
-
-
     public Province getProvince() {
         return province;
     }
 
     public void setProvince(Province province) {
         this.province = province;
+    }
+
+    public Collection<Tour> getTours() {
+        return tours;
+    }
+
+    public void setTours(Collection<Tour> tours) {
+        this.tours = tours;
+    }
+
+    @Override
+    public String toString() {
+        return "Landmarks{" +
+                "landMarkId='" + landMarkId + '\'' +
+                ", landMarkName='" + landMarkName + '\'' +
+                ", details='" + details + '\'' +
+//                ", province=" + province +
+                '}';
     }
 }

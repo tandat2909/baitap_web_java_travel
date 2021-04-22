@@ -6,7 +6,7 @@
   Time: 12:25 PM
   To change this template use File | Settings | File Templates.
 --%>
-<%@page contentType="text/html" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form"
            uri="http://www.springframework.org/tags/form" %>
@@ -20,8 +20,6 @@
     </div>
 </section>
 <!-- //banner -->
-
-
 <style>
     .pic-bt {
         width: 100%;
@@ -126,7 +124,7 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
-                            <form action="" method="post">
+                            <form id ="fm_dienthongtin">
                                 <div class="col-xs-12 mg-bot30">
                                     <h4 class="text-center mt-3 mb-3 " style="color:red;">Thông Tin Liên Lạc</h4>
                                 </div>
@@ -134,16 +132,16 @@
                                     <div class="row">
                                         <div class="col-md-6 col-sm-12 col-xs-12">
                                             <div class="form-group">
-                                                <label>Họ tên (<span class="star">*</span>)</label>
+                                                <label>Họ (<span class="star">*</span>)</label>
                                                 <div>
                                                     <input class="form-control" id="contact_name" name="contact_name"
                                                            required="required" type="text" value="">
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label>Di động (<span class="star">*</span>)</label>
+                                                <label>Tên (<span class="star">*</span>)</label>
                                                 <div>
-                                                    <input class="form-control" id="mobilephone" name="mobilephone"
+                                                    <input class="form-control" id="ten" name=""
                                                            onchange="CheckMobile();"
                                                            onkeypress="return funCheckInt(event)" required="required"
                                                            type="text" value="">
@@ -177,10 +175,9 @@
                                                     <div class="col-md-3 col-sm-2 col-xs-6 mg-bot15">
                                                         <label>Người lớn</label>
                                                         <div>
-                                                            <input class="form-control" id="adult" name="adult"
-                                                                   onblur="javascript:clear_text(this);"
-                                                                   onclick="javascript:show_text('Từ 12 tuổi trở lên',this)"
-                                                                   onkeypress="return funCheckInt(event)" type="text"
+                                                            <input class="form-control" id="adult"  name="adult"
+
+                                                                   onchange="addDanhSachKhachHang(this)" type="text"
                                                                    value="1">
                                                         </div>
                                                     </div>
@@ -189,9 +186,8 @@
                                                         <div>
                                                             <input class="form-control" id="children11"
                                                                    name="children11"
-                                                                   onblur="javascript:clear_text(this);"
-                                                                   onclick="javascript:show_text('Từ 5 tuổi đến dưới 12 tuổi',this)"
-                                                                   onkeypress="return funCheckInt(event)" type="text"
+
+
                                                                    value="0">
                                                         </div>
                                                     </div>
@@ -264,78 +260,77 @@
                                     <div class="col-xs-12 mt-3 mb-3">
                                         <h4 class="text-center" style="color: red">DANH SÁCH KHÁCH HÀNG</h4>
                                     </div>
-                                    <div class="col-xs-12 mg-bot30 list">
-                                        <div class="cus-num">Khách hàng 1</div>
-                                        <div class="frame-cus">
-                                            <div class="form-horizontal">
-                                                <div class="row mg-bot10">
-                                                    <div class="col-lg-3 col-md-8 col-sm-6 col-xs-12 mg-bot10">
-                                                        <label class="mg-bot5">Họ tên (<span
-                                                                class="star">*</span>)</label>
-                                                        <div>
-                                                            <input class="form-control" name="[0].fullname"
-                                                                   required="" type="text" value="">
+                                    <div class="col-xs-12 mg-bot30">
+                                        <div class="list">
+                                            <div class="cus-num">Khách hàng 1</div>
+                                            <div class="frame-cus">
+                                                <div class="form-horizontal">
+                                                    <div class="row mg-bot10">
+                                                        <div class="col-lg-3 col-md-8 col-sm-6 col-xs-12 mg-bot10">
+                                                            <label class="mg-bot5">Họ tên (<span
+                                                                    class="star">*</span>)</label>
+                                                            <div>
+                                                                <input class="form-control"
+                                                                       required="" type="text" value="">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 mg-bot10">
+                                                            <label class="mg-bot5">Giới tính</label>
+                                                            <div>
+                                                                <select class="form-control" name="[0].gender">
+                                                                    <option value="0">Nữ</option>
+                                                                    <option value="1">Nam</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 mg-bot10">
+                                                            <label class="mg-bot5">Ngày sinh (<span
+                                                                    class="star">*</span>)</label>
+                                                            <div>
+                                                                <input type="date" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 mg-bot10">
+                                                            <label class="mg-bot5">Độ tuổi</label>
+                                                            <div>
+                                                                <select class="form-control" id="personkind0">
+                                                                    <option value="0">Người lớn</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 mg-bot10"
+                                                             style="display:none;">
+                                                            <label class="mg-bot5">Loại khách:</label>
+                                                            <div>
+                                                                <select class="form-control" id="loaikhachnoidia0"
+                                                                        name="[0].loaikhachnoidia"
+                                                                        onchange="ChangeChoose();">
+                                                                    <option value="0">Việt Nam</option>
+                                                                    <option value="1">Việt kiều</option>
+                                                                    <option value="2">Nước ngoài</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 mg-bot10">
+                                                            <label class="mg-bot5">Phòng đơn</label>
+                                                            <div>
+                                                                <select class="form-control" id="loaiphuthuphongdon0">
+                                                                    <option selected="selected" value="0">Không</option>
+                                                                    <option value="1">Có</option>
+                                                                </select></div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 mg-bot10">
-                                                        <label class="mg-bot5">Giới tính</label>
-                                                        <div>
-                                                            <select class="form-control" name="[0].gender">
-                                                                <option value="0">Nữ</option>
-                                                                <option value="1">Nam</option>
-                                                            </select>
+                                                    <div class="row total">
+                                                        <div class="col-md-12 col-sm-12 text-right">
+                                                            Trị giá: <span class="price"
+                                                                           id="spanprice0">2,690,000 đ</span>
+                                                            <input class="form-control" disabled="disabled" id="price0"
+                                                                   name="price0" type="hidden" value="2690000 đ">
                                                         </div>
-                                                    </div>
-                                                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 mg-bot10">
-                                                        <label class="mg-bot5">Ngày sinh (<span
-                                                                class="star">*</span>)</label>
-                                                        <div>
-                                                            <input type="date" class="form-control">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 mg-bot10">
-                                                        <label class="mg-bot5">Độ tuổi</label>
-                                                        <div>
-                                                            <select class="form-control" id="personkind0"
-                                                                    name="[0].personkind"
-                                                                    onchange="ChangeChoose();">
-                                                                <option value="0">Người lớn</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 mg-bot10"
-                                                         style="display:none;">
-                                                        <label class="mg-bot5">Loại khách:</label>
-                                                        <div>
-                                                            <select class="form-control" id="loaikhachnoidia0"
-                                                                    name="[0].loaikhachnoidia"
-                                                                    onchange="ChangeChoose();">
-                                                                <option value="0">Việt Nam</option>
-                                                                <option value="1">Việt kiều</option>
-                                                                <option value="2">Nước ngoài</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 mg-bot10">
-                                                        <label class="mg-bot5">Phòng đơn</label>
-                                                        <div>
-                                                            <select class="form-control" id="loaiphuthuphongdon0"
-                                                                    name="[0].loaiphuthuphongdon"
-                                                                    onchange="ChangeChoose();">
-                                                                <option selected="selected" value="0">Không</option>
-                                                                <option value="1">Có</option>
-                                                            </select></div>
-                                                    </div>
-                                                </div>
-                                                <div class="row total">
-                                                    <div class="col-md-12 col-sm-12 text-right">
-                                                        Trị giá: <span class="price"
-                                                                       id="spanprice0">2,690,000 đ</span>
-                                                        <input class="form-control" disabled="disabled" id="price0"
-                                                               name="price0" type="hidden" value="2690000 đ">
                                                     </div>
                                                 </div>
                                             </div>
+
                                         </div>
 
                                         <div class="frame-cus">
@@ -688,6 +683,11 @@
                                 </div>
                             </form>
 
+                            <form action="${pageContext.request.contextPath}/addBooking" method="post" modelAttribute="bookingvalue" id="fm_bookingvalue">
+                                <input type="hidden" value="" path="bookingvalue" id="bookingvalue"/>
+                            </form>
+
+
                         </div>
 
                     </div>
@@ -698,5 +698,4 @@
         </div>
     </div>
 </section>
-
 

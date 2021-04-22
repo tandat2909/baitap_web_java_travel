@@ -32,7 +32,6 @@ public class AccountService extends GenericsService<Account, String> implements 
     @Autowired
     IAccountRepository accountRepository;
 
-
     @Override
     public boolean createAccount(Account account, Object obj) throws Exception {
         return accountRepository.createAccount(account, obj);

@@ -51,8 +51,7 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
 
     <definition name="template_booking" extends="baseLayout">
         <put-attribute name="title" value="Booking" />
-        <put-attribute name="content"
-                       value="/WEB-INF/pages/TrangChu/booking.jsp" />
+        <put-attribute name="content" value="/WEB-INF/pages/TrangChu/booking.jsp" />
     </definition>
    <!-- template admin-->
     <definition name="adminLayout"
@@ -76,7 +75,6 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
     </definition>
     <definition name="template_signup" template="/WEB-INF/pages/SignUpCustomer.jsp" >
         <put-attribute name="title" value="Sign Up"/>
-
     </definition>
 
 

@@ -19,12 +19,12 @@ public class Booking implements Serializable {
     private Timestamp bookingDate;
     private Integer totalMoney;
 
-    @ManyToOne
-    @JoinColumn(name = "customerID", referencedColumnName = "customerID", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customerID", nullable = false)
     private Customer customer;
 
-    @ManyToOne
-    @JoinColumn(name = "employeesID" ,referencedColumnName = "employeeID",nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "employeesID" ,nullable = false)
     private Employees employee;
 
     @OneToOne(mappedBy = "booking" ,cascade = CascadeType.ALL,

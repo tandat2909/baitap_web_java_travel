@@ -32,7 +32,7 @@ public class Customer implements Serializable {
     @OneToMany(mappedBy = "customer")
     private Collection<Booking> bookings;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "accountID", referencedColumnName = "accountID", nullable = false,unique = true)
     private Account account;
 

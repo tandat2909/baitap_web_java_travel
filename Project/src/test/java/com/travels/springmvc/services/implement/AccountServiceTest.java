@@ -2,8 +2,10 @@ package com.travels.springmvc.services.implement;
 
 import com.travels.springmvc.modelView.InforAccount;
 import com.travels.springmvc.pojo.Account;
+import com.travels.springmvc.respository.Enum.ERole;
 import com.travels.springmvc.respository.IAccountRepository;
 import com.travels.springmvc.services.IAccountService;
+import com.travels.springmvc.services.IRoleService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,6 +25,10 @@ class AccountServiceTest {
 
     @Autowired
     IAccountService accountService;
+
+    @Autowired
+    IRoleService roleService;
+
 
     @Autowired
     IAccountRepository accountRepository;
@@ -106,9 +112,9 @@ class AccountServiceTest {
 
     @Test
     void getAccountByUserName() {
+        roleService.getRole(ERole.ROLE_CUSTOMER).getAccounts().forEach(System.out::println);
+        //System.out.println(accountService.getAccountByUserName("tandat").getRole());
     }
 
-    @Test
-    void loadUserByUsername() {
-    }
+
 }
