@@ -16,7 +16,8 @@ public class Role implements Serializable {
     private String name;
     private byte[] description;
 
-    @OneToMany(mappedBy = "role",fetch = FetchType.EAGER)
+
+    @OneToMany(mappedBy = "role")
     private Set<Account> accounts;
 
 

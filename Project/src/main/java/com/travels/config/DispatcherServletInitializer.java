@@ -15,6 +15,7 @@ public class DispatcherServletInitializer extends AbstractAnnotationConfigDispat
                 TilesConfig.class,
                 InitializerClass.class,
                 SpringSecurityConfig.class,
+                FunctionJsp.class
 
         };
     }

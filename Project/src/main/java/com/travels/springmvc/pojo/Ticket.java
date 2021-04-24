@@ -10,16 +10,16 @@ public class Ticket implements Serializable {
     @Column(name = "ticketID", nullable = false, length = 100)
     private String ticketId;
 
-    @ManyToOne
-    @JoinColumn(name = "bookingID", referencedColumnName = "bookingID", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "bookingID", nullable = false)
     private Booking booking;
 
-    @ManyToOne
-    @JoinColumn(name = "customerID", referencedColumnName = "customerID", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customerID", nullable = false)
     private Customer customer;
 
-    @ManyToOne
-    @JoinColumn(name = "ageID", referencedColumnName = "ageID", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ageID", nullable = false)
     private Ages ages;
 
 

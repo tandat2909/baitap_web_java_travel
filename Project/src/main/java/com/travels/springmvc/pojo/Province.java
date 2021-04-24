@@ -12,9 +12,9 @@ import java.util.Objects;
 public class Province  implements Serializable {
     @Id
     @Column(name = "provinceID", nullable = false, length = 100)
+    @GeneratedValueUUID
     private String provinceId;
     private String provinceName;
-
     @OneToMany(mappedBy = "province")
     private Collection<Landmarks> landmarks;
 

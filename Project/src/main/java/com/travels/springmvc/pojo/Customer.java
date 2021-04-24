@@ -4,7 +4,7 @@ import com.travels.springmvc.Annotation.GeneratedValueUUID;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -15,11 +15,18 @@ public class Customer implements Serializable {
     @GeneratedValueUUID
     @Column(name = "customerID", nullable = false, length = 100)
     private String customerId;
+//    @NotNull
     private String firstName;
+//    @NotNull
     private String lastName;
+//    @NotNull
+//    @Pattern(regexp = "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$",message = "{account.email.error}")
     private String email;
+//    @NotNull
     private Date birthDay;
     private String ccid;
+//    @NotNull
+//    @Pattern(regexp = "(84|0[3|5|7|8|9])+([0-9]{8})\\b", message = "{customer.phoneNumber.error}")
     private String phoneNumber;
 
     @OneToMany(mappedBy = "customer")
