@@ -17,11 +17,11 @@ public class Bookingdetails implements Serializable {
     private Timestamp departureDay;
 
     @OneToOne
-    @JoinColumn(name = "bookingID", referencedColumnName = "bookingID", nullable = false)
+    @JoinColumn(name = "bookingID" , nullable = false)
     private Booking booking;
 
-    @ManyToOne
-    @JoinColumn(name = "tourID", referencedColumnName = "tourID", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "tourID" , nullable = false)
     private Tour tour;
 
 

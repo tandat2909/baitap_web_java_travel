@@ -1,12 +1,17 @@
 package com.travels.springmvc.services.implement;
 
+import com.travels.springmvc.modelView.InforAccount;
 import com.travels.springmvc.pojo.Account;
+import com.travels.springmvc.pojo.Customer;
+import com.travels.springmvc.pojo.Employees;
+import com.travels.springmvc.respository.Enum.ESysconfig;
 import com.travels.springmvc.respository.IAccountRepository;
 import com.travels.springmvc.respository.implement.AccountRepository;
 import com.travels.springmvc.services.IAccountService;
 import com.travels.springmvc.services.IRoleService;
+import com.travels.springmvc.services.ISysconfigService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.MessageSource;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,8 +20,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 @Service("userDetailsService")
 @Transactional
@@ -24,14 +31,9 @@ public class AccountService extends GenericsService<Account, String> implements 
 
     @Autowired
     IAccountRepository accountRepository;
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
-    public boolean createAccount(Account account, Object obj) {
-
-        account.setPw(bCryptPasswordEncoder.encode(account.getPw()));
-        System.out.println(account.getPw());
+    public boolean createAccount(Account account, Object obj) throws Exception {
         return accountRepository.createAccount(account, obj);
     }
 
@@ -53,7 +55,7 @@ public class AccountService extends GenericsService<Account, String> implements 
     @Override
     public Account getAccountByUserName(String userName) {
         try {
-            return getElementsByKeyWordOnField(userName,Account.class.getDeclaredField("userName")).get(0);
+            return getElementsByKeyWordOnField(userName, Account.class.getDeclaredField("userName")).get(0);
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
             return null;
@@ -79,7 +81,7 @@ public class AccountService extends GenericsService<Account, String> implements 
         //System.out.println("status account: " + users.getStatus());
 
         return new org.springframework.security.core.userdetails.User(
-                users.getUserName(), users.getPw(),users.getStatus(),true,true,users.getStatus(), authorities);
+                users.getUserName(), users.getPw(), users.getStatus(), true, true, users.getStatus(), authorities);
 
     }
 

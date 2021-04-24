@@ -25,7 +25,7 @@
     <!-- content -->
     <div class="">
         <!-- login form -->
-        <c:if test="${param.error != null}">
+        <c:if test="${param.error != null }">
             <div class="alert alert-danger alert-dismissible fade show text-center" style="position: absolute; width: 100%" role="alert">
                 Đang nhập thất bại
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -36,6 +36,14 @@
         <c:if test="${param.accessDenied != null}">
             <div class="alert alert-danger alert-dismissible fade show text-center" style="position: absolute; width: 100%" role="alert">
                 Bạn không có quyền truy cập
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </c:if>
+        <c:if test="${success != null}">
+            <div class="alert alert-success alert-dismissible fade show text-center" style="position: absolute; width: 100%" role="alert">
+                ${success}
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

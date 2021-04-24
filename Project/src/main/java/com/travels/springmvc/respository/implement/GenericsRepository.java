@@ -10,12 +10,14 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.management.Query;
 import javax.persistence.Id;
+import javax.persistence.criteria.*;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -42,7 +44,6 @@ abstract class GenericsRepository<T, K extends Serializable> implements IGeneric
             }
         }
     }
-
 
 
     protected Class getClassType() {
@@ -95,10 +96,11 @@ abstract class GenericsRepository<T, K extends Serializable> implements IGeneric
         currentSession().save(obj);
 
     }
+
     @Override
     @Transactional
     public void save(T obj, boolean GeneratedValueId) {
-        if(GeneratedValueId) {
+        if (GeneratedValueId) {
             try {
                 setValueFieldId(obj);
             } catch (IllegalAccessException e) {
@@ -108,7 +110,7 @@ abstract class GenericsRepository<T, K extends Serializable> implements IGeneric
         currentSession().save(obj);
     }
 
-    @Transactional
+    @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public T getElementById(K key) {
         return (T) currentSession().get(getClassType(), key);
@@ -117,8 +119,79 @@ abstract class GenericsRepository<T, K extends Serializable> implements IGeneric
     @Transactional
     @Override
     public List<T> getElementsByKeyWordOnField(String kw, Field field) {
-        String hsql = String.format("from %s where %s like :kw",getClassType().getSimpleName(),field.getName());
-        List<T> list = currentSession().createQuery(hsql).setParameter("kw",kw).getResultList();
+
+        String hsql = String.format("from %s where %s like :kw", getClassType().getSimpleName(), field.getName());
+        List<T> list = currentSession().createQuery(hsql).setParameter("kw", kw).getResultList();
         return list;
     }
+
+    private List<T> executionCriteriaBase(QueryCriteria c, Object... args) throws Exception {
+        CriteriaBuilder cb = currentSession().getCriteriaBuilder();
+        CriteriaQuery<T> cr = cb.createQuery(getClassType());
+        Root<T> root = cr.from(getClassType());
+        cr.select(root);
+        cr = c.getWhere(cb, cr, root, args);
+        return currentSession().createQuery(cr).getResultList();
+    }
+
+    @Transactional
+    @Override
+    public List<T> SearchKeyWordOnField(String kw, Field field) throws Exception {
+        return executionCriteriaBase((builder, query, root, args) -> {
+            Predicate search = builder.like(root.get((String) args[1]).as(String.class), String.format("%%%s%%", (String) args[0]));
+            query.where(search);
+            return query;
+        }, kw, field.getName());
+    }
+
+
+    @Transactional
+    @Override
+    public List<T> getBetweenValue(Object from, Object to, Field field) throws Exception {
+
+        BigDecimal a, b;
+        if ((from == null && to == null) || field == null) {
+            throw new NullPointerException("Điều kiện không hợp lệ");
+        }
+        try {
+            a = new BigDecimal(String.valueOf(from == null && to != null ? 0 : from));
+            b = new BigDecimal(String.valueOf(to == null ? Long.MAX_VALUE : to));
+        } catch (NumberFormatException numberFormat) {
+            throw new Exception("vui lòng nhập số không nhập chữ và ký tự đặc biệt");
+        }
+
+        if (b.compareTo(a) < 0) {
+            throw new Exception("giá trị sau lớn hơn giá trị trước");
+        }
+        return executionCriteriaBase((builder, query, root, args) -> {
+            Predicate p1 = builder.greaterThanOrEqualTo(root.get(field.getName()), a);
+            Predicate p2 = builder.lessThanOrEqualTo(root.get(field.getName()), b);
+            query.where(builder.and(p1, p2));
+            return query;
+        });
+    }
+
+    @Override
+    public List<T> getBetweenDate(Date fromDate, Date toDate, Field field) throws Exception {
+        if(field == null || !field.getType().equals(Date.class)){
+            throw new Exception("Chỉ định field tìm kiếm không hợp lệ");
+        }
+        if(fromDate == null){
+            throw new Exception("From date không được để trống");
+        }
+
+        toDate = toDate == null ? new Date() : toDate;
+
+        return executionCriteriaBase((builder, query, root, args) -> {
+//            Predicate p1 = builder.greaterThanOrEqualTo(, fromDate);
+            System.out.println("vô hàm sau khi check"+(Date)args[0]+" " + fromDate);
+//            Predicate p2 = builder.lessThanOrEqualTo(root.get(field.getName()), );
+            query.where(builder.between(root.get(field.getName()).as(Date.class),fromDate, (Date)args[0]));
+            return query;
+        },toDate);
+    }
+}
+
+interface QueryCriteria {
+    CriteriaQuery getWhere(CriteriaBuilder builder, CriteriaQuery query, Root root, Object... args) throws Exception;
 }

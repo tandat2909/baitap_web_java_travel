@@ -4,7 +4,7 @@ import com.travels.springmvc.Annotation.GeneratedValueUUID;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -16,15 +16,15 @@ public class Booking implements Serializable {
     @GeneratedValueUUID
     @Column(name = "bookingID", nullable = false, length = 100)
     private String bookingId;
-    private Timestamp bookingDate;
+    private Date bookingDate;
     private Integer totalMoney;
 
-    @ManyToOne
-    @JoinColumn(name = "customerID", referencedColumnName = "customerID", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customerID", nullable = false)
     private Customer customer;
 
-    @ManyToOne
-    @JoinColumn(name = "employeesID" ,referencedColumnName = "employeeID",nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "employeesID" ,nullable = false)
     private Employees employee;
 
     @OneToOne(mappedBy = "booking" ,cascade = CascadeType.ALL,
@@ -51,11 +51,11 @@ public class Booking implements Serializable {
 
     @Basic
     @Column(name = "BookingDate", nullable = false)
-    public Timestamp getBookingDate() {
+    public Date getBookingDate() {
         return bookingDate;
     }
 
-    public void setBookingDate(Timestamp bookingDate) {
+    public void setBookingDate(Date bookingDate) {
         this.bookingDate = bookingDate;
     }
 

@@ -2,19 +2,15 @@ package com.travels.springmvc.pojo;
 
 
 import com.travels.springmvc.Annotation.GeneratedValueUUID;
-import org.hibernate.annotations.GenerationTime;
-import org.hibernate.annotations.GeneratorType;
-import org.hibernate.annotations.Type;
-import org.hibernate.annotations.ValueGenerationType;
-import org.hibernate.tuple.ValueGenerator;
-import org.springframework.beans.factory.annotation.Value;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Objects;
-import java.util.UUID;
 
 @Entity
 @Table(name = "account")
@@ -23,24 +19,20 @@ public class Account implements Serializable {
     @Id
     @Column(name = "accountID", nullable = false, length = 100)
     @GeneratedValueUUID
-    @NotNull
     private String accountId;
-    @NotNull
-    @Pattern(regexp = "[a-zA-Z0-9]{5,}" , message = "")
+//    @NotNull
+//    @Pattern(regexp = "[a-zA-Z0-9]{5,}" , message = "{account.username.error}")
     private String userName;
-    @NotNull
-    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$",message = "")
+//    @NotNull
+//    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$", message = "{account.password.error}")
     private String pw;
 
     @Transient
-    @NotNull
     private String confirmPw;
     private boolean status;
     @Column(name = "roleID")
-    @NotNull
     private String roleID;
-
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "roleID", nullable = false,insertable = false,updatable = false)
     private Role role;
     @OneToMany(mappedBy = "account")

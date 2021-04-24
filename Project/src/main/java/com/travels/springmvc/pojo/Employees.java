@@ -3,10 +3,8 @@ package com.travels.springmvc.pojo;
 import com.travels.springmvc.Annotation.GeneratedValueUUID;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -17,16 +15,16 @@ public class Employees implements Serializable {
     @GeneratedValueUUID
     @Column(name = "employeeID", nullable = false, length = 100)
     private String employeeId;
-    @NotNull
+//    @NotNull
     private String firstName;
-    @NotNull
+//    @NotNull
     private String lastName;
-    @NotNull
-    @Pattern(regexp = "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$",message = "{account.email.error}")
+//    @NotNull
+//    @Pattern(regexp = "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$",message = "{account.email.error}")
     private String email;
-    @NotNull
+//    @NotNull
     private String ccid;
-    @NotNull
+//    @NotNull
     private Date birthDay;
 
     private String phoneNumber;
@@ -35,8 +33,8 @@ public class Employees implements Serializable {
     @OneToMany(mappedBy = "employee")
     private Collection<Booking> bookings;
 
-    @ManyToOne
-    @JoinColumn(name = "accountID", referencedColumnName = "accountID", nullable = false,unique = true)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "accountID" , nullable = false,unique = true)
     private Account account;
 
 
