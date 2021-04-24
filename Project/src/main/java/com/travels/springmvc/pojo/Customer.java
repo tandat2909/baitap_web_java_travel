@@ -4,7 +4,7 @@ import com.travels.springmvc.Annotation.GeneratedValueUUID;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 import java.util.Collection;
 import java.util.Objects;
 

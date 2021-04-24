@@ -32,8 +32,6 @@ public class Account implements Serializable {
     private boolean status;
     @Column(name = "roleID")
     private String roleID;
-
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "roleID", nullable = false,insertable = false,updatable = false)
     private Role role;

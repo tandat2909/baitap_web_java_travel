@@ -1,12 +1,11 @@
 package com.travels.springmvc.pojo;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Objects;
@@ -21,7 +20,7 @@ public class Tour implements Serializable {
     private String tourName;
     private String vehicle;
     private BigDecimal price;
-    private Timestamp startDay;
+    private Date startDay;
     private int maxseats;
 
     @Column(name = "content")
@@ -93,11 +92,11 @@ public class Tour implements Serializable {
 
     @Basic
     @Column(name = "startDay", nullable = false)
-    public Timestamp getStartDay() {
+    public Date getStartDay() {
         return startDay;
     }
 
-    public void setStartDay(Timestamp startDay) {
+    public void setStartDay(Date startDay) {
         this.startDay = startDay;
     }
 

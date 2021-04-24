@@ -10,8 +10,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import javax.enterprise.inject.Stereotype;
 import java.math.BigDecimal;
-import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -37,7 +38,7 @@ class TourServiceTest {
         tour.setMaxseats(5);
         tour.setPrice(new BigDecimal(23234234));
         tour.setVehicle("Xe hơi");
-        tour.setStartDay(new Timestamp(234444234));
+        tour.setStartDay(new Date(234444234));
         tour.setContent("hà nội ngày 12 -3 -23");
 
     }
@@ -117,6 +118,23 @@ class TourServiceTest {
             assertEquals(e.getMessage(), "Tên địa danh không được để trống");
         }
 
+    }
+
+    @Test
+    void searchTourByDate() throws Exception
+    {
+       tourService.searchTourByDate(new Date(121,3,2,0,0,0),new Date()).forEach(System.out::println);
+
+    }
+
+    @Test
+    void searchTourByPrice() {
+        try {
+            System.out.println(Long.MAX_VALUE);
+            tourService.searchTourByPrice(null,null).forEach(System.out::println);
+        } catch (Exception exception) {
+            System.out.println(exception.getMessage());
+        }
     }
 
 }

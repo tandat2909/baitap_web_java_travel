@@ -81,7 +81,7 @@ public abstract class GenericsService<T, K> implements IGenericsService<T, K> {
         return genericsRepository.getElementsByKeyWordOnField(kw,field);
     }
     @Override
-    public List<T> SearchKeyWordOnField(String kw, Field field){
+    public List<T> SearchKeyWordOnField(String kw, Field field) throws Exception {
         return genericsRepository.SearchKeyWordOnField(kw,field);
     }
 }

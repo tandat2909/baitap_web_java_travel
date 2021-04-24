@@ -8,11 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 @Service
 @Transactional
-public class TourService extends GenericsService<Tour,String> implements ITourService {
+public class TourService extends GenericsService<Tour, String> implements ITourService {
 
     @Autowired
     ITourRepository tourRepository;
@@ -24,16 +26,16 @@ public class TourService extends GenericsService<Tour,String> implements ITourSe
 
     @Override
     public List<Tour> searchTourByProvince(Province province) {
-        return tourRepository.searchTourByProvince(province.getProvinceId());
+        return tourRepository.searchTourByProvince(province);
     }
 
     @Override
     public List<Tour> SearchTourByName(String kw) throws Exception {
-        if(kw == null || kw.isEmpty() || kw.trim().length() < 1)
+        if (kw == null || kw.isEmpty() || kw.trim().length() < 1)
             throw new NullPointerException("Từ khóa Không được để trống");
 
         try {
-            return SearchKeyWordOnField(kw,Tour.class.getDeclaredField("tourName"));
+            return SearchKeyWordOnField(kw, Tour.class.getDeclaredField("tourName"));
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
             throw new Exception("lỗi tìm kiếm tour");
@@ -47,16 +49,33 @@ public class TourService extends GenericsService<Tour,String> implements ITourSe
 
     @Override
     public List<Tour> searchTourByLandMarkName(String landMarkName) throws Exception {
-        if(landMarkName == null || landMarkName.isEmpty() || landMarkName.trim().length() < 1)
+        if (landMarkName == null || landMarkName.isEmpty() || landMarkName.trim().length() < 1)
             throw new NullPointerException("Tên địa danh không được để trống");
         return tourRepository.searchTourByLandMarkName(landMarkName);
     }
 
     @Override
     public List<Tour> searchTourByProvinceName(String provinceName) throws Exception {
-        if(provinceName == null || provinceName.isEmpty() || provinceName.trim().length() < 1)
+        if (provinceName == null || provinceName.isEmpty() || provinceName.trim().length() < 1)
             throw new NullPointerException("Tên tỉnh thành không được để trống");
         return tourRepository.searchTourByProvinceName(provinceName);
+    }
+
+    @Override
+    public List<Tour> searchTourByDate(Date date) throws Exception {
+
+        return tourRepository.searchTourByDate(date);
+
+    }
+
+    @Override
+    public List<Tour> searchTourByDate(Date fromDate, Date toDate) {
+        return tourRepository.searchTourByDate(fromDate, toDate);
+    }
+
+    @Override
+    public List<Tour> searchTourByPrice(BigDecimal fromPrice, BigDecimal toPrice) throws Exception {
+        return tourRepository.searchTourByPrice(fromPrice, toPrice);
     }
 
 

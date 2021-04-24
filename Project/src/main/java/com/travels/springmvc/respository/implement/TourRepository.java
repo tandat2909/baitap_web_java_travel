@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,6 +60,42 @@ public class TourRepository extends GenericsRepository<Tour, String> implements 
     public List<Tour> searchTourByProvinceName(String provinceName) {
         List<Tour> tours = currentSession().createSQLQuery("CALL getTourByProvinceId(:provinceName)").addEntity(Tour.class).setParameter("provinceName", provinceName).getResultList();
         return tours;
+    }
+
+    @Override
+    public List<Tour> searchTourByDate(Date date) throws Exception
+    {
+        date.setSeconds(0);
+        date.setMinutes(0);
+        date.setHours(0);
+        Date to = new Date(date.getTime());
+        to.setSeconds(59);
+        to.setMinutes(59);
+        to.setHours(23);
+        return getBetweenDate(date,to,Tour.class.getDeclaredField("startDay"));
+
+    }
+
+    @Override
+    public List<Tour> searchTourByDate(Date fromDate, Date toDate) {
+        try {
+            return getBetweenDate(fromDate,toDate,Tour.class.getDeclaredField("startDay"));
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+            return null;
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public List<Tour> searchTourByPrice(BigDecimal fromPrice, BigDecimal toPrice) throws Exception {
+        try {
+            return getBetweenValue(fromPrice,toPrice,Tour.class.getDeclaredField("price"));
+        } catch (Exception exception) {
+            throw new Exception("Lỗi tìm kiếm tour theo giá");
+        }
     }
 
 
