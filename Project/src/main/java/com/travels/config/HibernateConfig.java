@@ -15,7 +15,7 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
-@PropertySource("Classpath:database.properties")
+@PropertySource("classpath:database.properties")
 public class HibernateConfig {
     @Autowired
     private Environment env;
@@ -33,6 +33,7 @@ public class HibernateConfig {
         Properties properties = new Properties();
         properties.put(AvailableSettings.DIALECT, env.getProperty("hibernate.DIALECT"));
         properties.put(AvailableSettings.SHOW_SQL, env.getProperty("hibernate.SHOW_SQL"));
+        properties.put(AvailableSettings.ENABLE_LAZY_LOAD_NO_TRANS,env.getProperty("hibernate.ENABLE_LAZY_LOAD_NO_TRANS"));
 
         return properties;
     }

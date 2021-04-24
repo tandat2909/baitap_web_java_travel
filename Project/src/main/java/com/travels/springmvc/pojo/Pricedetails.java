@@ -18,10 +18,10 @@ public class Pricedetails implements Serializable {
     private int price;
 
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "bookingID", referencedColumnName = "bookingID", nullable = false)
     private Booking booking;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ageID", referencedColumnName = "ageID", nullable = false)
     private Ages ages;
 

@@ -1,11 +1,15 @@
 package com.travels.springmvc.pojo;
 
+
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "tour")
@@ -16,27 +20,35 @@ public class Tour implements Serializable {
     private String tourName;
     private String vehicle;
     private BigDecimal price;
-    private Timestamp startDay;
+    private Date startDay;
     private int maxseats;
+
+    @Column(name = "content")
+    private String content;
+
 
     @OneToMany(mappedBy = "tour")
     private Collection<Bookingdetails> bookingdetails;
 
-    @OneToOne(mappedBy = "tour", cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY, optional = false)
-    private Tourdetails tourdetail;
 
-    @OneToMany(mappedBy = "tour")
-    private Collection<Tourprices> tourprices;
-
-    @ManyToMany()
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "diadiemdi",
             joinColumns = {@JoinColumn(name = "tour_tourID")},
             inverseJoinColumns = {@JoinColumn(name = "landMarkID")}
     )
-    private Collection<Landmarks> landmarkss;
+    private Set<Landmarks> landmarkss = new HashSet<>();
 
+    public Set<Landmarks> getLandmarkss() {
+        return landmarkss;
+    }
+
+    public void setLandmarkss(Set<Landmarks> landmarkss) {
+        this.landmarkss = landmarkss;
+    }
+
+    @OneToMany(mappedBy = "tour")
+    private Collection<Tourprices> tourprices;
 
 
 
@@ -80,11 +92,11 @@ public class Tour implements Serializable {
 
     @Basic
     @Column(name = "startDay", nullable = false)
-    public Timestamp getStartDay() {
+    public Date getStartDay() {
         return startDay;
     }
 
-    public void setStartDay(Timestamp startDay) {
+    public void setStartDay(Date startDay) {
         this.startDay = startDay;
     }
 
@@ -104,6 +116,15 @@ public class Tour implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         Tour tour = (Tour) o;
         return price == tour.price && maxseats == tour.maxseats && Objects.equals(tourId, tour.tourId) && Objects.equals(tourName, tour.tourName) && Objects.equals(vehicle, tour.vehicle) && Objects.equals(startDay, tour.startDay);
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+
+        this.content = content == null || content.isEmpty() ? "":content;
     }
 
     @Override
@@ -127,5 +148,17 @@ public class Tour implements Serializable {
 
     public void setTourprices(Collection<Tourprices> tourprices) {
         this.tourprices = tourprices;
+    }
+
+    @Override
+    public String toString() {
+        return "Tour{" +
+                "tourId='" + tourId + '\'' +
+                ", tourName='" + tourName + '\'' +
+                ", vehicle='" + vehicle + '\'' +
+                ", price=" + price +
+                ", startDay=" + startDay +
+                ", maxseats=" + maxseats +
+                '}';
     }
 }

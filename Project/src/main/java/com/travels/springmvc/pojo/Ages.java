@@ -1,5 +1,7 @@
 package com.travels.springmvc.pojo;
 
+import com.travels.springmvc.Annotation.GeneratedValueUUID;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
@@ -10,6 +12,7 @@ import java.util.Objects;
 public class Ages implements Serializable {
     @Id
     @Column(name = "ageID", nullable = false, length = 100)
+    @GeneratedValueUUID
     private String ageId;
     private String name;
 

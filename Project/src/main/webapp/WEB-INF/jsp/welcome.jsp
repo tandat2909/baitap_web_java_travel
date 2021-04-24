@@ -28,5 +28,20 @@
     </c:forEach>
 </table>
 
+<table>
+    <tr>
+        <td>customerId</td>
+        <td>lastName</td>
+        <td>accountId</td>
+    </tr>
+    <c:forEach items="${lscustomer}" var="i">
+        <tr>
+            <td>${i.customerId}</td>
+            <td>${i.lastName}</td>
+            <td>${i.account.accountId}</td>
+        </tr>
+    </c:forEach>
+</table>
+
 </body>
 </html>

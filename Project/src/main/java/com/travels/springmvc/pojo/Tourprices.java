@@ -16,11 +16,11 @@ public class Tourprices implements Serializable {
 
     private int price;
 
-    @ManyToOne
-    @JoinColumn(name = "ageID", referencedColumnName = "ageID", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ageID", nullable = false)
     private Ages ages;
-    @ManyToOne
-    @JoinColumn(name = "tourID", referencedColumnName = "tourID", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "tourID", nullable = false)
     private Tour tour;
 
 
@@ -67,12 +67,12 @@ public class Tourprices implements Serializable {
     }
 
 
-    public Ages getAgesByAgeId() {
+    public Ages getAges() {
         return ages;
     }
 
-    public void setAgesByAgeId(Ages agesByAgeId) {
-        this.ages = agesByAgeId;
+    public void setAges(Ages ages) {
+        this.ages = ages;
     }
 
 
@@ -90,7 +90,7 @@ public class Tourprices implements Serializable {
                 "ageId='" + ageId + '\'' +
                 ", tourId='" + tourId + '\'' +
                 ", price=" + price +
-                ", agesByAgeId=" + ages.getAgeId() +
+                ", ages=" + ages.getAgeId() +
                 ", tour=" + tour.getTourId() +
                 '}';
     }

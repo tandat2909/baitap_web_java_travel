@@ -1,8 +1,10 @@
 package com.travels.springmvc.pojo;
 
+import com.travels.springmvc.Annotation.GeneratedValueUUID;
+
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -10,13 +12,21 @@ import java.util.Objects;
 @Table(name = "customer")
 public class Customer implements Serializable {
     @Id
+    @GeneratedValueUUID
     @Column(name = "customerID", nullable = false, length = 100)
     private String customerId;
+//    @NotNull
     private String firstName;
+//    @NotNull
     private String lastName;
+//    @NotNull
+//    @Pattern(regexp = "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$",message = "{account.email.error}")
     private String email;
+//    @NotNull
     private Date birthDay;
-    private int ccid;
+    private String ccid;
+//    @NotNull
+//    @Pattern(regexp = "(84|0[3|5|7|8|9])+([0-9]{8})\\b", message = "{customer.phoneNumber.error}")
     private String phoneNumber;
 
     @OneToMany(mappedBy = "customer")
@@ -81,11 +91,11 @@ public class Customer implements Serializable {
 
     @Basic
     @Column(name = "CCID", nullable = false)
-    public int getCcid() {
+    public String getCcid() {
         return ccid;
     }
 
-    public void setCcid(int ccid) {
+    public void setCcid(String ccid) {
         this.ccid = ccid;
     }
 
@@ -138,5 +148,18 @@ public class Customer implements Serializable {
 
     public void setTickets(Collection<Ticket> tickets) {
         this.tickets = tickets;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "customerId='" + customerId + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", birthDay=" + birthDay +
+                ", ccid=" + ccid +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                '}';
     }
 }
