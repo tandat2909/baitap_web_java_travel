@@ -1,6 +1,7 @@
 package com.travels.springmvc.services;
 
 import java.lang.reflect.Field;
+import java.util.Date;
 import java.util.List;
 
 public interface IGenericsService<T, K> {
@@ -25,4 +26,6 @@ public interface IGenericsService<T, K> {
     T getElementById(K key);
     List<T> getElementsByKeyWordOnField(String kw, Field field);
     List<T> SearchKeyWordOnField(String kw, Field field) throws Exception;
+    List<T> getBetweenValue(Object from, Object to, Field field) throws Exception;
+    List<T> getBetweenDate(Date fromDate, Date toDate, Field field) throws Exception;
 }

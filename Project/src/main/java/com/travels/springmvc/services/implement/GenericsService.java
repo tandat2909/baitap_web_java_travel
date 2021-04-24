@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.Id;
 import java.lang.reflect.Field;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -41,28 +42,10 @@ public abstract class GenericsService<T, K> implements IGenericsService<T, K> {
         genericsRepository.update(entity);
     }
 
-    protected void setValueFieldId(T obj) throws IllegalAccessException {
-        for (Field field : obj.getClass().getDeclaredFields()) {
-            if (field.isAnnotationPresent(Id.class) && field.isAnnotationPresent(GeneratedValueUUID.class)) {
-                if (field.getAnnotation(GeneratedValueUUID.class).status()) {
-                    field.setAccessible(true);
-                    field.set(obj, UUID.randomUUID().toString());
-                }
-                break;
-            }
-        }
-    }
-
     @Override
     public void add(T obj, boolean GeneratedValueId) {
-        if(GeneratedValueId) {
-            try {
-                setValueFieldId(obj);
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            }
-        }
-        genericsRepository.save(obj);
+
+        genericsRepository.save(obj,GeneratedValueId);
     }
     @Override
     public void add(T obj){
@@ -83,5 +66,15 @@ public abstract class GenericsService<T, K> implements IGenericsService<T, K> {
     @Override
     public List<T> SearchKeyWordOnField(String kw, Field field) throws Exception {
         return genericsRepository.SearchKeyWordOnField(kw,field);
+    }
+
+    @Override
+    public List<T> getBetweenValue(Object from, Object to, Field field) throws Exception{
+        return genericsRepository.getBetweenValue(from,to,field);
+    }
+
+    @Override
+    public List<T> getBetweenDate(Date fromDate, Date toDate, Field field) throws Exception{
+        return genericsRepository.getBetweenDate(fromDate,toDate,field);
     }
 }
