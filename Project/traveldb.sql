@@ -142,9 +142,11 @@ CREATE TABLE `customer` (
                             `birthDay` date NOT NULL,
                             `CCID` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
                             `phoneNumber` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-                            `accountID` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+                            `accountID` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+                            `image` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+                            `gender` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
                             PRIMARY KEY (`customerID`),
-                            UNIQUE KEY `account_accountID_UNIQUE` (`accountID`),
+                            UNIQUE KEY `accountID_UNIQUE` (`accountID`),
                             KEY `fk_customer_account_idx` (`accountID`),
                             CONSTRAINT `fk_customer_account` FOREIGN KEY (`accountID`) REFERENCES `account` (`accountID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='bảnh lưu khách hàng';
@@ -156,7 +158,7 @@ CREATE TABLE `customer` (
 
 LOCK TABLES `customer` WRITE;
 /*!40000 ALTER TABLE `customer` DISABLE KEYS */;
-INSERT INTO `customer` VALUES ('0274261c-e749-4dbb-93eb-d9ecfae6eeca',NULL,'Dat','v@s.com','2000-10-02','093234433','0987652435','7f1112ae-65b8-4bd4-817e-399b595c4c98'),('2af4b4a8-9fd5-4a35-97e9-169e5b7f1121','Tan','Dat','v@s.com','2000-10-02','093234433','0987652435','5c58e63c-5138-49cb-9764-85385eb112cb'),('2b188a68-5538-41ce-bced-1dff61ccb923','Tấn Đạt','Âsdasd','1851050032dat@ou.edu.vn','2003-04-14','232423423433','0977238433','26f64943-bec1-4861-aa19-9efdcea7237f'),('2c0ca0e3-dca5-4028-b060-62446a4bd386','Tan','Dat','v@s.com','2000-10-02','093234433','0987652435','9be1d83f-516d-4eef-94e5-2b3f2ac9f370'),('2eae01d7-c2b1-4eef-b85e-24e5daf2cad2','Đặng Thị','Oanh','oanh23109@gmail.com','2003-04-09','223423433','0396296258','a7b25eed-2aad-49a3-8721-927bb81e22ed'),('437059c7-2230-4217-baee-3efd313a3d54','asd','qwe','vutandat29092000@gmail.com','2021-04-06','23123123',NULL,'b470582c-9d10-41cc-a2f4-c8dd425dec02'),('776fa00c-04ad-496a-babe-19da0821b879','Tấn Đạt','Vũ','vutandat29092000@gmail.com','2003-04-10','233333332',NULL,'2761744a-0149-46a5-8860-924cc6441592'),('7f50e5da-6e25-49d0-b838-84377c52ea15','Tan','Dat','v@s.com','2000-10-02','093234433','0987652435','70e81791-ef64-4e6d-913a-474b289bbf2f'),('9a292de5-38ac-4a2f-ab57-3daf3fb9d854','Tấn','Đạt','vutandat29092000@gmail.com','2003-04-10','234234234','0965929852','25a13416-bd56-47ae-a475-d8c4272a2e98'),('9ccdb154-f779-4703-9f4e-ae47e6d7aa87','Tấn','Đạt','vutandat29092000@gmail.com','2021-03-30','23333333','0965929852','4791bf66-93a7-4d28-acaf-de75565190b6'),('d3b19fbb-859f-4dbf-b414-b3257d4263ba','Tan','Dat','v@s.com','2000-10-02','093234433','0987652435','f8007680-5756-43a9-ad6a-e2598975663c'),('deeb511a-f679-41ee-b435-d6bdbe529847','Tấn','Đạt','vutandat29092000@gmail.com','2021-04-06','2342374238478','0965928952','18a0a722-c44d-48b1-861e-287027e17882');
+INSERT INTO `customer` VALUES ('2c0ca0e3-dca5-4028-b060-62446a4bd386','Tan','Dat','v@s.com','2000-10-02','093234433','0987652435',NULL,NULL,'Nam'),('437059c7-2230-4217-baee-3efd313a3d54','asd','qwe','vutandat29092000@gmail.com','2021-04-06','23123123',NULL,NULL,NULL,'Nam'),('776fa00c-04ad-496a-babe-19da0821b879','Tấn Đạt','Vũ','vutandat29092000@gmail.com','2003-04-10','233333332',NULL,NULL,NULL,'Nữ'),('7f50e5da-6e25-49d0-b838-84377c52ea15','Tan','Dat','v@s.com','2000-10-02','093234433','0987652435',NULL,NULL,'Nam'),('9a292de5-38ac-4a2f-ab57-3daf3fb9d854','Tấn','Đạt','vutandat29092000@gmail.com','2003-04-10','234234234','0965929852',NULL,NULL,'Nữ'),('9ccdb154-f779-4703-9f4e-ae47e6d7aa87','Tấn','Đạt','vutandat29092000@gmail.com','2021-03-30','23333333','0965929852',NULL,NULL,'Nam'),('d3b19fbb-859f-4dbf-b414-b3257d4263ba','Tan','Dat','v@s.com','2000-10-02','093234433','0987652435','f8007680-5756-43a9-ad6a-e2598975663c',NULL,'Nữ'),('deeb511a-f679-41ee-b435-d6bdbe529847','Tấn','Đạt','vutandat29092000@gmail.com','2021-04-06','2342374238478','0965928952','18a0a722-c44d-48b1-861e-287027e17882',NULL,'Nam');
 /*!40000 ALTER TABLE `customer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -184,7 +186,6 @@ CREATE TABLE `diadiemdi` (
 
 LOCK TABLES `diadiemdi` WRITE;
 /*!40000 ALTER TABLE `diadiemdi` DISABLE KEYS */;
-INSERT INTO `diadiemdi` VALUES ('123123','6ab9fbdb-5f89-4a8d-bfbe-51cbce28ae91'),('123123','8ebb7419-0687-4cca-8185-0289a84d813d'),('123123','9d0bd27f-94b6-4afb-b612-d9e2b462f235');
 /*!40000 ALTER TABLE `diadiemdi` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -205,6 +206,8 @@ CREATE TABLE `employees` (
                              `phoneNumber` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
                              `address` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
                              `accountID` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+                             `image` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+                             `gender` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
                              PRIMARY KEY (`employeeID`,`accountID`),
                              UNIQUE KEY `accountID_UNIQUE` (`accountID`),
                              KEY `fk_employees_account1_idx` (`accountID`),
@@ -408,7 +411,7 @@ CREATE TABLE `tour` (
 
 LOCK TABLES `tour` WRITE;
 /*!40000 ALTER TABLE `tour` DISABLE KEYS */;
-INSERT INTO `tour` VALUES ('234','Đà Lạt','Xe Máy',234234,'2021-04-15 09:56:43',5,_binary '23232342342sdcsvsdvsdvsdsdfvdvsdvsdvsvsvsvsv'),('6ab9fbdb-5f89-4a8d-bfbe-51cbce28ae91','Hà nội - thành phố hồ chí minh 2 ngày 3 đêm','Xe hơi',23234234,'1970-01-04 01:07:24',5,_binary 'hà nội ngày 12 -3 -23'),('8ebb7419-0687-4cca-8185-0289a84d813d','Hqưeqweqweqwe- thành phố hồ chí minh 2 ngày 3 đêm','Xe hơi',23234234,'1970-01-04 01:07:24',5,_binary 'hà nội ngày 12 -3 -23'),('9013ca49-6579-4292-8d8c-f07132259bb6','Hà nội - thành phố hồ chí minh 2 ngày 3 đêm','Xe hơi',23234234,'1970-01-04 01:07:24',5,_binary 'hà nội ngày 12 -3 -23'),('9d0bd27f-94b6-4afb-b612-d9e2b462f235','Hà nội - thành phố hồ chí minh 2 ngày 3 đêm','Xe hơi',23234234,'1970-01-04 01:07:24',5,_binary 'hà nội ngày 12 -3 -23');
+INSERT INTO `tour` VALUES ('234','Đà Lạt','Xe Máy',666666666,'2021-04-15 09:56:43',5,_binary '23232342342sdcsvsdvsdvsdsdfvdvsdvsdvsvsvsvsv'),('6ab9fbdb-5f89-4a8d-bfbe-51cbce28ae91','Hà nội - thành phố hồ chí minh 2 ngày 3 đêm','Xe hơi',444422423,'2021-04-23 01:07:24',5,_binary 'hà nội ngày 12 -3 -23'),('8ebb7419-0687-4cca-8185-0289a84d813d','Hqưeqweqweqwe- thành phố hồ chí minh 2 ngày 3 đêm','Xe hơi',333333333,'2021-04-24 01:07:24',5,_binary 'hà nội ngày 12 -3 -23'),('9013ca49-6579-4292-8d8c-f07132259bb6','Hà nội - thành phố hồ chí minh 2 ngày 3 đêm','Xe hơi',1233333334,'1970-01-04 01:07:24',5,_binary 'hà nội ngày 12 -3 -23'),('9d0bd27f-94b6-4afb-b612-d9e2b462f235','Hà nội - thành phố hồ chí minh 2 ngày 3 đêm','Xe hơi',2342424248,'1970-01-04 01:07:24',5,_binary 'hà nội ngày 12 -3 -23');
 /*!40000 ALTER TABLE `tour` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -447,6 +450,25 @@ UNLOCK TABLES;
 --
 -- Dumping routines for database 'traveldb'
 --
+/*!50003 DROP PROCEDURE IF EXISTS `deleteTourInDiaDiemDi` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteTourInDiaDiemDi`(IN tourId nvarchar(100))
+begin
+delete from diadiemdi where tour_tourID = tourId;
+end ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `getTourByProvinceId` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -503,4 +525,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-04-23  6:00:29
+-- Dump completed on 2021-04-26  1:33:20

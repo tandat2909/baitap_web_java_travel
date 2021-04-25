@@ -74,6 +74,11 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
         <put-attribute name="adminContent" value="/WEB-INF/pages/Admin/Customer.jsp"/>
     </definition>
 
+    <definition name="template_tour_admin" extends="adminLayout">
+        <put-attribute name="title" value="Quản lý Tour"/>
+        <put-attribute name="adminContent" value="/WEB-INF/pages/Admin/Tour.jsp"/>
+    </definition>
+
 <!--    Login, SignUp-->
     <definition name="template_login" template="/WEB-INF/pages/login.jsp" >
         <put-attribute name="title" value="Login"/>

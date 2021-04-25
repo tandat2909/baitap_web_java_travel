@@ -29,9 +29,10 @@
 
     <!-- google fonts -->
     <link href="http://fonts.googleapis.com/css?family=Nunito:300,400,600,700,800,900&display=swap" rel="stylesheet">
+    <link id = "uri" hidden href="${pageContext.request.contextPath}"/>
 </head>
 <body>
-    <div class="se-pre-con"></div>
+
     <section>
     <!-- sidebar menu start -->
     <div class="sidebar-menu sticky-sidebar-menu">
@@ -71,7 +72,7 @@
                     </ul>
                 </li>
                 <li><a href="${pageContext.request.contextPath}/admin/customers"><i class="fa fa-table"></i> <span>Danh sách khách hàng</span></a></li>
-                <li><a href="blocks.html"><i class="fa fa-th"></i> <span>Content blocks</span></a></li>
+                <li><a href="${pageContext.request.contextPath}/admin/tours"><i class="fa fa-table"></i> <span>Danh sách tour</span></a></li>
                 <li><a href="forms.html"><i class="fa fa-file-text"></i> <span>Forms</span></a></li>
             </ul>
             <!-- //sidebar nav end -->
@@ -168,6 +169,7 @@
 
     <!-- Bootstrap Core JavaScript -->
     <script src="<c:url value="/admin/js/bootstrap.min.js"/>"></script>
+    <script src="<c:url value="/admin/js/main.js"/>"></script>
 </body>
 
 </html>

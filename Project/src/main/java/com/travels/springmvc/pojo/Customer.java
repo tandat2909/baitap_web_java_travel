@@ -38,7 +38,7 @@ public class Customer implements Serializable {
     private Collection<Booking> bookings;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "accountID", referencedColumnName = "accountID", nullable = false,unique = true)
+    @JoinColumn(name = "accountID", referencedColumnName = "accountID",unique = true)
     private Account account;
 
     @OneToMany(mappedBy = "customer")
