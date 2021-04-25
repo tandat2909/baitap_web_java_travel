@@ -30,6 +30,11 @@ public class Employees implements Serializable {
     private String phoneNumber;
     private String address;
 
+    @Column(name = "image")
+    private String image;
+    @Column(name = "gender")
+    private String gender;
+
     @OneToMany(mappedBy = "employee")
     private Collection<Booking> bookings;
 
@@ -147,6 +152,22 @@ public class Employees implements Serializable {
 
     public void setAccount(Account account) {
         this.account = account;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
     @Override

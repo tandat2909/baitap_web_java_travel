@@ -70,7 +70,7 @@
                         <li><a href="people.html">People cards</a></li>
                     </ul>
                 </li>
-                <li><a href="pricing.html"><i class="fa fa-table"></i> <span>Pricing tables</span></a></li>
+                <li><a href="${pageContext.request.contextPath}/admin/customers"><i class="fa fa-table"></i> <span>Danh sách khách hàng</span></a></li>
                 <li><a href="blocks.html"><i class="fa fa-th"></i> <span>Content blocks</span></a></li>
                 <li><a href="forms.html"><i class="fa fa-file-text"></i> <span>Forms</span></a></li>
             </ul>
