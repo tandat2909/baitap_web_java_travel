@@ -2,6 +2,7 @@ package com.travels.springmvc.services.implement;
 
 import com.travels.springmvc.pojo.Province;
 import com.travels.springmvc.pojo.Tour;
+import com.travels.springmvc.respository.IBookingDetailRepository;
 import com.travels.springmvc.respository.ITourRepository;
 import com.travels.springmvc.services.ITourService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,8 @@ public class TourService extends GenericsService<Tour,String> implements ITourSe
 
     @Autowired
     ITourRepository tourRepository;
+    @Autowired
+    IBookingDetailRepository bookingDetailRepository;
 
     @Override
     public List<Tour> searchTourByProvince(String provinceId) {
@@ -59,5 +62,9 @@ public class TourService extends GenericsService<Tour,String> implements ITourSe
         return tourRepository.searchTourByProvinceName(provinceName);
     }
 
+    @Override
+    public void removeTour(String tourId) throws Exception{
+        tourRepository.removeTour(tourId);
+    }
 
 }

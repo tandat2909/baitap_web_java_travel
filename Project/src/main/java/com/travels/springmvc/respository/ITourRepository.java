@@ -13,4 +13,6 @@ public interface ITourRepository extends IGenericsRepository<Tour,String> {
     List<Tour> searchTourByLandMarkName(String landMarkName) throws Exception;
     List<Tour> searchTourByProvinceName(String provinceName);
 
+    void removeTour(String tourId) throws Exception;
+    void addTour(Tour tour);
 }
