@@ -49,11 +49,27 @@ class TourServiceTest {
 
     @Test
     void add() {
-         tourService.add(tour);
-         assertEquals(tour.getTourId(), tourService.getElementById(tour.getTourId()).getTourId());
+        tour.setTourId("234");
+
+        try{
+            tourService.addTour(tour);
+        } catch (Exception ex){
+            System.out.println(ex.getMessage());
+            assertTrue(ex.getMessage().equals("lỗi không thêm dc tour"));
+        }
+         //assertEquals(tour.getTourId(), tourService.getElementById(tour.getTourId()).getTourId());
     }
     @Test
     void update() {
+        Tour tours = tourService.getElementById("32959e0e-c58c-456e-9b97-3f3a4b771af1");
+        tours.setPrice(new BigDecimal(23234234));
+        tours.setContent("âsasasa");
+        try{
+            tourService.updateTour(tours);
+        } catch (Exception ex){
+            System.out.println(ex.getMessage());
+            assertTrue(ex.getMessage().equals("không sửa được"));
+        }
     }
     @Test
     void getAll() {

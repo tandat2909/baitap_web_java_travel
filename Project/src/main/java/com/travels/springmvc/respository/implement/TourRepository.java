@@ -1,9 +1,6 @@
 package com.travels.springmvc.respository.implement;
 
-import com.travels.springmvc.pojo.Bookingdetails;
-import com.travels.springmvc.pojo.Landmarks;
-import com.travels.springmvc.pojo.Province;
-import com.travels.springmvc.pojo.Tour;
+import com.travels.springmvc.pojo.*;
 import com.travels.springmvc.respository.IBookingDetailRepository;
 import com.travels.springmvc.respository.ILandMarkRepository;
 import com.travels.springmvc.respository.IProvinceRepository;
@@ -87,7 +84,25 @@ public class TourRepository extends GenericsRepository<Tour, String> implements 
 
     }
     @Override
-    public void  addTour(Tour tour){
-
+    public void  addTour(Tour tour) throws Exception{
+        try{
+            if(tour.getTourName() == null || tour.getTourName().isEmpty())
+            {
+                throw new Exception("lỗi để trống tour");
+            }
+            else{
+                currentSession().save(tour);
+            }
+        } catch (Exception ex){
+            throw new Exception(ex.getMessage());
+        }
     }
+//    @Override
+//    public boolean checkContentInTour(Tour tour) {
+////        List<Booking> result = currentSession().createQuery("From Tour where tourName = :i")
+////                .setParameter("i", tour.getTourName()).getResultList();
+//        if (tour.getContent() != null || !tour.getContent().isEmpty())
+//            return true;
+//        return false;
+//    }
 }

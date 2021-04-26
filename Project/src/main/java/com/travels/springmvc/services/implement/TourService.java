@@ -67,4 +67,24 @@ public class TourService extends GenericsService<Tour,String> implements ITourSe
         tourRepository.removeTour(tourId);
     }
 
+    @Override
+    public void addTour(Tour tour) throws Exception{
+
+        tourRepository.addTour(tour);
+    }
+    @Override
+    public void updateTour(Tour tour) throws Exception{
+        try {
+            if (tour.getContent() != null && !tour.getContent().isEmpty()) {
+                tourRepository.update(tour);
+                return;
+            }
+            throw new Exception("lỗi content");
+        } catch (Exception ex){
+            throw new Exception(ex.getMessage());
+        }
+
+    }
+
+
 }

@@ -10,18 +10,19 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
 @SpringBootTest
 public class EmployeesServiceTest {
     @Autowired
     IEmployeesService employeesService;
 
     @Test
-    void remove() throws Exception{
-        try{
-            employeesService.remove("15");
-        } catch (Exception ex){
-            System.out.println(ex.getMessage());
-            assertTrue(ex.getMessage().equals("lỗi không xóa được"));
+    void remove() {
+
+        try {
+            employeesService.removeEmployee("15");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
     }

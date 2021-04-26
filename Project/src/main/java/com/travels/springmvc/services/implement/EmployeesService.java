@@ -13,7 +13,7 @@ public class EmployeesService extends GenericsService<Employees, String> impleme
     IEmployeesRepository employeesRepository;
 
     @Override
-    public void remove(String employeeId) throws Exception{
-        employeesRepository.remove(employeeId);
+    public void removeEmployee(String employeeId) throws Exception{
+        employeesRepository.removeEmployee(employeeId);
     }
 }

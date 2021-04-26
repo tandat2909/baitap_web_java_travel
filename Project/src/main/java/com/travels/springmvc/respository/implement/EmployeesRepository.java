@@ -1,7 +1,9 @@
 package com.travels.springmvc.respository.implement;
 
+import com.travels.springmvc.pojo.Account;
 import com.travels.springmvc.pojo.Booking;
 import com.travels.springmvc.pojo.Employees;
+import com.travels.springmvc.respository.IAccountRepository;
 import com.travels.springmvc.respository.IBookingRepository;
 import com.travels.springmvc.respository.IEmployeesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,20 +18,28 @@ public class EmployeesRepository extends GenericsRepository<Employees,String> im
 
     @Autowired
     IBookingRepository bookingRepository;
+    @Autowired
+    IAccountRepository accountRepository;
+
 
     public boolean checkEmployeeIdInBooking(String employeeId){
         List<Booking> result = currentSession().createQuery("From Booking where employee.employeeId = :i")
                 .setParameter("i", employeeId).getResultList();
-        if(result.size() < 0 || result.isEmpty() || result == null)
-            return true;
-        return false;
+        return result.size()>0;
+
     }
 
     @Override
-    public void remove(String employeeId) throws Exception{
+    public void removeEmployee(String employeeId) throws Exception{
         try{
-            if(checkEmployeeIdInBooking(employeeId) == true)
-                currentSession().remove(getElementById(employeeId));
+            if(!checkEmployeeIdInBooking(employeeId)) {
+                Employees employees = getElementById(employeeId);
+                //List<Account> ac = (List<Account>) employees.getAccount();
+                Account ac = employees.getAccount();
+                ac.setStatus(false);
+                currentSession().update(ac);
+                remove(employees);
+            }
         } catch (Exception ex){
             throw new Exception("lỗi không xóa được");
         }

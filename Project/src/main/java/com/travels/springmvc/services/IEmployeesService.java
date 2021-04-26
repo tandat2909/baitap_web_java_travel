@@ -7,5 +7,5 @@ import com.travels.springmvc.services.implement.GenericsService;
 
 public interface IEmployeesService extends IGenericsService<Employees, String> {
 
-    void remove(String employeeId) throws Exception;
+    void removeEmployee(String employeeId) throws Exception;
 }

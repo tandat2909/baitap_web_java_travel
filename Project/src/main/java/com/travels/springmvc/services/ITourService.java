@@ -14,6 +14,7 @@ public interface ITourService extends IGenericsService<Tour,String> {
     List<Tour> searchTourByProvinceName(String provinceName) throws Exception;
 
     void removeTour(String tourId) throws Exception;
-
+    void addTour(Tour tour) throws Exception;
+    void updateTour(Tour tour) throws Exception;
 
 }
