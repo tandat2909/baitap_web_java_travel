@@ -19,4 +19,8 @@ public interface ITourService extends IGenericsService<Tour,String> {
     List<Tour> searchTourByPrice(BigDecimal fromPrice,BigDecimal toPrice) throws Exception;
 
 
+    void removeTour(String tourId) throws Exception;
+    void addTour(Tour tour) throws Exception;
+    void updateTour(Tour tour) throws Exception;
+
 }

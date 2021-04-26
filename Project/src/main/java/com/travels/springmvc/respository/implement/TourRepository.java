@@ -1,8 +1,7 @@
 package com.travels.springmvc.respository.implement;
 
-import com.travels.springmvc.pojo.Landmarks;
-import com.travels.springmvc.pojo.Province;
-import com.travels.springmvc.pojo.Tour;
+import com.travels.springmvc.pojo.*;
+import com.travels.springmvc.respository.IBookingDetailRepository;
 import com.travels.springmvc.respository.ILandMarkRepository;
 import com.travels.springmvc.respository.IProvinceRepository;
 import com.travels.springmvc.respository.ITourRepository;
@@ -24,6 +23,8 @@ public class TourRepository extends GenericsRepository<Tour, String> implements 
     IProvinceRepository provinceRepository;
     @Autowired
     ILandMarkRepository landMarkRepository;
+    @Autowired
+    IBookingDetailRepository bookingDetailRepository;
 
     @Override
     public List<Tour> searchTourByProvince(String provinceId) {
@@ -33,6 +34,7 @@ public class TourRepository extends GenericsRepository<Tour, String> implements 
 
     @Override
     public List<Tour> searchTourByProvince(Province province) {
+
         return searchTourByProvince(province.getProvinceId());
     }
 
@@ -98,5 +100,47 @@ public class TourRepository extends GenericsRepository<Tour, String> implements 
         }
     }
 
+    @Override
+    public void removeTour(String tourId)throws Exception{
 
+        try{
+            Tour tour = getElementById(tourId);
+            if(tour == null){
+                throw new Exception("không có tour này");
+            }
+            List<Bookingdetails> book = (List<Bookingdetails>) tour.getBookingdetails();
+
+            if(book == null || book.size() < 1 || book.isEmpty()) {
+                currentSession().createSQLQuery("CALL deleteTourInDiaDiemDi(:tourId)").setParameter("tourId", tourId).executeUpdate();
+                currentSession().remove(getElementById(tourId));
+                return;
+            }
+            throw new Exception("Lỗi không xóa tour đã đặt");
+        } catch (Exception ex){
+            throw new Exception(ex.getMessage());
+        }
+
+    }
+    @Override
+    public void  addTour(Tour tour) throws Exception{
+        try{
+            if(tour.getTourName() == null || tour.getTourName().isEmpty())
+            {
+                throw new Exception("lỗi để trống tour");
+            }
+            else{
+                currentSession().save(tour);
+            }
+        } catch (Exception ex){
+            throw new Exception(ex.getMessage());
+        }
+    }
+//    @Override
+//    public boolean checkContentInTour(Tour tour) {
+////        List<Booking> result = currentSession().createQuery("From Tour where tourName = :i")
+////                .setParameter("i", tour.getTourName()).getResultList();
+//        if (tour.getContent() != null || !tour.getContent().isEmpty())
+//            return true;
+//        return false;
+//    }
 }

@@ -17,8 +17,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 @SpringBootTest
@@ -46,6 +45,11 @@ class AccountServiceTest {
 
     @Test
     void getAll() {
+       Account ac= accountService.getElementById("9be1d83f-516d-4eef-94e5-2b3f2ac9f370");
+        System.out.println(ac);
+        ac.setStatus(true);
+        accountService.update(ac);
+        assertFalse(accountService.getElementById("9be1d83f-516d-4eef-94e5-2b3f2ac9f370").getStatus());
 
     }
 
