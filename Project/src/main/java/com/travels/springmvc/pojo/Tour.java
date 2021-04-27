@@ -47,7 +47,7 @@ public class Tour implements Serializable {
         this.landmarkss = landmarkss;
     }
 
-    @OneToMany(mappedBy = "tour")
+    @OneToMany(mappedBy = "tour",cascade = CascadeType.ALL)
     private Collection<Tourprices> tourprices;
 
 

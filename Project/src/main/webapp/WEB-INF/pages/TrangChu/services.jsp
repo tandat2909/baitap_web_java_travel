@@ -20,6 +20,104 @@
 </section>
 <!-- //banner -->
 
+<!-- places Search -->
+<section class="trav-grids py-5" id="desti">
+    <div class="container py-xl-5 py-lg-3">
+        <h3 class="heading text-capitalize text-center mb-lg-5 mb-4">Kết quả tìm kiếm</h3>
+        <div class="row">
+            <div class="col-lg-6 mt-4">
+                <div class="grids-tem-one">
+                    <div class="row">
+                        <div class="col-sm-5 grids-img-left">
+                            <img src="<c:url value="/TrangChu/images/japan.jpg"/>" alt="" class="img-fluid">
+                        </div>
+                        <c:forEach items="${diadiemdiSearch}" var="Search">
+                        <div class="col-sm-7 right-cont">
+                            <h4 class="mb-2 let mt-sm-0 mt-2 tm-clr">${Search.tourName}</h4>
+                            <ul class="d-flex">
+                                <li><span class="fa fa-star"></span></li>
+                                <li><span class="fa fa-star"></span></li>
+                                <li><span class="fa fa-star"></span></li>
+                                <li><span class="fa fa-star"></span></li>
+                                <li><span class="fa fa-star"></span></li>
+                            </ul>
+                            <p class="mt-3">${Search.content}</p>
+                            <p class="duration mt-2"><span class="fa fa-clock-o mr-2"></span><strong>Duration</strong> : 2 Days, 3hrs</p>
+                        </div>
+                        </c:forEach>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 mt-4">
+                <div class="grids-tem-one">
+                    <div class="row">
+                        <div class="col-sm-5 grids-img-left">
+                            <img src="<c:url value="/TrangChu/images/singapore.jpg"/>" alt="" class="img-fluid">
+                        </div>
+                        <div class="col-sm-7 right-cont">
+                            <h4 class="mb-2 let mt-sm-0 mt-2 tm-clr">Singapore</h4>
+                            <ul class="d-flex">
+                                <li><span class="fa fa-star"></span></li>
+                                <li><span class="fa fa-star"></span></li>
+                                <li><span class="fa fa-star"></span></li>
+                                <li><span class="fa fa-star"></span></li>
+                                <li><span class="fa fa-star"></span></li>
+                            </ul>
+                            <p class="mt-3">Sed ut perspiciatis unde omnis istes natus error sit volup tatem accusani tium doloremque laudantium.</p>
+                            <p class="duration mt-2"><span class="fa fa-clock-o mr-2"></span><strong>Duration</strong> : 2 Days, 3hrs</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row pt-lg-3">
+            <div class="col-lg-6 mt-4">
+                <div class="grids-tem-one">
+                    <div class="row">
+                        <div class="col-sm-5 grids-img-left">
+                            <img src="<c:url value="/TrangChu/images/malaysia.jpg"/>" alt="" class="img-fluid">
+                        </div>
+                        <div class="col-sm-7 right-cont">
+                            <h4 class="mb-2 let mt-sm-0 mt-2 tm-clr">Malaysia</h4>
+                            <ul class="d-flex">
+                                <li><span class="fa fa-star"></span></li>
+                                <li><span class="fa fa-star"></span></li>
+                                <li><span class="fa fa-star"></span></li>
+                                <li><span class="fa fa-star"></span></li>
+                                <li><span class="fa fa-star"></span></li>
+                            </ul>
+                            <p class="mt-3">Sed ut perspiciatis unde omnis istes natus error sit volup tatem accusani tium doloremque laudantium.</p>
+                            <p class="duration mt-2"><span class="fa fa-clock-o mr-2"></span><strong>Duration</strong> : 2 Days, 3hrs</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 mt-4">
+                <div class="grids-tem-one">
+                    <div class="row">
+                        <div class="col-sm-5 grids-img-left">
+                            <img src="<c:url value="/TrangChu/images/china.jpg"/>" alt="" class="img-fluid">
+                        </div>
+                        <div class="col-sm-7 right-cont">
+                            <h4 class="mb-2 mt-sm-0 mt-2 let tm-clr">China</h4>
+                            <ul class="d-flex">
+                                <li><span class="fa fa-star"></span></li>
+                                <li><span class="fa fa-star"></span></li>
+                                <li><span class="fa fa-star"></span></li>
+                                <li><span class="fa fa-star"></span></li>
+                                <li><span class="fa fa-star"></span></li>
+                            </ul>
+                            <p class="mt-3">Sed ut perspiciatis unde omnis istes natus error sit volup tatem accusani tium doloremque laudantium.</p>
+                            <p class="duration mt-2"><span class="fa fa-clock-o mr-2"></span><strong>Duration</strong> : 2 Days, 3hrs</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- //places -->
+
 <!-- services -->
 <section class="services pt-5">
     <div class="container py-lg-5 py-sm-3">

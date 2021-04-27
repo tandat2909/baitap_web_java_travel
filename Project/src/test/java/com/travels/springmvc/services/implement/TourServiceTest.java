@@ -50,7 +50,7 @@ class TourServiceTest {
 
     @Test
     void add() {
-        tour.setTourId("234");
+
 
         try{
             tourService.addTour(tour);
@@ -120,7 +120,7 @@ class TourServiceTest {
     @Test
     void remove() throws Exception {
         try{
-            tourService.removeTour("8ebb7419-0687-4cca-8185-0289a84d813d");
+            tourService.removeTour("6ab9fbdb-5f89-4a8d-bfbe-51cbce28ae91");
         } catch (Exception ex){
             System.out.println(ex.getMessage());
             assertTrue(ex.getMessage().equals("Lỗi không xóa tour đã đặt"));

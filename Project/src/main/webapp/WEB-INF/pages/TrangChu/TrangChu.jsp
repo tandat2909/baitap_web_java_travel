@@ -48,6 +48,17 @@
                                     <a  href="/About" class="btn mr-2">About Us</a>
                                     <a href="/Booking" class="btn">Book a Tour</a>
                                 </div>
+                                <!-- tìm kiếm -->
+                                <div class="row">
+                                    <div class="col-sm-3" style="background-color:lavender; margin: 5px;">.col-sm-4</div>
+                                    <div class="col-sm-3" style="background-color:lavenderblush;margin: 5px;">.col-sm-4</div>
+                                    <div class="col-sm-3" style="background-color:lavender;margin: 5px;">.col-sm-4</div>
+                                    <br>
+
+                                    <div class="col-sm-3" style="background-color:lavender; margin: 5px;">.col-sm-4</div>
+                                    <div class="col-sm-3" style="background-color:lavenderblush;margin: 5px;">.col-sm-4</div>
+                                    <div class="col-sm-3" style="background-color:lavender;margin: 5px;">.col-sm-4</div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -63,6 +74,16 @@
                                 <div class="buttons mt-4">
                                     <a  href="/About" class="btn mr-2">About Us</a>
                                     <a href="/Booking" class="btn">Book a Tour</a>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3" style="background-color:lavender; margin: 5px;">.col-sm-4</div>
+                                    <div class="col-sm-3" style="background-color:lavenderblush;margin: 5px;">.col-sm-4</div>
+                                    <div class="col-sm-3" style="background-color:lavender;margin: 5px;">.col-sm-4</div>
+                                    <br>
+
+                                    <div class="col-sm-3" style="background-color:lavender; margin: 5px;">.col-sm-4</div>
+                                    <div class="col-sm-3" style="background-color:lavenderblush;margin: 5px;">.col-sm-4</div>
+                                    <div class="col-sm-3" style="background-color:lavender;margin: 5px;">.col-sm-4</div>
                                 </div>
                             </div>
                         </div>
@@ -80,6 +101,16 @@
                                     <a href="/About" class="btn mr-2">About Us</a>
                                     <a href="/Booking" class="btn">Book a Tour</a>
                                 </div>
+                                <div class="row">
+                                    <div class="col-sm-3" style="background-color:lavender; margin: 5px;">.col-sm-4</div>
+                                    <div class="col-sm-3" style="background-color:lavenderblush;margin: 5px;">.col-sm-4</div>
+                                    <div class="col-sm-3" style="background-color:lavender;margin: 5px;">.col-sm-4</div>
+                                    <br>
+
+                                    <div class="col-sm-3" style="background-color:lavender; margin: 5px;">.col-sm-4</div>
+                                    <div class="col-sm-3" style="background-color:lavenderblush;margin: 5px;">.col-sm-4</div>
+                                    <div class="col-sm-3" style="background-color:lavender;margin: 5px;">.col-sm-4</div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -95,6 +126,54 @@
     </div>
 </section>
 <!-- //banner -->
+<div style="width: 80%; margin: 10px auto;">
+    <div class="row" style="width: 100%; margin: 10px 0 ;">
+        <div  style="width: 15%; margin: 3%">
+            <select class="btn" style="width: 100%;" typesearch = "diadiemdi" onchange="search(this)">
+                <c:forEach items="${diadiemdi}" var="dd">
+                    <option value="${dd.landMarkId}">${dd.landMarkName}</option>
+                </c:forEach>
+            </select>
+        </div>
+        <div  style="width: 15%; margin: 3%">
+            <select class="btn" style="width: 100%;" typesearch = "province" onchange="search(this)">
+                <c:forEach items="${tinh}" var="t">
+                    <option value="${t.provinceId}">${t.provinceName}</option>
+                </c:forEach>
+            </select>
+        </div>
+        <div  style="width: 15%; margin: 3%">
+            <select class="btn" style="width: 100%;" typesearch = "price" onchange="search(this)">
+                <option disabled>tiền</option>
+                <option value="0-1">dưới 1 triệu</option>
+                <c:forEach var="to" begin="1" end="4">
+                    <option value="${to}-${to+1}">
+                            ${to} - ${to+2} triệu</option>
+                </c:forEach>
+            </select>
+        </div>
+        <div style="width: 15%; margin: 3%">
+           <input type="date" onchange="search(this)" typesearch = "ngaydi">
+        </div>
+        <div style="width: 15%; margin: 3%">
+            <input type="date" onchange="search(this)" typesearch = "ngayve">
+        </div>
+    </div>
+</div>
+<form action="${pageContext.request.contextPath}/timkiem" method="GET" id="abc">
+    <input type="hidden" id="loaitimkiem" name="loaiTimKiem" />
+    <input type="hidden" value="" id="kw" name="kw"/>
+</form>
+<script>
+    function search(select){
+       var kw = $(select).val()
+        console.log(kw)
+        console.log($(select).attr("typesearch"))
+        $("#kw").val(kw);
+        $("#loaitimkiem").val($(select).attr("typesearch"))
+        $("#abc").submit();
+    }
+</script>
 <!-- about -->
 <section class="about py-5">
     <div class="container py-lg-5 py-sm-4">
