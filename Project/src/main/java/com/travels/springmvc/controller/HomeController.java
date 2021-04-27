@@ -37,6 +37,5 @@ public class HomeController {
         return "Contact";
     }
 
-
 }
 

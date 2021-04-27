@@ -87,4 +87,12 @@
     </div>
     <!-- //content -->
 </div>
+<script src="<c:url value="/admin/js/ckeditor.js"/> "></script>
 
+<script>
+    InlineEditor
+        .create(document.querySelectorAll(".search-customer"))
+        .catch(error => {
+            console.error( error );
+        } );
+</script>

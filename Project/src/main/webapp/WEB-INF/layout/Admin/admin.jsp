@@ -134,6 +134,7 @@
     <script src="<c:url value="/admin/js/jquery.nicescroll.js"/>"></script>
     <script src="<c:url value="/admin/js/scripts.js"/>"></script>
 
+
     <!-- close script -->
     <script>
         var closebtns = document.getElementsByClassName("close-grid");
@@ -170,6 +171,7 @@
     <!-- Bootstrap Core JavaScript -->
     <script src="<c:url value="/admin/js/bootstrap.min.js"/>"></script>
     <script src="<c:url value="/admin/js/main.js"/>"></script>
+
 </body>
 
 </html>

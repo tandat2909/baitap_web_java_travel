@@ -40,6 +40,11 @@ public class AdminController {
         model.addAttribute("lsTour",tourService.getAll());
         return "template_tour_admin";
     }
+    @RequestMapping(value = "/tour/edit")
+    public String pageEditTour(Model model){
+        model.addAttribute("lsTour",tourService.getAll());
+        return "template_edit_admin";
+    }
 
 
 
