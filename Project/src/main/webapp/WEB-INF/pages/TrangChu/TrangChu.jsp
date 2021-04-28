@@ -128,24 +128,25 @@
 <!-- //banner -->
 <div style="width: 150%; margin: 10px auto;">
     <div class="row" style="width: 100%; margin: 10px 0 ;">
-        <div  style="width: 10%; margin: 1%">
-            <select class="btn" style="width: 100%;" typesearch = "province" onchange="search(this)">
+        <form id="abc" action="${pageContext.request.contextPath}/timkiem" method="get">
+        <div  <%--style="width: 10%; margin: 1%"--%>>
+            <select class="form-control" style="width: 100%;" typesearch = "province" onchange="search(this)" name="province">
                 <c:forEach items="${tinh}" var="t">
                     <option value="">Tỉnh</option>
                     <option value="${t.provinceId}">${t.provinceName}</option>
                 </c:forEach>
             </select>
         </div>
-        <div  style="width: 10%; margin: 1%">
-            <select class="btn" style="width: 100%;" typesearch = "diadiemdi" onchange="search(this)" id="ddd">
+        <div  <%--style="width: 10%; margin: 1%"--%>>
+            <select class="form-control" style="width: 100%;" typesearch = "diadiemdi" <%--onchange="search(this)"--%> id="ddd" name="diadiemdi">
                 <option value="">Các điểm địa đi</option>
 <%--                <c:forEach items="${diadiemdi}" var="dd">--%>
 <%--                    <option value="${dd.landMarkId}">${dd.landMarkName}</option>--%>
 <%--                </c:forEach>--%>
             </select>
         </div>
-        <div  style="width: 10%; margin: 1%">
-            <select class="btn" style="width: 100%;" typesearch = "price" onchange="search(this)">
+        <div  <%--style="width: 10%; margin: 1%"--%>>
+            <select class="form-control" style="width: 100%;" typesearch = "price" <%--onchange="search(this)"--%> name="price">
                 <option value="">Price</option>
                 <option value="0-1">dưới 1 triệu</option>
                 <c:forEach var="to" begin="1" end="4">
@@ -153,24 +154,26 @@
                 </c:forEach>
             </select>
         </div>
-        <div style="width: 10%; margin: 1%">
-           <input type="date" onchange="search(this)" typesearch = "ngaydi" id="ngaydi">
+        <div <%--style="width: 10%; margin: 1%"--%>>
+           <input type="date" class="form-control" <%--onchange="search(this)"--%> typesearch = "ngaydi" id="ngaydi" name="ngaydi">
         </div>
-        <div style="width: 10%; margin: 1%">
-            <input type="date" onchange="search(this)" typesearch = "ngayve" id="ngayve">
+        <div <%--style="width: 10%; margin: 1%"--%>>
+            <input type="date" class="form-control" <%--onchange="search(this)"--%> typesearch = "ngayve" id="ngayve" name="ngayve">
         </div>
         <button type="submit" class="btn btn-primary">Tìm Kiếm</button>
+        </form>
     </div>
 </div>
-<form action="${pageContext.request.contextPath}/timkiem" method="GET" id="abc">
-    <input type="hidden" id="loaitimkiem" name="loaiTimKiem" />
-    <input type="hidden" value="" id="kw" name="kw"/>
-</form>
+<%--<form action="${pageContext.request.contextPath}/timkiem" method="GET" id="abc">--%>
+<%--    <input type="hidden" id="loaitimkiem" name="loaiTimKiem" />--%>
+<%--    <input type="hidden" value="" id="kw" name="kw"/>--%>
+<%--</form>--%>
 <script>
     function search(select){
+        var  urlhome = $("#uri").attr("href")
         var kw = $(select).val()
         let diadiemdi = document.getElementById("ddd")
-        fetch("/landmarkId?kw=" + kw, {
+        fetch(urlhome+"/landmarkId?kw=" + kw, {
             headers: {
                 "content-type": "application/json"
             }
@@ -184,11 +187,11 @@
         // $.getJSON("/landmarkId?kw=" + kw).done(function (landmark){
         //     console.log("vasdvs", JSON.stringify(landmark))
         // })
-        console.log(kw)
-        console.log($(select).attr("typesearch"))
-        $("#kw").val(kw);
-        $("#loaitimkiem").val($(select).attr("typesearch"))
-        $("#abc").submit();
+        // console.log(kw)
+        // console.log($(select).attr("typesearch"))
+        // $("#kw").val(kw);
+        // $("#loaitimkiem").val($(select).attr("typesearch"))
+        //$("#abc").submit();
     }
 </script>
 <!-- about -->

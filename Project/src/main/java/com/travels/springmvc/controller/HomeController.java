@@ -43,7 +43,6 @@ public class HomeController {
         return "TrangChu";
     }
     @GetMapping({"/landmarkId"})
-    @ResponseBody
     public String getLandMarkId(@RequestParam(value = "kw") String  kw){
         //Collection<Landmarks> land =  provinceService.getElementById(kw).getLandmarks();
         ObjectMapper mapper = new ObjectMapper();
@@ -69,62 +68,63 @@ public class HomeController {
     public String timKiemDiaDiemDi(Model model, @RequestParam(value = "kw", required = false) String kw,
                                    @RequestParam(value = "ngaydi", required = false) String ngaydi,
                                    @RequestParam(value = "ngayve", required = false) String ngayve,
-                                   @RequestParam(value = "loaiTimKiem") String loaiTimKiem, RedirectAttributes redirectAttributes){
+                                    RedirectAttributes redirectAttributes){
        // model.addAttribute("tourSearch", tour);
-
-            try {
-                if(loaiTimKiem.equals("diadiemdi")) {
-                    List<Tour> tour = tourService.searchTourByLandMarkId(kw);
-                    //chuyển nguyên đối tượng addFlashAttribute
-//                    redirectAttributes.addFlashAttribute("diadiemdiSearch", tour);
-                    model.addAttribute("diadiemdiSearch", tour);
-                }
-                if(loaiTimKiem.equals("province")){
-                    List<Tour> tour = tourService.searchTourByProvince(kw);
-                    model.addAttribute("provinceSearch", tour);
-                }
-                if(loaiTimKiem.equals("price")){
-                    String[] chuoi = null;
-                    chuoi = kw.split("-");
-                    BigDecimal fromPrice = new BigDecimal(chuoi[0] + "0000000") ;
-                    BigDecimal toPrice = new BigDecimal(chuoi[1] + "0000000");;
-                    List<Tour> tour = tourService.searchTourByPrice(fromPrice, toPrice);
-                    model.addAttribute("priceSearch", tour);
-                }
-                if(loaiTimKiem.equals("ngaydi") || loaiTimKiem.equals("ngayden"))
-                {
-                    Date date = new SimpleDateFormat("yyyy-MM-dd").parse(kw);
-                    //Date date1 = new Date();
-                    List<Tour> tour = tourService.searchTourByDate(date);
-                    model.addAttribute("dateSearch",tour);
-                    System.err.println("==========================");
-                    System.err.println(tour);
-                    System.err.println(date);
-                    System.err.println("==========================");
-
-                }
-                //Tìm kiếm theo ngày đi và ngày đến
-                if(loaiTimKiem.equals("ngaydi") && loaiTimKiem.equals("ngayden"))
-                {
-                    Date fromDate = new SimpleDateFormat("yyyy-MM-dd").parse(ngaydi);
-                    Date toDate = new SimpleDateFormat("yyyy-MM-dd").parse(ngayve);
-                    List<Tour> tour = tourService.searchTourByDate(fromDate, toDate);
-                    model.addAttribute("fromToDateSearch", tour);
-                }
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-//            System.err.println("==========================");
-//            System.err.println(fromPrice);
-//            System.err.println(toPrice);
-//            System.err.println("==========================");
-            //tourService.searchTourByLandMarkId(diadiemdi.getKw()).forEach(System.out::println);
-
-
-//        System.err.println(diadiemdi.getLoaiTimKiem());
-//        System.err.println(diadiemdi.getKw());
+            //viet cau query khong can kiem null
+//            //khong viet query thi kiem null
+//            try {
+//                if(loaiTimKiem.equals("diadiemdi")) {
+//                    List<Tour> tour = tourService.searchTourByLandMarkId(kw);
+//                    //chuyển nguyên đối tượng addFlashAttribute
+////                    redirectAttributes.addFlashAttribute("diadiemdiSearch", tour);
+//                    model.addAttribute("diadiemdiSearch", tour);
+//                }
+//                if(loaiTimKiem.equals("province")){
+//                    List<Tour> tour = tourService.searchTourByProvince(kw);
+//                    model.addAttribute("provinceSearch", tour);
+//                }
+//                if(loaiTimKiem.equals("price")){
+//                    String[] chuoi = null;
+//                    chuoi = kw.split("-");
+//                    BigDecimal fromPrice = new BigDecimal(chuoi[0] + "0000000") ;
+//                    BigDecimal toPrice = new BigDecimal(chuoi[1] + "0000000");;
+//                    List<Tour> tour = tourService.searchTourByPrice(fromPrice, toPrice);
+//                    model.addAttribute("priceSearch", tour);
+//                }
+//                if(loaiTimKiem.equals("ngaydi") || loaiTimKiem.equals("ngayden"))
+//                {
+//                    Date date = new SimpleDateFormat("yyyy-MM-dd").parse(kw);
+//                    //Date date1 = new Date();
+//                    List<Tour> tour = tourService.searchTourByDate(date);
+//                    model.addAttribute("dateSearch",tour);
+//                    System.err.println("==========================");
+//                    System.err.println(tour);
+//                    System.err.println(date);
+//                    System.err.println("==========================");
+//
+//                }
+//                //Tìm kiếm theo ngày đi và ngày đến
+//                if(loaiTimKiem.equals("ngaydi") && loaiTimKiem.equals("ngayden"))
+//                {
+//                    Date fromDate = new SimpleDateFormat("yyyy-MM-dd").parse(ngaydi);
+//                    Date toDate = new SimpleDateFormat("yyyy-MM-dd").parse(ngayve);
+//                    List<Tour> tour = tourService.searchTourByDate(fromDate, toDate);
+//                    model.addAttribute("fromToDateSearch", tour);
+//                }
+//
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//
+////            System.err.println("==========================");
+////            System.err.println(fromPrice);
+////            System.err.println(toPrice);
+////            System.err.println("==========================");
+//            //tourService.searchTourByLandMarkId(diadiemdi.getKw()).forEach(System.out::println);
+//
+//
+////        System.err.println(diadiemdi.getLoaiTimKiem());
+////        System.err.println(diadiemdi.getKw());
 
         return "Services";
     }
