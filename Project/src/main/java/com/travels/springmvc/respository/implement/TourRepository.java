@@ -129,7 +129,7 @@ public class TourRepository extends GenericsRepository<Tour, String> implements 
                 throw new Exception("lỗi để trống tour");
             }
             else{
-                currentSession().save(tour);
+                save(tour);
             }
         } catch (Exception ex){
             throw new Exception(ex.getMessage());

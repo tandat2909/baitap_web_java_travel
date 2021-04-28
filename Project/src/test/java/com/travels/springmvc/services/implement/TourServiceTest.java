@@ -55,8 +55,8 @@ class TourServiceTest {
         try{
             tourService.addTour(tour);
         } catch (Exception ex){
-            System.out.println(ex.getMessage());
-            assertTrue(ex.getMessage().equals("lỗi không thêm dc tour"));
+            ex.printStackTrace();
+            assertTrue(ex.getMessage().equals("Lỗi không thể thêm tour"));
         }
          //assertEquals(tour.getTourId(), tourService.getElementById(tour.getTourId()).getTourId());
     }
