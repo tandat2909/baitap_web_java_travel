@@ -66,7 +66,10 @@ public class HomeController {
     }
 
     @RequestMapping({"/timkiem"})
-    public String timKiemDiaDiemDi(Model model, @RequestParam(value = "kw", required = false) String kw,@RequestParam(value = "loaiTimKiem") String loaiTimKiem, RedirectAttributes redirectAttributes){
+    public String timKiemDiaDiemDi(Model model, @RequestParam(value = "kw", required = false) String kw,
+                                   @RequestParam(value = "ngaydi", required = false) String ngaydi,
+                                   @RequestParam(value = "ngayve", required = false) String ngayve,
+                                   @RequestParam(value = "loaiTimKiem") String loaiTimKiem, RedirectAttributes redirectAttributes){
        // model.addAttribute("tourSearch", tour);
 
             try {
@@ -101,6 +104,13 @@ public class HomeController {
 
                 }
                 //Tìm kiếm theo ngày đi và ngày đến
+                if(loaiTimKiem.equals("ngaydi") && loaiTimKiem.equals("ngayden"))
+                {
+                    Date fromDate = new SimpleDateFormat("yyyy-MM-dd").parse(ngaydi);
+                    Date toDate = new SimpleDateFormat("yyyy-MM-dd").parse(ngayve);
+                    List<Tour> tour = tourService.searchTourByDate(fromDate, toDate);
+                    model.addAttribute("fromToDateSearch", tour);
+                }
 
             } catch (Exception e) {
                 e.printStackTrace();

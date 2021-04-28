@@ -154,10 +154,10 @@
             </select>
         </div>
         <div style="width: 10%; margin: 1%">
-           <input type="date" onchange="search(this)" typesearch = "ngaydi">
+           <input type="date" onchange="search(this)" typesearch = "ngaydi" id="ngaydi">
         </div>
         <div style="width: 10%; margin: 1%">
-            <input type="date" onchange="search(this)" typesearch = "ngayve">
+            <input type="date" onchange="search(this)" typesearch = "ngayve" id="ngayve">
         </div>
         <button type="submit" class="btn btn-primary">Tìm Kiếm</button>
     </div>
