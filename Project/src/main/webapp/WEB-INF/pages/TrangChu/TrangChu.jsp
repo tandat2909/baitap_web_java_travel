@@ -126,38 +126,40 @@
     </div>
 </section>
 <!-- //banner -->
-<div style="width: 80%; margin: 10px auto;">
+<div style="width: 150%; margin: 10px auto;">
     <div class="row" style="width: 100%; margin: 10px 0 ;">
-        <div  style="width: 15%; margin: 3%">
-            <select class="btn" style="width: 100%;" typesearch = "diadiemdi" onchange="search(this)">
-                <c:forEach items="${diadiemdi}" var="dd">
-                    <option value="${dd.landMarkId}">${dd.landMarkName}</option>
-                </c:forEach>
-            </select>
-        </div>
-        <div  style="width: 15%; margin: 3%">
+        <div  style="width: 10%; margin: 1%">
             <select class="btn" style="width: 100%;" typesearch = "province" onchange="search(this)">
                 <c:forEach items="${tinh}" var="t">
+                    <option value="">Tỉnh</option>
                     <option value="${t.provinceId}">${t.provinceName}</option>
                 </c:forEach>
             </select>
         </div>
-        <div  style="width: 15%; margin: 3%">
+        <div  style="width: 10%; margin: 1%">
+            <select class="btn" style="width: 100%;" typesearch = "diadiemdi" onchange="search(this)" id="ddd">
+                <option value="">Các điểm địa đi</option>
+<%--                <c:forEach items="${diadiemdi}" var="dd">--%>
+<%--                    <option value="${dd.landMarkId}">${dd.landMarkName}</option>--%>
+<%--                </c:forEach>--%>
+            </select>
+        </div>
+        <div  style="width: 10%; margin: 1%">
             <select class="btn" style="width: 100%;" typesearch = "price" onchange="search(this)">
-                <option disabled>tiền</option>
+                <option value="">Price</option>
                 <option value="0-1">dưới 1 triệu</option>
                 <c:forEach var="to" begin="1" end="4">
-                    <option value="${to}-${to+1}">
-                            ${to} - ${to+2} triệu</option>
+                    <option value="${to}-${to+1}">${to} - ${to+2} triệu</option>
                 </c:forEach>
             </select>
         </div>
-        <div style="width: 15%; margin: 3%">
+        <div style="width: 10%; margin: 1%">
            <input type="date" onchange="search(this)" typesearch = "ngaydi">
         </div>
-        <div style="width: 15%; margin: 3%">
+        <div style="width: 10%; margin: 1%">
             <input type="date" onchange="search(this)" typesearch = "ngayve">
         </div>
+        <button type="submit" class="btn btn-primary">Tìm Kiếm</button>
     </div>
 </div>
 <form action="${pageContext.request.contextPath}/timkiem" method="GET" id="abc">
@@ -166,7 +168,22 @@
 </form>
 <script>
     function search(select){
-       var kw = $(select).val()
+        var kw = $(select).val()
+        let diadiemdi = document.getElementById("ddd")
+        fetch("/landmarkId?kw=" + kw, {
+            headers: {
+                "content-type": "application/json"
+            }
+        }).then(res => res.json()).then(data =>{
+            console.log(data[0])
+            for(let i = 0; i < data.length; i++){
+                diadiemdi.append(new Option(data[i].landMarkName, data[i].landMarkId))
+
+            }
+        })
+        // $.getJSON("/landmarkId?kw=" + kw).done(function (landmark){
+        //     console.log("vasdvs", JSON.stringify(landmark))
+        // })
         console.log(kw)
         console.log($(select).attr("typesearch"))
         $("#kw").val(kw);
