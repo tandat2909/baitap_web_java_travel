@@ -29,11 +29,16 @@ public class Customer implements Serializable {
 //    @Pattern(regexp = "(84|0[3|5|7|8|9])+([0-9]{8})\\b", message = "{customer.phoneNumber.error}")
     private String phoneNumber;
 
+
+    private String image;
+
+    private String gender;
+
     @OneToMany(mappedBy = "customer")
     private Collection<Booking> bookings;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "accountID", referencedColumnName = "accountID", nullable = false,unique = true)
+    @JoinColumn(name = "accountID", referencedColumnName = "accountID",unique = true)
     private Account account;
 
     @OneToMany(mappedBy = "customer")
@@ -108,7 +113,25 @@ public class Customer implements Serializable {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
+    @Basic
+    @Column(name = "image",length = 200)
+    public String getImage() {
+        return image;
+    }
 
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    @Basic
+    @Column(name = "gender", length = 45)
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -150,6 +173,9 @@ public class Customer implements Serializable {
         this.tickets = tickets;
     }
 
+
+
+
     @Override
     public String toString() {
         return "Customer{" +
@@ -158,8 +184,11 @@ public class Customer implements Serializable {
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", birthDay=" + birthDay +
-                ", ccid=" + ccid +
+                ", ccid='" + ccid + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
+                ", image='" + image + '\'' +
+                ", gender='" + gender + '\'' +
+
                 '}';
     }
 }
