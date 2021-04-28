@@ -12,6 +12,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -90,18 +92,21 @@ class AccountServiceTest {
     void getElementsByKeyWordOnField() {
     }
 
-    @Test
-    void createAccount() throws Exception {
+
+    @ParameterizedTest
+    @CsvFileSource(resources="/login_signup.csv")
+    void createAccount(String userName, String email, String ccid, String phoneNumber,
+            String confirm, String pass, String firstName, String lastName, String birthDay) throws Exception {
         InforAccount inforAccount = new InforAccount();
-        inforAccount.setUserName("tandat1234");
-        inforAccount.setEmail("v@s.com");
-        inforAccount.setCCID("093234433");
-        inforAccount.setPhoneNumber("0987652435");
-        inforAccount.setConfirmPassword("Tandat@123");
-        inforAccount.setPassword("Tandat@123");
-        inforAccount.setFirstName("Tan");
-        inforAccount.setLastName("Dat");
-        inforAccount.setBirthDay("2000-10-2");
+        inforAccount.setUserName(userName);
+        inforAccount.setEmail(email);
+        inforAccount.setCCID(ccid);
+        inforAccount.setPhoneNumber(phoneNumber);
+        inforAccount.setConfirmPassword(confirm);
+        inforAccount.setPassword(pass);
+        inforAccount.setFirstName(firstName);
+        inforAccount.setLastName(lastName);
+        inforAccount.setBirthDay(birthDay);
         assertTrue(accountService.createAccount(inforAccount.getAccount(),inforAccount.getCustomer()));
         assertEquals(accountService.getAccountByUserName(inforAccount.getUserName()).getUserName(),inforAccount.getUserName());
     }
