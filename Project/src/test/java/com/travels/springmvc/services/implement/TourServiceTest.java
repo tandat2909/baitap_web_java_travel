@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 class TourServiceTest {
@@ -49,11 +50,27 @@ class TourServiceTest {
 
     @Test
     void add() {
-         tourService.add(tour);
-         assertEquals(tour.getTourId(), tourService.getElementById(tour.getTourId()).getTourId());
+        tour.setTourId("234");
+
+        try{
+            tourService.addTour(tour);
+        } catch (Exception ex){
+            System.out.println(ex.getMessage());
+            assertTrue(ex.getMessage().equals("lỗi không thêm dc tour"));
+        }
+         //assertEquals(tour.getTourId(), tourService.getElementById(tour.getTourId()).getTourId());
     }
     @Test
     void update() {
+        Tour tours = tourService.getElementById("32959e0e-c58c-456e-9b97-3f3a4b771af1");
+        tours.setPrice(new BigDecimal(23234234));
+        tours.setContent("âsasasa");
+        try{
+            tourService.updateTour(tours);
+        } catch (Exception ex){
+            System.out.println(ex.getMessage());
+            assertTrue(ex.getMessage().equals("không sửa được"));
+        }
     }
     @Test
     void getAll() {
@@ -101,9 +118,15 @@ class TourServiceTest {
     }
 
     @Test
-    void remove() {
-        tourService.remove(tourService.getElementById(tour.getTourId()));
-        assertNull(tourService.getElementById(tour.getTourId()));
+    void remove() throws Exception {
+        try{
+            tourService.removeTour("8ebb7419-0687-4cca-8185-0289a84d813d");
+        } catch (Exception ex){
+            System.out.println(ex.getMessage());
+            assertTrue(ex.getMessage().equals("Lỗi không xóa tour đã đặt"));
+        }
+
+        //assertNull(tourService.getElementById(tour.getTourId()));
     }
     @Test
     void getTourByLandMarkId(){

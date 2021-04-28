@@ -2,6 +2,7 @@ package com.travels.springmvc.services.implement;
 
 import com.travels.springmvc.pojo.Province;
 import com.travels.springmvc.pojo.Tour;
+import com.travels.springmvc.respository.IBookingDetailRepository;
 import com.travels.springmvc.respository.ITourRepository;
 import com.travels.springmvc.services.ITourService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +15,12 @@ import java.util.List;
 
 @Service
 @Transactional
-public class TourService extends GenericsService<Tour, String> implements ITourService {
+public class TourService extends GenericsService<Tour,String> implements ITourService {
 
     @Autowired
     ITourRepository tourRepository;
+    @Autowired
+    IBookingDetailRepository bookingDetailRepository;
 
     @Override
     public List<Tour> searchTourByProvince(String provinceId) {
@@ -31,11 +34,11 @@ public class TourService extends GenericsService<Tour, String> implements ITourS
 
     @Override
     public List<Tour> SearchTourByName(String kw) throws Exception {
-        if (kw == null || kw.isEmpty() || kw.trim().length() < 1)
+        if(kw == null || kw.isEmpty() || kw.trim().length() < 1)
             throw new NullPointerException("Từ khóa Không được để trống");
 
         try {
-            return SearchKeyWordOnField(kw, Tour.class.getDeclaredField("tourName"));
+            return SearchKeyWordOnField(kw,Tour.class.getDeclaredField("tourName"));
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
             throw new Exception("lỗi tìm kiếm tour");
@@ -49,14 +52,14 @@ public class TourService extends GenericsService<Tour, String> implements ITourS
 
     @Override
     public List<Tour> searchTourByLandMarkName(String landMarkName) throws Exception {
-        if (landMarkName == null || landMarkName.isEmpty() || landMarkName.trim().length() < 1)
+        if(landMarkName == null || landMarkName.isEmpty() || landMarkName.trim().length() < 1)
             throw new NullPointerException("Tên địa danh không được để trống");
         return tourRepository.searchTourByLandMarkName(landMarkName);
     }
 
     @Override
     public List<Tour> searchTourByProvinceName(String provinceName) throws Exception {
-        if (provinceName == null || provinceName.isEmpty() || provinceName.trim().length() < 1)
+        if(provinceName == null || provinceName.isEmpty() || provinceName.trim().length() < 1)
             throw new NullPointerException("Tên tỉnh thành không được để trống");
         return tourRepository.searchTourByProvinceName(provinceName);
     }
@@ -76,6 +79,30 @@ public class TourService extends GenericsService<Tour, String> implements ITourS
     @Override
     public List<Tour> searchTourByPrice(BigDecimal fromPrice, BigDecimal toPrice) throws Exception {
         return tourRepository.searchTourByPrice(fromPrice, toPrice);
+    }
+
+    @Override
+    public void removeTour(String tourId) throws Exception{
+        tourRepository.removeTour(tourId);
+    }
+
+    @Override
+    public void addTour(Tour tour) throws Exception{
+
+        tourRepository.addTour(tour);
+    }
+    @Override
+    public void updateTour(Tour tour) throws Exception{
+        try {
+            if (tour.getContent() != null && !tour.getContent().isEmpty()) {
+                tourRepository.update(tour);
+                return;
+            }
+            throw new Exception("lỗi content");
+        } catch (Exception ex){
+            throw new Exception(ex.getMessage());
+        }
+
     }
 
 
