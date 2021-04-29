@@ -88,6 +88,10 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
     <definition name="template_signup" template="/WEB-INF/pages/SignUpCustomer.jsp" >
         <put-attribute name="title" value="Sign Up"/>
     </definition>
-
-
+    <!--search-->
+    <definition name="Search" extends="baseLayout">
+        <put-attribute name="title" value="Search" />
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/TrangChu/search.jsp" />
+    </definition>
 </tiles-definitions>

@@ -150,7 +150,7 @@
                 <option value="">Price</option>
                 <option value="0-1">dưới 1 triệu</option>
                 <c:forEach var="to" begin="1" end="4">
-                    <option value="${to}-${to+1}">${to} - ${to+2} triệu</option>
+                    <option value="${to}-${to+1}">${to} - ${to+1} triệu</option>
                 </c:forEach>
             </select>
         </div>

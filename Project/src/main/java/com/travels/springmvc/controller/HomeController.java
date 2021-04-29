@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.math.BigDecimal;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -66,75 +67,39 @@ public class HomeController {
     }
 
     @RequestMapping({"/timkiem"})
-    public String timKiemDiaDiemDi(Model model,@RequestParam(value = "ngayve", required = false) Date ngayve,
-                                   @RequestParam(value = "ngaydi", required = false) Date ngaydi,
+    public String timKiemDiaDiemDi(Model model,@RequestParam(value = "ngayve", required = false) String ngayve,
+                                   @RequestParam(value = "ngaydi", required = false) String ngaydi,
                                    @RequestParam(value = "province", required = false) String province,
                                    @RequestParam(value = "diadiemdi", required = false) String diadiemdi,
-                                   @RequestParam(value = "price", required = false) BigDecimal price,
-                                    RedirectAttributes redirectAttributes){
-        List<Tour> tour = tourService.searchAll(province, diadiemdi, price, ngaydi, ngayve);
-        model.addAttribute("tours",tour);
-        System.err.println("==========================");
-        System.err.println(tour);
-        System.err.println("==========================");
-       // model.addAttribute("tourSearch", tour);
-            //viet cau query khong can kiem null
-//            //khong viet query thi kiem null
-//            try {
-//                if(loaiTimKiem.equals("diadiemdi")) {
-//                    List<Tour> tour = tourService.searchTourByLandMarkId(kw);
-//                    //chuyển nguyên đối tượng addFlashAttribute
-////                    redirectAttributes.addFlashAttribute("diadiemdiSearch", tour);
-//                    model.addAttribute("diadiemdiSearch", tour);
-//                }
-//                if(loaiTimKiem.equals("province")){
-//                    List<Tour> tour = tourService.searchTourByProvince(kw);
-//                    model.addAttribute("provinceSearch", tour);
-//                }
-//                if(loaiTimKiem.equals("price")){
-//                    String[] chuoi = null;
-//                    chuoi = kw.split("-");
-//                    BigDecimal fromPrice = new BigDecimal(chuoi[0] + "0000000") ;
-//                    BigDecimal toPrice = new BigDecimal(chuoi[1] + "0000000");;
-//                    List<Tour> tour = tourService.searchTourByPrice(fromPrice, toPrice);
-//                    model.addAttribute("priceSearch", tour);
-//                }
-//                if(loaiTimKiem.equals("ngaydi") || loaiTimKiem.equals("ngayden"))
-//                {
-//                    Date date = new SimpleDateFormat("yyyy-MM-dd").parse(kw);
-//                    //Date date1 = new Date();
-//                    List<Tour> tour = tourService.searchTourByDate(date);
-//                    model.addAttribute("dateSearch",tour);
-//                    System.err.println("==========================");
-//                    System.err.println(tour);
-//                    System.err.println(date);
-//                    System.err.println("==========================");
-//
-//                }
-//                //Tìm kiếm theo ngày đi và ngày đến
-//                if(loaiTimKiem.equals("ngaydi") && loaiTimKiem.equals("ngayden"))
-//                {
-//                    Date fromDate = new SimpleDateFormat("yyyy-MM-dd").parse(ngaydi);
-//                    Date toDate = new SimpleDateFormat("yyyy-MM-dd").parse(ngayve);
-//                    List<Tour> tour = tourService.searchTourByDate(fromDate, toDate);
-//                    model.addAttribute("fromToDateSearch", tour);
-//                }
-//
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//
-////            System.err.println("==========================");
-////            System.err.println(fromPrice);
-////            System.err.println(toPrice);
-////            System.err.println("==========================");
-//            //tourService.searchTourByLandMarkId(diadiemdi.getKw()).forEach(System.out::println);
-//
-//
-////        System.err.println(diadiemdi.getLoaiTimKiem());
-////        System.err.println(diadiemdi.getKw());
+                                   @RequestParam(value = "price", required = false) String price,
+                                   RedirectAttributes redirectAttributes) throws ParseException {
+        String empty = "";
+        Date date = new java.util.Date();
+        String[] chuoi = null;
+        chuoi = price.split("-");
+        BigDecimal fromPrice = new BigDecimal(chuoi[0] + "000000") ;
+        BigDecimal toPrice = new BigDecimal(chuoi[1]  + "000000");
 
-        return "Services";
+        try{
+            if(tourService.checkEmpty(province) && tourService.checkEmpty(diadiemdi) && tourService.checkEmpty(price) &&
+                    tourService.checkEmpty(ngaydi) && tourService.checkEmpty(ngayve))
+            { throw new Exception("Không tìm thấy tour"); }
+            if(ngaydi == null || ngaydi.isEmpty() || ngayve == null || ngayve.isEmpty())
+            {
+                Date fromDate = date;
+                Date toDate = date;
+                List<Tour> tour = tourService.searchAll(province, diadiemdi, fromPrice, toPrice, fromDate, toDate);
+                model.addAttribute("tours",tour);
+            }
+            Date fromDate = new SimpleDateFormat("yyyy-MM-dd").parse(ngaydi);
+            Date toDate = new SimpleDateFormat("yyyy-MM-dd").parse(ngayve);
+            List<Tour> tour = tourService.searchAll(province, diadiemdi, fromPrice, toPrice, fromDate, toDate);
+            model.addAttribute("tours",tour);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return "Search";
     }
 
     @RequestMapping("/About")

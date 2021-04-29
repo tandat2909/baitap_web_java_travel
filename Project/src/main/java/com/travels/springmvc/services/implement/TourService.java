@@ -28,8 +28,9 @@ public class TourService extends GenericsService<Tour,String> implements ITourSe
     }
 
     @Override
-    public List<Tour> searchAll(String province, String landMark, BigDecimal price, Date fromDate, Date toDate){
-        return tourRepository.searchAll(province, landMark, price, fromDate, toDate);
+    public List<Tour> searchAll(String province, String landMark, BigDecimal fromPrice, BigDecimal toPrice, Date fromDate, Date toDate){
+
+        return tourRepository.searchAll(province, landMark, fromPrice, toPrice, fromDate, toDate);
     }
 
     @Override
@@ -106,6 +107,19 @@ public class TourService extends GenericsService<Tour,String> implements ITourSe
             throw new Exception("lỗi content");
         } catch (Exception ex){
             throw new Exception(ex.getMessage());
+        }
+
+    }
+
+    public boolean checkEmpty(String chuoi) throws Exception{
+        try {
+            if(chuoi == null || chuoi.isEmpty()) {
+                return true;
+            }
+            return false;
+
+        } catch (Exception ex){
+            throw new Exception("chuỗi rỗng");
         }
 
     }

@@ -34,8 +34,8 @@ public class TourRepository extends GenericsRepository<Tour, String> implements 
     }
 
     @Override
-    public List<Tour> searchAll(String province, String landMark, BigDecimal price, Date fromDate, Date toDate){
-        List<Tour> tours = currentSession().createSQLQuery("CALL searchTour(:province, :landMark, :price, :fromDate, :toDate)").addEntity(Tour.class).setParameter("province", province).setParameter("landMark", landMark).setParameter("price", price).setParameter("fromDate", fromDate).setParameter("toDate", toDate).getResultList();
+    public List<Tour> searchAll(String province, String landMark, BigDecimal fromPrice, BigDecimal toPrice, Date fromDate, Date toDate){
+        List<Tour> tours = currentSession().createSQLQuery("CALL searchTour(:province, :landMark, :fromPrice, :toPrice, :fromDate, :toDate)").addEntity(Tour.class).setParameter("province", province).setParameter("landMark", landMark).setParameter("fromPrice", fromPrice).setParameter("toPrice", toPrice).setParameter("fromDate", fromDate).setParameter("toDate", toDate).getResultList();
         return tours;
     }
 
