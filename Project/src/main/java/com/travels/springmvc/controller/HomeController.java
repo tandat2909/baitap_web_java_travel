@@ -43,6 +43,7 @@ public class HomeController {
         return "TrangChu";
     }
     @GetMapping({"/landmarkId"})
+    @ResponseBody
     public String getLandMarkId(@RequestParam(value = "kw") String  kw){
         //Collection<Landmarks> land =  provinceService.getElementById(kw).getLandmarks();
         ObjectMapper mapper = new ObjectMapper();
@@ -65,9 +66,11 @@ public class HomeController {
     }
 
     @RequestMapping({"/timkiem"})
-    public String timKiemDiaDiemDi(Model model, @RequestParam(value = "kw", required = false) String kw,
+    public String timKiemDiaDiemDi(Model model,@RequestParam(value = "ngayve", required = false) String ngayve,
                                    @RequestParam(value = "ngaydi", required = false) String ngaydi,
-                                   @RequestParam(value = "ngayve", required = false) String ngayve,
+                                   @RequestParam(value = "province", required = false) String province,
+                                   @RequestParam(value = "diadiemdi", required = false) String diadiemdi,
+                                   @RequestParam(value = "ngayve", required = false) String price,
                                     RedirectAttributes redirectAttributes){
        // model.addAttribute("tourSearch", tour);
             //viet cau query khong can kiem null
