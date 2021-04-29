@@ -6,6 +6,7 @@ import com.travels.springmvc.respository.ILandMarkRepository;
 import com.travels.springmvc.respository.IProvinceRepository;
 import com.travels.springmvc.respository.ITourRepository;
 
+import org.hibernate.internal.log.ConnectionAccessLogger_$logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,6 +30,12 @@ public class TourRepository extends GenericsRepository<Tour, String> implements 
     @Override
     public List<Tour> searchTourByProvince(String provinceId) {
         List<Tour> tours = currentSession().createSQLQuery("CALL getTourByProvinceId(:id)").addEntity(Tour.class).setParameter("id", provinceId).getResultList();
+        return tours;
+    }
+
+    @Override
+    public List<Tour> searchAll(String province, String landMark, BigDecimal price, Date fromDate, Date toDate){
+        List<Tour> tours = currentSession().createSQLQuery("CALL searchTour(:province, :landMark, :price, :fromDate, :toDate)").addEntity(Tour.class).setParameter("province", province).setParameter("landMark", landMark).setParameter("price", price).setParameter("fromDate", fromDate).setParameter("toDate", toDate).getResultList();
         return tours;
     }
 

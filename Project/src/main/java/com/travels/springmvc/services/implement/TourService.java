@@ -28,6 +28,11 @@ public class TourService extends GenericsService<Tour,String> implements ITourSe
     }
 
     @Override
+    public List<Tour> searchAll(String province, String landMark, BigDecimal price, Date fromDate, Date toDate){
+        return tourRepository.searchAll(province, landMark, price, fromDate, toDate);
+    }
+
+    @Override
     public List<Tour> searchTourByProvince(Province province) {
         return tourRepository.searchTourByProvince(province);
     }

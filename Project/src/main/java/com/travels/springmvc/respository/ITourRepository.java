@@ -17,6 +17,7 @@ public interface ITourRepository extends IGenericsRepository<Tour,String> {
     List<Tour> searchTourByDate(Date date) throws Exception;
     List<Tour> searchTourByDate(Date fromDate,Date toDate);
     List<Tour> searchTourByPrice(BigDecimal fromPrice, BigDecimal toPrice) throws Exception;
+    List<Tour> searchAll(String province, String landMark, BigDecimal price, Date fromDate, Date toDate);
 
     void removeTour(String tourId) throws Exception;
     void addTour(Tour tour) throws Exception;

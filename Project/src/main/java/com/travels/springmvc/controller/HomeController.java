@@ -66,12 +66,17 @@ public class HomeController {
     }
 
     @RequestMapping({"/timkiem"})
-    public String timKiemDiaDiemDi(Model model,@RequestParam(value = "ngayve", required = false) String ngayve,
-                                   @RequestParam(value = "ngaydi", required = false) String ngaydi,
+    public String timKiemDiaDiemDi(Model model,@RequestParam(value = "ngayve", required = false) Date ngayve,
+                                   @RequestParam(value = "ngaydi", required = false) Date ngaydi,
                                    @RequestParam(value = "province", required = false) String province,
                                    @RequestParam(value = "diadiemdi", required = false) String diadiemdi,
-                                   @RequestParam(value = "ngayve", required = false) String price,
+                                   @RequestParam(value = "price", required = false) BigDecimal price,
                                     RedirectAttributes redirectAttributes){
+        List<Tour> tour = tourService.searchAll(province, diadiemdi, price, ngaydi, ngayve);
+        model.addAttribute("tours",tour);
+        System.err.println("==========================");
+        System.err.println(tour);
+        System.err.println("==========================");
        // model.addAttribute("tourSearch", tour);
             //viet cau query khong can kiem null
 //            //khong viet query thi kiem null

@@ -31,8 +31,8 @@
                         <div class="col-sm-5 grids-img-left">
                             <img src="<c:url value="/TrangChu/images/japan.jpg"/>" alt="" class="img-fluid">
                         </div>
-                        <c:if test="${diadiemdiSearch}">
-                            <c:forEach items="${diadiemdiSearch}" var="Search">
+
+                            <c:forEach items="${tours}" var="Search">
                             <div class="col-sm-7 right-cont">
                                 <h4 class="mb-2 let mt-sm-0 mt-2 tm-clr">${Search.tourName}</h4>
                                 <ul class="d-flex">
@@ -46,75 +46,9 @@
                                 <p class="duration mt-2"><span class="fa fa-clock-o mr-2"></span><strong>Duration</strong>${Search.startDay}</p>
                             </div>
                             </c:forEach>
-                        </c:if>
 
-                        <c:if test="${provinceSearch}">
-                            <c:forEach items="${provinceSearch}" var="Search">
-                                <div class="col-sm-7 right-cont">
-                                    <h4 class="mb-2 let mt-sm-0 mt-2 tm-clr">${Search.tourName}</h4>
-                                    <ul class="d-flex">
-                                        <li><span class="fa fa-star"></span></li>
-                                        <li><span class="fa fa-star"></span></li>
-                                        <li><span class="fa fa-star"></span></li>
-                                        <li><span class="fa fa-star"></span></li>
-                                        <li><span class="fa fa-star"></span></li>
-                                    </ul>
-                                    <p class="mt-3">${Search.content}</p>
-                                    <p class="duration mt-2"><span class="fa fa-clock-o mr-2"></span><strong>Duration</strong>${Search.startDay}</p>
-                                </div>
-                            </c:forEach>
-                        </c:if>
 
-                        <c:if test="${priceSearch}">
-                            <c:forEach items="${priceSearch}" var="Search">
-                                <div class="col-sm-7 right-cont">
-                                    <h4 class="mb-2 let mt-sm-0 mt-2 tm-clr">${Search.tourName}</h4>
-                                    <ul class="d-flex">
-                                        <li><span class="fa fa-star"></span></li>
-                                        <li><span class="fa fa-star"></span></li>
-                                        <li><span class="fa fa-star"></span></li>
-                                        <li><span class="fa fa-star"></span></li>
-                                        <li><span class="fa fa-star"></span></li>
-                                    </ul>
-                                    <p class="mt-3">${Search.content}</p>
-                                    <p class="duration mt-2"><span class="fa fa-clock-o mr-2"></span><strong>Duration</strong>${Search.startDay}</p>
-                                </div>
-                            </c:forEach>
-                        </c:if>
 
-                        <c:if test="${dateSearch}">
-                            <c:forEach items="${dateSearch}" var="Search">
-                                <div class="col-sm-7 right-cont">
-                                    <h4 class="mb-2 let mt-sm-0 mt-2 tm-clr">${Search.tourName}</h4>
-                                    <ul class="d-flex">
-                                        <li><span class="fa fa-star"></span></li>
-                                        <li><span class="fa fa-star"></span></li>
-                                        <li><span class="fa fa-star"></span></li>
-                                        <li><span class="fa fa-star"></span></li>
-                                        <li><span class="fa fa-star"></span></li>
-                                    </ul>
-                                    <p class="mt-3">${Search.content}</p>
-                                    <p class="duration mt-2"><span class="fa fa-clock-o mr-2"></span><strong>Duration</strong>${Search.startDay}</p>
-                                </div>
-                            </c:forEach>
-                        </c:if>
-
-                        <c:if test="${fromToDateSearch}">
-                            <c:forEach items="${fromToDateSearch}" var="Search">
-                                <div class="col-sm-7 right-cont">
-                                    <h4 class="mb-2 let mt-sm-0 mt-2 tm-clr">${Search.tourName}</h4>
-                                    <ul class="d-flex">
-                                        <li><span class="fa fa-star"></span></li>
-                                        <li><span class="fa fa-star"></span></li>
-                                        <li><span class="fa fa-star"></span></li>
-                                        <li><span class="fa fa-star"></span></li>
-                                        <li><span class="fa fa-star"></span></li>
-                                    </ul>
-                                    <p class="mt-3">${Search.content}</p>
-                                    <p class="duration mt-2"><span class="fa fa-clock-o mr-2"></span><strong>Duration</strong>${Search.startDay}</p>
-                                </div>
-                            </c:forEach>
-                        </c:if>
 
                     </div>
                 </div>
