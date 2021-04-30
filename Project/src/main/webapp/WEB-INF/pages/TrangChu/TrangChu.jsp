@@ -147,18 +147,18 @@
         </div>
         <div  <%--style="width: 10%; margin: 1%"--%>>
             <select class="form-control" style="width: 90%;" typesearch = "price" <%--onchange="search(this)"--%> name="price">
-                <option value="">Price</option>
+                <option value="0-0">Price</option>
                 <option value="0-1">dưới 1 triệu</option>
-                <c:forEach var="to" begin="1" end="4">
+                <c:forEach var="to" begin="1" end="9">
                     <option value="${to}-${to+1}">${to} - ${to+1} triệu</option>
                 </c:forEach>
             </select>
         </div>
         <div <%--style="width: 10%; margin: 1%"--%>>
-           <input type="date" class="form-control" style="width: 90%;" <%--onchange="search(this)"--%> typesearch = "ngaydi" id="ngaydi" name="ngaydi">
+           <input type="date" class="form-control" style="width: 90%;"  typesearch = "ngaydi" id="ngaydi" name="ngaydi">
         </div>
         <div <%--style="width: 10%; margin: 1%"--%>>
-            <input type="date" class="form-control" style="width: 90%;" <%--onchange="search(this)"--%> typesearch = "ngayve" id="ngayve" name="ngayve">
+            <input type="date" class="form-control" style="width: 90%;"  typesearch = "ngayve" id="ngayve" name="ngayve">
         </div>
         <button type="submit" class="btn btn-primary">Tìm Kiếm</button>
         </form>

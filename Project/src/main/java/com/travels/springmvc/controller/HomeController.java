@@ -72,33 +72,41 @@ public class HomeController {
                                    @RequestParam(value = "province", required = false) String province,
                                    @RequestParam(value = "diadiemdi", required = false) String diadiemdi,
                                    @RequestParam(value = "price", required = false) String price,
-                                   RedirectAttributes redirectAttributes) throws ParseException {
+                                   RedirectAttributes redirectAttributes){
         String empty = "";
-        Date date = new java.util.Date();
         String[] chuoi = null;
         chuoi = price.split("-");
-        BigDecimal fromPrice = new BigDecimal(chuoi[0] + "000000") ;
-        BigDecimal toPrice = new BigDecimal(chuoi[1]  + "000000");
+        String fprice = chuoi[0].toString() + "000000";
+        String tprice = chuoi[1].toString() + "000000";
+        BigDecimal fromPrice = new BigDecimal(fprice) ;
+        BigDecimal toPrice = new BigDecimal(tprice);
+        SimpleDateFormat fDate = new SimpleDateFormat("yyyy-MM-dd");
+        Date fromDate = new Date();
+        Date toDate = new Date();
+        try {
+            if(ngaydi == null || ngaydi.isEmpty() || ngayve == null || ngayve.isEmpty()){
+                fromDate = new java.util.Date();
+                toDate = new java.util.Date();
+                List<Tour> tour = tourService.searchAll(province, diadiemdi, fromPrice, toPrice, fromDate, toDate);
+                model.addAttribute("tours",tour);
+            }
+            else{
+                fromDate = fDate.parse(ngaydi);
+                toDate = fDate.parse(ngayve);
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
         try{
             if(tourService.checkEmpty(province) && tourService.checkEmpty(diadiemdi) && tourService.checkEmpty(price) &&
                     tourService.checkEmpty(ngaydi) && tourService.checkEmpty(ngayve))
             { throw new Exception("Không tìm thấy tour"); }
-            if(ngaydi == null || ngaydi.isEmpty() || ngayve == null || ngayve.isEmpty())
-            {
-                Date fromDate = date;
-                Date toDate = date;
-                List<Tour> tour = tourService.searchAll(province, diadiemdi, fromPrice, toPrice, fromDate, toDate);
-                model.addAttribute("tours",tour);
-            }
-            Date fromDate = new SimpleDateFormat("yyyy-MM-dd").parse(ngaydi);
-            Date toDate = new SimpleDateFormat("yyyy-MM-dd").parse(ngayve);
-            List<Tour> tour = tourService.searchAll(province, diadiemdi, fromPrice, toPrice, fromDate, toDate);
-            model.addAttribute("tours",tour);
         } catch (Exception e){
             e.printStackTrace();
         }
-
+        List<Tour> tour = tourService.searchAll(province, diadiemdi, fromPrice, toPrice, fromDate, toDate);
+        model.addAttribute("tours",tour);
         return "Search";
     }
 
