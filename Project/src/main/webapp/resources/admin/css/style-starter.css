@@ -7448,7 +7448,7 @@ a.text-dark:hover, a.text-dark:focus {
 .fa-power-off:before {
   content: ""; }
 
-.fa-signal:before {
+.fa-users:before {
   content: ""; }
 
 .fa-gear:before,
@@ -8135,7 +8135,7 @@ a.text-dark:hover, a.text-dark:focus {
 .fa-desktop:before {
   content: ""; }
 
-.fa-laptop:before {
+.fa-motorcycle:before {
   content: ""; }
 
 .fa-tablet:before {
@@ -8353,7 +8353,7 @@ a.text-dark:hover, a.text-dark:focus {
   content: ""; }
 
 .fa-dollar:before,
-.fa-usd:before {
+.fa-money:before {
   content: ""; }
 
 .fa-rupee:before,
@@ -8858,7 +8858,7 @@ a.text-dark:hover, a.text-dark:focus {
 .fa-eyedropper:before {
   content: ""; }
 
-.fa-paint-brush:before {
+.fa-usd:before {
   content: ""; }
 
 .fa-birthday-cake:before {

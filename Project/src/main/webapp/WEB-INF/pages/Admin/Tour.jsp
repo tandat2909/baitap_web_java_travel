@@ -88,7 +88,7 @@
                                                 <a href="${pageContext.request.contextPath}/tour?tourid=${i.tourId}"
                                                    target="_blank"><i class="fa fa-info-circle"></i> Chi tiết</a>
                                                 <br>
-                                                <a href="${pageContext.request.contextPath}/tour/edit?tourid=${i.tourId}"
+                                                <a href="${pageContext.request.contextPath}/admin/updateTour?tourid=${i.tourId}"
                                                    target="_blank"><i class="fa fa-edit"></i> Chỉnh sửa</a>
                                                 <a href="javascript:" onclick="deleteTour('${i.tourId}')"
                                                    ><i class="fa fa-trash"></i> Xóa</a>
@@ -99,7 +99,9 @@
 
                                     <div class="card-body">
                                         <h5 class="card-title">${i.tourName}</h5>
-                                        <p class="card-text mt-1"><i class="fa fa-dollar"></i> Giá: <span class="price">${i.price} VNĐ</span></p>
+                                        <p class="card-text mt-1"><i class="fa fa-dollar"></i> Giá: <span class="price">${i.price} VNĐ</span>
+                                            <a href="${pageContext.request.contextPath}/admin/updateTour?tourId=${i.tourId}" target="_blank"> <i class="fa fa-pencil" aria-hidden="true" style="float: right;"></i></a>
+                                        </p>
                                         <p class="card-text mt-1"> Số chỗ: ${i.maxseats}</p>
                                         <p class="card-text mt-1"><i class="fa fa-calendar"></i> Ngày đi: ${i.startDay.date}-${i.startDay.month +1}-${i.startDay.year + 1900}</p>
                                     </div>

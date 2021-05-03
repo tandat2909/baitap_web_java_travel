@@ -1,17 +1,20 @@
 package com.travels.springmvc.controller;
 
-import com.travels.springmvc.pojo.Customer;
-import com.travels.springmvc.services.ICustomerService;
-import com.travels.springmvc.services.ITourService;
+import com.travels.springmvc.modelView.InforAccount;
+import com.travels.springmvc.pojo.*;
+import com.travels.springmvc.services.*;
+import com.travels.springmvc.services.implement.AgesService;
 import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,6 +25,13 @@ public class AdminController {
     ICustomerService customerService;
     @Autowired
     ITourService tourService;
+    @Autowired
+    IAccountService accountService;
+    @Autowired
+    ITourPricesService tourPricesService;
+    @Autowired
+    IAgesService agesService;
+
 
     @RequestMapping(value = {"","/index","/home"})
     public String index(){
@@ -32,7 +42,36 @@ public class AdminController {
     public String pageListCustomer(Model model){
         List<Customer> showall = customerService.getAll().stream().filter(c -> c.getAccount() != null).collect(Collectors.toList());
         model.addAttribute("lsCustomer",showall);
+
         return "template_customer_admin";
+    }
+
+    @RequestMapping(value = {"/customer/update"})
+    public String updateCustomer(Model model, @RequestParam(value = "customerId", required = false) String customerId, RedirectAttributes redirectAttributes){
+        Customer customer = customerService.getElementById(customerId);
+        Account acc = customer.getAccount();
+        model.addAttribute("view", new InforAccount());
+        model.addAttribute("Customer", customer);
+        model.addAttribute("account", acc);
+
+        return "updateCustomer";
+    }
+    @PostMapping(value = {"/customer/update"})
+    public String updateAndSaveCustomer(@ModelAttribute("view") InforAccount customer,@RequestParam(value = "customerId", required = false) String customerId){
+        //gắn cái id cho customer vs acc
+        Customer cus = customer.getCustomer();
+        Account acc = customerService.getElementById(customerId).getAccount();
+        acc.setUserName(customerService.getElementById(customerId).getAccount().getUserName());
+        cus.setAccount(acc);
+        cus.setCustomerId(customerId);
+        customerService.update(cus);
+        accountService.update(acc);
+        System.err.println("==================");
+        System.err.println(cus);
+        System.err.println(acc);
+        System.err.println("==================");
+
+        return "redirect:/admin/customers";
     }
 
     @RequestMapping(value = "/tours")
@@ -41,6 +80,52 @@ public class AdminController {
         return "template_tour_admin";
     }
 
+    @RequestMapping(value = "/updateTour")
+    public String updateTour(Model model, @RequestParam(value = "tourId", required = false) String tourId){
+        Tour tour = tourService.getElementById(tourId);
+        List<Tourprices> prices = (List<Tourprices>) tour.getTourprices();
+        System.err.println("======================");
+        System.err.println(prices);
+        System.err.println("======================");
+        model.addAttribute("tour", tour);
+        model.addAttribute("price", prices);
+
+        return "updateTour";
+    }
+
+    @PostMapping(value="/updateTour")
+    public String updateAndSaveTour(Model model,@ModelAttribute(value = "prices") String prices ,@RequestParam(value = "tourId", required = false) String tourId ){
+        Tour tour = tourService.getElementById(tourId);
+        List<Tourprices> priceId = (List<Tourprices>) tour.getTourprices();
+//        model.addAttribute("tour", tour);
+        //cắt chuỗi theo ageId vs price , get tourprices theo ageId và theo tourId nếu có thì set giá vo không thì bỏ qua
+        String[] tuoi = prices.split(";");
+//        for (int i = 0; i < tuoi.length; i++)
+//        {
+//            String[] a = tuoi[i].split(":");
+//            String price = a[0];
+//            String ageId = a[1];
+//            // cos lay ra dc cais ageid trong tourprices
+////            tourPricesService.getElementById(ageId);
+//            Tourprices tprices = (Tourprices) priceId.stream().filter(p -> p.getAges().equals(ageId)).findFirst();
+//            System.err.println("================");
+//            System.err.println(tprices);
+//            System.err.println("================");
+//            tprices.setPrice(Integer.parseInt(price));
+//            tourPricesService.update(tprices);
+        for (Tourprices t: priceId) {
+            for (String tu: tuoi) {
+                String[] a = tu.split(":");
+                if(t.getAges().getAgeId().equals(a[1])){
+                    t.setPrice(Integer.parseInt(a[0]));
+                    tourPricesService.update(t);
+                }
+            }
+
+        }
+
+        return "redirect:/admin/tours";
+    }
 
 
 

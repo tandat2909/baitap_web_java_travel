@@ -33,3 +33,20 @@ function deleteTour(tourId) {
 let openLink= (link,option)=>{
     window.open(link,option)
 }
+
+    $(document).ready(function(){
+    $("#aaaa").click(function(){
+        var values = $(".ages input");
+        var valuep = $("#prices");
+        var data = "";
+        for(var i = 0; i < values.length; i ++)
+        {
+            //valuep.value = values[i].value + ":" + $(values[i]).attr("id") + ";"
+            data += values[i].value + ":" + $(values[i]).attr("id") + ";"
+            // alert(values[i].val() + "&" + values[i].attr("id"))
+        }
+        $("#prices").val(data);
+    });
+});
+
+

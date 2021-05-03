@@ -73,7 +73,7 @@ public class HomeController {
                                    @RequestParam(value = "diadiemdi", required = false) String diadiemdi,
                                    @RequestParam(value = "price", required = false) String price,
                                    RedirectAttributes redirectAttributes){
-        String empty = "";
+
         String[] chuoi = null;
         chuoi = price.split("-");
         String fprice = chuoi[0].toString() + "000000";
@@ -107,6 +107,9 @@ public class HomeController {
         }
         List<Tour> tour = tourService.searchAll(province, diadiemdi, fromPrice, toPrice, fromDate, toDate);
         model.addAttribute("tours",tour);
+        System.err.println("================================");
+        System.err.println(tour);
+        System.err.println("================================");
         return "Search";
     }
 

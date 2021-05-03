@@ -28,6 +28,7 @@ public class InforAccount implements Serializable{
     String phoneNumber;
     //@Pattern(regexp = "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$",message = "{account.email.error}")
     String email;
+    private String gender;
 
     public String getUserName() {
         return userName;
@@ -104,8 +105,8 @@ public class InforAccount implements Serializable{
     public boolean isPassConfirm(){
         return password.equals(confirmPassword);
     }
-    public Date getBirthDaySql(){
-        return Date.valueOf(this.birthDay);
+    public java.util.Date getBirthDaySql(){
+        return new java.util.Date(Date.valueOf(this.birthDay).getTime());
     }
 
     public Account getAccount(){
@@ -123,6 +124,7 @@ public class InforAccount implements Serializable{
         cus.setBirthDay(getBirthDaySql());
         cus.setPhoneNumber(phoneNumber);
         cus.setCcid(CCID);
+        cus.setGender(gender);
         return cus;
     }
     public Employees getEmployee(){
@@ -133,6 +135,7 @@ public class InforAccount implements Serializable{
         emp.setBirthDay(getBirthDaySql());
         emp.setPhoneNumber(phoneNumber);
         emp.setCcid(CCID);
+        emp.setGender(gender);
         return emp;
     }
 
@@ -149,5 +152,13 @@ public class InforAccount implements Serializable{
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", email='" + email + '\'' +
                 '}';
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 }
