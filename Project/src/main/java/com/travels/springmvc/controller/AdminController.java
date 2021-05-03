@@ -31,6 +31,8 @@ public class AdminController {
     ITourPricesService tourPricesService;
     @Autowired
     IAgesService agesService;
+    @Autowired
+    IEmployeesService employeesService;
 
 
     @RequestMapping(value = {"","/index","/home"})
@@ -94,7 +96,7 @@ public class AdminController {
     }
 
     @PostMapping(value="/updateTour")
-    public String updateAndSaveTour(Model model,@ModelAttribute(value = "prices") String prices ,@RequestParam(value = "tourId", required = false) String tourId ){
+    public String updateAndSaveTour(Model model,@ModelAttribute(value = "prices") String prices ,@RequestParam(value = "tourId", required = false) String tourId ) {
         Tour tour = tourService.getElementById(tourId);
         List<Tourprices> priceId = (List<Tourprices>) tour.getTourprices();
 //        model.addAttribute("tour", tour);
@@ -105,14 +107,14 @@ public class AdminController {
 //            String[] a = tuoi[i].split(":");
 //            String price = a[0];
 //            String ageId = a[1];
-//            // cos lay ra dc cais ageid trong tourprices
-////            tourPricesService.getElementById(ageId);
-//            Tourprices tprices = (Tourprices) priceId.stream().filter(p -> p.getAges().equals(ageId)).findFirst();
+//            Tourprices tprices = (Tourprices) priceId.stream().filter(p -> p.getAges().getAgeId().equals(ageId)).findFirst();
 //            System.err.println("================");
 //            System.err.println(tprices);
 //            System.err.println("================");
 //            tprices.setPrice(Integer.parseInt(price));
 //            tourPricesService.update(tprices);
+//            }
+
         for (Tourprices t: priceId) {
             for (String tu: tuoi) {
                 String[] a = tu.split(":");
@@ -127,7 +129,12 @@ public class AdminController {
         return "redirect:/admin/tours";
     }
 
-
+    @RequestMapping(value = "/employees")
+    public String pageListEmployees(Model model){
+        List<Employees> employees = employeesService.getAll().stream().filter(c -> c.getAccount() != null).collect(Collectors.toList());
+        model.addAttribute("lsEmployee", employees);
+        return "template_employee_admin";
+    }
 
 
 }

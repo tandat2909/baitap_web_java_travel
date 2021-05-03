@@ -53,7 +53,9 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
         <put-attribute name="title" value="Booking" />
         <put-attribute name="content" value="/WEB-INF/pages/TrangChu/booking.jsp" />
     </definition>
+
    <!-- template admin-->
+
     <definition name="adminLayout"
                 template="/WEB-INF/layout/Admin/admin.jsp">
         <put-attribute name="title" value="" />
@@ -77,6 +79,11 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
     <definition name="template_tour_admin" extends="adminLayout">
         <put-attribute name="title" value="Quản lý Tour"/>
         <put-attribute name="adminContent" value="/WEB-INF/pages/Admin/Tour.jsp"/>
+    </definition>
+
+    <definition name ="template_employee_admin" extends="adminLayout">
+        <put-attribute name="title" value="Quản lý nhân viên"/>
+        <put-attribute name="adminContent" value="/WEB-INF/pages/Admin/employee.jsp"/>
     </definition>
 
     <definition name="updateCustomer" extends="adminLayout">

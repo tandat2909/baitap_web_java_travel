@@ -72,6 +72,7 @@
                         <li><a href="people.html">People cards</a></li>
                     </ul>
                 </li>
+                <li><a href="${pageContext.request.contextPath}/admin/employees"><i class="fa fa-table"></i> <span>Danh sách nhân viên</span></a></li>
                 <li><a href="${pageContext.request.contextPath}/admin/customers"><i class="fa fa-table"></i> <span>Danh sách khách hàng</span></a></li>
                 <li><a href="${pageContext.request.contextPath}/admin/tours"><i class="fa fa-table"></i> <span>Danh sách tour</span></a></li>
                 <li><a href="forms.html"><i class="fa fa-file-text"></i> <span>Forms</span></a></li>
