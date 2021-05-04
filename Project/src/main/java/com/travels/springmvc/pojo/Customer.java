@@ -188,7 +188,6 @@ public class Customer implements Serializable {
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", image='" + image + '\'' +
                 ", gender='" + gender + '\'' +
-
                 '}';
     }
 }

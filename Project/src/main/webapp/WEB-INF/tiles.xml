@@ -86,9 +86,19 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
         <put-attribute name="adminContent" value="/WEB-INF/pages/Admin/employee.jsp"/>
     </definition>
 
+    <definition name ="template_news_admin" extends="adminLayout">
+        <put-attribute name="title" value="Quản lý tin tức"/>
+        <put-attribute name="adminContent" value="/WEB-INF/pages/Admin/News.jsp"/>
+    </definition>
+
     <definition name="updateCustomer" extends="adminLayout">
         <put-attribute name="title" value="update Customer"/>
         <put-attribute name="adminContent" value="/WEB-INF/pages/Admin/updateCustomer.jsp"/>
+    </definition>
+
+    <definition name="updateEmployee" extends="adminLayout">
+        <put-attribute name="title" value="update Employee"/>
+        <put-attribute name="adminContent" value="/WEB-INF/pages/Admin/updateEmployee.jsp"/>
     </definition>
 
     <definition name="updateTour" extends="adminLayout">
@@ -110,4 +120,11 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
         <put-attribute name="content"
                        value="/WEB-INF/pages/TrangChu/search.jsp" />
     </definition>
+
+    <!-- Edit News-->
+    <definition name ="editNews" extends="adminLayout">
+        <put-attribute name="title" value="Quản lý tin tức"/>
+        <put-attribute name="adminContent" value="/WEB-INF/pages/Admin/editNews.jsp"/>
+    </definition>
+
 </tiles-definitions>

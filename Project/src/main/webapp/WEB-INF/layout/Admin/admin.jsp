@@ -72,10 +72,19 @@
                         <li><a href="people.html">People cards</a></li>
                     </ul>
                 </li>
-                <li><a href="${pageContext.request.contextPath}/admin/employees"><i class="fa fa-table"></i> <span>Danh sách nhân viên</span></a></li>
-                <li><a href="${pageContext.request.contextPath}/admin/customers"><i class="fa fa-table"></i> <span>Danh sách khách hàng</span></a></li>
-                <li><a href="${pageContext.request.contextPath}/admin/tours"><i class="fa fa-table"></i> <span>Danh sách tour</span></a></li>
-                <li><a href="forms.html"><i class="fa fa-file-text"></i> <span>Forms</span></a></li>
+
+                <li class="menu-list">
+                    <a href="#"><i class="fa fa-table"></i>
+                        <span>Các bảng thông tin <i class="lnr lnr-chevron-right"></i></span></a>
+                    <ul class="sub-menu-list">
+                        <li><a href="${pageContext.request.contextPath}/admin/employees"><i class="fa fa-table"></i> <span>Danh sách nhân viên</span></a></li>
+                        <li><a href="${pageContext.request.contextPath}/admin/customers"><i class="fa fa-table"></i> <span>Danh sách khách hàng</span></a></li>
+                        <li><a href="${pageContext.request.contextPath}/admin/tours"><i class="fa fa-table"></i> <span>Danh sách tour</span></a></li>
+                    </ul>
+                </li>
+                <li><a href="${pageContext.request.contextPath}/admin/News"><i class="fa fa-newspaper-o"></i> <span>Tin tức</span></a></li>
+
+                </li>
             </ul>
             <!-- //sidebar nav end -->
             <!-- toggle button start -->

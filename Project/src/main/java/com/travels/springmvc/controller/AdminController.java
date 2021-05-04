@@ -33,6 +33,8 @@ public class AdminController {
     IAgesService agesService;
     @Autowired
     IEmployeesService employeesService;
+    @Autowired
+    INewsService newsService;
 
 
     @RequestMapping(value = {"","/index","/home"})
@@ -135,7 +137,43 @@ public class AdminController {
         model.addAttribute("lsEmployee", employees);
         return "template_employee_admin";
     }
+    @RequestMapping(value = {"/employee/update"})
+    public String updateEmployee(Model model, @RequestParam(value = "employeeId", required = false) String employeeId){
+        Employees employees = employeesService.getElementById(employeeId);
+        Account acc = employees.getAccount();
+        model.addAttribute("view", new InforAccount());
+        model.addAttribute("employee", employees);
+        model.addAttribute("account", acc);
+        return "updateEmployee";
+    }
 
+    @PostMapping(value = {"/employee/update"})
+    public String updateAndSaveEmployee(@ModelAttribute("view") InforAccount employee, @RequestParam(value = "employeeId", required = false) String employeeId){
+        Employees employees = employee.getEmployee();
+        Account acc = employeesService.getElementById(employeeId).getAccount();
+        acc.setUserName(employeesService.getElementById(employeeId).getAccount().getUserName());
+        employees.setAccount(acc);
+        employees.setEmployeeId(employeeId);
+        employeesService.update(employees);
+        accountService.update(acc);
+        System.err.println("==================");
+        System.err.println(employees);
+        System.err.println(acc);
+        System.err.println("==================");
 
+        return "redirect:/admin/employees";
+    }
+
+    @RequestMapping(value = {"/editNews"})
+    public String news(){
+        return "editNews";
+    }
+
+    @RequestMapping(value = "/News")
+    public String pageListNews(Model model){
+        List<News> news = newsService.getAll();
+        model.addAttribute("new", news);
+        return "template_news_admin";
+    }
 }
 

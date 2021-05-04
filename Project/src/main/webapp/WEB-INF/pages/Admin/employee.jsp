@@ -65,7 +65,7 @@
                                                 <div class="people-social mt-3">
                                                     <a href="tel:${i.phoneNumber}" class="facebook"><span class="fa fa-phone-square"></span></a>
                                                     <a href="mailto:${i.email}" title="Email" class="twitter"><span class="fa fa-envelope"></span></a>
-                                                    <button  style="border: none;background-color: white;"><a href="${pageContext.request.contextPath}/admin/customer/update?employeeId=${i.employeeId}" class="linkedin" title="chỉnh sửa"><i class="fa fa-edit"></i></a></button>
+                                                    <button  style="border: none;background-color: white;"><a href="${pageContext.request.contextPath}/admin/employee/update?employeeId=${i.employeeId}" class="linkedin" title="chỉnh sửa"><i class="fa fa-edit"></i></a></button>
                                                 </div>
                                                 <a href="#url" class="btn mt-4 profile-btn text-primary">View profile </a>
                                             </div>
