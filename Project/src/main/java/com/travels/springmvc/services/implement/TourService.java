@@ -1,5 +1,6 @@
 package com.travels.springmvc.services.implement;
 
+import com.travels.springmvc.modelView.TourView;
 import com.travels.springmvc.pojo.Province;
 import com.travels.springmvc.pojo.Tour;
 import com.travels.springmvc.respository.ITourRepository;
@@ -78,5 +79,9 @@ public class TourService extends GenericsService<Tour, String> implements ITourS
         return tourRepository.searchTourByPrice(fromPrice, toPrice);
     }
 
+
+    public void add(TourView tourView) throws Exception {
+        tourRepository.add(tourView);
+    }
 
 }

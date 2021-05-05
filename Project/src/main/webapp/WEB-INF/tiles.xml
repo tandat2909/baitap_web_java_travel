@@ -83,6 +83,10 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
         <put-attribute name="title" value="Chỉnh sửa"/>
         <put-attribute name="adminContent" value="/WEB-INF/pages/Admin/Edit.jsp"/>
     </definition>
+    <definition name="template_add_admin" extends="adminLayout">
+        <put-attribute name="title" value="thêm"/>
+        <put-attribute name="adminContent" value="/WEB-INF/pages/Admin/Add.jsp"/>
+    </definition>
 
 <!--    Login, SignUp-->
     <definition name="template_login" template="/WEB-INF/pages/login.jsp" >

@@ -10,7 +10,6 @@ import java.util.Objects;
 public class Bookingdetails implements Serializable {
 
     @Id
-    @GeneratedValue
     private String bookingId;
 
     private int seats;

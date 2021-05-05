@@ -30,8 +30,11 @@
     <!-- google fonts -->
     <link href="http://fonts.googleapis.com/css?family=Nunito:300,400,600,700,800,900&display=swap" rel="stylesheet">
     <link id = "uri" hidden href="${pageContext.request.contextPath}"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 </head>
 <body>
+<%--<script src="<c:url value="/admin/js/jquery-3.3.1.min.js"/>"></script>--%>
 
     <section>
     <!-- sidebar menu start -->
@@ -94,6 +97,9 @@
     <button onclick="topFunction()" id="movetop" class="bg-primary" title="Go to top">
         <span class="fa fa-angle-up"></span>
     </button>
+
+<%--<script src="<c:url value="/admin/js/jquery-1.10.2.min.js"/>"></script>--%>
+
     <script>
         // When the user scrolls down 20px from the top of the document, show the button
         window.onscroll = function () {
@@ -117,17 +123,16 @@
     <!-- /move top -->
 
 
-    <script src="<c:url value="/admin/js/jquery-3.3.1.min.js"/>"></script>
-    <script src="<c:url value="/admin/js/jquery-1.10.2.min.js"/>"></script>
+
 
     <!-- chart js -->
-    <script src="<c:url value="/admin/js/Chart.min.js"/>"></script>
-    <script src="<c:url value="/admin/js/utils.js"/>"></script>
+<%--    <script src="<c:url value="/admin/js/Chart.min.js"/>"></script>--%>
+<%--    <script src="<c:url value="/admin/js/utils.js"/>"></script>--%>
     <!-- //chart js -->
 
     <!-- Different scripts of charts.  Ex.Barchart, Linechart -->
-    <script src="<c:url value="/admin/js/bar.js"/>"></script>
-    <script src="<c:url value="/admin/js/linechart.js"/>"></script>
+<%--    <script src="<c:url value="/admin/js/bar.js"/>"></script>--%>
+<%--    <script src="<c:url value="/admin/js/linechart.js"/>"></script>--%>
     <!-- //Different scripts of charts.  Ex.Barchart, Linechart -->
 
 

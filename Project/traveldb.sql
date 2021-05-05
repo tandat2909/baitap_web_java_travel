@@ -128,6 +128,37 @@ LOCK TABLES `bookingdetails` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `contents`
+--
+
+DROP TABLE IF EXISTS `contents`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `contents` (
+                            `contentID` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+                            `Date` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+                            `content` blob NOT NULL,
+                            `tourID` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+                            `landMarkID` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+                            PRIMARY KEY (`contentID`),
+                            KEY `fk_content_tours_idx` (`tourID`),
+                            KEY `fk_content_landMarks_idx` (`landMarkID`),
+                            CONSTRAINT `fk_content_landMarks` FOREIGN KEY (`landMarkID`) REFERENCES `landmarks` (`landMarkID`),
+                            CONSTRAINT `fk_content_tours` FOREIGN KEY (`tourID`) REFERENCES `tour` (`tourID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `contents`
+--
+
+LOCK TABLES `contents` WRITE;
+/*!40000 ALTER TABLE `contents` DISABLE KEYS */;
+INSERT INTO `contents` VALUES ('73cdb4a0-bdc3-42c1-99bc-765dd90dd567','2021-05-08 00:00:00',_binary '123<br /><br />123<br />1<br />3<br />1','8946c154-f504-4c38-924a-44b6e1298148','123123'),('99441de1-ccc9-4788-a220-23b47b79cd9e','2021-05-06 00:00:00',_binary '123123<br />12<br />3<br />13<br />123','8946c154-f504-4c38-924a-44b6e1298148','123123'),('d2931cc9-e729-431b-8a2d-45e689e62f02','2021-05-07 00:00:00',_binary '123<br />123<br />1<br />23<br />13','8946c154-f504-4c38-924a-44b6e1298148','123123'),('f4216ed9-4e80-462a-8576-2b7425f101db','2021-05-07 00:00:00',_binary '12312312312312313<br />12<br />3<br />13<br />1<br />31','922f94cb-c8df-4962-9fac-5db175756926','123123');
+/*!40000 ALTER TABLE `contents` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `customer`
 --
 
@@ -140,11 +171,11 @@ CREATE TABLE `customer` (
                             `lastName` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
                             `email` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
                             `birthDay` date NOT NULL,
-                            `CCID` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+                            `CCID` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
                             `phoneNumber` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
                             `accountID` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-                            `image` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-                            `gender` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+                            `image` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+                            `gender` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
                             PRIMARY KEY (`customerID`),
                             UNIQUE KEY `accountID_UNIQUE` (`accountID`),
                             KEY `fk_customer_account_idx` (`accountID`),
@@ -206,8 +237,8 @@ CREATE TABLE `employees` (
                              `phoneNumber` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
                              `address` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
                              `accountID` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-                             `image` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-                             `gender` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+                             `image` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+                             `gender` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
                              PRIMARY KEY (`employeeID`,`accountID`),
                              UNIQUE KEY `accountID_UNIQUE` (`accountID`),
                              KEY `fk_employees_account1_idx` (`accountID`),
@@ -338,8 +369,8 @@ DROP TABLE IF EXISTS `sysconfig`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `sysconfig` (
-                             `key` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-                             `value` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+                             `key` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+                             `value` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
                              PRIMARY KEY (`key`),
                              UNIQUE KEY `key_UNIQUE` (`key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -363,7 +394,7 @@ DROP TABLE IF EXISTS `ticket`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `ticket` (
-                          `ticketID` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+                          `ticketID` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
                           `bookingID` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
                           `customerID` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
                           `ageID` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
@@ -401,6 +432,7 @@ CREATE TABLE `tour` (
                         `startDay` datetime NOT NULL,
                         `maxseats` int NOT NULL DEFAULT '1' COMMENT 'số người đi tối đa trong 1 tour',
                         `content` longblob NOT NULL,
+                        `endDay` datetime NOT NULL,
                         PRIMARY KEY (`tourID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='thông tin tour -- seats người đi trong 1 tour -- startday ngày giời tour bắt đầu';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -411,7 +443,7 @@ CREATE TABLE `tour` (
 
 LOCK TABLES `tour` WRITE;
 /*!40000 ALTER TABLE `tour` DISABLE KEYS */;
-INSERT INTO `tour` VALUES ('234','Đà Lạt','Xe Máy',666666666,'2021-04-15 09:56:43',5,_binary '23232342342sdcsvsdvsdvsdsdfvdvsdvsdvsvsvsvsv'),('6ab9fbdb-5f89-4a8d-bfbe-51cbce28ae91','Hà nội - thành phố hồ chí minh 2 ngày 3 đêm','Xe hơi',444422423,'2021-04-23 01:07:24',5,_binary 'hà nội ngày 12 -3 -23'),('8ebb7419-0687-4cca-8185-0289a84d813d','Hqưeqweqweqwe- thành phố hồ chí minh 2 ngày 3 đêm','Xe hơi',333333333,'2021-04-24 01:07:24',5,_binary 'hà nội ngày 12 -3 -23'),('9013ca49-6579-4292-8d8c-f07132259bb6','Hà nội - thành phố hồ chí minh 2 ngày 3 đêm','Xe hơi',1233333334,'1970-01-04 01:07:24',5,_binary 'hà nội ngày 12 -3 -23'),('9d0bd27f-94b6-4afb-b612-d9e2b462f235','Hà nội - thành phố hồ chí minh 2 ngày 3 đêm','Xe hơi',2342424248,'1970-01-04 01:07:24',5,_binary 'hà nội ngày 12 -3 -23');
+INSERT INTO `tour` VALUES ('234','Đà Lạt','Xe Máy',666666666,'2021-04-15 09:56:43',5,_binary '23232342342sdcsvsdvsdvsdsdfvdvsdvsdvsvsvsvsv','0000-00-00 00:00:00'),('6ab9fbdb-5f89-4a8d-bfbe-51cbce28ae91','Hà nội - thành phố hồ chí minh 2 ngày 3 đêm','Xe hơi',444422423,'2021-04-23 01:07:24',5,_binary 'hà nội ngày 12 -3 -23','0000-00-00 00:00:00'),('8946c154-f504-4c38-924a-44b6e1298148','123222',NULL,123,'2021-05-05 00:00:00',1,_binary '123123<br />12<br />3<br />13<br />123','2021-05-07 00:00:00'),('8ebb7419-0687-4cca-8185-0289a84d813d','Hqưeqweqweqwe- thành phố hồ chí minh 2 ngày 3 đêm','Xe hơi',333333333,'2021-04-24 01:07:24',5,_binary 'hà nội ngày 12 -3 -23','0000-00-00 00:00:00'),('9013ca49-6579-4292-8d8c-f07132259bb6','Hà nội - thành phố hồ chí minh 2 ngày 3 đêm','Xe hơi',1233333334,'1970-01-04 01:07:24',5,_binary 'hà nội ngày 12 -3 -23','0000-00-00 00:00:00'),('922f94cb-c8df-4962-9fac-5db175756926','123d',NULL,213,'2021-05-06 00:00:00',1,_binary '12312312312312313<br />12<br />3<br />13<br />1<br />31','2021-05-06 00:00:00'),('9d0bd27f-94b6-4afb-b612-d9e2b462f235','Hà nội - thành phố hồ chí minh 2 ngày 3 đêm','Xe hơi',2342424248,'1970-01-04 01:07:24',5,_binary 'hà nội ngày 12 -3 -23','0000-00-00 00:00:00');
 /*!40000 ALTER TABLE `tour` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -439,7 +471,7 @@ CREATE TABLE `tourprices` (
 
 LOCK TABLES `tourprices` WRITE;
 /*!40000 ALTER TABLE `tourprices` DISABLE KEYS */;
-INSERT INTO `tourprices` VALUES ('31c75b0d-ec1c-4c39-9caf-5f2e90e7f492','234',234234),('bdee5279-4601-484c-8fce-e8f5781deda3','234',234234),('c71fb358-c195-4bc4-9e45-004fd8a5ffd2','234',4234),('f53d20c2-7f20-4fad-bab6-76847d102ef9','234',234234);
+INSERT INTO `tourprices` VALUES ('31c75b0d-ec1c-4c39-9caf-5f2e90e7f492','234',234234),('31c75b0d-ec1c-4c39-9caf-5f2e90e7f492','8946c154-f504-4c38-924a-44b6e1298148',123123123),('31c75b0d-ec1c-4c39-9caf-5f2e90e7f492','922f94cb-c8df-4962-9fac-5db175756926',123),('bdee5279-4601-484c-8fce-e8f5781deda3','234',234234),('bdee5279-4601-484c-8fce-e8f5781deda3','8946c154-f504-4c38-924a-44b6e1298148',12123123),('bdee5279-4601-484c-8fce-e8f5781deda3','922f94cb-c8df-4962-9fac-5db175756926',123),('c71fb358-c195-4bc4-9e45-004fd8a5ffd2','234',4234),('c71fb358-c195-4bc4-9e45-004fd8a5ffd2','8946c154-f504-4c38-924a-44b6e1298148',123123),('c71fb358-c195-4bc4-9e45-004fd8a5ffd2','922f94cb-c8df-4962-9fac-5db175756926',123),('f53d20c2-7f20-4fad-bab6-76847d102ef9','234',234234),('f53d20c2-7f20-4fad-bab6-76847d102ef9','8946c154-f504-4c38-924a-44b6e1298148',123),('f53d20c2-7f20-4fad-bab6-76847d102ef9','922f94cb-c8df-4962-9fac-5db175756926',213);
 /*!40000 ALTER TABLE `tourprices` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -525,4 +557,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-04-26  1:33:20
+-- Dump completed on 2021-05-05 13:00:30

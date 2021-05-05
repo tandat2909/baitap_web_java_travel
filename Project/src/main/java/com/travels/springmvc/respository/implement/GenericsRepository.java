@@ -17,6 +17,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -110,6 +111,13 @@ abstract class GenericsRepository<T, K extends Serializable> implements IGeneric
             }
         }
         currentSession().save(obj);
+    }
+
+    @Override
+    public void saveAll(Collection<T> listObject) {
+        if(listObject !=null){
+            listObject.forEach(this::save);
+        }
     }
 
     @Transactional(propagation = Propagation.REQUIRED)

@@ -1,6 +1,7 @@
 package com.travels.springmvc.services.implement;
 
 import com.travels.springmvc.pojo.Tour;
+import com.travels.springmvc.respository.Enum.EAges;
 import com.travels.springmvc.services.ILandMarkService;
 import com.travels.springmvc.services.IProvinceService;
 import com.travels.springmvc.services.ITourService;
@@ -54,6 +55,7 @@ class TourServiceTest {
     }
     @Test
     void update() {
+        System.out.println(EAges.getId(EAges.NGUOILON));
     }
     @Test
     void getAll() {

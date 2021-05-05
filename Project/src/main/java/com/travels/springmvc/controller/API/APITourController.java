@@ -1,5 +1,6 @@
 package com.travels.springmvc.controller.API;
 
+import com.travels.springmvc.modelView.TourView;
 import com.travels.springmvc.services.ITourService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,5 +18,12 @@ public class APITourController {
         System.err.println("id tour: "+tourid);
         System.err.println("===================================");
         tourService.remove(tourService.getElementById(tourid));
+
     }
+
+
+
+
+
+
 }

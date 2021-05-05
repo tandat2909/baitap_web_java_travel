@@ -1,6 +1,7 @@
 package com.travels.config;
 
 import com.travels.springmvc.modelView.InforAccount;
+import com.travels.springmvc.modelView.TourView;
 import com.travels.springmvc.pojo.Account;
 import com.travels.springmvc.pojo.Customer;
 import com.travels.springmvc.pojo.Employees;
@@ -39,6 +40,9 @@ public class InitializerClass {
     public Customer customer() {
         return new Customer();
     }
-
+    @Bean
+    public TourView tourView(){
+        return new TourView();
+    }
 
 }

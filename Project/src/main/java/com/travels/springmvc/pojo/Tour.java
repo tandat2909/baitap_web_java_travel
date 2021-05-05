@@ -5,11 +5,7 @@ package com.travels.springmvc.pojo;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "tour")
@@ -22,6 +18,7 @@ public class Tour implements Serializable {
     private BigDecimal price;
     private Date startDay;
     private int maxseats;
+    private Date endDay;
 
     @Column(name = "content")
     private String content;
@@ -30,6 +27,8 @@ public class Tour implements Serializable {
     @OneToMany(mappedBy = "tour")
     private Collection<Bookingdetails> bookingdetails;
 
+    @OneToMany(mappedBy = "tour")
+    private List<Contents> contents;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
@@ -150,6 +149,14 @@ public class Tour implements Serializable {
         this.tourprices = tourprices;
     }
 
+    public Date getEndDay() {
+        return endDay;
+    }
+
+    public void setEndDay(Date endDay) {
+        this.endDay = endDay;
+    }
+
     @Override
     public String toString() {
         return "Tour{" +
@@ -159,6 +166,7 @@ public class Tour implements Serializable {
                 ", price=" + price +
                 ", startDay=" + startDay +
                 ", maxseats=" + maxseats +
+                ", endDay=" + endDay+
                 '}';
     }
 }

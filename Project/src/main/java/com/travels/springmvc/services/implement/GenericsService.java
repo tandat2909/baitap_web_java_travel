@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.Id;
 import java.lang.reflect.Field;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -47,12 +48,17 @@ public abstract class GenericsService<T, K> implements IGenericsService<T, K> {
 
         genericsRepository.save(obj,GeneratedValueId);
     }
+
     @Override
     public void add(T obj){
 
         genericsRepository.save(obj);
     }
 
+    @Override
+    public void addAll(Collection<T> obj) {
+        genericsRepository.saveAll(obj);
+    }
 
     @Override
     public T getElementById(K key) {

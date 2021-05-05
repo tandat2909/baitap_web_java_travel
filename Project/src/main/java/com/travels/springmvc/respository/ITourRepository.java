@@ -1,5 +1,6 @@
 package com.travels.springmvc.respository;
 
+import com.travels.springmvc.modelView.TourView;
 import com.travels.springmvc.pojo.Province;
 import com.travels.springmvc.pojo.Tour;
 
@@ -17,4 +18,6 @@ public interface ITourRepository extends IGenericsRepository<Tour,String> {
     List<Tour> searchTourByDate(Date date) throws Exception;
     List<Tour> searchTourByDate(Date fromDate,Date toDate);
     List<Tour> searchTourByPrice(BigDecimal fromPrice, BigDecimal toPrice) throws Exception;
+
+    void add(TourView tourView) throws Exception;
 }
