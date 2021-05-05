@@ -85,7 +85,7 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/updateTour")
-    public String updateTour(Model model, @RequestParam(value = "tourId", required = false) String tourId){
+    public String updateTour(Model model, @RequestParam(value = "tourid", required = false) String tourId){
         Tour tour = tourService.getElementById(tourId);
         List<Tourprices> prices = (List<Tourprices>) tour.getTourprices();
         System.err.println("======================");
@@ -109,14 +109,14 @@ public class AdminController {
 //            String[] a = tuoi[i].split(":");
 //            String price = a[0];
 //            String ageId = a[1];
-//            Tourprices tprices = (Tourprices) priceId.stream().filter(p -> p.getAges().getAgeId().equals(ageId)).findFirst();
+//            Tourprices tprices = priceId.stream().filter(p -> p.getAges().getAgeId().equals(ageId)).findFirst().orElse(null);
 //            System.err.println("================");
 //            System.err.println(tprices);
 //            System.err.println("================");
 //            tprices.setPrice(Integer.parseInt(price));
 //            tourPricesService.update(tprices);
 //            }
-
+//
         for (Tourprices t: priceId) {
             for (String tu: tuoi) {
                 String[] a = tu.split(":");
@@ -165,15 +165,42 @@ public class AdminController {
     }
 
     @RequestMapping(value = {"/editNews"})
-    public String news(){
+    public String editNews(Model model, @RequestParam(value = "newId", required = false) String newId){
+        News news = newsService.getElementById(newId);
+        Employees employees = news.getEmployee();
+        System.err.println("===============");
+        System.err.println("===============");
+        model.addAttribute("neww", news);
+        model.addAttribute("employeeNews", employees);
         return "editNews";
+    }
+
+    @PostMapping(value={"/editNews"})
+    public String updateAndSave(@RequestParam(value = "title", required = false) String title,
+                                @RequestParam(value = "newId", required = false) String newId,
+                                @RequestParam(value = "short_description", required = false) String short_description,
+                                @RequestParam(value = "long_description", required = false) String long_description){
+        News news = newsService.getElementById(newId);
+        news.setTitle(title);
+        news.setLong_description(long_description);
+        news.setShort_description(short_description);
+        newsService.update(news);
+        System.err.println("==============");
+        System.err.println(news);
+        System.err.println("==============");
+
+        return "redirect:/admin/News";
     }
 
     @RequestMapping(value = "/News")
     public String pageListNews(Model model){
         List<News> news = newsService.getAll();
-        model.addAttribute("new", news);
+        System.err.println("=================");
+        System.err.println(news);
+        System.err.println("=================");
+        model.addAttribute("news", news);
         return "template_news_admin";
     }
 }
+
 

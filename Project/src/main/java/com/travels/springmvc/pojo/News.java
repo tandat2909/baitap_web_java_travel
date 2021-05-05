@@ -15,7 +15,8 @@ public class News implements Serializable {
     @GeneratedValueUUID
     private String newId;
 
-    private String tilte;
+    @Column(name = "title")
+    private String title;
 
     @Column(name = "date_submitted")
     private Date date_submitted;
@@ -30,7 +31,7 @@ public class News implements Serializable {
     private String long_description;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "employeeID" ,nullable = false)
+    @JoinColumn(name = "employeesID" ,nullable = false)
     private Employees employee;
 
     public String getNewId() {
@@ -47,6 +48,22 @@ public class News implements Serializable {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Date getDate_submitted() {
+        return date_submitted;
+    }
+
+    public void setDate_submitted(Date date_submitted) {
+        this.date_submitted = date_submitted;
     }
 
     public String getShort_description() {
@@ -77,25 +94,14 @@ public class News implements Serializable {
         return "News{" +
                 "newId='" + newId + '\'' +
                 ", image='" + image + '\'' +
+                ", title='" + title + '\'' +
+                ", date_submitted='" + date_submitted + '\'' +
+                ", employeeId='" + employee + '\'' +
                 ", short_description='" + short_description + '\'' +
                 ", long_description='" + long_description + '\'' +
                 '}';
     }
 
 
-    public String getTilte() {
-        return tilte;
-    }
 
-    public void setTilte(String tilte) {
-        this.tilte = tilte;
-    }
-
-    public Date getDate_submitted() {
-        return date_submitted;
-    }
-
-    public void setDate_submitted(Date date_submitted) {
-        this.date_submitted = date_submitted;
-    }
 }

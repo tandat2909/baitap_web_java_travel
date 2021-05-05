@@ -48,6 +48,22 @@ function deleteEmployee(employeeId) {
     }
 }
 
+function deleteNew(newId) {
+    if (confirm("Bạn chắc chắn xóa không?") == true) {
+        fetch(`${uri}/api/New?newId=${newId}`, {
+            method: "delete",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(res => {
+            if (res.status == 200) {
+                $("#" + newId).remove();
+            } else
+                alert("Something wrong!!!");
+        })
+    }
+}
+
 let openLink= (link,option)=>{
     window.open(link,option)
 }
@@ -65,6 +81,10 @@ $("#aaaa").click(function(){
     }
     $("#prices").val(data);
     });
+});
+var edit ='';
+$(document).ready(function(){
+    edit = CKEDITOR.replace("editor");
 });
 
 

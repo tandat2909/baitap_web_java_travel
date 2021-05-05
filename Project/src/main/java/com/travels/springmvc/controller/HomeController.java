@@ -133,7 +133,10 @@ public class HomeController {
         return "Contact";
     }
 
-
+    @RequestMapping("/News")
+    public String News(Model model) {
+        return "news";
+    }
 
 }
 

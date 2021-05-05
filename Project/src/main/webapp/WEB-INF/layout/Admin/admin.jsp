@@ -31,6 +31,7 @@
     <!-- google fonts -->
     <link href="http://fonts.googleapis.com/css?family=Nunito:300,400,600,700,800,900&display=swap" rel="stylesheet">
     <link id = "uri" hidden href="${pageContext.request.contextPath}"/>
+
 </head>
 <body>
 
@@ -173,7 +174,7 @@
     <script>
         $(window).load(function () {
             // Animate loader off screen
-            $(".se-pre-con").fadeOut("slow");;
+            $(".se-pre-con").fadeOut("slow");
         });
     </script>
     <!--// loading-gif Js -->
@@ -182,5 +183,5 @@
     <script src="<c:url value="/admin/js/bootstrap.min.js"/>"></script>
     <script src="<c:url value="/admin/js/main.js"/>"></script>
 </body>
-
+    <script type="text/javascript" src="<c:url value="/ckeditorg/ckeditor/ckeditor.js"/>"></script>
 </html>

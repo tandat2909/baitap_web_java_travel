@@ -30,37 +30,18 @@ public class WebApplicationContextConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        /*registry.addResourceHandler("/css/**")
-                .addResourceLocations("/resources/css/");
-        registry.addResourceHandler("/img/**")
-                .addResourceLocations("/resources/images/");
-        registry.addResourceHandler("/js/**")
-                .addResourceLocations("/resources/js/");*/
+
         //login
         registry.addResourceHandler("/login/**")
                 .addResourceLocations("/resources/admin/");
-
-        //Trang chu
-//        registry.addResourceHandler("/TrangChu/css/**")
-//                .addResourceLocations("/resources/TrangChu/css/");
-//        registry.addResourceHandler("/TrangChu/img/**")
-//                .addResourceLocations("/resources/TrangChu/images/");
-//        registry.addResourceHandler("/TrangChu/fonts/**")
-//                .addResourceLocations("/resources/TrangChu/fonts/");
 
         registry.addResourceHandler("/TrangChu/**").addResourceLocations("/resources/TrangChu/");
         registry.addResourceHandler("/pages/**").addResourceLocations("/WEB-INF/pages/");
         //admin
         registry.addResourceHandler("/admin/**").addResourceLocations("/resources/admin/");
 
-//        registry.addResourceHandler("/admin/css/**")
-//                .addResourceLocations("/resources/admin/css/");
-//        registry.addResourceHandler("/admin/fonts/**")
-//                .addResourceLocations("/resources/admin/fonts/");
-//        registry.addResourceHandler("/admin/images/**")
-//                .addResourceLocations("/resources/admin/images/");
-//        registry.addResourceHandler("/admin/js/**")
-//                .addResourceLocations("/resources/admin/js/");
+        //Ckeditor
+        registry.addResourceHandler("/ckeditorg/**").addResourceLocations("/resources/CKEditor/");
 
     }
 

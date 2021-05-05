@@ -25,14 +25,14 @@
             <!-- forms 2 -->
             <div class="card card_border py-2 mb-4">
                 <div class="card-body">
-                    <form action="" method="post" id="view">
+                    <form action="" method="post" >
                         <!-- tiêu đề-->
                         <div class="form-row">
                             <div class="form-group col-md-2">
-                                <label class="input__label">First Name</label>
+                                <label class="input__label">Tiêu đề</label>
                             </div>
                             <div class="form-group col-md-10">
-                                <input type="text" class="form-control input-style" value="${Customer.lastName}" name="lastName"
+                                <input type="text" class="form-control input-style" value="${neww.title}" name="title"
                                 >
                             </div>
                         </div>
@@ -42,8 +42,8 @@
                                 <label class="input__label">Hình ảnh</label>
                             </div>
                             <div class="form-group col-md-10 custom-file">
-                                <input type="file" class="custom-file-input" id="validatedCustomFile" required>
-                                <label class="custom-file-label">Choose file...</label>
+<%--                                <input type="file" class="custom-file-input" id="validatedCustomFile" required>--%>
+<%--                                <label class="custom-file-label">Choose file...</label>--%>
                             </div>
                         </div>
 
@@ -53,7 +53,7 @@
                                 <label class="input__label">Mô tả ngắn</label>
                             </div>
                             <div class="form-group col-md-10">
-                                <input type="text" class="form-control input-style" value="${Customer.lastName}" name="lastName"
+                                <input type="text" class="form-control input-style" value="${neww.short_description}" name="short_description"
                                 >
                             </div>
                         </div>
@@ -63,7 +63,7 @@
                                 <label class="input__label">Nội dung</label>
                             </div>
                             <div class="form-group col-md-10">
-                                <textarea class="form-control input-style" style="height: 300px;" value="${Customer.lastName}" name="lastName"></textarea>
+                                <textarea class="form-control input-style" style="height: 300px;" value="${neww.long_description}" id="editor" name="long_description">${neww.long_description}</textarea>
                             </div>
                         </div>
 
@@ -73,12 +73,11 @@
             </div>
             <!-- //forms 2 -->
 
-
         </section>
         <!-- //forms -->
         </section>
         <!-- //forms  -->
-
     </div>
     <!-- //content -->
 
+</div>

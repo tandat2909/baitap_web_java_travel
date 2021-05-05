@@ -54,6 +54,11 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
         <put-attribute name="content" value="/WEB-INF/pages/TrangChu/booking.jsp" />
     </definition>
 
+    <definition name="news" extends="baseLayout" >
+        <put-attribute name="title" value="tin tức"/>
+        <put-attribute name="content" value="/WEB-INF/pages/TrangChu/news.jsp"/>
+    </definition>
+
    <!-- template admin-->
 
     <definition name="adminLayout"
