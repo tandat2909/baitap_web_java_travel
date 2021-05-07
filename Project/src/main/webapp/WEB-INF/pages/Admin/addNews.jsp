@@ -1,11 +1,4 @@
-<%--<jsp:useBean id="neww" scope="request" type="com.travels.springmvc.pojo.News"/>--%>
-<%--
-  Created by IntelliJ IDEA.
-  User: Admin
-  Date: 04-05-2021
-  Time: 3:14 PM
-  To change this template use File | Settings | File Templates.
---%>
+<jsp:useBean id="addNew" scope="request" type="com.travels.springmvc.pojo.News"/>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="../LibraryJSP.jsp"%>
 <div class="main-content">
@@ -26,14 +19,14 @@
             <!-- forms 2 -->
             <div class="card card_border py-2 mb-4">
                 <div class="card-body">
-                    <form  method="post" id="neww" enctype="multipart/form-data">
+                    <form  method="post" id="addNew" enctype="multipart/form-data" action="${pageContext.request.contextPath}/admin/addNews">
                         <!-- tiêu đề-->
                         <div class="form-row">
                             <div class="form-group col-md-2">
                                 <label class="input__label">Tiêu đề</label>
                             </div>
                             <div class="form-group col-md-10">
-                                <input type="text" class="form-control input-style" value="${neww.title}" name="title"
+                                <input type="text" class="form-control input-style"  name="title"
                                 >
                             </div>
                         </div>
@@ -43,7 +36,7 @@
                                 <label class="input__label">Hình ảnh</label>
                             </div>
                             <div class="form-group col-md-10 custom-file">
-                                <input type="file" class="custom-file-input" id="imgjs" onchange="setNameFile()" value="${neww.image}" name="img" required>
+                                <input type="file" class="custom-file-input" id="imgjs" onchange="setNameFile()"  name="img" required>
                                 <label class="custom-file-label" id="imgname" onchange="setNameFile()" >Choose file...</label>
                             </div>
                         </div>
@@ -54,7 +47,7 @@
                                 <label class="input__label">Mô tả ngắn</label>
                             </div>
                             <div class="form-group col-md-10">
-                                <input type="text" class="form-control input-style" value="${neww.short_description}" name="short_description"
+                                <input type="text" class="form-control input-style"  name="short_description"
                                 >
                             </div>
                         </div>
@@ -64,10 +57,9 @@
                                 <label class="input__label">Nội dung</label>
                             </div>
                             <div class="form-group col-md-10">
-                                <textarea class="form-control input-style" style="height: 500px;"  id="ck" name="long_description">${neww.long_description}</textarea>
+                                <textarea class="form-control input-style" style="height: 500px;"  id="ck" name="long_description">${addNew.long_description}</textarea>
                             </div>
                         </div>
-
                         <button type="submit" class="btn btn-primary btn-style mt-4">save</button>
                     </form>
                 </div>
@@ -82,3 +74,4 @@
     <!-- //content -->
 
 </div>
+

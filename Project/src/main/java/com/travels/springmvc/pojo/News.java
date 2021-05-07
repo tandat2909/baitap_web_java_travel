@@ -1,6 +1,7 @@
 package com.travels.springmvc.pojo;
 
 import com.travels.springmvc.Annotation.GeneratedValueUUID;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -24,6 +25,12 @@ public class News implements Serializable {
     @Column(name = "image")
     private String image;
 
+    @Column(name = "employeesID")
+    private String employeeId;
+
+    @Transient
+    private MultipartFile img;
+
     @Column(name = "short_description")
     private String short_description;
 
@@ -31,8 +38,16 @@ public class News implements Serializable {
     private String long_description;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "employeesID" ,nullable = false)
+    @JoinColumn(name = "employeesID" ,nullable = false,updatable = false,insertable = false)
     private Employees employee;
+
+    public String getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(String employeeId) {
+        this.employeeId = employeeId;
+    }
 
     public String getNewId() {
         return newId;
@@ -103,5 +118,11 @@ public class News implements Serializable {
     }
 
 
+    public MultipartFile getImg() {
+        return img;
+    }
 
+    public void setImg(MultipartFile img) {
+        this.img = img;
+    }
 }

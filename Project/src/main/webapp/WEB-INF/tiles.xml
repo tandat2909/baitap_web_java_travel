@@ -59,6 +59,11 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
         <put-attribute name="content" value="/WEB-INF/pages/TrangChu/news.jsp"/>
     </definition>
 
+    <definition name="newdetail" extends="baseLayout" >
+        <put-attribute name="title" value="chi tiết tin tức"/>
+        <put-attribute name="content" value="/WEB-INF/pages/TrangChu/newdetails.jsp"/>
+    </definition>
+
    <!-- template admin-->
 
     <definition name="adminLayout"
@@ -130,6 +135,11 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
     <definition name ="editNews" extends="adminLayout">
         <put-attribute name="title" value="Quản lý tin tức"/>
         <put-attribute name="adminContent" value="/WEB-INF/pages/Admin/editNews.jsp"/>
+    </definition>
+
+    <definition name ="addNews" extends="adminLayout">
+        <put-attribute name="title" value="Thêm tin tức"/>
+        <put-attribute name="adminContent" value="/WEB-INF/pages/Admin/addNews.jsp"/>
     </definition>
 
 </tiles-definitions>

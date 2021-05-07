@@ -90,7 +90,7 @@ abstract class GenericsRepository<T, K extends Serializable> implements IGeneric
 
     @Override
     @Transactional
-    public void save(T obj) {
+    public void save(T obj) throws Exception {
 
         if (obj == null) {
             throw new NullArgumentException("GenericsRepository -f save -p obj is null");

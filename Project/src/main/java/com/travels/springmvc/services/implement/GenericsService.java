@@ -48,7 +48,7 @@ public abstract class GenericsService<T, K> implements IGenericsService<T, K> {
         genericsRepository.save(obj,GeneratedValueId);
     }
     @Override
-    public void add(T obj){
+    public void add(T obj) throws Exception {
 
         genericsRepository.save(obj);
     }

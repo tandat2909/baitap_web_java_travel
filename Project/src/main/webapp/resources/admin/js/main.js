@@ -84,7 +84,14 @@ $("#aaaa").click(function(){
 });
 var edit ='';
 $(document).ready(function(){
-    edit = CKEDITOR.replace("editor");
+    edit = CKEDITOR.replace('ck');
+    // CKEDITOR.instances.ck.updateElement();
+    // alert( document.getElementById( 'ck' ).value );
 });
 
+let setNameFile = ()=>{
+
+        $("#imgname").text($("#imgjs").val())
+
+}
 

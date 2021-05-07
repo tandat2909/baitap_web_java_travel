@@ -4,9 +4,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.travels.springmvc.modelView.SearchView;
 import com.travels.springmvc.pojo.Landmarks;
+import com.travels.springmvc.pojo.News;
 import com.travels.springmvc.pojo.Province;
 import com.travels.springmvc.pojo.Tour;
 import com.travels.springmvc.services.ILandMarkService;
+import com.travels.springmvc.services.INewsService;
 import com.travels.springmvc.services.IProvinceService;
 import com.travels.springmvc.services.ITourService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +35,8 @@ public class HomeController {
     ILandMarkService landMarkService;
     @Autowired
     IProvinceService provinceService;
+    @Autowired
+    INewsService newsService;
 
     @RequestMapping(value = {"/", "/home"})
     public String TrangChu(Model model) {
@@ -133,9 +137,21 @@ public class HomeController {
         return "Contact";
     }
 
-    @RequestMapping("/News")
-    public String News(Model model) {
+    @RequestMapping(value = "/News")
+    public String pageListNews(Model model){
+        List<News> news = newsService.getAll();
+        System.err.println("=================");
+        System.err.println(news);
+        System.err.println("=================");
+        model.addAttribute("news", news);
         return "news";
+    }
+
+    @RequestMapping(value = "/newsdetails")
+    public String newsDetails(Model model, @RequestParam(value = "newId", required = false) String newId){
+        News news = newsService.getElementById(newId);
+        model.addAttribute("news", news);
+        return "newdetail";
     }
 
 }

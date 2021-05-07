@@ -13,6 +13,16 @@ public class EmployeesService extends GenericsService<Employees, String> impleme
     IEmployeesRepository employeesRepository;
 
     @Override
+    public Employees getEmployeesByUserName(String userName) {
+        return null;
+    }
+
+    @Override
+    public Employees getEmployeesByAccountId(String accountId) {
+        return null;
+    }
+
+    @Override
     public void removeEmployee(String employeeId) throws Exception{
         employeesRepository.removeEmployee(employeeId);
     }

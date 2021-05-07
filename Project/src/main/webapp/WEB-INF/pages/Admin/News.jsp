@@ -71,13 +71,14 @@
             <!-- Card Columns -->
 
             <div class="card card_border mb-5">
-                <div class="cards__heading">
-                    <h3>Card Columns</h3>
+                <div class="cards__heading" >
+                    <h3>Danh sách tin tức</h3>
+                    <button type="button" class="btn btn-primary btn-style" style="float: right;" ><a href="${pageContext.request.contextPath}/admin/addNews" style="color: white;">Thêm tin tức</a></button>
                 </div>
                 <div class="card-body">
-                    <div class="card-columns">
+                    <div class="card-columns" >
                         <c:forEach items="${news}" var="n">
-                            <div class="card destinations-grids">
+                            <div class="card destinations-grids" id="${n.newId}">
                                 <div class="destinations-info">
                                     <div class="caption mb-lg-3">
                                         <a href="${pageContext.request.contextPath}/admin/new?newId=${n.newId}"
@@ -88,7 +89,10 @@
                                         <a href="javascript:" onclick="deleteNew('${n.newId}')"><i class="fa fa-trash"></i> Xóa</a>
                                     </div>
                                 </div>
-                                <img src="<c:url value="/admin/images/cart.jpg"/>" class="card-img-top" alt="...">
+                                <div>
+                                    <img src="<c:url value="${n.image}"/>" class="card-img-top" alt="...">
+                                </div>
+
                                 <div class="card-body">
                                     <h4 class="card-title">${n.title}</h4>
                                     <p class="card-text mb-4">Mô tả ngắn: ${n.short_description}</p>
