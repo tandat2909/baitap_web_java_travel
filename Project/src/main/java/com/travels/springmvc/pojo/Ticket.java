@@ -19,10 +19,20 @@ public class Ticket implements Serializable {
     private Customer customer;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ageID", nullable = false)
+    @JoinColumn(name = "ageID", nullable = false,insertable = false,updatable = false)
     private Ages ages;
 
+    @Column(name = "ageID")
+    private String agesId;
 
+
+    public String getAgesId() {
+        return agesId;
+    }
+
+    public void setAgesId(String agesId) {
+        this.agesId = agesId;
+    }
 
     public String getTicketId() {
         return ticketId;
@@ -43,12 +53,12 @@ public class Ticket implements Serializable {
     }
 
 
-    public Customer getCustomerByCustomerId() {
+    public Customer getCustomer() {
         return customer;
     }
 
-    public void setCustomerByCustomerId(Customer customerByCustomerId) {
-        this.customer = customerByCustomerId;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
 

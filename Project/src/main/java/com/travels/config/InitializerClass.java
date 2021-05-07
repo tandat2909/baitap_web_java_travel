@@ -1,5 +1,6 @@
 package com.travels.config;
 
+import com.travels.springmvc.modelView.BookingView;
 import com.travels.springmvc.modelView.InforAccount;
 import com.travels.springmvc.modelView.TourView;
 import com.travels.springmvc.pojo.Account;
@@ -22,6 +23,9 @@ public class InitializerClass {
     public InforAccount inforAccount() {
         return new InforAccount();
     }
+
+    @Bean
+    public BookingView bookingView(){return new BookingView();}
 
     @Bean
     public Account account() {

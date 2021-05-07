@@ -87,6 +87,14 @@ public class Landmarks implements Serializable{
         this.tours = tours;
     }
 
+    public List<Contents> getContents() {
+        return contents;
+    }
+
+    public void setContents(List<Contents> contents) {
+        this.contents = contents;
+    }
+
     @Override
     public String toString() {
         return "Landmarks{" +

@@ -1,4 +1,5 @@
-<%--<jsp:useBean id="tour" scope="request" type="com.travels.springmvc.pojo.Tour"/>--%>
+<jsp:useBean id="bookinview" scope="request" type="com.travels.springmvc.modelView.BookingView"/>
+<jsp:useBean id="tour" scope="request" type="com.travels.springmvc.pojo.Tour"/>
 <%--
   Created by IntelliJ IDEA.
   User: Admin
@@ -7,13 +8,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="form"
-           uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="spring"
-           uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix="tiles"
-           uri="http://tiles.apache.org/tags-tiles" %>
+<%@ include file="../LibraryJSP.jsp"%>
 <!-- banner -->
 <section class="banner_inner" id="home">
     <div class="banner_inner_overlay">
@@ -90,8 +85,8 @@
 
                         <div class="row">
                             <div class="col-lg-6">Mã Tour:${tour.tourId}</div>
-                            <div class="col-lg-6">Số chỗ còn nhận: ${tour.maxseats}</div>
-                            <div class="col-lg-6">Ngày khởi hành: ${tour.startDay}</div>
+                            <div class="col-lg-6 " id="max-seats" data-seat = "${tour.maxseats}">Số chỗ còn nhận: ${tour.maxseats}</div>
+                            <div class="col-lg-6">Ngày khởi hành: <fmt:formatDate value="${tour.startDay}" pattern="dd-MM-yyyy"/> </div>
                             <div class="col-lg-6"><a href="/ngaykhaccuatour">Ngày Khác</a></div>
                             <div class="col-lg-6">Số ngày: 1</div>
                             <div class="col-lg-6">Giá: ${tour.price}</div>
@@ -102,7 +97,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <h4 class="text-center  text-capitalize mt-3 mb-3" style="color: red">Giá Tour Cơ Bản</h4>
-                            <table class="table table-bordered">
+                            <table class="table table-bordered" id = "table_price">
                                 <thead>
                                 <tr class="tb-title">
                                     <td>Người lớn (Từ 12 tuổi trở lên)</td>
@@ -115,14 +110,15 @@
                                 <tbody>
                                 <tr>
                                     <c:forEach var="price" items="${tour.tourprices}">
-                                        <td data-title="${price.ages.name}">${price.price}<span> đ</span></td>
+                                        <td data-title="${price.ages.name}" id="${price.ageId}" data-price="${price.price}" >${price.price}<span> đ</span></td>
                                     </c:forEach>
                                 </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
-                    <div class="row">
+                    <form id="bookinginfo" action="">
+                        <div class="row">
                         <div class="col-lg-12">
                             <form id ="fm_dienthongtin">
                                 <div class="col-xs-12 mg-bot30">
@@ -134,23 +130,28 @@
                                             <div class="form-group">
                                                 <label>Họ (<span class="star">*</span>)</label>
                                                 <div>
-                                                    <input class="form-control" id="contact_name" name="contact_name"
+                                                    <input class="form-control" id="contact_name" name="${bookinview.customer.firstName}"
+
                                                            required="required" type="text" value="">
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label>Tên (<span class="star">*</span>)</label>
                                                 <div>
-                                                    <input class="form-control" id="ten" name=""
-                                                           onchange="CheckMobile();"
-                                                           onkeypress="return funCheckInt(event)" required="required"
-                                                           type="text" value="">
+                                                    <input class="form-control"
+
+                                                           id="ten"
+                                                           name="${bookinview.customer.lastName}"
+                                                           required="required"
+                                                           type="text"
+                                                           value="">
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label>Địa chỉ</label>
                                                 <div>
-                                                    <input class="form-control" id="address" name="address" type="text"
+                                                    <input class="form-control" id="address" name="" type="text"
+
                                                            value="">
                                                 </div>
                                             </div>
@@ -159,15 +160,15 @@
                                             <div class="form-group">
                                                 <label>Email (<span class="star">*</span>)</label>
                                                 <div>
-                                                    <input class="form-control" id="email" name="email"
+                                                    <input class="form-control" id="email" name="${bookinview.customer.email}"
                                                            required="required" type="email" value="">
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label>Điện thoại</label>
                                                 <div>
-                                                    <input class="form-control" id="phone" name="phone"
-                                                           onkeypress="return funCheckInt(event)" type="text" value="">
+                                                    <input class="form-control" id="phone" name="${bookinview.customer.phoneNumber}"
+                                                            type="text" value="">
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -175,40 +176,37 @@
                                                     <div class="col-md-3 col-sm-2 col-xs-6 mg-bot15">
                                                         <label>Người lớn</label>
                                                         <div>
-                                                            <input class="form-control" id="adult"  name="adult"
 
-                                                                   onchange="addDanhSachKhachHang(this)" type="text"
+                                                            <input class="form-control" id="adult"  name="adult"
+                                                                   data-toggle="tooltip" data-placement="bottom" title="Từ 12 tuổi trở lên"
+                                                                   onchange="totalGuests(this)" min="0" type="number"
                                                                    value="1">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-2 col-sm-2 col-xs-6  mg-bot15">
                                                         <label>Trẻ em</label>
                                                         <div>
-                                                            <input class="form-control" id="children11"
-                                                                   name="children11"
-
-
-                                                                   value="0">
+                                                            <input class="form-control"  type="number" id="children11" name="children11" value="0"
+                                                                   data-toggle="tooltip" data-placement = "bottom" title="Từ 5 tuổi đến dưới 12 tuổi"
+                                                                   onchange="totalGuests(this)" min="0"
+                                                                   >
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-2 col-sm-3 col-xs-6  mg-bot15">
+                                                    <div class="col-md-2 col-sm-3 col-xs-6 mg-bot15">
                                                         <label>Trẻ nhỏ</label>
                                                         <div>
-                                                            <input class="form-control" id="children" name="children"
-                                                                   onblur="javascript:clear_text(this);"
-                                                                   onclick="javascript:show_text('Từ 2 tuổi đến dưới 5 tuổi',this)"
-                                                                   onkeypress="return funCheckInt(event)" type="text"
+                                                            <input class="form-control" type="number" id="children" name="children" data-toggle="tooltip" data-placement="bottom"
+                                                                   title = "Từ 2 tuổi đến dưới 5 tuổi"
+                                                                   onchange="totalGuests(this)" min="0"
                                                                    value="0">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-2 col-sm-2 col-xs-6 mg-bot15">
                                                         <label>Em bé</label>
                                                         <div>
-                                                            <input class="form-control" id="small_children"
-                                                                   name="small_children"
-                                                                   onblur="javascript:clear_text(this);"
-                                                                   onclick="javascript:show_text('Dưới 2 tuổi',this)"
-                                                                   onkeypress="return funCheckInt(event)" type="text"
+                                                            <input class="form-control" type="number" id="small_children" name="small_children"
+                                                                   data-toggle="tooltip" data-placement="bottom" title="Dưới 2 tuổi"
+                                                                   onchange="totalGuests(this)" min="0"
                                                                    value="0">
                                                         </div>
                                                     </div>
@@ -344,297 +342,7 @@
                                             </div>
                                         </div>
 
-                                        <%--<script>
-                                            //$(function () {
-                                            ChangeChoose();
 
-                                            //});
-
-                                            function CheckDOBByPersonkind() {
-                                                var totalMember = parseInt('1');
-                                                var end_date = new Date('2021', parseInt('5') - 1, '5', '15', '30', '0');
-
-                                                for (var i = 0; i < totalMember; i++) {
-                                                    var dateofbirth = $("#dateofbirth" + i).val();
-                                                    var personkind = $("#personkind" + i).val();//(0 : NguoiLon,1:TreNho, 2:EmBe, 3: TreEm)
-
-                                                    var ldob = dateofbirth.split("/");
-
-                                                    if (personkind == 0)//Nguoi lon >= 12 tuổi
-                                                    {
-                                                        //var year = parseInt(ldob[2]) + 12;
-                                                        var dobNew = new Date(parseInt(ldob[2]) + 12 + "-" + ldob[1] + "-" + ldob[0]);//Them 12 nam so với chọn ngày sinh
-
-                                                        if (dobNew > end_date) {
-                                                            alert('Ngày sinh & loại khách không tương ứng. Quý khách cần kiểm tra lại ngày sinh( so với ngày về của tour : ' + '05/05/21 15:30:00'.toString() + ')')
-                                                            $("#dateofbirth" + i).val("");
-                                                            $("#dateofbirth" + i).focus();
-
-                                                            $("#dob" + i).val("");
-                                                            $("#dob" + i + "_day").val("");
-                                                            $("#dob" + i + "_month").val("");
-                                                            $("#dob" + i + "_year").val("");
-                                                        }
-                                                    }
-                                                    if (personkind == 3)//5 tuoi <= Tre em < 12 tuoi
-                                                    {
-                                                        var dobMin = new Date(parseInt(ldob[2]) + 5 + "-" + ldob[1] + "-" + ldob[0]);
-                                                        var dobMax = new Date(parseInt(ldob[2]) + 12 + "-" + ldob[1] + "-" + ldob[0]);
-
-                                                        if (dobMin > end_date || dobMax < end_date) {
-                                                            alert('Ngày sinh & loại khách không tương ứng. Quý khách cần kiểm tra lại ngày sinh( so với ngày về của tour : ' + '05/05/21 15:30:00'.toString() + ')')
-                                                            $("#dateofbirth" + i).val("");
-                                                            $("#dateofbirth" + i).focus();
-
-                                                            $("#dob" + i).val("");
-                                                            $("#dob" + i + "_day").val("");
-                                                            $("#dob" + i + "_month").val("");
-                                                            $("#dob" + i + "_year").val("");
-                                                        }
-                                                    }
-                                                    if (personkind == 1)//2 tuoi <= Tre Nhỏ < 5 tuoi
-                                                    {
-                                                        var dobMin = new Date(parseInt(ldob[2]) + 2 + "-" + ldob[1] + "-" + ldob[0]);
-                                                        var dobMax = new Date(parseInt(ldob[2]) + 5 + "-" + ldob[1] + "-" + ldob[0]);
-
-                                                        if (dobMin > end_date || dobMax < end_date) {
-                                                            alert('Ngày sinh & loại khách không tương ứng. Quý khách cần kiểm tra lại ngày sinh( so với ngày về của tour : ' + '05/05/21 15:30:00'.toString() + ')')
-                                                            $("#dateofbirth" + i).val("");
-                                                            $("#dateofbirth" + i).focus();
-
-                                                            $("#dob" + i).val("");
-                                                            $("#dob" + i + "_day").val("");
-                                                            $("#dob" + i + "_month").val("");
-                                                            $("#dob" + i + "_year").val("");
-                                                        }
-                                                    }
-                                                    if (personkind == 2)//Em bé <= 2 tuoi
-                                                    {
-                                                        var dobNew = new Date(parseInt(ldob[2]) + 2 + "-" + ldob[1] + "-" + ldob[0]);
-
-                                                        if (dobNew < end_date) {
-                                                            alert('Ngày sinh & loại khách không tương ứng. Quý khách cần kiểm tra lại ngày sinh( so với ngày về của tour : ' + '05/05/21 15:30:00'.toString() + ')')
-                                                            $("#dateofbirth" + i).val("");
-                                                            $("#dateofbirth" + i).focus();
-
-                                                            $("#dob" + i).val("");
-                                                            $("#dob" + i + "_day").val("");
-                                                            $("#dob" + i + "_month").val("");
-                                                            $("#dob" + i + "_year").val("");
-                                                        }
-                                                    }
-                                                }
-                                            }
-
-                                            function ChangeChoose() {
-                                                var CurrencyName = 'đ';
-                                                var Rate = '1';
-
-                                                var totalMember = parseInt('1');
-                                                var totalAdult = parseInt('1');
-
-                                                var totalPrice = 0;
-                                                for (var i = 0; i < totalMember; i++) {
-                                                    var amount_vn = 0;
-                                                    var loaikhachnoidia = $("#loaikhachnoidia" + i).val();//(0 : VietNam, 1: Viet kiều, 2: Nuoc ngoài)
-                                                    var personkind = $("#personkind" + i).val();//(0 : NguoiLon,1:TreNho, 2:EmBe, 3: TreEm)
-                                                    var loaiphuthuphongdon = $("#loaiphuthuphongdon" + i).val();//(0:Không, 1 : Có)
-
-                                                    $("#loaikhachnoidia" + i).change(function () {
-                                                        loaikhachnoidia = $("#loaikhachnoidia" + i).val();
-                                                    });
-
-                                                    $("#personkind" + i).change(function () {
-                                                        personkind = $("#personkind" + i).val();
-                                                    });
-
-                                                    $("#loaiphuthuphongdon" + i).change(function () {
-                                                        loaiphuthuphongdon = $("#loaiphuthuphongdon" + i).val();
-                                                    });
-
-                                                    if (totalAdult == 1) {
-                                                        $("#loaiphuthuphongdon0").val('1');
-
-                                                    }
-                                                    loaiphuthuphongdon = $("#loaiphuthuphongdon" + i).val();
-
-                                                    amount_vn = CalPrice(loaikhachnoidia, personkind, loaiphuthuphongdon);
-
-                                                    //$("#price" + i).val(formatnumber(amount_vn.toString()) + ' đ');
-                                                    $("#price" + i).val((amount_vn / Rate).toFixed(0) + ' ' + CurrencyName);
-                                                    $("#spanprice" + i).text(formatnumber((amount_vn / Rate).toFixed(0)) + ' ' + CurrencyName);
-
-                                                    totalPrice += amount_vn;
-                                                }
-
-                                                //$("#TotalPrice").val(formatnumber(totalPrice.toString()) + ' đ');
-                                                $("#TotalPrice").val((totalPrice / Rate).toFixed(0) + ' ' + CurrencyName);
-                                                $("#spanTotalPrice").text(formatnumber((totalPrice / Rate).toFixed(0)) + ' ' + CurrencyName);
-                                            }
-
-                                            function CalPrice(loaikhachnoidia, personkind, loaiphuthuphongdon) {
-
-                                                //Gia tri cua tour
-
-                                                //NguoiLon
-                                                var adult_price = parseFloat('2090000');//VietNam
-                                                var adult_o_price = parseFloat('2090000');//VietKieu
-                                                var adult_f_price = parseFloat('2090000');//NuocNgoai
-
-                                                //TreNho
-                                                var child_price = parseFloat('1000000');//VietNam
-                                                var child_o_price = parseFloat('1000000');//VietKieu
-                                                var child_f_price = parseFloat('1000000');//NuocNgoai
-
-                                                //EmBe
-                                                var child_price5 = parseFloat('220000');//VietNam
-                                                var pretty_o_price = parseFloat('220000');//VietKieu
-                                                var pretty_f_price = parseFloat('220000');//NuocNgoai
-
-                                                //TreEm
-                                                var child_price11 = parseFloat('1492500');//VietNam
-                                                var child_o_price11 = parseFloat('1492500');//VietKieu
-                                                var child_f_price11 = parseFloat('1492500');//NuocNgoai
-
-                                                var phuthuphongdon_vn = parseFloat('600000');//VietNam
-                                                var phuthuphongdon_vk = parseFloat('600000');//VietKieu
-                                                var phuthuphongdon_nn = parseFloat('600000');//NuocNgoai
-
-                                                //Gia tri cua tour
-
-                                                var amount_vn = 0;
-
-                                                /* Xử lý tính giá tiền theo độ tuổi,loại khách, phụ thu phòng đơn */
-                                                switch (personkind)//Độ tuổi
-                                                {
-                                                    case "0"://Người lớn
-                                                        switch (loaikhachnoidia)//loại khách
-                                                        {
-                                                            case "0":
-                                                                amount_vn = adult_price;//VietNam
-                                                                if (loaiphuthuphongdon == 1)//Phụ thu phòng đơn
-                                                                {
-                                                                    amount_vn = amount_vn + phuthuphongdon_vn;
-                                                                }
-                                                                break;
-                                                            case "1":
-                                                                amount_vn = adult_o_price;//Vietkieu
-                                                                if (loaiphuthuphongdon == 1)//Phụ thu phòng đơn
-                                                                {
-                                                                    amount_vn = amount_vn + phuthuphongdon_vk;
-                                                                }
-                                                                break;
-                                                            case "2":
-                                                                amount_vn = adult_f_price;//Nuocngoai
-                                                                if (loaiphuthuphongdon == 1)//Phụ thu phòng đơn
-                                                                {
-                                                                    amount_vn = amount_vn + phuthuphongdon_nn;
-                                                                }
-                                                                break;
-                                                        }
-                                                        break;
-
-                                                    case "1"://Trẻ nhỏ
-                                                        switch (loaikhachnoidia)//loại khách
-                                                        {
-                                                            case "0":
-                                                                amount_vn = child_price;//VietNam
-                                                                if (loaiphuthuphongdon == 1)//Phụ thu phòng đơn
-                                                                {
-                                                                    amount_vn = amount_vn + phuthuphongdon_vn;
-                                                                }
-                                                                break;
-                                                            case "1":
-                                                                amount_vn = child_o_price;//Vietkieu
-                                                                if (loaiphuthuphongdon == 1)//Phụ thu phòng đơn
-                                                                {
-                                                                    amount_vn = amount_vn + phuthuphongdon_vk;
-                                                                }
-                                                                break;
-                                                            case "2":
-                                                                amount_vn = child_f_price;//Nuocngoai
-                                                                if (loaiphuthuphongdon == 1)//Phụ thu phòng đơn
-                                                                {
-                                                                    amount_vn = amount_vn + phuthuphongdon_nn;
-                                                                }
-                                                                break;
-                                                        }
-                                                        break;
-
-                                                    case "2"://Em bé
-                                                        switch (loaikhachnoidia)//loại khách
-                                                        {
-                                                            case "0":
-                                                                amount_vn = child_price5;//VietNam
-                                                                if (loaiphuthuphongdon == 1)//Phụ thu phòng đơn
-                                                                {
-                                                                    amount_vn = amount_vn + phuthuphongdon_vn;
-                                                                }
-                                                                break;
-                                                            case "1":
-                                                                amount_vn = pretty_o_price;//Vietkieu
-                                                                if (loaiphuthuphongdon == 1)//Phụ thu phòng đơn
-                                                                {
-                                                                    amount_vn = amount_vn + phuthuphongdon_vk;
-                                                                }
-                                                                break;
-                                                            case "2":
-                                                                amount_vn = pretty_f_price;//Nuocngoai
-                                                                if (loaiphuthuphongdon == 1)//Phụ thu phòng đơn
-                                                                {
-                                                                    amount_vn = amount_vn + phuthuphongdon_nn;
-                                                                }
-                                                                break;
-                                                        }
-                                                        break;
-
-                                                    case "3"://Trẻ em
-                                                        switch (loaikhachnoidia)//loại khách
-                                                        {
-                                                            case "0":
-                                                                amount_vn = child_price11;//VietNam
-                                                                if (loaiphuthuphongdon == 1)//Phụ thu phòng đơn
-                                                                {
-                                                                    amount_vn = amount_vn + phuthuphongdon_vn;
-                                                                }
-                                                                break;
-                                                            case "1":
-                                                                amount_vn = child_o_price11;//Vietkieu
-                                                                if (loaiphuthuphongdon == 1)//Phụ thu phòng đơn
-                                                                {
-                                                                    amount_vn = amount_vn + phuthuphongdon_vk;
-                                                                }
-                                                                break;
-                                                            case "2":
-                                                                amount_vn = child_f_price11;//Nuocngoai
-                                                                if (loaiphuthuphongdon == 1)//Phụ thu phòng đơn
-                                                                {
-                                                                    amount_vn = amount_vn + phuthuphongdon_nn;
-                                                                }
-                                                                break;
-                                                        }
-                                                        break;
-                                                }
-                                                /* End Xử lý tính giá tiền theo độ tuổi,loại khách, phụ thu phòng đơn */
-                                                return amount_vn;
-                                            }
-
-                                            var datenow = '20/04/2021';
-                                            var datemin = '20/04/1951';
-                                            var yearmin = '1951';
-                                            var yearmax = '2021';
-                                            $(".date").datepicker({
-                                                dateFormat: 'dd/mm/yy',
-                                                defaultDate: '01/01/1980',
-                                                inline: true,
-                                                changeMonth: true,
-                                                changeYear: true,
-                                                maxDate: datenow,
-                                                minDate: datemin,
-                                                yearRange: yearmin + ':' + yearmax
-                                            });
-
-                                        </script>--%>
                                     </div>
                                 </div>
                                 <div id="ThongTinKhach" style="display: none;">
@@ -652,21 +360,21 @@
                                 <div class="col-xs-12 mg-bot30">
                                     <div class="frame-payment ">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" value="" name="thanhtoan"
+                                            <input class="form-check-input" type="radio" value="" name="typethanhtoan"
                                                    id="defaultCheck1">
                                             <label class="form-check-label" for="defaultCheck1">
                                                 Tiền mặt
                                             </label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="thanhtoan" value=""
+                                            <input class="form-check-input" type="radio" name="typethanhtoan" value=""
                                                    id="defaultCheck2">
                                             <label class="form-check-label" for="defaultCheck2">
                                                 Thanh toán bằng momo
                                             </label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="thanhtoan" value=""
+                                            <input class="form-check-input" type="radio" name="typethanhtoan" value=""
                                                    id="defaultCheck3">
                                             <label class="form-check-label" for="defaultCheck3">
                                                 Thanh toán bằng blockchain
@@ -683,14 +391,12 @@
                                 </div>
                             </form>
 
-                            <form action="${pageContext.request.contextPath}/addBooking" method="post" modelAttribute="bookingvalue" id="fm_bookingvalue">
-                                <input type="hidden" value="" path="bookingvalue" id="bookingvalue"/>
-                            </form>
-
+                           <input type="hidden" id="ticket" name ="tickets">
 
                         </div>
 
                     </div>
+                    </form>
                 </div>
 
             </div>

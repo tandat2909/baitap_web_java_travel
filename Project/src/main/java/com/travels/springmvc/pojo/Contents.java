@@ -16,7 +16,7 @@ public class Contents implements Serializable {
     private String content;
 
     @Column(name = "Date")
-    Date date;
+    private Date date;
 
     @Column(name = "tourID")
     @Basic

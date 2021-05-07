@@ -28,22 +28,32 @@
         <section class="">
             <form class="was-validated"  id="tournew" method="post" onsubmit="summitFormAddTour()" action="" >
                 <div class="row form-row">
-                    <div class="col-3">
+                    <div class="col-6">
                         <label>Tên Tour</label>
                         <input name="tour.tourName" required class="form-control" type="text"/>
                     </div>
+                    <div class="col-2">
+                        <label>Số chỗ tối đa</label>
+                        <input name="tour.maxseats" required pattern="[0-9]{1,20}" value="1"  class="form-control" type="number"/>
+                    </div>
+                    <div class="col-4">
+                        <label>Phương tiện</label>
+                        <select name="tour.vehicle" class="form-control custom-select input-style">
+                            <option disabled selected>Chọn phương tiện</option>
+                            <option value="Máy Bay">Máy Bay</option>
+                            <option value="Xe Hơi">Xe Hơi</option>
+                        </select>
+                    </div>
+
                     <div class="col-3">
-                        <label>Ngày di </label>
+                        <label>Ngày đi </label>
                         <input name="ngaydi" required class="form-control" type="date" id="ngaydi"/>
                     </div>
                     <div class="col-3">
                         <label>Ngày về </label>
                         <input name="ngayve" required class="form-control" type="date" id="ngayve"/>
                     </div>
-                    <div class="col-3">
-                        <label>Số chỗ tối đa</label>
-                        <input name="tour.maxseats" required pattern="[0-9]{1,20}" value="1"  class="form-control" type="number"/>
-                    </div>
+
                     <div class="col-12">
                         <label>Giá Tour</label>
                         <table class="table table-bordered" style="" >

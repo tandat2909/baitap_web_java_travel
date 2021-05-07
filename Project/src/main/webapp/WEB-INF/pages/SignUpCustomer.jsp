@@ -58,7 +58,7 @@
                         </div>
                         <div class="form-group">
                             <label for="username" class="input__label">User name</label>
-                            <input name="userName" value="${users.userName}" type="text" pattern="[a-zA-Z0-9]{5,}" class="form-control login_text_field_bg input-style" id="username" aria-describedby="emailHelp" placeholder="User name" required="" autofocus="" />
+                            <input name="userName" data-toggle="tooltip" data-placement="right" title="Tooltip on top" value="${users.userName}" type="text" pattern="[a-zA-Z0-9]{5,}" class="form-control login_text_field_bg input-style" id="username" aria-describedby="emailHelp" placeholder="User name" required="" autofocus="" />
                         </div>
                         <div class="form-group">
                             <label for="email" class="input__label">Email</label>
@@ -122,6 +122,8 @@
             $(this).removeAttr("pattern")
         else $(this).attr("pattern",'')
     })
-
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
 </script>
 </html>

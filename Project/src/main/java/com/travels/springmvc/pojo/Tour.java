@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "tour")
@@ -142,10 +143,13 @@ public class Tour implements Serializable {
 
 
     public Collection<Tourprices> getTourprices() {
+        if(tourprices != null)
+            tourprices = tourprices.stream().sorted(Comparator.comparing(Tourprices::getPrice)).collect(Collectors.toList());
         return tourprices;
     }
 
     public void setTourprices(Collection<Tourprices> tourprices) {
+
         this.tourprices = tourprices;
     }
 
@@ -155,6 +159,17 @@ public class Tour implements Serializable {
 
     public void setEndDay(Date endDay) {
         this.endDay = endDay;
+    }
+
+
+    public List<Contents> getContents() {
+        if(contents!= null)
+            contents = contents.stream().sorted(Comparator.comparing(Contents::getDate)).collect(Collectors.toList());
+        return contents;
+    }
+
+    public void setContents(List<Contents> contents) {
+        this.contents = contents;
     }
 
     @Override
