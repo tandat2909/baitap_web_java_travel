@@ -22,5 +22,10 @@
         <i>${news.short_description}</i>
         <div>${news.long_description}</div>
     </div>
+    <div class="container py-xl-5 py-lg-3">
+        <h4>Ý kiến</h4>
+        <textarea style="height: 100px; width: 100%;"></textarea>
+    </div>
 </section>
+
 

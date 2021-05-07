@@ -41,6 +41,9 @@ public class WebApplicationContextConfig implements WebMvcConfigurer {
         //admin
         registry.addResourceHandler("/admin/**").addResourceLocations("/resources/admin/");
 
+        //employee
+        registry.addResourceHandler("/employee/**").addResourceLocations("/resources/admin/");
+
         //Ckeditor
         registry.addResourceHandler("/ckeditorg/**").addResourceLocations("/resources/CKEditor/");
 

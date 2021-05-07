@@ -6,6 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "news")
@@ -25,8 +26,8 @@ public class News implements Serializable {
     @Column(name = "image")
     private String image;
 
-    @Column(name = "employeesID")
-    private String employeeId;
+    @Column(name = "accountID")
+    private String accountId;
 
     @Transient
     private MultipartFile img;
@@ -38,16 +39,13 @@ public class News implements Serializable {
     private String long_description;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "employeesID" ,nullable = false,updatable = false,insertable = false)
-    private Employees employee;
+    @JoinColumn(name = "accountID",insertable = false, updatable = false)
+    private Account account;
 
-    public String getEmployeeId() {
-        return employeeId;
-    }
+    @OneToMany(mappedBy = "news")
+    private List<Comment> comments;
 
-    public void setEmployeeId(String employeeId) {
-        this.employeeId = employeeId;
-    }
+
 
     public String getNewId() {
         return newId;
@@ -97,27 +95,6 @@ public class News implements Serializable {
         this.long_description = long_description;
     }
 
-    public Employees getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(Employees employee) {
-        this.employee = employee;
-    }
-    @Override
-    public String toString() {
-        return "News{" +
-                "newId='" + newId + '\'' +
-                ", image='" + image + '\'' +
-                ", title='" + title + '\'' +
-                ", date_submitted='" + date_submitted + '\'' +
-                ", employeeId='" + employee + '\'' +
-                ", short_description='" + short_description + '\'' +
-                ", long_description='" + long_description + '\'' +
-                '}';
-    }
-
-
     public MultipartFile getImg() {
         return img;
     }
@@ -125,4 +102,36 @@ public class News implements Serializable {
     public void setImg(MultipartFile img) {
         this.img = img;
     }
+
+    public String getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(String accountId) {
+        this.accountId = accountId;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
+    @Override
+    public String toString() {
+        return "News{" +
+                "newId='" + newId + '\'' +
+                ", image='" + image + '\'' +
+                ", title='" + title + '\'' +
+                ", date_submitted='" + date_submitted + '\'' +
+                ", accountId='" + accountId + '\'' +
+                ", short_description='" + short_description + '\'' +
+                ", long_description='" + long_description + '\'' +
+                '}';
+    }
+
+
+
 }

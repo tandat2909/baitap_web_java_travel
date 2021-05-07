@@ -10,6 +10,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -37,6 +38,13 @@ public class Account implements Serializable {
     private Role role;
     @OneToMany(mappedBy = "account")
     private Collection<Customer> customers;
+
+    @OneToMany(mappedBy = "account")
+    private List<News> news;
+
+    @OneToMany(mappedBy = "account")
+    private List<Comment> comments;
+
     @OneToMany(mappedBy = "account")
     private Collection<Employees> employees;
 
@@ -159,5 +167,21 @@ public class Account implements Serializable {
 
     public void setEmployees(Collection<Employees> employees) {
         this.employees = employees;
+    }
+
+    public List<News> getNews() {
+        return news;
+    }
+
+    public void setNews(List<News> news) {
+        this.news = news;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 }

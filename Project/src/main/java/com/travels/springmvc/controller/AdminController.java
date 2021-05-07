@@ -170,99 +170,9 @@ public class AdminController {
         return "redirect:/admin/employees";
     }
 
-    @RequestMapping(value = {"/editNews"})
-    public String editNews(Model model, @RequestParam(value = "newId", required = true) String newId) {
-        News news = newsService.getElementById(newId);
-        Employees employees = news.getEmployee();
-        System.err.println("===============");
-        System.err.println(news.getEmployeeId());
-        System.err.println("===============");
-        model.addAttribute("neww", news);
-        model.addAttribute("employeeNews", employees);
-        return "editNews";
-    }
-
-    @PostMapping(value = {"/editNews"})
-    public String updateAndSave(@ModelAttribute("neww") News news, HttpServletRequest request) {
-//        System.err.println("============dô=");
-//        System.err.println(news.getNewId());
-        News current = newsService.getElementById(news.getNewId());
-//        System.err.println(news.getEmployeeId());
-
-        MultipartFile img = news.getImg();
-        String rootDir = request.getSession()
-                .getServletContext().getRealPath("/");
-
-        if (img != null && !img.isEmpty()) {
-            try {
-
-                String nameImg = news.getTitle() + ".png";
-                img.transferTo(new File(rootDir + "resources/TrangChu/images/imgNews/"
-                        + nameImg));
-                current.setImage("/TrangChu/images/imgNews/" + nameImg);
-            } catch (IOException | IllegalStateException ex) {
-                System.err.println("=========lỗi======");
-                System.err.println(ex.getMessage());
-            }
-        }
-        current.setShort_description(news.getShort_description());
-        current.setLong_description(news.getLong_description());
-        current.setTitle(news.getTitle());
-//        System.err.println("==============");
-//        System.err.println("rootdri" + rootDir);
-//        System.err.println(news);
-//        System.err.println("==============");
-        newsService.update(current);
-
-        return "redirect:/admin/News";
-    }
 
 
-    @RequestMapping(value = "/News")
-    public String pageListNews(Model model) {
-        List<News> news = newsService.getAll();
-        System.err.println("=================");
-        System.err.println(news);
-        System.err.println("=================");
-        model.addAttribute("news", news);
-        return "template_news_admin";
-    }
 
-    @GetMapping(value = {"/addNews"})
-    public String addNew(Model model, HttpServletRequest request) {
-        News current = new News();
-        model.addAttribute("addNew", current);
-        return "addNews";
-    }
-
-    @PostMapping(value = {"/addNews"})
-    public String addNews(@ModelAttribute("addNew") News news, HttpServletRequest request) {
-
-        MultipartFile img = news.getImg();
-        Employees emp = employeesService.getEmployeesByUserName(request.getUserPrincipal().getName());
-
-        String rootDir = request.getSession()
-                .getServletContext().getRealPath("/");
-        if (img != null && !img.isEmpty()) {
-            try {
-                String nameImg = news.getTitle() + ".png";
-                img.transferTo(new File(rootDir + "resources/TrangChu/images/imgNews/"
-                        + nameImg));
-                news.setImage("/TrangChu/images/imgNews/" + nameImg);
-            } catch (IOException | IllegalStateException ex) {
-                System.err.println("=========lỗi======");
-                System.err.println(ex.getMessage());
-            }
-        }
-        if(emp != null)
-            news.setEmployeeId(emp.getEmployeeId());
-        try {
-            newsService.add(news);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return "redirect:/admin/News";
-    }
 }
 
 

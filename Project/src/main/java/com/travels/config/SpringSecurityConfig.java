@@ -45,10 +45,11 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/pay")
                 .access("hasAnyRole('"+ERole.ROLE_CUSTOMER.name()+"', '"+ERole.ROLE_ADMIN.name()+"')")
                 .antMatchers("/**/admin/**/")
-                .access("hasAnyRole('"+ERole.ROLE_ADMIN.name()+"', '"+ERole.ROLE_EMPLOYEE.name()+"')")
+                .access("hasAnyRole('"+ERole.ROLE_ADMIN.name()+"')")
                 //.antMatchers("/**/booking/**/")
                 //.access("hasAnyRole('"+ERole.ROLE_CUSTOMER.name()+"', '"+ERole.ROLE_ADMIN.name()+"')")
-                .antMatchers("/**/newsdetails").permitAll()
+                .antMatchers("/**/employee/**/")
+                .access("hasAnyRole('"+ERole.ROLE_EMPLOYEE.name()+"', '"+ERole.ROLE_ADMIN.name()+"')")
         ;
 
         http.csrf().disable();

@@ -38,8 +38,6 @@ public class Employees implements Serializable {
     @OneToMany(mappedBy = "employee")
     private Collection<Booking> bookings;
 
-    @OneToMany(mappedBy = "employee")
-    private Collection<News> news;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "accountID" , nullable = false,unique = true)
@@ -148,13 +146,6 @@ public class Employees implements Serializable {
         this.bookings = bookings;
     }
 
-    public Collection<News> getNews() {
-        return news;
-    }
-
-    public void setNews(Collection<News> news) {
-        this.news = news;
-    }
 
     public Account getAccount() {
         return account;
