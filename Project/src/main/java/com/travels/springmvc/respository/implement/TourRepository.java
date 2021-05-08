@@ -1,11 +1,10 @@
 package com.travels.springmvc.respository.implement;
 
+import com.travels.springmvc.modelView.TourView;
 import com.travels.springmvc.pojo.*;
-import com.travels.springmvc.respository.IBookingDetailRepository;
-import com.travels.springmvc.respository.ILandMarkRepository;
-import com.travels.springmvc.respository.IProvinceRepository;
-import com.travels.springmvc.respository.ITourRepository;
+import com.travels.springmvc.respository.*;
 
+import com.travels.springmvc.respository.Enum.EAges;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +13,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Transactional
 @Repository
@@ -24,7 +24,9 @@ public class TourRepository extends GenericsRepository<Tour, String> implements 
     @Autowired
     ILandMarkRepository landMarkRepository;
     @Autowired
-    IBookingDetailRepository bookingDetailRepository;
+    ITourPriceRepository tourPriceRepository;
+    @Autowired
+    IContentsRepository contentsRepository;
 
     @Override
     public List<Tour> searchTourByProvince(String provinceId) {
@@ -33,8 +35,13 @@ public class TourRepository extends GenericsRepository<Tour, String> implements 
     }
 
     @Override
-    public List<Tour> searchTourByProvince(Province province) {
+    public List<Tour> searchAll(String province, String landMark, BigDecimal fromPrice, BigDecimal toPrice, Date fromDate, Date toDate){
+        List<Tour> tours = currentSession().createSQLQuery("CALL searchTour(:province, :landMark, :fromPrice, :toPrice, :fromDate, :toDate)").addEntity(Tour.class).setParameter("province", province).setParameter("landMark", landMark).setParameter("fromPrice", fromPrice).setParameter("toPrice", toPrice).setParameter("fromDate", fromDate).setParameter("toDate", toDate).getResultList();
+        return tours;
+    }
 
+    @Override
+    public List<Tour> searchTourByProvince(Province province) {
         return searchTourByProvince(province.getProvinceId());
     }
 
@@ -101,26 +108,38 @@ public class TourRepository extends GenericsRepository<Tour, String> implements 
     }
 
     @Override
-    public void removeTour(String tourId)throws Exception{
+    public void add(TourView tourView) throws Exception {
+        try {
+            if (tourView == null) throw new Exception("Lỗi không thể thêm tour");
+            Tour tour = tourView.getTour();
+            List<Tourprices> tourprices = tourView.getTourprices();
+            List<Contents> contents = tourView.getListContens();
 
-        try{
-            Tour tour = getElementById(tourId);
-            if(tour == null){
-                throw new Exception("không có tour này");
-            }
-            List<Bookingdetails> book = (List<Bookingdetails>) tour.getBookingdetails();
+            tour.setTourId(UUID.randomUUID().toString());
+            tour.setContent(contents.get(0).getContent());
+            tourprices.forEach(i -> {
+                if (i.getAgeId().equals(EAges.getId(EAges.NGUOILON))) {
+                    tour.setPrice(i.getPrice());
+                }
+                i.setTourId(tour.getTourId());
+            });
 
-            if(book == null || book.size() < 1 || book.isEmpty()) {
-                currentSession().createSQLQuery("CALL deleteTourInDiaDiemDi(:tourId)").setParameter("tourId", tourId).executeUpdate();
-                currentSession().remove(getElementById(tourId));
-                return;
-            }
-            throw new Exception("Lỗi không xóa tour đã đặt");
-        } catch (Exception ex){
+            contents.forEach(i -> {
+                i.setContentId(UUID.randomUUID().toString());
+                i.setTourID(tour.getTourId());
+            });
+
+            save(tour);
+            tourPriceRepository.saveAll(tourprices);
+            contentsRepository.saveAll(contents);
+
+        } catch (Exception ex) {
             throw new Exception(ex.getMessage());
         }
 
     }
+
+
     @Override
     public void  addTour(Tour tour) throws Exception{
         try{
@@ -129,7 +148,7 @@ public class TourRepository extends GenericsRepository<Tour, String> implements 
                 throw new Exception("lỗi để trống tour");
             }
             else{
-                save(tour);
+                currentSession().save(tour);
             }
         } catch (Exception ex){
             throw new Exception(ex.getMessage());

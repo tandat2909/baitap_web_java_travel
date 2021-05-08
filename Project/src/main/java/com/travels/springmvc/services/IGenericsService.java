@@ -1,6 +1,7 @@
 package com.travels.springmvc.services;
 
 import java.lang.reflect.Field;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -21,8 +22,8 @@ public interface IGenericsService<T, K> {
      *  Khi đối tượng tạo mới đã gán id thì set value GeneratedValueId = False
      */
     void add(T obj,boolean GeneratedValueId);
-    void add(T obj);
-
+    void add(T obj) throws Exception;
+    void addAll(Collection<T> obj) throws Exception;
     T getElementById(K key);
     List<T> getElementsByKeyWordOnField(String kw, Field field);
     List<T> SearchKeyWordOnField(String kw, Field field) throws Exception;

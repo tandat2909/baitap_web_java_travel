@@ -5,11 +5,8 @@ package com.travels.springmvc.pojo;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "tour")
@@ -22,14 +19,17 @@ public class Tour implements Serializable {
     private BigDecimal price;
     private Date startDay;
     private int maxseats;
+    private Date endDay;
 
     @Column(name = "content")
     private String content;
 
 
     @OneToMany(mappedBy = "tour")
-    private Collection<Bookingdetails> bookingdetails;
+    private List<Booking> booking;
 
+    @OneToMany(mappedBy = "tour")
+    private List<Contents> contents;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
@@ -47,7 +47,7 @@ public class Tour implements Serializable {
         this.landmarkss = landmarkss;
     }
 
-    @OneToMany(mappedBy = "tour")
+    @OneToMany(mappedBy = "tour",cascade = CascadeType.ALL)
     private Collection<Tourprices> tourprices;
 
 
@@ -133,21 +133,42 @@ public class Tour implements Serializable {
     }
 
 
-    public Collection<Bookingdetails> getBookingdetails() {
-        return bookingdetails;
+    public List<Booking> getBooking() {
+        return booking;
     }
 
-    public void setBookingdetails(Collection<Bookingdetails> bookingdetails) {
-        this.bookingdetails = bookingdetails;
+    public void setBooking(List<Booking> booking) {
+        this.booking = booking;
     }
-
 
     public Collection<Tourprices> getTourprices() {
+        if(tourprices != null)
+            tourprices = tourprices.stream().sorted(Comparator.comparing(Tourprices::getPrice)).collect(Collectors.toList());
         return tourprices;
     }
 
     public void setTourprices(Collection<Tourprices> tourprices) {
+
         this.tourprices = tourprices;
+    }
+
+    public Date getEndDay() {
+        return endDay;
+    }
+
+    public void setEndDay(Date endDay) {
+        this.endDay = endDay;
+    }
+
+
+    public List<Contents> getContents() {
+        if(contents!= null)
+            contents = contents.stream().sorted(Comparator.comparing(Contents::getDate)).collect(Collectors.toList());
+        return contents;
+    }
+
+    public void setContents(List<Contents> contents) {
+        this.contents = contents;
     }
 
     @Override
@@ -159,6 +180,7 @@ public class Tour implements Serializable {
                 ", price=" + price +
                 ", startDay=" + startDay +
                 ", maxseats=" + maxseats +
+                ", endDay=" + endDay+
                 '}';
     }
 }

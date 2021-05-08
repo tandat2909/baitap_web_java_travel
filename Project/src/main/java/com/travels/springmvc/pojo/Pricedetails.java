@@ -2,40 +2,40 @@ package com.travels.springmvc.pojo;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity
 @Table(name = "pricedetails")
 public class Pricedetails implements Serializable {
     @Id
-    @Column(name = "bookingID", nullable = false, length = 100)
-    private String bookingId;
-    @Id
-    @Column(name = "ageID", nullable = false, length = 100)
+    @Column(name = "priceDetailsID", nullable = false, length = 100)
+    private String priceDetailsId;
+
+    @Column(name = "ageID")
     private String ageId;
 
     private int quantity;
-    private int price;
+    private BigDecimal price;
 
+    @Column(name = "bookingID")
+    private String bookingId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "bookingID", referencedColumnName = "bookingID", nullable = false)
+    @JoinColumn(name = "bookingID",insertable = false,updatable = false)
     private Booking booking;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ageID", referencedColumnName = "ageID", nullable = false)
+    @JoinColumn(name = "ageID", insertable = false,updatable = false)
     private Ages ages;
 
-
-
-
-    public String getBookingId() {
-        return bookingId;
+    public String getPriceDetailsId() {
+        return priceDetailsId;
     }
 
-    public void setBookingId(String bookingId) {
-        this.bookingId = bookingId;
+    public void setPriceDetailsId(String priceDetailsId) {
+        this.priceDetailsId = priceDetailsId;
     }
-
 
     public String getAgeId() {
         return ageId;
@@ -45,8 +45,6 @@ public class Pricedetails implements Serializable {
         this.ageId = ageId;
     }
 
-    @Basic
-    @Column(name = "quantity", nullable = false)
     public int getQuantity() {
         return quantity;
     }
@@ -55,29 +53,21 @@ public class Pricedetails implements Serializable {
         this.quantity = quantity;
     }
 
-    @Basic
-    @Column(name = "price", nullable = false, precision = 0)
-    public int getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Pricedetails that = (Pricedetails) o;
-        return quantity == that.quantity && price == that.price && Objects.equals(bookingId, that.bookingId) && Objects.equals(ageId, that.ageId);
+    public String getBookingId() {
+        return bookingId;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(bookingId, ageId, quantity, price);
+    public void setBookingId(String bookingId) {
+        this.bookingId = bookingId;
     }
-
 
     public Booking getBooking() {
         return booking;
@@ -87,12 +77,22 @@ public class Pricedetails implements Serializable {
         this.booking = booking;
     }
 
-
     public Ages getAges() {
         return ages;
     }
 
     public void setAges(Ages ages) {
         this.ages = ages;
+    }
+
+    @Override
+    public String toString() {
+        return "Pricedetails{" +
+                "priceDetailsId='" + priceDetailsId + '\'' +
+                ", ageId='" + ageId + '\'' +
+                ", quantity=" + quantity +
+                ", price=" + price +
+                ", bookingId='" + bookingId + '\'' +
+                '}';
     }
 }

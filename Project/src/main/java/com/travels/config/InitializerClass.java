@@ -1,6 +1,8 @@
 package com.travels.config;
 
+import com.travels.springmvc.modelView.BookingView;
 import com.travels.springmvc.modelView.InforAccount;
+import com.travels.springmvc.modelView.TourView;
 import com.travels.springmvc.pojo.Account;
 import com.travels.springmvc.pojo.Customer;
 import com.travels.springmvc.pojo.Employees;
@@ -23,6 +25,9 @@ public class InitializerClass {
     }
 
     @Bean
+    public BookingView bookingView(){return new BookingView();}
+
+    @Bean
     public Account account() {
         Account a = new Account();
         a.setAccountId(UUID.randomUUID().toString());
@@ -39,6 +44,9 @@ public class InitializerClass {
     public Customer customer() {
         return new Customer();
     }
-
+    @Bean
+    public TourView tourView(){
+        return new TourView();
+    }
 
 }

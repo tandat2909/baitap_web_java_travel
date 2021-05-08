@@ -3,6 +3,7 @@ package com.travels.springmvc.pojo;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -22,6 +23,10 @@ public class Landmarks implements Serializable{
 
     @ManyToMany(mappedBy = "landmarkss")
     private Collection<Tour> tours;
+
+    @OneToMany(mappedBy = "landmark")
+    private List<Contents> contents;
+
 
     public String getLandMarkId() {
         return landMarkId;
@@ -80,6 +85,14 @@ public class Landmarks implements Serializable{
 
     public void setTours(Collection<Tour> tours) {
         this.tours = tours;
+    }
+
+    public List<Contents> getContents() {
+        return contents;
+    }
+
+    public void setContents(List<Contents> contents) {
+        this.contents = contents;
     }
 
     @Override

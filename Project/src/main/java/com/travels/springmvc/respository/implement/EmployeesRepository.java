@@ -2,6 +2,7 @@ package com.travels.springmvc.respository.implement;
 
 import com.travels.springmvc.pojo.Account;
 import com.travels.springmvc.pojo.Booking;
+import com.travels.springmvc.pojo.Customer;
 import com.travels.springmvc.pojo.Employees;
 import com.travels.springmvc.respository.IAccountRepository;
 import com.travels.springmvc.respository.IBookingRepository;
@@ -27,6 +28,16 @@ public class EmployeesRepository extends GenericsRepository<Employees,String> im
                 .setParameter("i", employeeId).getResultList();
         return result.size()>0;
 
+    }
+
+    @Override
+    public Employees getEmployeesByUserName(String userName) {
+        return (Employees) currentSession().createQuery("FROM Employees where account.userName = :u").setParameter("u",userName).getResultList().get(0);
+    }
+
+    @Override
+    public Employees getEmployeesByAccountId(String accountId) {
+        return (Employees) currentSession().createQuery("FROM Employees where account.accountId = :acid").setParameter("acid",accountId).getResultList().get(0);
     }
 
     @Override

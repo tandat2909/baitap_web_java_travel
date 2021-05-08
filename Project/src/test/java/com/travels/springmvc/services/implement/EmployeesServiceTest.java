@@ -18,7 +18,6 @@ public class EmployeesServiceTest {
 
     @Test
     void remove() {
-
         try {
             employeesService.removeEmployee("15");
         } catch (Exception e) {
@@ -26,5 +25,4 @@ public class EmployeesServiceTest {
         }
 
     }
-
 }

@@ -4,6 +4,7 @@ import com.travels.springmvc.Annotation.GeneratedValueUUID;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Collection;
 import java.util.Objects;
@@ -16,20 +17,36 @@ public class Booking implements Serializable {
     @GeneratedValueUUID
     @Column(name = "bookingID", nullable = false, length = 100)
     private String bookingId;
+    @Column(name = "BookingDate")
     private Date bookingDate;
-    private Integer totalMoney;
+    private BigDecimal totalMoney;
+    @Column(name = "amoutGuests")
+    private Integer amountGuests;
+
+    @Column(name = "typePay")
+    private String typePay;
+
+    @Column(name = "note")
+    private String note;
+
+    @Column(name = "status")
+    private boolean status;
+
+    @Column(name = "tourID")
+    private String tourId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "customerID", nullable = false)
+    @JoinColumn(name = "tourID",insertable = false,updatable = false)
+    private Tour tour;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customerID")
     private Customer customer;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "employeesID" ,nullable = false)
+    @JoinColumn(name = "employeesID",insertable = false,updatable = false )
     private Employees employee;
 
-    @OneToOne(mappedBy = "booking" ,cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY, optional = false)
-    private Bookingdetails bookingdetail;
 
     @OneToMany(mappedBy = "booking")
     private Collection<Pricedetails> pricedetails;
@@ -61,11 +78,11 @@ public class Booking implements Serializable {
 
     @Basic
     @Column(name = "totalMoney", nullable = true, precision = 0)
-    public Integer getTotalMoney() {
+    public BigDecimal getTotalMoney() {
         return totalMoney;
     }
 
-    public void setTotalMoney(Integer totalMoney) {
+    public void setTotalMoney(BigDecimal totalMoney) {
         this.totalMoney = totalMoney;
     }
 
@@ -99,13 +116,6 @@ public class Booking implements Serializable {
         this.employee = employee;
     }
 
-    public Bookingdetails getBookingdetail() {
-        return bookingdetail;
-    }
-
-    public void setBookingdetail(Bookingdetails bookingdetail) {
-        this.bookingdetail = bookingdetail;
-    }
 
     public Collection<Pricedetails> getPricedetails() {
         return pricedetails;
@@ -121,5 +131,67 @@ public class Booking implements Serializable {
 
     public void setTickets(Collection<Ticket> tickets) {
         this.tickets = tickets;
+    }
+
+    public Integer getAmountGuests() {
+        return amountGuests;
+    }
+
+    public void setAmountGuests(Integer amountGuests) {
+        this.amountGuests = amountGuests;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    public String getTourId() {
+        return tourId;
+    }
+
+    public void setTourId(String tourId) {
+        this.tourId = tourId;
+    }
+
+    public Tour getTour() {
+        return tour;
+    }
+
+    public void setTour(Tour tour) {
+        this.tour = tour;
+    }
+
+    public String getTypePay() {
+        return typePay;
+    }
+
+    public void setTypePay(String typePay) {
+        this.typePay = typePay;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    @Override
+    public String toString() {
+        return "Booking{" +
+                "bookingId='" + bookingId + '\'' +
+                ", bookingDate=" + bookingDate +
+                ", totalMoney=" + totalMoney +
+                ", amountGuests=" + amountGuests +
+                ", typePay='" + typePay + '\'' +
+                ", note='" + note + '\'' +
+                ", status=" + status +
+                ", tourId='" + tourId + '\'' +
+                '}';
     }
 }

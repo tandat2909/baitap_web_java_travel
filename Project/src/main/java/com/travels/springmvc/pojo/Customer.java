@@ -34,6 +34,9 @@ public class Customer implements Serializable {
 
     private String gender;
 
+    @Column(name = "address")
+    private String address;
+
     @OneToMany(mappedBy = "customer")
     private Collection<Booking> bookings;
 
@@ -174,7 +177,13 @@ public class Customer implements Serializable {
     }
 
 
+    public String getAddress() {
+        return address;
+    }
 
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
     @Override
     public String toString() {
@@ -188,7 +197,7 @@ public class Customer implements Serializable {
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", image='" + image + '\'' +
                 ", gender='" + gender + '\'' +
-
+                ", address='" + address + '\'' +
                 '}';
     }
 }

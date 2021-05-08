@@ -17,6 +17,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -90,7 +91,7 @@ abstract class GenericsRepository<T, K extends Serializable> implements IGeneric
 
     @Override
     @Transactional
-    public void save(T obj) {
+    public void save(T obj) throws Exception {
 
         if (obj == null) {
             throw new NullArgumentException("GenericsRepository -f save -p obj is null");
@@ -110,6 +111,13 @@ abstract class GenericsRepository<T, K extends Serializable> implements IGeneric
             }
         }
         currentSession().save(obj);
+    }
+
+    @Override
+    public void saveAll(Collection<T> listObject) {
+        if(listObject !=null){
+            listObject.forEach( i->currentSession().save(i));
+        }
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
@@ -194,6 +202,6 @@ abstract class GenericsRepository<T, K extends Serializable> implements IGeneric
     }
 }
 
-interface QueryCriteria {
+ interface QueryCriteria {
     CriteriaQuery getWhere(CriteriaBuilder builder, CriteriaQuery query, Root root, Object... args) throws Exception;
 }

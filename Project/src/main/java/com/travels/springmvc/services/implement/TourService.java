@@ -1,8 +1,9 @@
 package com.travels.springmvc.services.implement;
 
+import com.travels.springmvc.modelView.TourView;
 import com.travels.springmvc.pojo.Province;
 import com.travels.springmvc.pojo.Tour;
-import com.travels.springmvc.respository.IBookingDetailRepository;
+
 import com.travels.springmvc.respository.ITourRepository;
 import com.travels.springmvc.services.ITourService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +20,17 @@ public class TourService extends GenericsService<Tour,String> implements ITourSe
 
     @Autowired
     ITourRepository tourRepository;
-    @Autowired
-    IBookingDetailRepository bookingDetailRepository;
+
 
     @Override
     public List<Tour> searchTourByProvince(String provinceId) {
         return tourRepository.searchTourByProvince(provinceId);
+    }
+
+    @Override
+    public List<Tour> searchAll(String province, String landMark, BigDecimal fromPrice, BigDecimal toPrice, Date fromDate, Date toDate){
+
+        return tourRepository.searchAll(province, landMark, fromPrice, toPrice, fromDate, toDate);
     }
 
     @Override
@@ -34,11 +40,11 @@ public class TourService extends GenericsService<Tour,String> implements ITourSe
 
     @Override
     public List<Tour> SearchTourByName(String kw) throws Exception {
-        if(kw == null || kw.isEmpty() || kw.trim().length() < 1)
+        if (kw == null || kw.isEmpty() || kw.trim().length() < 1)
             throw new NullPointerException("Từ khóa Không được để trống");
 
         try {
-            return SearchKeyWordOnField(kw,Tour.class.getDeclaredField("tourName"));
+            return SearchKeyWordOnField(kw, Tour.class.getDeclaredField("tourName"));
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
             throw new Exception("lỗi tìm kiếm tour");
@@ -52,14 +58,14 @@ public class TourService extends GenericsService<Tour,String> implements ITourSe
 
     @Override
     public List<Tour> searchTourByLandMarkName(String landMarkName) throws Exception {
-        if(landMarkName == null || landMarkName.isEmpty() || landMarkName.trim().length() < 1)
+        if (landMarkName == null || landMarkName.isEmpty() || landMarkName.trim().length() < 1)
             throw new NullPointerException("Tên địa danh không được để trống");
         return tourRepository.searchTourByLandMarkName(landMarkName);
     }
 
     @Override
     public List<Tour> searchTourByProvinceName(String provinceName) throws Exception {
-        if(provinceName == null || provinceName.isEmpty() || provinceName.trim().length() < 1)
+        if (provinceName == null || provinceName.isEmpty() || provinceName.trim().length() < 1)
             throw new NullPointerException("Tên tỉnh thành không được để trống");
         return tourRepository.searchTourByProvinceName(provinceName);
     }
@@ -81,10 +87,7 @@ public class TourService extends GenericsService<Tour,String> implements ITourSe
         return tourRepository.searchTourByPrice(fromPrice, toPrice);
     }
 
-    @Override
-    public void removeTour(String tourId) throws Exception{
-        tourRepository.removeTour(tourId);
-    }
+
 
     @Override
     public void addTour(Tour tour) throws Exception{
@@ -105,5 +108,22 @@ public class TourService extends GenericsService<Tour,String> implements ITourSe
 
     }
 
+    public boolean checkEmpty(String chuoi) throws Exception{
+        try {
+            if(chuoi == null || chuoi.isEmpty()) {
+                return true;
+            }
+            return false;
+
+        } catch (Exception ex){
+            throw new Exception("chuỗi rỗng");
+        }
+
+    }
+
+
+    public void add(TourView tourView) throws Exception {
+        tourRepository.add(tourView);
+    }
 
 }

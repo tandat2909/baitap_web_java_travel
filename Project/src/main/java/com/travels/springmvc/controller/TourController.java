@@ -1,6 +1,8 @@
 package com.travels.springmvc.controller;
 
 
+import com.travels.springmvc.pojo.Contents;
+import com.travels.springmvc.pojo.Tour;
 import com.travels.springmvc.services.IAgesService;
 import com.travels.springmvc.services.IProvinceService;
 import com.travels.springmvc.services.ITourService;
@@ -11,6 +13,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/tour")
@@ -31,7 +37,8 @@ public class TourController {
         if(tourid == null|| tourid.equals("")) {
             return "redirect:/Packages";
         }
-        model.addAttribute("tour", tourService.getElementById(tourid));
+
+        model.addAttribute("tour",tourService.getElementById(tourid));
         return "template_tourdetail";
     }
 
