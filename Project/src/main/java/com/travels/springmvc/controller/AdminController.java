@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -161,7 +162,7 @@ public class AdminController {
             for (String tu : tuoi) {
                 String[] a = tu.split(":");
                 if (t.getAges().getAgeId().equals(a[1])) {
-                    t.setPrice(Integer.parseInt(a[0]));
+                    t.setPrice(new BigDecimal(a[0]));
                     tourPricesService.update(t);
                 }
             }

@@ -116,7 +116,7 @@ abstract class GenericsRepository<T, K extends Serializable> implements IGeneric
     @Override
     public void saveAll(Collection<T> listObject) {
         if(listObject !=null){
-            listObject.forEach(this::save);
+            listObject.forEach( i->currentSession().save(i));
         }
     }
 

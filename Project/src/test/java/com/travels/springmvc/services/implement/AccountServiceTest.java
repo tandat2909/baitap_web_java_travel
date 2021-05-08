@@ -93,7 +93,7 @@ class AccountServiceTest {
     @Test
     void createAccount() throws Exception {
         InforAccount inforAccount = new InforAccount();
-        inforAccount.setUserName("tandat1234");
+        inforAccount.setUserName("tandat1234ssss");
         inforAccount.setEmail("v@s.com");
         inforAccount.setCCID("093234433");
         inforAccount.setPhoneNumber("0987652435");

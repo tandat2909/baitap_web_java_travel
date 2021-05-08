@@ -23,7 +23,7 @@ public interface IGenericsService<T, K> {
      */
     void add(T obj,boolean GeneratedValueId);
     void add(T obj) throws Exception;
-    void addAll(Collection<T> obj);
+    void addAll(Collection<T> obj) throws Exception;
     T getElementById(K key);
     List<T> getElementsByKeyWordOnField(String kw, Field field);
     List<T> SearchKeyWordOnField(String kw, Field field) throws Exception;

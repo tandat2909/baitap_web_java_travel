@@ -15,7 +15,7 @@ public interface IGenericsRepository <T,K> {
     void update(T entity) throws NullArgumentException;
     void save(T obj) throws Exception;
     void save(T obj, boolean GeneratedValueId);
-    void saveAll(Collection<T> listObject);
+    void saveAll(Collection<T> listObject) throws Exception;
     T getElementById(K key);
     List<T> getElementsByKeyWordOnField(String kw, Field field);
     List<T> SearchKeyWordOnField(String kw, Field field) throws Exception;

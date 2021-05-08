@@ -44,6 +44,10 @@ public class BookingRepository extends GenericsRepository<Booking,String> implem
         }
         booking.setTickets(bookingView.getTickets());
         booking.setPricedetails(pricedetails);
-        save(booking);
+        try {
+            save(booking);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
     }
 }

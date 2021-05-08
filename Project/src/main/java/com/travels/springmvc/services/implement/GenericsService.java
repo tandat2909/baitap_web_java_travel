@@ -56,7 +56,7 @@ public abstract class GenericsService<T, K> implements IGenericsService<T, K> {
     }
 
     @Override
-    public void addAll(Collection<T> obj) {
+    public void addAll(Collection<T> obj) throws Exception {
         genericsRepository.saveAll(obj);
     }
 

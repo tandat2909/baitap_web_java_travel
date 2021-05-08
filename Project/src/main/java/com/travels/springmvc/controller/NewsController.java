@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -51,6 +52,7 @@ public class NewsController {
         if(emp != null)
             news.setAccountId(emp.getAccountId());
         try {
+            news.setDate_submitted(new Date());
             newsService.add(news);
         } catch (Exception e) {
             e.printStackTrace();
@@ -92,6 +94,7 @@ public class NewsController {
                 System.err.println(ex.getMessage());
             }
         }
+        current.setDate_submitted(new Date());
         current.setShort_description(news.getShort_description());
         current.setLong_description(news.getLong_description());
         current.setTitle(news.getTitle());

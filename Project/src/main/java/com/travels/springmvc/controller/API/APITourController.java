@@ -22,7 +22,7 @@ public class APITourController {
         System.err.println("===================================");
         System.err.println("id tour: "+tourid);
         System.err.println("===================================");
-        tourService.removeTour(tourid);
+        tourService.remove(tourService.getElementById(tourid));
     }
 
 

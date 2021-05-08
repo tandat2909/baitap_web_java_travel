@@ -22,7 +22,7 @@ public interface ITourService extends IGenericsService<Tour,String> {
 
     void add(TourView tourView) throws Exception;
 
-    void removeTour(String tourId) throws Exception;
+
     void addTour(Tour tour) throws Exception;
     void updateTour(Tour tour) throws Exception;
     public boolean checkEmpty(String chuoi) throws Exception;
