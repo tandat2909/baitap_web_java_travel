@@ -1,5 +1,5 @@
-<jsp:useBean id="bookinview" scope="request" type="com.travels.springmvc.modelView.BookingView"/>
-<jsp:useBean id="tour" scope="request" type="com.travels.springmvc.pojo.Tour"/>
+<%--<jsp:useBean id="bookinview" scope="request" type="com.travels.springmvc.modelView.BookingView"/>--%>
+<%--<jsp:useBean id="tour" scope="request" type="com.travels.springmvc.pojo.Tour"/>--%>
 <%--
   Created by IntelliJ IDEA.
   User: Admin
@@ -117,7 +117,7 @@
                             </table>
                         </div>
                     </div>
-                    <form id="bookinginfo" action="">
+                    <form id="bookinginfo" action="" method="post" onsubmit="onsubmitBooking()">
                         <div class="row">
                         <div class="col-lg-12">
                             <form id ="fm_dienthongtin">
@@ -130,9 +130,9 @@
                                             <div class="form-group">
                                                 <label>Họ (<span class="star">*</span>)</label>
                                                 <div>
-                                                    <input class="form-control" id="contact_name" name="${bookinview.customer.firstName}"
+                                                    <input class="form-control" id="contact_name" name="customer.firstName"
 
-                                                           required="required" type="text" value="">
+                                                           required type="text" value="">
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -141,18 +141,17 @@
                                                     <input class="form-control"
 
                                                            id="ten"
-                                                           name="${bookinview.customer.lastName}"
-                                                           required="required"
+                                                           name="customer.lastName"
+                                                           required
                                                            type="text"
                                                            value="">
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label>Địa chỉ</label>
+                                                <label>Địa chỉ(<span class="star">*</span>)</label>
                                                 <div>
-                                                    <input class="form-control" id="address" name="" type="text"
-
-                                                           value="">
+                                                    <input class="form-control" id="address" name="customer.address" type="text"
+                                                                   value="">
                                                 </div>
                                             </div>
                                         </div>
@@ -160,33 +159,33 @@
                                             <div class="form-group">
                                                 <label>Email (<span class="star">*</span>)</label>
                                                 <div>
-                                                    <input class="form-control" id="email" name="${bookinview.customer.email}"
-                                                           required="required" type="email" value="">
+                                                    <input class="form-control" id="email" name="customer.email"
+                                                           required type="email" value="">
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label>Điện thoại</label>
+                                                <label>Điện thoại(<span class="star">*</span>)</label>
                                                 <div>
-                                                    <input class="form-control" id="phone" name="${bookinview.customer.phoneNumber}"
+                                                    <input class="form-control" id="phone" required name="customer.phoneNumber"
                                                             type="text" value="">
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <div class="row">
                                                     <div class="col-md-3 col-sm-2 col-xs-6 mg-bot15">
-                                                        <label>Người lớn</label>
+                                                        <label>Người lớn(<span class="star">*</span>)</label>
                                                         <div>
 
-                                                            <input class="form-control" id="adult"  name="adult"
+                                                            <input class="form-control" id="adult"
                                                                    data-toggle="tooltip" data-placement="bottom" title="Từ 12 tuổi trở lên"
-                                                                   onchange="totalGuests(this)" min="0" type="number"
+                                                                   onchange="totalGuests(this)" min="1" type="number"
                                                                    value="1">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-2 col-sm-2 col-xs-6  mg-bot15">
                                                         <label>Trẻ em</label>
                                                         <div>
-                                                            <input class="form-control"  type="number" id="children11" name="children11" value="0"
+                                                            <input class="form-control"  type="number" id="children11"  value="0"
                                                                    data-toggle="tooltip" data-placement = "bottom" title="Từ 5 tuổi đến dưới 12 tuổi"
                                                                    onchange="totalGuests(this)" min="0"
                                                                    >
@@ -195,7 +194,7 @@
                                                     <div class="col-md-2 col-sm-3 col-xs-6 mg-bot15">
                                                         <label>Trẻ nhỏ</label>
                                                         <div>
-                                                            <input class="form-control" type="number" id="children" name="children" data-toggle="tooltip" data-placement="bottom"
+                                                            <input class="form-control" type="number" id="children" data-toggle="tooltip" data-placement="bottom"
                                                                    title = "Từ 2 tuổi đến dưới 5 tuổi"
                                                                    onchange="totalGuests(this)" min="0"
                                                                    value="0">
@@ -204,7 +203,7 @@
                                                     <div class="col-md-2 col-sm-2 col-xs-6 mg-bot15">
                                                         <label>Em bé</label>
                                                         <div>
-                                                            <input class="form-control" type="number" id="small_children" name="small_children"
+                                                            <input class="form-control" type="number" id="small_children"
                                                                    data-toggle="tooltip" data-placement="bottom" title="Dưới 2 tuổi"
                                                                    onchange="totalGuests(this)" min="0"
                                                                    value="0">
@@ -213,7 +212,7 @@
                                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                                         <label>Số khách</label>
                                                         <div>
-                                                            <input class="form-control" id="guests" name="guests"
+                                                            <input class="form-control" id="guests" name="booking.amountGuests"
                                                                    readonly="readonly" type="text" value="1">
                                                         </div>
                                                     </div>
@@ -224,7 +223,7 @@
                                             <div class="form-group">
                                                 <label>Ghi chú</label>
                                                 <div>
-                                                    <textarea class="form-control" cols="20" id="note" name="note"
+                                                    <textarea class="form-control" cols="20" id="note" name="booking.note"
                                                               rows="4"></textarea>
                                                 </div>
                                             </div>
@@ -360,21 +359,21 @@
                                 <div class="col-xs-12 mg-bot30">
                                     <div class="frame-payment ">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" value="" name="typethanhtoan"
+                                            <input class="form-check-input" type="radio" value="tienmat" name="booking.typePay"
                                                    id="defaultCheck1">
                                             <label class="form-check-label" for="defaultCheck1">
                                                 Tiền mặt
                                             </label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="typethanhtoan" value=""
+                                            <input class="form-check-input" type="radio" name="booking.typePay" value="momo"
                                                    id="defaultCheck2">
                                             <label class="form-check-label" for="defaultCheck2">
                                                 Thanh toán bằng momo
                                             </label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="typethanhtoan" value=""
+                                            <input class="form-check-input" type="radio" name="booking.typePay" value="blockchain"
                                                    id="defaultCheck3">
                                             <label class="form-check-label" for="defaultCheck3">
                                                 Thanh toán bằng blockchain

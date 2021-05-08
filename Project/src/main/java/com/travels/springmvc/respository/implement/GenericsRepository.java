@@ -202,6 +202,6 @@ abstract class GenericsRepository<T, K extends Serializable> implements IGeneric
     }
 }
 
-interface QueryCriteria {
+ interface QueryCriteria {
     CriteriaQuery getWhere(CriteriaBuilder builder, CriteriaQuery query, Root root, Object... args) throws Exception;
 }

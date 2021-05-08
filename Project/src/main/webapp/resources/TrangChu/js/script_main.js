@@ -26,7 +26,7 @@ function getThongTinLienLac() {
 function htmlDSKH(stt, dotuoi,price) {
     var html =
 
-        '   <div class="cus-num">Khách hàng ' + (stt +1)+ '</div>'+
+        '   <div class="cus-num" id="title_'+(stt+1)+'" data-stt="'+stt+'" >Khách hàng ' + (stt +1)+ '</div>'+
     '   <div class="frame-cus">'+
     '   <div class="form-horizontal">'+
     '       <div class="row mg-bot10">'+
@@ -35,13 +35,13 @@ function htmlDSKH(stt, dotuoi,price) {
     '                   class="star">*</span>)</label>'+
     '               <div>'+
     '                   <input class="form-control"'+
-    '                          required="" type="text" id="hoten_'+stt+'"  value="">'+
+    '                          required type="text" id="hoten_'+stt+'"  value="">'+
     '               </div>'+
     '           </div>'+
     '           <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 mg-bot10">'+
     '               <label class="mg-bot5">Giới tính</label>'+
     '               <div>'+
-    '                   <select class="form-control" id="gender_' + stt + '">'+
+    '                   <select class="form-control" required id="gender_' + stt + '">'+
     '                       <option value="Nữ">Nữ</option>'+
     '                       <option value="Name">Nam</option>'+
     '                   </select>'+
@@ -51,7 +51,7 @@ function htmlDSKH(stt, dotuoi,price) {
     '               <label class="mg-bot5">Ngày sinh (<span'+
     '                   class="star">*</span>)</label>'+
     '               <div>'+
-    '                   <input type="date" class="form-control" id = "ngaysinh_' + stt + '" >'+
+    '                   <input type="date" required class="form-control" id = "ngaysinh_' + stt + '" >'+
     '               </div>'+
     '           </div>'+
     '           <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 mg-bot10">'+
@@ -86,10 +86,10 @@ function htmlDSKH(stt, dotuoi,price) {
     return html
 }
 
-function addDanhSachKhachHang(sl,ages,price) {
+function addDanhSachKhachHang(sl,ages,price,stt) {
 
     for (var i = 0; i < parseInt(sl); i++) {
-        $(".list").append(htmlDSKH(i, ages,price))
+        $(".list").append(htmlDSKH((i+stt), ages,price))
     }
 }
 
@@ -135,10 +135,15 @@ let totalGuests = (input) =>{
     }else {
         $(guests).val(total)
         $(".list").empty();
-        addDanhSachKhachHang( $(adult).val(),$(adult).attr("id"))
-        addDanhSachKhachHang( $(children11).val(),$(children11).attr("id"))
-        addDanhSachKhachHang( $(children).val(),$(children).attr("id"))
-        addDanhSachKhachHang( $(small_children).val(),$(small_children).attr("id"))
+
+
+        addDanhSachKhachHang( $(adult).val(),$(adult).attr("id"),0,0)
+        var stt = parseInt($("#title_" + $(adult).val()).data("stt"));
+        addDanhSachKhachHang( $(children11).val(),$(children11).attr("id"),0,stt+1)
+        stt += parseInt($(children11).val())
+        addDanhSachKhachHang( $(children).val(),$(children).attr("id"),0,stt+1)
+        stt += parseInt($(children).val())
+        addDanhSachKhachHang( $(small_children).val(),$(small_children).attr("id"),0,stt+1)
     }
     if(seatConLai === maxseats) addDanhSachKhachHang( 1,$(adult).attr("id"))
 

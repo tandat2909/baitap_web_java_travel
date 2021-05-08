@@ -9,6 +9,9 @@ public class Ticket implements Serializable {
     @Id
     @Column(name = "ticketID", nullable = false, length = 100)
     private String ticketId;
+    @Column(name = "ageID")
+    private String agesId;
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "bookingID", nullable = false)
@@ -21,10 +24,6 @@ public class Ticket implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ageID", nullable = false,insertable = false,updatable = false)
     private Ages ages;
-
-    @Column(name = "ageID")
-    private String agesId;
-
 
     public String getAgesId() {
         return agesId;
@@ -68,5 +67,13 @@ public class Ticket implements Serializable {
 
     public void setAges(Ages ages) {
         this.ages = ages;
+    }
+
+    @Override
+    public String toString() {
+        return "Ticket{" +
+                "ticketId='" + ticketId + '\'' +
+                ", agesId='" + agesId + '\'' +
+                '}';
     }
 }

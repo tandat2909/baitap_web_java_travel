@@ -26,7 +26,7 @@ public class Tour implements Serializable {
 
 
     @OneToMany(mappedBy = "tour")
-    private Collection<Bookingdetails> bookingdetails;
+    private List<Booking> booking;
 
     @OneToMany(mappedBy = "tour")
     private List<Contents> contents;
@@ -133,14 +133,13 @@ public class Tour implements Serializable {
     }
 
 
-    public Collection<Bookingdetails> getBookingdetails() {
-        return bookingdetails;
+    public List<Booking> getBooking() {
+        return booking;
     }
 
-    public void setBookingdetails(Collection<Bookingdetails> bookingdetails) {
-        this.bookingdetails = bookingdetails;
+    public void setBooking(List<Booking> booking) {
+        this.booking = booking;
     }
-
 
     public Collection<Tourprices> getTourprices() {
         if(tourprices != null)

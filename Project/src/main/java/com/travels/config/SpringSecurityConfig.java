@@ -46,6 +46,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .access("hasAnyRole('"+ERole.ROLE_CUSTOMER.name()+"', '"+ERole.ROLE_ADMIN.name()+"')")
                 .antMatchers("/**/admin/**/")
                 .access("hasRole('"+ERole.ROLE_ADMIN.name()+"')")
+                .antMatchers("/**/booking/**/").access("hasAnyRole('"+ERole.ROLE_CUSTOMER.name()+"', '"+ERole.ROLE_ADMIN.name()+"')")
                 //.antMatchers("/**/booking/**/")
                 //.access("hasAnyRole('"+ERole.ROLE_CUSTOMER.name()+"', '"+ERole.ROLE_ADMIN.name()+"')")
 
