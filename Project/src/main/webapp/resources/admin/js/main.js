@@ -1,4 +1,4 @@
-var uri = $("#uri").attr("href")
+//var uri = $("#uri").attr("href")
 
 function deleteCustomer(customerId) {
     if (confirm("Bạn chắc chắn xóa không?") == true) {

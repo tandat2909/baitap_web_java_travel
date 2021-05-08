@@ -30,6 +30,9 @@
     <!-- google fonts -->
     <link href="http://fonts.googleapis.com/css?family=Nunito:300,400,600,700,800,900&display=swap" rel="stylesheet">
     <link id = "uri" hidden href="${pageContext.request.contextPath}"/>
+    <script>
+        var uri = "${pageContext.request.contextPath}"
+    </script>
 </head>
 <body>
 
