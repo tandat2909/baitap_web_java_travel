@@ -13,7 +13,7 @@ public interface IGenericsRepository <T,K> {
     void saveOrUpdate(T obj)throws NullArgumentException;
     void remove(T obj) throws NullArgumentException;
     void update(T entity) throws NullArgumentException;
-    void save(T obj) throws NullArgumentException;
+    void save(T obj) throws Exception;
     void save(T obj, boolean GeneratedValueId);
     void saveAll(Collection<T> listObject);
     T getElementById(K key);

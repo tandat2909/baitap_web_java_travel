@@ -18,7 +18,12 @@ public interface ITourService extends IGenericsService<Tour,String> {
     List<Tour> searchTourByDate(Date date) throws Exception;
     List<Tour> searchTourByDate(Date fromDate, Date toDate);
     List<Tour> searchTourByPrice(BigDecimal fromPrice,BigDecimal toPrice) throws Exception;
+    List<Tour> searchAll(String province, String landMark, BigDecimal fromPrice, BigDecimal toPrice, Date fromDate, Date toDate);
 
     void add(TourView tourView) throws Exception;
 
+    void removeTour(String tourId) throws Exception;
+    void addTour(Tour tour) throws Exception;
+    void updateTour(Tour tour) throws Exception;
+    public boolean checkEmpty(String chuoi) throws Exception;
 }

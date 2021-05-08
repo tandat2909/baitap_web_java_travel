@@ -15,7 +15,6 @@ function deleteCustomer(customerId) {
         })
     }
 }
-
 function deleteTour(tourId) {
     if (confirm("Bạn chắc chắn xóa không?") == true) {
         fetch(`${uri}/api/tour?tourid=${tourId}`, {
@@ -32,8 +31,40 @@ function deleteTour(tourId) {
     }
 }
 
-let openLink = (link, option) => {
-    window.open(link, option)
+function deleteEmployee(employeeId) {
+    if (confirm("Bạn chắc chắn xóa không?") == true) {
+        fetch(`${uri}/api/employee?employeeId=${employeeId}`, {
+            method: "delete",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(res => {
+            if (res.status == 200) {
+                $("#" + employeeId).remove();
+            } else
+                alert("Something wrong!!!");
+        })
+    }
+}
+
+function deleteNew(newId) {
+    if (confirm("Bạn chắc chắn xóa không?") == true) {
+        fetch(`${uri}/api/New?newId=${newId}`, {
+            method: "delete",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(res => {
+            if (res.status == 200) {
+                $("#" + newId).remove();
+            } else
+                alert("Something wrong!!!");
+        })
+    }
+}
+
+let openLink= (link,option)=>{
+    window.open(link,option)
 }
 
 //hàm trả về một async có kết quả
@@ -147,5 +178,33 @@ let summitFormAddTour = ()=>{
    // console.log($("#contentspost").val())
    // console.log(contents)
   //  $("#test").html(contents)
+}
+
+
+$(document).ready(function(){
+$("#aaaa").click(function(){
+    var values = $(".ages input");
+    var valuep = $("#prices");
+    var data = "";
+    for(var i = 0; i < values.length; i ++)
+    {
+        //valuep.value = values[i].value + ":" + $(values[i]).attr("id") + ";"
+        data += values[i].value + ":" + $(values[i]).attr("id") + ";"
+        // alert(values[i].val() + "&" + values[i].attr("id"))
+    }
+    $("#prices").val(data);
+    });
+});
+var edit ='';
+$(document).ready(function(){
+    edit = CKEDITOR.replace('ck');
+    // CKEDITOR.instances.ck.updateElement();
+    // alert( document.getElementById( 'ck' ).value );
+});
+
+let setNameFile = ()=>{
+
+        $("#imgname").text($("#imgjs").val())
+
 }
 

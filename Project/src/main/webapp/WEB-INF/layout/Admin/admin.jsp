@@ -30,11 +30,8 @@
     <!-- google fonts -->
     <link href="http://fonts.googleapis.com/css?family=Nunito:300,400,600,700,800,900&display=swap" rel="stylesheet">
     <link id = "uri" hidden href="${pageContext.request.contextPath}"/>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
 </head>
 <body>
-<%--<script src="<c:url value="/admin/js/jquery-3.3.1.min.js"/>"></script>--%>
 
     <section>
     <!-- sidebar menu start -->
@@ -74,9 +71,19 @@
                         <li><a href="people.html">People cards</a></li>
                     </ul>
                 </li>
-                <li><a href="${pageContext.request.contextPath}/admin/customers"><i class="fa fa-table"></i> <span>Danh sách khách hàng</span></a></li>
-                <li><a href="${pageContext.request.contextPath}/admin/tours"><i class="fa fa-table"></i> <span>Danh sách tour</span></a></li>
-                <li><a href="forms.html"><i class="fa fa-file-text"></i> <span>Forms</span></a></li>
+
+                <li class="menu-list">
+                    <a href="#"><i class="fa fa-table"></i>
+                        <span>Các bảng thông tin <i class="lnr lnr-chevron-right"></i></span></a>
+                    <ul class="sub-menu-list">
+                        <li><a href="${pageContext.request.contextPath}/admin/employees"><i class="fa fa-table"></i> <span>Danh sách nhân viên</span></a></li>
+                        <li><a href="${pageContext.request.contextPath}/admin/customers"><i class="fa fa-table"></i> <span>Danh sách khách hàng</span></a></li>
+                        <li><a href="${pageContext.request.contextPath}/admin/tours"><i class="fa fa-table"></i> <span>Danh sách tour</span></a></li>
+                    </ul>
+                </li>
+                <li><a href="${pageContext.request.contextPath}/admin/News"><i class="fa fa-newspaper-o"></i> <span>Tin tức</span></a></li>
+
+                </li>
             </ul>
             <!-- //sidebar nav end -->
             <!-- toggle button start -->
@@ -97,9 +104,6 @@
     <button onclick="topFunction()" id="movetop" class="bg-primary" title="Go to top">
         <span class="fa fa-angle-up"></span>
     </button>
-
-<%--<script src="<c:url value="/admin/js/jquery-1.10.2.min.js"/>"></script>--%>
-
     <script>
         // When the user scrolls down 20px from the top of the document, show the button
         window.onscroll = function () {
@@ -123,22 +127,22 @@
     <!-- /move top -->
 
 
+    <script src="<c:url value="/admin/js/jquery-3.3.1.min.js"/>"></script>
 
 
     <!-- chart js -->
-<%--    <script src="<c:url value="/admin/js/Chart.min.js"/>"></script>--%>
-<%--    <script src="<c:url value="/admin/js/utils.js"/>"></script>--%>
+    <script src="<c:url value="/admin/js/Chart.min.js"/>"></script>
+    <script src="<c:url value="/admin/js/utils.js"/>"></script>
     <!-- //chart js -->
 
     <!-- Different scripts of charts.  Ex.Barchart, Linechart -->
-<%--    <script src="<c:url value="/admin/js/bar.js"/>"></script>--%>
-<%--    <script src="<c:url value="/admin/js/linechart.js"/>"></script>--%>
+    <script src="<c:url value="/admin/js/bar.js"/>"></script>
+    <script src="<c:url value="/admin/js/linechart.js"/>"></script>
     <!-- //Different scripts of charts.  Ex.Barchart, Linechart -->
 
 
     <script src="<c:url value="/admin/js/jquery.nicescroll.js"/>"></script>
     <script src="<c:url value="/admin/js/scripts.js"/>"></script>
-
 
     <!-- close script -->
     <script>
@@ -168,7 +172,7 @@
     <script>
         $(window).load(function () {
             // Animate loader off screen
-            $(".se-pre-con").fadeOut("slow");;
+            $(".se-pre-con").fadeOut("slow");
         });
     </script>
     <!--// loading-gif Js -->
@@ -176,7 +180,6 @@
     <!-- Bootstrap Core JavaScript -->
     <script src="<c:url value="/admin/js/bootstrap.min.js"/>"></script>
     <script src="<c:url value="/admin/js/main.js"/>"></script>
-
 </body>
-
+    <script type="text/javascript" src="<c:url value="/ckeditorg/ckeditor/ckeditor.js"/>"></script>
 </html>

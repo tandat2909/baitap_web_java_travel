@@ -53,6 +53,17 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
         <put-attribute name="title" value="Booking" />
         <put-attribute name="content" value="/WEB-INF/pages/TrangChu/booking.jsp" />
     </definition>
+
+    <definition name="news" extends="baseLayout" >
+        <put-attribute name="title" value="tin tức"/>
+        <put-attribute name="content" value="/WEB-INF/pages/TrangChu/news.jsp"/>
+    </definition>
+
+    <definition name="newdetail" extends="baseLayout" >
+        <put-attribute name="title" value="chi tiết tin tức"/>
+        <put-attribute name="content" value="/WEB-INF/pages/TrangChu/newdetails.jsp"/>
+    </definition>
+
    <!-- template admin-->
     <definition name="adminLayout"
                 template="/WEB-INF/layout/Admin/admin.jsp">
@@ -88,6 +99,30 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
         <put-attribute name="adminContent" value="/WEB-INF/pages/Admin/Add.jsp"/>
     </definition>
 
+    <definition name ="template_employee_admin" extends="adminLayout">
+        <put-attribute name="title" value="Quản lý nhân viên"/>
+        <put-attribute name="adminContent" value="/WEB-INF/pages/Admin/employee.jsp"/>
+    </definition>
+
+    <definition name ="template_news_admin" extends="adminLayout">
+        <put-attribute name="title" value="Quản lý tin tức"/>
+        <put-attribute name="adminContent" value="/WEB-INF/pages/Admin/News.jsp"/>
+    </definition>
+
+    <definition name="updateCustomer" extends="adminLayout">
+        <put-attribute name="title" value="update Customer"/>
+        <put-attribute name="adminContent" value="/WEB-INF/pages/Admin/updateCustomer.jsp"/>
+    </definition>
+
+    <definition name="updateEmployee" extends="adminLayout">
+        <put-attribute name="title" value="update Employee"/>
+        <put-attribute name="adminContent" value="/WEB-INF/pages/Admin/updateEmployee.jsp"/>
+    </definition>
+
+    <definition name="updateTour" extends="adminLayout">
+        <put-attribute name="title" value="update Tour"/>
+        <put-attribute name="adminContent" value="/WEB-INF/pages/Admin/updateTour.jsp"/>
+    </definition>
 <!--    Login, SignUp-->
     <definition name="template_login" template="/WEB-INF/pages/login.jsp" >
         <put-attribute name="title" value="Login"/>
@@ -97,6 +132,22 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
     <definition name="template_signup" template="/WEB-INF/pages/SignUpCustomer.jsp" >
         <put-attribute name="title" value="Sign Up"/>
     </definition>
+    <!--search-->
+    <definition name="Search" extends="baseLayout">
+        <put-attribute name="title" value="Search" />
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/TrangChu/search.jsp" />
+    </definition>
 
+    <!-- Edit News-->
+    <definition name ="editNews" extends="adminLayout">
+        <put-attribute name="title" value="Quản lý tin tức"/>
+        <put-attribute name="adminContent" value="/WEB-INF/pages/Admin/editNews.jsp"/>
+    </definition>
+
+    <definition name ="addNews" extends="adminLayout">
+        <put-attribute name="title" value="Thêm tin tức"/>
+        <put-attribute name="adminContent" value="/WEB-INF/pages/Admin/addNews.jsp"/>
+    </definition>
 
 </tiles-definitions>

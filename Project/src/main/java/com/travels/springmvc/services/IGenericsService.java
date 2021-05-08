@@ -22,13 +22,11 @@ public interface IGenericsService<T, K> {
      *  Khi đối tượng tạo mới đã gán id thì set value GeneratedValueId = False
      */
     void add(T obj,boolean GeneratedValueId);
-    void add(T obj);
+    void add(T obj) throws Exception;
     void addAll(Collection<T> obj);
     T getElementById(K key);
     List<T> getElementsByKeyWordOnField(String kw, Field field);
     List<T> SearchKeyWordOnField(String kw, Field field) throws Exception;
     List<T> getBetweenValue(Object from, Object to, Field field) throws Exception;
     List<T> getBetweenDate(Date fromDate, Date toDate, Field field) throws Exception;
-
-
 }

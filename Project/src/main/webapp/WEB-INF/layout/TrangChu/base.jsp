@@ -21,7 +21,7 @@
     <meta charset="utf-8">
     <meta name="keywords" content="Grand Tour Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
-
+    <link id = "uri" hidden href="${pageContext.request.contextPath}"/>
     <script>
         addEventListener("load", function () {
             setTimeout(hideURLbar, 0);

@@ -50,7 +50,7 @@ public abstract class GenericsService<T, K> implements IGenericsService<T, K> {
     }
 
     @Override
-    public void add(T obj){
+    public void add(T obj) throws Exception {
 
         genericsRepository.save(obj);
     }
@@ -83,4 +83,5 @@ public abstract class GenericsService<T, K> implements IGenericsService<T, K> {
     public List<T> getBetweenDate(Date fromDate, Date toDate, Field field) throws Exception{
         return genericsRepository.getBetweenDate(fromDate,toDate,field);
     }
+
 }

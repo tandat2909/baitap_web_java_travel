@@ -33,7 +33,9 @@
                 <li class=""><a href="${pageContext.request.contextPath}/About">About Us</a></li>
                 <li class=""><a href="${pageContext.request.contextPath}/Services">Services</a></li>
                 <li class=""><a href="${pageContext.request.contextPath}/Packages">Packages</a></li>
+                <li class=""><a href="${pageContext.request.contextPath}/News">News</a></li>
                 <li class=""><a href="${pageContext.request.contextPath}/Contact">Contact</a></li>
+
                 <li>
                     <c:choose>
                         <c:when test="${pageContext.request.userPrincipal.name == null }">

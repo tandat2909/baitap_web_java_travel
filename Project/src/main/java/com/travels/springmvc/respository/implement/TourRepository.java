@@ -35,6 +35,12 @@ public class TourRepository extends GenericsRepository<Tour, String> implements 
     }
 
     @Override
+    public List<Tour> searchAll(String province, String landMark, BigDecimal fromPrice, BigDecimal toPrice, Date fromDate, Date toDate){
+        List<Tour> tours = currentSession().createSQLQuery("CALL searchTour(:province, :landMark, :fromPrice, :toPrice, :fromDate, :toDate)").addEntity(Tour.class).setParameter("province", province).setParameter("landMark", landMark).setParameter("fromPrice", fromPrice).setParameter("toPrice", toPrice).setParameter("fromDate", fromDate).setParameter("toDate", toDate).getResultList();
+        return tours;
+    }
+
+    @Override
     public List<Tour> searchTourByProvince(Province province) {
         return searchTourByProvince(province.getProvinceId());
     }
@@ -51,7 +57,7 @@ public class TourRepository extends GenericsRepository<Tour, String> implements 
         try {
             landMarkRepository.SearchKeyWordOnField(landMarkName, Landmarks.class.getDeclaredField("landMarkName"))
                     .forEach(i -> tourList.addAll(i.getTours()));
-        } catch (NoSuchFieldException e) {
+        }catch (NoSuchFieldException e){
             e.printStackTrace();
             throw new Exception("Lỗi tìm kiếm tour");
         }
@@ -66,7 +72,8 @@ public class TourRepository extends GenericsRepository<Tour, String> implements 
     }
 
     @Override
-    public List<Tour> searchTourByDate(Date date) throws Exception {
+    public List<Tour> searchTourByDate(Date date) throws Exception
+    {
         date.setSeconds(0);
         date.setMinutes(0);
         date.setHours(0);
@@ -74,14 +81,14 @@ public class TourRepository extends GenericsRepository<Tour, String> implements 
         to.setSeconds(59);
         to.setMinutes(59);
         to.setHours(23);
-        return getBetweenDate(date, to, Tour.class.getDeclaredField("startDay"));
+        return getBetweenDate(date,to,Tour.class.getDeclaredField("startDay"));
 
     }
 
     @Override
     public List<Tour> searchTourByDate(Date fromDate, Date toDate) {
         try {
-            return getBetweenDate(fromDate, toDate, Tour.class.getDeclaredField("startDay"));
+            return getBetweenDate(fromDate,toDate,Tour.class.getDeclaredField("startDay"));
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
             return null;
@@ -94,7 +101,7 @@ public class TourRepository extends GenericsRepository<Tour, String> implements 
     @Override
     public List<Tour> searchTourByPrice(BigDecimal fromPrice, BigDecimal toPrice) throws Exception {
         try {
-            return getBetweenValue(fromPrice, toPrice, Tour.class.getDeclaredField("price"));
+            return getBetweenValue(fromPrice,toPrice,Tour.class.getDeclaredField("price"));
         } catch (Exception exception) {
             throw new Exception("Lỗi tìm kiếm tour theo giá");
         }
@@ -133,4 +140,26 @@ public class TourRepository extends GenericsRepository<Tour, String> implements 
     }
 
 
+    @Override
+    public void  addTour(Tour tour) throws Exception{
+        try{
+            if(tour.getTourName() == null || tour.getTourName().isEmpty())
+            {
+                throw new Exception("lỗi để trống tour");
+            }
+            else{
+                currentSession().save(tour);
+            }
+        } catch (Exception ex){
+            throw new Exception(ex.getMessage());
+        }
+    }
+//    @Override
+//    public boolean checkContentInTour(Tour tour) {
+////        List<Booking> result = currentSession().createQuery("From Tour where tourName = :i")
+////                .setParameter("i", tour.getTourName()).getResultList();
+//        if (tour.getContent() != null || !tour.getContent().isEmpty())
+//            return true;
+//        return false;
+//    }
 }

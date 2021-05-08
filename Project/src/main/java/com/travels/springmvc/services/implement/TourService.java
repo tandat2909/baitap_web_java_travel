@@ -3,6 +3,7 @@ package com.travels.springmvc.services.implement;
 import com.travels.springmvc.modelView.TourView;
 import com.travels.springmvc.pojo.Province;
 import com.travels.springmvc.pojo.Tour;
+import com.travels.springmvc.respository.IBookingDetailRepository;
 import com.travels.springmvc.respository.ITourRepository;
 import com.travels.springmvc.services.ITourService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,14 +16,22 @@ import java.util.List;
 
 @Service
 @Transactional
-public class TourService extends GenericsService<Tour, String> implements ITourService {
+public class TourService extends GenericsService<Tour,String> implements ITourService {
 
     @Autowired
     ITourRepository tourRepository;
+    @Autowired
+    IBookingDetailRepository bookingDetailRepository;
 
     @Override
     public List<Tour> searchTourByProvince(String provinceId) {
         return tourRepository.searchTourByProvince(provinceId);
+    }
+
+    @Override
+    public List<Tour> searchAll(String province, String landMark, BigDecimal fromPrice, BigDecimal toPrice, Date fromDate, Date toDate){
+
+        return tourRepository.searchAll(province, landMark, fromPrice, toPrice, fromDate, toDate);
     }
 
     @Override
@@ -77,6 +86,43 @@ public class TourService extends GenericsService<Tour, String> implements ITourS
     @Override
     public List<Tour> searchTourByPrice(BigDecimal fromPrice, BigDecimal toPrice) throws Exception {
         return tourRepository.searchTourByPrice(fromPrice, toPrice);
+    }
+
+    @Override
+    public void removeTour(String tourId) throws Exception{
+        tourRepository.removeTour(tourId);
+    }
+
+    @Override
+    public void addTour(Tour tour) throws Exception{
+
+        tourRepository.addTour(tour);
+    }
+    @Override
+    public void updateTour(Tour tour) throws Exception{
+        try {
+            if (tour.getContent() != null && !tour.getContent().isEmpty()) {
+                tourRepository.update(tour);
+                return;
+            }
+            throw new Exception("lỗi content");
+        } catch (Exception ex){
+            throw new Exception(ex.getMessage());
+        }
+
+    }
+
+    public boolean checkEmpty(String chuoi) throws Exception{
+        try {
+            if(chuoi == null || chuoi.isEmpty()) {
+                return true;
+            }
+            return false;
+
+        } catch (Exception ex){
+            throw new Exception("chuỗi rỗng");
+        }
+
     }
 
 
