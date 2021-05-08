@@ -1,3 +1,4 @@
+<jsp:useBean id="tour" scope="request" type="com.travels.springmvc.pojo.Tour"/>
 <%--
   Created by IntelliJ IDEA.
   User: datoa
@@ -55,14 +56,14 @@
     /*    color: #007ce6;*/
     /*}*/
 
-    /*.chuongtrinhtour .list .list__item .list__desc {*/
-    /*    width: 70%;*/
-    /*    color: #212121;*/
-    /*    font-size: 15px;*/
-    /*    line-height: 22px;*/
-    /*    padding-bottom: 30px;*/
-    /*    position: relative;*/
-    /*}*/
+    .list__desc {
+        width: 95%;
+        color: #212121;
+        font-size: 15px;
+        line-height: 22px;
+        padding-bottom: 30px;
+        position: relative;
+    }
 
     /*.chuongtrinhtour .list .list__item .list__desc .border {*/
     /*    background: #afafaf;*/
@@ -106,81 +107,94 @@
 <section class="about py-5">
     <div class="container py-lg-5 py-sm-4">
         <div class="row">
-            <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12">
-                <h2 class="title-lg">Chương trình tour</h2>
-                <div class="row">
-                    <div class="col-3">
-                        <div class="list__time">
-                            <div class="num">Ngày 01</div>
-                            <div class="day">01-05-2021</div>
+            <div class="col-lg-2 col-sm-4">
+                <ul>
+                    <li><a data-toggle="collapse" href="#chuongtrinhtour" role="button" aria-expanded="true" aria-controls="chuongtrinhtour">Chương trình tour</a></li>
+                    <li><a data-toggle="collapse" href="#chitiet" role="button" aria-expanded="false" aria-controls="chitiet">Chi Tiết</a></li>
+                    <li><a class="btn btn-warning" href="${pageContext.request.contextPath}/booking?tourid=${tour.tourId}"> Đặt Tour </a></li>
+                </ul>
+            </div>
+            <div class="col-lg-10 col-md-9 col-sm-8 col-xs-12" >
+                <div class="collapse show mb-5" id="chuongtrinhtour">
+                    <h2 class="title-lg">Chương trình tour</h2>
+                    <p class="pl-1">${tour.content}</p>
+
+                    <c:forEach var="t" items="${tour.contents}" varStatus="loop">
+                        <div class="row mt-4" style="padding: 0" >
+                        <div class="col-2 list__item" style="border-right:3px solid #afafaf">
+                            <div class="list__time">
+                                <div class="num">Ngày ${loop.index +1  < 10 ?("0"+(loop.index+1)) : loop.index+1}</div>
+                                <div class="day">
+<%--                                    <jsp:useBean id="t" scope="request" type="com.travels.springmvc.pojo.Contents"/>--%>
+                                <fmt:formatDate value="${t.date}" pattern="dd-MM-yyyy" /></div>
+                            </div>
+                        </div>
+                        <div class="col-10">
+                            <div class="list__desc">
+                                <div class="d1 detail" style="max-height: initial; overflow-y: initial;">
+                                    <div style="text-align: justify;">
+                                        <div>${t.content}</div>
+                                    </div>
+                                </div>
+<%--                                <div class="an-hien ah1">--%>
+<%--                                    <div class="hienra" style="display: none;">--%>
+<%--                                        <a href="#"> Xem thêm &nbsp;<i class="fas fa-arrow-down"></i></a>--%>
+<%--                                    </div>--%>
+<%--                                    <div class="andi" style="display: block;">--%>
+<%--                                        <a href="#"> Ẩn đi &nbsp;<i class="fas fa-arrow-up"></i></a>--%>
+<%--                                    </div>--%>
+<%--                                </div>--%>
+<%--                                <div class="border"></div>--%>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-9">
-                        <div class="list__desc">
-                            <h3 class="font500 name"><img src="/Content/ThemeHe/img/i-marker.png"
-                                                          alt="marker">&nbsp;&nbsp;&nbsp;PHÒNG
-                                LƯU TRÚ</h3>
-                            <div class="d1 detail" style="max-height: initial; overflow-y: initial;">
-
-
-                                <title></title>
-
-
-                                <div style="text-align: justify;">
-                                    <div>
-                                        <div>
-                                            <strong>&nbsp; Điều kiện áp dụng:</strong></div>
-                                        <div>
-                                            • Áp dụng khi đặt 02 Khách/Phòng
-                                        </div>
-                                        <div>
-                                            • Dành cho Khách Việt Nam
-                                        </div>
-                                        <div>
-                                            • Chính sách hủy: Không hoàn, không đổi, không hủy.
-                                        </div>
-                                        <div>
-                                            • Chính sách phụ thu người thứ ba và trẻ em: vui lòng liên hệ
-                                        </div>
-                                        <div>
-                                            &nbsp;
-                                        </div>
-                                        <div>
-                                            <strong>&nbsp; Giá phòng không bao gồm:</strong></div>
-                                        <div>
-                                            • Chi phí ăn uống cá nhân
-                                        </div>
-                                        <div>
-                                            • Các chi phí khác không bao gồm trong giá
-                                        </div>
-                                        <div>
-                                            &nbsp;
-                                        </div>
-                                        <div>
-                                            <strong>&nbsp; Thời gian nhận phòng: 14:00</strong></div>
-                                        <div>
-                                            <strong>&nbsp; Thời gian trả phòng: 12:00</strong></div>
-                                        <div>
-                                            &nbsp;
-                                        </div>
-                                    </div>
-                                    <div>
-                                        &nbsp;
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="an-hien ah1">
-                                <div class="hienra" style="display: none;">
-                                    <a href="#"> Xem thêm &nbsp;<i class="fas fa-arrow-down"></i></a>
-                                </div>
-                                <div class="andi" style="display: block;">
-                                    <a href="#"> Ẩn đi &nbsp;<i class="fas fa-arrow-up"></i></a>
-                                </div>
-                            </div>
-                            <div class="border"></div>
+                    </c:forEach>
+                </div>
+                <div class="collapse" id="chitiet">
+                    <h2 class="title-lg">Thông tin chi tiết</h2>
+                    <div class="row ml-2">
+                        <div class="col-12 mt-2">
+                           <h6>THÔNG TIN KHÁCH SẠN</h6>
+                            <p>Đang cập nhật</p>
                         </div>
+                        <div class="col-12 mt-3">
+                            <h6>THÔNG TIN HƯỚNG DẪN VIÊN</h6>
+                            <p>Đang cập nhật</p>
+                        </div>
+                        <c:if test="${tour.startDay != tour.endDay}">
+                        <div class="col-12 mt-3">
+                            <h6>NGÀY KHỞI HÀNH - KẾT THÚC</h6>
+                            <p>Ngày khởi hành: <fmt:formatDate value="${tour.startDay}" pattern="dd-MM-yyyy"/> </p>
+                            <p>Ngày kết thúc: <fmt:formatDate value="${tour.endDay}" pattern="dd-MM-yyyy"/></p>
+                        </div>
+                        </c:if>
+                        <c:if test="${tour.startDay == tour.endDay}">
+                            <div class="col-12 mt-3">
+                                <h6>NGÀY BẮT ĐẦU</h6>
+                                <p> <fmt:formatDate value="${tour.startDay}" pattern="dd-MM-yyyy"/> </p>
+
+                            </div>
+                        </c:if>
+                        <div class="col-12 mt-3">
+                            <h6>GIÁ TOUR</h6>
+                            <table class="table table-bordered">
+                                <tr>
+                                    <td>Loại Khách</td>
+                                    <td>Giá Tour</td>
+                                </tr>
+                                <c:forEach items="${tour.tourprices}" var="i">
+                                    <tr>
+                                        <td>${i.ages.name}</td>
+                                        <td>${i.price} VNĐ</td>
+                                    </tr>
+                                </c:forEach>
+                            </table>
+                        </div>
+
+
                     </div>
                 </div>
+
             </div>
         </div>
     </div>

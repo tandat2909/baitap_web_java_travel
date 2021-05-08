@@ -38,6 +38,7 @@ public class Employees implements Serializable {
     @OneToMany(mappedBy = "employee")
     private Collection<Booking> bookings;
 
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "accountID" , nullable = false,unique = true)
     private Account account;
@@ -181,8 +182,10 @@ public class Employees implements Serializable {
                 ", birthDay=" + birthDay +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", address='" + address + '\'' +
-                ", bookings=" + bookings.size() +
+//                ", bookings=" + bookings.size() +
                 ", accountId=" + account.getAccountId() +
                 '}';
     }
+
+
 }

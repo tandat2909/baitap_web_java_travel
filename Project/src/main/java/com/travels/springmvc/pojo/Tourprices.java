@@ -2,6 +2,7 @@ package com.travels.springmvc.pojo;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity
@@ -14,13 +15,13 @@ public class Tourprices implements Serializable {
     @Column(name = "tourID", nullable = false, length = 100)
     private String tourId;
 
-    private int price;
+    private BigDecimal price;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ageID", nullable = false)
+    @JoinColumn(name = "ageID", nullable = false,insertable = false,updatable = false)
     private Ages ages;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "tourID", nullable = false)
+    @JoinColumn(name = "tourID", nullable = false,updatable = false,insertable = false)
     private Tour tour;
 
 
@@ -45,11 +46,11 @@ public class Tourprices implements Serializable {
 
     @Basic
     @Column(name = "price", nullable = false, precision = 0)
-    public int getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
@@ -90,8 +91,8 @@ public class Tourprices implements Serializable {
                 "ageId='" + ageId + '\'' +
                 ", tourId='" + tourId + '\'' +
                 ", price=" + price +
-                ", ages=" + ages.getAgeId() +
-                ", tour=" + tour.getTourId() +
+                ", ages=" + ageId +
+                ", tour=" + tourId   +
                 '}';
     }
 }

@@ -11,6 +11,7 @@ import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -30,37 +31,21 @@ public class WebApplicationContextConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        /*registry.addResourceHandler("/css/**")
-                .addResourceLocations("/resources/css/");
-        registry.addResourceHandler("/img/**")
-                .addResourceLocations("/resources/images/");
-        registry.addResourceHandler("/js/**")
-                .addResourceLocations("/resources/js/");*/
+
         //login
         registry.addResourceHandler("/login/**")
                 .addResourceLocations("/resources/admin/");
-
-        //Trang chu
-//        registry.addResourceHandler("/TrangChu/css/**")
-//                .addResourceLocations("/resources/TrangChu/css/");
-//        registry.addResourceHandler("/TrangChu/img/**")
-//                .addResourceLocations("/resources/TrangChu/images/");
-//        registry.addResourceHandler("/TrangChu/fonts/**")
-//                .addResourceLocations("/resources/TrangChu/fonts/");
 
         registry.addResourceHandler("/TrangChu/**").addResourceLocations("/resources/TrangChu/");
         registry.addResourceHandler("/pages/**").addResourceLocations("/WEB-INF/pages/");
         //admin
         registry.addResourceHandler("/admin/**").addResourceLocations("/resources/admin/");
 
-//        registry.addResourceHandler("/admin/css/**")
-//                .addResourceLocations("/resources/admin/css/");
-//        registry.addResourceHandler("/admin/fonts/**")
-//                .addResourceLocations("/resources/admin/fonts/");
-//        registry.addResourceHandler("/admin/images/**")
-//                .addResourceLocations("/resources/admin/images/");
-//        registry.addResourceHandler("/admin/js/**")
-//                .addResourceLocations("/resources/admin/js/");
+        //employee
+        registry.addResourceHandler("/employee/**").addResourceLocations("/resources/admin/");
+
+        //Ckeditor
+        registry.addResourceHandler("/ckeditorg/**").addResourceLocations("/resources/CKEditor/");
 
     }
 
@@ -83,7 +68,12 @@ public class WebApplicationContextConfig implements WebMvcConfigurer {
 //    }
 //
 //
-
+    @Bean
+    public CommonsMultipartResolver multipartResolver() {
+        CommonsMultipartResolver resolver = new CommonsMultipartResolver();
+        resolver.setDefaultEncoding("UTF-8");
+        return resolver;
+    }
 
 
 

@@ -9,6 +9,9 @@ public class Ticket implements Serializable {
     @Id
     @Column(name = "ticketID", nullable = false, length = 100)
     private String ticketId;
+    @Column(name = "ageID")
+    private String agesId;
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "bookingID", nullable = false)
@@ -19,10 +22,16 @@ public class Ticket implements Serializable {
     private Customer customer;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ageID", nullable = false)
+    @JoinColumn(name = "ageID", nullable = false,insertable = false,updatable = false)
     private Ages ages;
 
+    public String getAgesId() {
+        return agesId;
+    }
 
+    public void setAgesId(String agesId) {
+        this.agesId = agesId;
+    }
 
     public String getTicketId() {
         return ticketId;
@@ -43,12 +52,12 @@ public class Ticket implements Serializable {
     }
 
 
-    public Customer getCustomerByCustomerId() {
+    public Customer getCustomer() {
         return customer;
     }
 
-    public void setCustomerByCustomerId(Customer customerByCustomerId) {
-        this.customer = customerByCustomerId;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
 
@@ -58,5 +67,13 @@ public class Ticket implements Serializable {
 
     public void setAges(Ages ages) {
         this.ages = ages;
+    }
+
+    @Override
+    public String toString() {
+        return "Ticket{" +
+                "ticketId='" + ticketId + '\'' +
+                ", agesId='" + agesId + '\'' +
+                '}';
     }
 }

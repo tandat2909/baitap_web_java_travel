@@ -47,10 +47,10 @@
                     <h3>Danh sách khách hàng hệ thống</h3>
                 </div>
                 <div class="card-body">
-                    <div class="row px-2" id="search-element">
+                        <div class="row px-2" id="search-element">
                         <c:url value="/admin/images/avatar/" var="path_img"/>
-                        <c:forEach items="${lsCustomer}" var="i">
-                                <div class="col-lg-3 col-md-6 mb-4 px-2 search-customer" id ="${i.customerId}">
+                            <c:forEach items="${lsCustomer}" var="i">
+                                <div class="col-lg-3 col-md-6 mb-4 px-2 search-customer" id ="${i.customerId}" >
                                     <div class="card text-center card_border py-2">
                                         <div class="btn_delete" title="Xóa" onclick="deleteCustomer('${i.customerId}')" >x</div>
                                         <div class="card-body">
@@ -66,7 +66,7 @@
                                                     <div class="people-social mt-3">
                                                         <a href="tel:${i.phoneNumber}" class="facebook"><span class="fa fa-phone-square"></span></a>
                                                         <a href="mailto:${i.email}" title="Email" class="twitter"><span class="fa fa-envelope"></span></a>
-                                                        <a href="#team" class="linkedin" title="chỉnh sửa"><i class="fa fa-edit"></i></a>
+                                                        <button  style="border: none;background-color: white;"><a href="${pageContext.request.contextPath}/admin/customer/update?customerId=${i.customerId}" class="linkedin" title="chỉnh sửa"><i class="fa fa-edit"></i></a></button>
                                                     </div>
                                                     <a href="#url" class="btn mt-4 profile-btn text-primary">View profile </a>
                                                 </div>
@@ -78,6 +78,7 @@
                         </c:forEach>
 
                     </div>
+
                 </div>
             </div>
             <!-- //people cards style 2 -->

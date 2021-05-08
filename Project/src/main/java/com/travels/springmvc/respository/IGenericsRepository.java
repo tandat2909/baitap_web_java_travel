@@ -3,6 +3,7 @@ package com.travels.springmvc.respository;
 import org.apache.commons.lang.NullArgumentException;
 
 import java.lang.reflect.Field;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -12,8 +13,9 @@ public interface IGenericsRepository <T,K> {
     void saveOrUpdate(T obj)throws NullArgumentException;
     void remove(T obj) throws NullArgumentException;
     void update(T entity) throws NullArgumentException;
-    void save(T obj) throws NullArgumentException;
+    void save(T obj) throws Exception;
     void save(T obj, boolean GeneratedValueId);
+    void saveAll(Collection<T> listObject) throws Exception;
     T getElementById(K key);
     List<T> getElementsByKeyWordOnField(String kw, Field field);
     List<T> SearchKeyWordOnField(String kw, Field field) throws Exception;
@@ -36,4 +38,6 @@ public interface IGenericsRepository <T,K> {
      */
     List<T> getBetweenValue(Object from, Object to, Field field) throws Exception;
     List<T> getBetweenDate(Date fromDate, Date toDate, Field field) throws Exception;
+
+
 }
