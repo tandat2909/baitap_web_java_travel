@@ -133,7 +133,7 @@ let totalGuests = () =>{
     $("#spanTotalPrice").val(totalPrice())
 }
 
-if(!$("#max-seats").data("seat").equals("0")){
+if(!$("#max-seats").data("seat")==="0"){
     console.log("vô đây")
     totalGuests()
 }

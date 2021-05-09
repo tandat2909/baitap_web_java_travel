@@ -4,12 +4,11 @@ import com.travels.springmvc.pojo.Contents;
 import com.travels.springmvc.pojo.Landmarks;
 import com.travels.springmvc.pojo.Tour;
 import com.travels.springmvc.pojo.Tourprices;
+import com.travels.springmvc.respository.Enum.EAges;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class TourView {
@@ -21,14 +20,14 @@ public class TourView {
     String contents;
     String ngaydi;
     String ngayve;
+    MultipartFile img;
 
 
     public Tour getTour() {
-        try{
+        try {
             tour.setStartDay(Utils.getDateRequest(ngaydi));
             tour.setEndDay(Utils.getDateRequest(ngayve));
-        }catch (IllegalArgumentException ignored){
-
+        } catch (IllegalArgumentException ignored) {
         }
         return tour;
     }
@@ -70,23 +69,36 @@ public class TourView {
         this.ngayve = ngayve;
     }
 
-    public List<Tourprices> getTourprices(){
-        if(!prices.isBlank()){
-            return Arrays.stream(prices.split(";")).map(item ->{
+    public List<Tourprices> getTourprices() throws Exception {
+        if (!prices.isBlank()) {
+            Map<String,BigDecimal> checkValid = new HashMap<>();
+            List<Tourprices> tourprices = new ArrayList<>();
+            for (String item : prices.split(";")) {
                 String[] data = item.split(":");
-                Tourprices temp = new Tourprices();
-                temp.setAgeId(data[0]);
-                temp.setPrice(new BigDecimal(data[1]));
-                return temp;
-            }).collect(Collectors.toList());
+                if (data.length == 2) {
+                    Tourprices temp = new Tourprices();
+                    temp.setAgeId(data[0]);
+                    temp.setPrice(new BigDecimal(data[1]));
+                    checkValid.put(temp.getAgeId(),temp.getPrice());
+                    tourprices.add(temp);
+                }
+                throw new Exception("Thông tin giá không hợp lệ");
+            }
+            if(checkValid.get(EAges.getId(EAges.NGUOILON)).compareTo(checkValid.get(EAges.getId(EAges.TREEM)))> 0)
+                if(checkValid.get(EAges.getId(EAges.TREEM)).compareTo(checkValid.get(EAges.getId(EAges.TRENHO)))> 0)
+                    if(checkValid.get(EAges.getId(EAges.TRENHO)).compareTo(checkValid.get(EAges.getId(EAges.EMBE)))> 0)
+                        return tourprices;
+
+            throw new Exception("Thông tin giá không hợp lệ\n Người lớn > Trẻ em > Trẻ nhỏ > Em bé");
         }
         return null;
     }
 
     public List<Contents> getListContens() {
-       if (contents != null && !contents.isBlank() && !ngaydi.isBlank() && !ngayve.isBlank()) {
+        if (contents != null && !contents.isBlank() && !ngaydi.isBlank() && !ngayve.isBlank()) {
             String[] cnt = contents.split("</end>");
-            return Arrays.stream(cnt).map(i -> {
+            List<Contents> s = new ArrayList<>();
+            for (String i : cnt) {
                 String[] data = i.split("<:>");
 //                System.err.println("=============");
 //                System.err.println(data+"+"+i);
@@ -96,20 +108,28 @@ public class TourView {
                 temp.setContent(data[2]);
                 temp.setDate(nd);
                 temp.setLandMarkID(data[1]);
-
-                return temp;
-            }).collect(Collectors.toList());
-
+                s.add(temp);
+            }
+            return s;
         }
-
         return null;
+
     }
+
     public String getContents() {
         return contents;
     }
 
     public void setContents(String contents) {
         this.contents = contents;
+    }
+
+    public MultipartFile getImg() {
+        return img;
+    }
+
+    public void setImg(MultipartFile img) {
+        this.img = img;
     }
 
     @Override

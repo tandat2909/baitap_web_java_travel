@@ -7,22 +7,28 @@ import com.travels.springmvc.respository.IAccountRepository;
 import com.travels.springmvc.services.IAccountService;
 import com.travels.springmvc.services.ICustomerService;
 import com.travels.springmvc.services.IRoleService;
+import org.junit.FixMethodOrder;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 
 @SpringBootTest
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 class AccountServiceTest {
-
+    Account account;
     @Autowired
     IAccountService accountService;
 
@@ -37,6 +43,7 @@ class AccountServiceTest {
     IAccountRepository accountRepository;
     @BeforeEach
     void setUp() {
+
     }
 
     @AfterEach
@@ -44,21 +51,20 @@ class AccountServiceTest {
     }
 
     @Test
-    void getAll() {
-       Account ac= accountService.getElementById("9be1d83f-516d-4eef-94e5-2b3f2ac9f370");
-        System.out.println(ac);
-        ac.setStatus(true);
-        accountService.update(ac);
-        assertFalse(accountService.getElementById("9be1d83f-516d-4eef-94e5-2b3f2ac9f370").getStatus());
-
+    void TC_1_getAll() {
+        List<Account> all = accountService.getAll();
+        assert all != null;
+        all.forEach(System.out::println);
     }
 
     @Test
-    void saveOrUpdate() {
+    void TC_2_add() {
+        
     }
 
     @Test
     void remove() {
+
     }
 
     @Test
@@ -69,9 +75,7 @@ class AccountServiceTest {
     void setValueFieldId() {
     }
 
-    @Test
-    void add() {
-    }
+
 
     @Test
     void testAdd() {

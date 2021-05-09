@@ -86,7 +86,7 @@
                 <div class="row">
                     <div class="col-lg-3">
                         <a href="${pageContext.request.contextPath}/tour?tourid=${tour.tourId}">
-                            <img src="TrangChu/img/<%--${tour.image}--%>" class="img-responsive pic-bt">
+                            <img src="<c:url value='/TrangChu/images/tours/${tour.image}'/>" class="img-responsive pic-bt">
                         </a>
                     </div>
                     <div class="col-lg-9">
@@ -95,13 +95,13 @@
                                 <h3> ${tour.tourName}</h3></a>
                         </div>
 
-                        <div class="row">
-                            <div class="col-lg-6">Mã Tour:${tour.tourId}</div>
-                            <div class="col-lg-6 " id="max-seats" data-seat = "${tour.maxseats}">Số chỗ còn nhận: ${tour.maxseats}</div>
-                            <div class="col-lg-6">Ngày khởi hành: <fmt:formatDate value="${tour.startDay}" pattern="dd-MM-yyyy"/> </div>
-                            <div class="col-lg-6"><a href="/ngaykhaccuatour">Ngày Khác</a></div>
-                            <div class="col-lg-6">Số ngày: 1</div>
-                            <div class="col-lg-6">Giá: ${tour.price}</div>
+                        <div class="row mt-3">
+                            <div class="col-lg-6 mt-1">Mã Tour: ${tour.tourId}</div>
+                            <div class="col-lg-6 mt-1" id="max-seats" data-seat = "${tour.maxseats}">Số chỗ còn nhận: ${tour.maxseats}</div>
+                            <div class="col-lg-6 mt-1">Ngày khởi hành: <fmt:formatDate value="${tour.startDay}" pattern="dd-MM-yyyy"/> </div>
+                            <div class="col-lg-6 mt-1"><a href="/ngaykhaccuatour">Ngày Khác</a></div>
+                            <div class="col-lg-6 mt-1">Số ngày: 1</div>
+                            <div class="col-lg-6 mt-1">Giá: ${tour.price}</div>
                             <div class="clearfix"></div>
                         </div>
 

@@ -36,7 +36,7 @@ public class AccountRepository extends GenericsRepository<Account, String> imple
     public boolean createAccount(Account account, Object o) throws Exception {
         Session session = currentSession();
 
-        String EMAIL_PATTERN = "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$";
+        String EMAIL_PATTERN = "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-z]{2,}$";
         String PHONENUMBERVN_PATTENR = "(84|0[3|2|5|7|8|9])+([0-9]{8})\\b";
         String CCID_PATTENR = "[0-9]{9}|[0-9]{12}";
         java.sql.Date timecheck = Date.valueOf(java.time.LocalDate.now());
@@ -94,7 +94,7 @@ public class AccountRepository extends GenericsRepository<Account, String> imple
                     throw new Exception("Không để trống trường ngày sinh");
 
                 if (timecheck.getTime() - employees.getBirthDay().getTime() < 0)
-                    throw new Exception("Ngày sinh nhỏ hơn " + sysConfigRepository.getElementById(ESysconfig.AAR.name()) + " không được đăng ký");
+                    throw new Exception("Ngày sinh nhỏ hơn " + sysConfigRepository.getElementById(ESysconfig.AAR.name()).getValue() + " không được đăng ký");
 
                 if (employees.getEmployeeId() == null || employees.getEmployeeId().isEmpty()) {
                     employees.setEmployeeId(UUID.randomUUID().toString());
@@ -119,9 +119,11 @@ public class AccountRepository extends GenericsRepository<Account, String> imple
         String USERNAME_PATTERN = "[a-zA-Z0-9]{5,}";
         String PASSWORD_PATTERN = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
         if (account == null)
-            throw new NullPointerException("thông tin không được để trống");
+            throw new NullPointerException("Thông tin không được để trống");
         if (account.getUserName() == null || !Pattern.matches(USERNAME_PATTERN, account.getUserName()))
-            throw new Exception("Không được để trống và trên 5 ký tự ");
+            throw new Exception("Username không hợp lệ");
+        if(account.getUserName().length() >= 50)
+            throw new Exception("Username không quá 50 Kí tự");
         if (isUserNameExist(account))
             throw new Exception("User tồn tại");
         if (account.getPw() == null || !Pattern.matches(PASSWORD_PATTERN, account.getPw()))
@@ -186,8 +188,6 @@ public class AccountRepository extends GenericsRepository<Account, String> imple
             System.err.println("isCheckActive Error: Account field id is Null ");
             throw new NullPointerException("isCheckActive Error: field accountId null");
         }
-
-
     }
 
     @Override

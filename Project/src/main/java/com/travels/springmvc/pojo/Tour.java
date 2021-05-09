@@ -20,6 +20,8 @@ public class Tour implements Serializable {
     private Date startDay;
     private int maxseats;
     private Date endDay;
+    @Column(name = "image")
+    private String image;
 
     @Column(name = "content")
     private String content;
@@ -169,6 +171,14 @@ public class Tour implements Serializable {
 
     public void setContents(List<Contents> contents) {
         this.contents = contents;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     @Override

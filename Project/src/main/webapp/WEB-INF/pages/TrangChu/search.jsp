@@ -24,6 +24,9 @@
     <div class="container py-xl-5 py-lg-3">
         <h3 class="heading text-capitalize text-center mb-lg-5 mb-4">Kết quả tìm kiếm</h3>
         <div>
+            <c:if test="${tour == null}">
+                <h4 class="text-center">Không tìm thấy</h4>
+            </c:if>
             <c:forEach items="${tours}" var="Search">
                 <div class="col-lg-6 mt-4">
                     <div class="grids-tem-one">

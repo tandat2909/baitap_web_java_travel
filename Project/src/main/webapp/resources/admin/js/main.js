@@ -15,6 +15,7 @@ function deleteCustomer(customerId) {
         })
     }
 }
+
 function deleteTour(tourId) {
     if (confirm("Bạn chắc chắn xóa không?") == true) {
         fetch(`${uri}/api/tour?tourid=${tourId}`, {
@@ -63,8 +64,8 @@ function deleteNew(newId) {
     }
 }
 
-let openLink= (link,option)=>{
-    window.open(link,option)
+let openLink = (link, option) => {
+    window.open(link, option)
 }
 
 //hàm trả về một async có kết quả
@@ -83,7 +84,7 @@ let addOptionLandMark = (select) => {
     let provinceid = $(select).val()
     fetch(`${uri}/api/landMark?provinceId=${provinceid}`).then(res => res.json()).then(data => {
         $("#landMark_" + $(select).attr("day")).empty().append("<option selected disabled>Chọn địa danh</option>")
-        for(var i=0 ; i < data.length;i++){
+        for (var i = 0; i < data.length; i++) {
             var d = data[i].split(":");
             var opHtml = `<option value="${d[0]}">${d[1]}</option>`
             $("#landMark_" + $(select).attr("day")).append(opHtml);
@@ -109,15 +110,16 @@ var checkInputNgay = (a, b) => {
 $("#ngaydi").attr('min', strtoDay).val(strtoDay).change(() => {
     let nd = $("#ngaydi")
     let nv = $("#ngayve")
-    if($(nv).val().toString().length === 0 || !checkInputNgay($(nd).val(),$(nv).val())){
+    if ($(nv).val().toString().length === 0 || !checkInputNgay($(nd).val(), $(nv).val())) {
         $(nv).attr("min", $(nd).val()).val($(nd).val())
     }
-    if(checkInputNgay($(nd).attr("min"),$(nv).attr("min"))){
+    if (checkInputNgay($(nd).attr("min"), $(nv).attr("min"))) {
         $(nv).attr("min", $(nd).val())
     }
     addContent()
 })
-$("#ngayve").change(() => {
+
+$("#ngayve").attr('min', strtoDay).change(() => {
     let nd = $("#ngaydi").val()
     const nv = $("#ngayve").val()
     if (!checkInputNgay(nd, nv)) {
@@ -126,36 +128,36 @@ $("#ngayve").change(() => {
         return;
     }
     addContent()
-
-
 })
 
-let addContent=()=>{
+
+let addContent = () => {
     let nd = $("#ngaydi").val()
     const nv = $("#ngayve").val()
     var clone = $("#cttour .row:first-child").clone(true)
     $("#cttour").empty().append(clone);
-    for (var i = 2; i <= getDays(nd, nv)+1; i++) {
+    for (var i = 2; i <= getDays(nd, nv) + 1; i++) {
         var ct = $("#cttour .row:first-child").clone(true)
 
-        $("#landMark_1",ct).attr("id","landMark_"+i).attr("day",i)
-        $("#provice_1",ct).attr("id","provice_"+i).attr("day",i)
-        $("#content_1",ct).attr("id","content_"+i).attr("day",i)
-        $("#title_1",ct).text("Ngày thứ " + i)
+        $("#landMark_1", ct).attr("id", "landMark_" + i).attr("day", i)
+        $("#provice_1", ct).attr("id", "provice_" + i).attr("day", i)
+        $("#content_1", ct).attr("id", "content_" + i).attr("day", i)
+        $("#title_1", ct).text("Ngày thứ " + i)
         //console.log(ct.html())
         $("#cttour").append(ct);
     }
 }
 
 
-
-let summitFormAddTour = ()=>{
+let summitFormAddTour = () => {
     let prices = $("#tourprice td input.pricejs")
-    let strPrice=""
+    let strPrice = ""
 
-    for(let i = 0 ; i < prices.length;i++){
-        var d = $(prices[i]).data("id") +":" + $(prices[i]).val()
-        strPrice += d +";"
+    
+
+    for (let i = 0; i < prices.length; i++) {
+        var d = $(prices[i]).data("id") + ":" + $(prices[i]).val()
+        strPrice += d + ";"
     }
     $("#prices").val(strPrice);
     //console.log("price: " +strPrice)
@@ -163,48 +165,55 @@ let summitFormAddTour = ()=>{
     let nd = $("#ngaydi").val()
     let nv = $("#ngayve").val()
     let contents = ""
-    for(let i = 1; i <= getDays(nd,nv) + 1;i++){
-       // console.log("bien i: "+ i)
-        var landMark = $("#landMark_"+i)
+    for (let i = 1; i <= getDays(nd, nv) + 1; i++) {
+        // console.log("bien i: "+ i)
+        var landMark = $("#landMark_" + i)
 
-        var content = $("#content_"+i).val().replaceAll('\n',"<br />")
+        var content = $("#content_" + i).val().replaceAll('\n', "<br />")
         //console.log(content)
-        contents += $(landMark).attr("day") + "<:>" + $(landMark).val() + "<:>" + content +"</end>"
-       // console.log(contents)
+        contents += $(landMark).attr("day") + "<:>" + $(landMark).val() + "<:>" + content + "</end>"
+        // console.log(contents)
     }
 
-   // console.log(getDays(nd,nv)+1)
+    // console.log(getDays(nd,nv)+1)
     $("#contentspost").val(contents)
-   // console.log($("#contentspost").val())
-   // console.log(contents)
-  //  $("#test").html(contents)
+    // console.log($("#contentspost").val())
+    // console.log(contents)
+    //  $("#test").html(contents)
 }
 
 
-$(document).ready(function(){
-$("#aaaa").click(function(){
-    var values = $(".ages input");
-    var valuep = $("#prices");
-    var data = "";
-    for(var i = 0; i < values.length; i ++)
-    {
-        //valuep.value = values[i].value + ":" + $(values[i]).attr("id") + ";"
-        data += values[i].value + ":" + $(values[i]).attr("id") + ";"
-        // alert(values[i].val() + "&" + values[i].attr("id"))
-    }
-    $("#prices").val(data);
+$(document).ready(function () {
+    $("#aaaa").click(function () {
+        var values = $(".ages input");
+        var valuep = $("#prices");
+        var data = "";
+        for (var i = 0; i < values.length; i++) {
+            //valuep.value = values[i].value + ":" + $(values[i]).attr("id") + ";"
+            data += values[i].value + ":" + $(values[i]).attr("id") + ";"
+            // alert(values[i].val() + "&" + values[i].attr("id"))
+        }
+        $("#prices").val(data);
     });
 });
-var edit ='';
-$(document).ready(function(){
+var edit = '';
+$(document).ready(function () {
     edit = CKEDITOR.replace('ck');
     // CKEDITOR.instances.ck.updateElement();
     // alert( document.getElementById( 'ck' ).value );
 });
 
-let setNameFile = ()=>{
-
-        $("#imgname").text($("#imgjs").val())
-
+let setNameFile = () => {
+    $("#imgname").text($("#imgjs").val())
 }
+
+let checkSelect = (select) => {
+    if ($(select).val() === '') {
+        $(select).removeAttr("class").attr("class", "custom-select is-invalid")
+        return false
+    }
+    $(select).removeAttr("class").attr("class", "custom-select is-valid")
+    return true
+}
+
 
