@@ -1,3 +1,4 @@
+<jsp:useBean id="info" scope="request" type="com.travels.springmvc.modelView.InforAccount"/>
 <%--<jsp:useBean id="bookinview" scope="request" type="com.travels.springmvc.modelView.BookingView"/>--%>
 <%--<jsp:useBean id="tour" scope="request" type="com.travels.springmvc.pojo.Tour"/>--%>
 <%--
@@ -66,6 +67,17 @@
 
 </style>
 
+
+<c:if test="${error == true}">
+    <div class="alert alert-danger alert-dismissible fade show text-center" style="position: absolute; width: 100%" role="alert">
+        ${messges}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+</c:if>
+
+
 <section class="contact py-5">
     <div class="container py-lg-5 py-sm-4">
         <h3 class=" text-capitalize text-center  mb-3" style="color: red"> Thông Tin Tour</h3>
@@ -130,28 +142,28 @@
                                             <div class="form-group">
                                                 <label>Họ (<span class="star">*</span>)</label>
                                                 <div>
-                                                    <input class="form-control" id="contact_name" name="customer.firstName"
+                                                    <input class="form-control" id="contact_name" disabled name=""
 
-                                                           required type="text" value="">
+                                                            type="text" value="${info.firstName}">
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label>Tên (<span class="star">*</span>)</label>
                                                 <div>
                                                     <input class="form-control"
-
                                                            id="ten"
-                                                           name="customer.lastName"
+<%--                                                           name="customer.lastName"--%>
                                                            required
+                                                           disabled
                                                            type="text"
-                                                           value="">
+                                                           value="${info.lastName}">
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label>Địa chỉ(<span class="star">*</span>)</label>
                                                 <div>
-                                                    <input class="form-control" id="address" name="customer.address" type="text"
-                                                                   value="">
+                                                    <input class="form-control" id="address" disabled <%--name="customer.address"--%> type="text"
+                                                                   value="${info.address}">
                                                 </div>
                                             </div>
                                         </div>
@@ -159,15 +171,15 @@
                                             <div class="form-group">
                                                 <label>Email (<span class="star">*</span>)</label>
                                                 <div>
-                                                    <input class="form-control" id="email" name="customer.email"
-                                                           required type="email" value="">
+                                                    <input class="form-control" id="email" <%--name="customer.email"--%>
+                                                           required disabled type="email" value="${info.email}">
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label>Điện thoại(<span class="star">*</span>)</label>
                                                 <div>
-                                                    <input class="form-control" id="phone" required name="customer.phoneNumber"
-                                                            type="text" value="">
+                                                    <input class="form-control" id="phone" disabled <%--name="customer.phoneNumber"--%>
+                                                            type="text" value="${info.phoneNumber}">
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -178,7 +190,7 @@
 
                                                             <input class="form-control" id="adult"
                                                                    data-toggle="tooltip" data-placement="bottom" title="Từ 12 tuổi trở lên"
-                                                                   onchange="totalGuests(this)" min="1" type="number"
+                                                                   onchange="totalGuests()" min="1" type="number"
                                                                    value="1">
                                                         </div>
                                                     </div>
@@ -187,7 +199,7 @@
                                                         <div>
                                                             <input class="form-control"  type="number" id="children11"  value="0"
                                                                    data-toggle="tooltip" data-placement = "bottom" title="Từ 5 tuổi đến dưới 12 tuổi"
-                                                                   onchange="totalGuests(this)" min="0"
+                                                                   onchange="totalGuests()" min="0"
                                                                    >
                                                         </div>
                                                     </div>
@@ -196,7 +208,7 @@
                                                         <div>
                                                             <input class="form-control" type="number" id="children" data-toggle="tooltip" data-placement="bottom"
                                                                    title = "Từ 2 tuổi đến dưới 5 tuổi"
-                                                                   onchange="totalGuests(this)" min="0"
+                                                                   onchange="totalGuests()" min="0"
                                                                    value="0">
                                                         </div>
                                                     </div>
@@ -205,7 +217,7 @@
                                                         <div>
                                                             <input class="form-control" type="number" id="small_children"
                                                                    data-toggle="tooltip" data-placement="bottom" title="Dưới 2 tuổi"
-                                                                   onchange="totalGuests(this)" min="0"
+                                                                   onchange="totalGuests()" min="0"
                                                                    value="0">
                                                         </div>
                                                     </div>
@@ -259,74 +271,6 @@
                                     </div>
                                     <div class="col-xs-12 mg-bot30">
                                         <div class="list">
-                                            <div class="cus-num">Khách hàng 1</div>
-                                            <div class="frame-cus">
-                                                <div class="form-horizontal">
-                                                    <div class="row mg-bot10">
-                                                        <div class="col-lg-3 col-md-8 col-sm-6 col-xs-12 mg-bot10">
-                                                            <label class="mg-bot5">Họ tên (<span
-                                                                    class="star">*</span>)</label>
-                                                            <div>
-                                                                <input class="form-control"
-                                                                       required="" type="text" value="">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 mg-bot10">
-                                                            <label class="mg-bot5">Giới tính</label>
-                                                            <div>
-                                                                <select class="form-control" name="[0].gender">
-                                                                    <option value="0">Nữ</option>
-                                                                    <option value="1">Nam</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 mg-bot10">
-                                                            <label class="mg-bot5">Ngày sinh (<span
-                                                                    class="star">*</span>)</label>
-                                                            <div>
-                                                                <input type="date" class="form-control">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 mg-bot10">
-                                                            <label class="mg-bot5">Độ tuổi</label>
-                                                            <div>
-                                                                <select class="form-control" id="personkind0">
-                                                                    <option value="0">Người lớn</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 mg-bot10"
-                                                             style="display:none;">
-                                                            <label class="mg-bot5">Loại khách:</label>
-                                                            <div>
-                                                                <select class="form-control" id="loaikhachnoidia0"
-                                                                        name="[0].loaikhachnoidia"
-                                                                        onchange="ChangeChoose();">
-                                                                    <option value="0">Việt Nam</option>
-                                                                    <option value="1">Việt kiều</option>
-                                                                    <option value="2">Nước ngoài</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 mg-bot10">
-                                                            <label class="mg-bot5">Phòng đơn</label>
-                                                            <div>
-                                                                <select class="form-control" id="loaiphuthuphongdon0">
-                                                                    <option selected="selected" value="0">Không</option>
-                                                                    <option value="1">Có</option>
-                                                                </select></div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row total">
-                                                        <div class="col-md-12 col-sm-12 text-right">
-                                                            Trị giá: <span class="price"
-                                                                           id="spanprice0">2,690,000 đ</span>
-                                                            <input class="form-control" disabled="disabled" id="price0"
-                                                                   name="price0" type="hidden" value="2690000 đ">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
 
                                         </div>
 
@@ -359,21 +303,21 @@
                                 <div class="col-xs-12 mg-bot30">
                                     <div class="frame-payment ">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" value="tienmat" name="booking.typePay"
+                                            <input class="form-check-input" type="radio" required value="tienmat" name="booking.typePay"
                                                    id="defaultCheck1">
                                             <label class="form-check-label" for="defaultCheck1">
                                                 Tiền mặt
                                             </label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="booking.typePay" value="momo"
+                                            <input class="form-check-input" type="radio" required name="booking.typePay" value="momo"
                                                    id="defaultCheck2">
                                             <label class="form-check-label" for="defaultCheck2">
                                                 Thanh toán bằng momo
                                             </label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="booking.typePay" value="blockchain"
+                                            <input class="form-check-input" type="radio" required name="booking.typePay" value="blockchain"
                                                    id="defaultCheck3">
                                             <label class="form-check-label" for="defaultCheck3">
                                                 Thanh toán bằng blockchain
