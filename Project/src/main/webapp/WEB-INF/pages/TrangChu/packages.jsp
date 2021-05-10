@@ -32,7 +32,9 @@
                 </div>
                 <div class="package-info">
 
-                    <h5 class="my-2">${tour.tourName}</h5>
+                    <a href="${pageContext.request.contextPath}/tour?tourid=${tour.tourId}">
+                        <h5 class="my-2">${tour.tourName}</h5>
+                    </a>
                     <p class="">${tour.content}</p>
                     <ul class="listing mt-3">
                         <li><span class="fa fa-clock-o mr-2"></span>Thời gian : <span class="duration" data-startday="<fmt:formatDate value='${tour.startDay}' pattern='yyyy-MM-dd'/>"

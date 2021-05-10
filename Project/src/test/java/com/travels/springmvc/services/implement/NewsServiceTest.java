@@ -54,7 +54,7 @@ public class NewsServiceTest {
     @Test
     void remove(){
         try{
-            newsService.remove(newsService.getElementById("25eb8d9c-1f11-4785-914e-839c3d30d40f"));
+            newsService.remove(newsService.getElementById("1"));
         } catch (Exception e){
             e.printStackTrace();
         }

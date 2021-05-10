@@ -76,11 +76,11 @@
                                 <td class="p-0"><input type="text" data-id="f53d20c2-7f20-4fad-bab6-76847d102ef9"
                                                        required pattern="[0-9]{3,20}" value="0" class="form-control pricejs"></td>
                                 <td class="p-0"><input type="text" data-id="c71fb358-c195-4bc4-9e45-004fd8a5ffd2"
-                                                       required pattern="[0-9]{3,20}" value="0" class="form-control pricejs"></td>
+                                                       required pattern="[0-9]{1,20}" value="0" class="form-control pricejs"></td>
                                 <td class="p-0"><input type="text" data-id="bdee5279-4601-484c-8fce-e8f5781deda3"
-                                                       required pattern="[0-9]{3,20}" value="0" class="form-control pricejs"></td>
+                                                       required pattern="[0-9]{1,20}" value="0" class="form-control pricejs"></td>
                                 <td class="p-0"><input type="text" data-id="31c75b0d-ec1c-4c39-9caf-5f2e90e7f492"
-                                                       required pattern="[0-9]{3,20}" value="0" class="form-control pricejs"></td>
+                                                       required pattern="[0-9]{1,20}" value="0" class="form-control pricejs"></td>
                                 <td class="p-0"><input type="text" required disabled pattern="[0-9]" class="form-control">
                                 </td>
                                 <input type="hidden" id="prices" name="prices">

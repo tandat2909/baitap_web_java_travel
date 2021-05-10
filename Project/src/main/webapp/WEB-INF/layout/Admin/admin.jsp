@@ -39,29 +39,19 @@
 
         <!-- logo start -->
         <div class="logo">
-            <h1><a href="index.html">Collective</a></h1>
+            <h1><a href="${pageContext.request.contextPath}/admin">Quản lý</a></h1>
         </div>
 
-        <!-- if logo is image enable this -->
-        <!-- image logo
-        <div class="logo">
-          <a href="index.html">
-            <img src="image-path" alt="Your logo" title="Your logo" class="img-fluid" style="height:35px;" />
-          </a>
-        </div>
-       //image logo
 
-        <div class="logo-icon text-center">
-            <a href="index.html" title="logo"><img src="assets/images/logo.png" alt="logo-icon"> </a>
-        </div>-->
         <!-- //logo end -->
 
         <div class="sidebar-menu-inner">
 
             <!-- sidebar nav start -->
             <ul class="nav nav-pills nav-stacked custom-nav">
-                <li class="active"><a href="index.html"><i class="fa fa-tachometer"></i><span> Dashboard</span></a>
+                <li class="active"><a href="${pageContext.request.contextPath}/admin"><i class="fa fa-tachometer"></i><span> Dashboard</span></a>
                 </li>
+                <%--
                 <li class="menu-list">
                     <a href="#"><i class="fa fa-cogs"></i>
                         <span>Elements <i class="lnr lnr-chevron-right"></i></span></a>
@@ -70,7 +60,7 @@
                         <li><a href="cards.html">Default cards</a> </li>
                         <li><a href="people.html">People cards</a></li>
                     </ul>
-                </li>
+                </li>--%>
 
                 <li class="menu-list">
                     <a href="#"><i class="fa fa-table"></i>
@@ -104,6 +94,7 @@
     <button onclick="topFunction()" id="movetop" class="bg-primary" title="Go to top">
         <span class="fa fa-angle-up"></span>
     </button>
+    <script src="<c:url value="/admin/js/jquery-3.3.1.min.js"/>"></script>
     <script>
         // When the user scrolls down 20px from the top of the document, show the button
         window.onscroll = function () {
@@ -127,7 +118,7 @@
     <!-- /move top -->
 
 
-    <script src="<c:url value="/admin/js/jquery-3.3.1.min.js"/>"></script>
+
 
 
     <!-- chart js -->

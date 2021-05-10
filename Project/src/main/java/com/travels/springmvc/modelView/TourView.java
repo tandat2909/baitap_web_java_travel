@@ -71,7 +71,7 @@ public class TourView {
 
     public List<Tourprices> getTourprices() throws Exception {
         if (!prices.isBlank()) {
-            Map<String,BigDecimal> checkValid = new HashMap<>();
+            Map<String, BigDecimal> checkValid = new HashMap<>();
             List<Tourprices> tourprices = new ArrayList<>();
             for (String item : prices.split(";")) {
                 String[] data = item.split(":");
@@ -79,14 +79,18 @@ public class TourView {
                     Tourprices temp = new Tourprices();
                     temp.setAgeId(data[0]);
                     temp.setPrice(new BigDecimal(data[1]));
-                    checkValid.put(temp.getAgeId(),temp.getPrice());
+                    checkValid.put(temp.getAgeId(), temp.getPrice());
                     tourprices.add(temp);
                 }
 
             }
-            if(checkValid.get(EAges.getId(EAges.NGUOILON)).compareTo(checkValid.get(EAges.getId(EAges.TREEM)))> 0)
-                if(checkValid.get(EAges.getId(EAges.TREEM)).compareTo(checkValid.get(EAges.getId(EAges.TRENHO)))> 0)
-                    if(checkValid.get(EAges.getId(EAges.TRENHO)).compareTo(checkValid.get(EAges.getId(EAges.EMBE)))> 0)
+            if (checkValid.get(EAges.getId(EAges.NGUOILON)).compareTo(checkValid.get(EAges.getId(EAges.TREEM))) > 0
+            )
+                if (checkValid.get(EAges.getId(EAges.TREEM)).compareTo(checkValid.get(EAges.getId(EAges.TRENHO))) >= 0
+
+                )
+                    if (checkValid.get(EAges.getId(EAges.TRENHO)).compareTo(checkValid.get(EAges.getId(EAges.EMBE))) >= 0
+                    )
                         return tourprices;
 
             throw new Exception("Thông tin giá không hợp lệ\n Người lớn > Trẻ em > Trẻ nhỏ > Em bé");
@@ -102,19 +106,19 @@ public class TourView {
                 String[] data = i.split("<:>");
 //                System.err.println("=============");
 //                System.err.println(data+"+"+i);
-                if(data.length==3){
-                    try{
-                    Date nd = Utils.getDateRequest(ngaydi);
-                    nd.setDate((nd.getDate() + Integer.parseInt(data[0])));
-                    Contents temp = new Contents();
-                    temp.setContent(data[2]);
-                    temp.setDate(nd);
-                    if(data[1].equals("null")) throw new Exception("Vui lòng chọn địa điểm đi");
-                    temp.setLandMarkID(data[1]);
-                    s.add(temp);
-                    }catch (IllegalArgumentException exception){
+                if (data.length == 3) {
+                    try {
+                        Date nd = Utils.getDateRequest(ngaydi);
+                        nd.setDate((nd.getDate() + Integer.parseInt(data[0]) - 1));
+                        Contents temp = new Contents();
+                        temp.setContent(data[2]);
+                        temp.setDate(nd);
+                        if (data[1].equals("null")) throw new Exception("Vui lòng chọn địa điểm đi");
+                        temp.setLandMarkID(data[1]);
+                        s.add(temp);
+                    } catch (IllegalArgumentException exception) {
                         throw new Exception("Lỗi Định dạng ngày");
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         throw new Exception(e.getMessage());
                     }
                 }

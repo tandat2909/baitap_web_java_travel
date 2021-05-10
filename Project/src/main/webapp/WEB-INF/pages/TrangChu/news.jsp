@@ -37,8 +37,12 @@
                                 <img src="<c:url value="${n.image}"/>" alt="" class="img-fluid im">
                             </div>
                             <div class="col-8 right-cont">
-                                <h4 class="mb-2 let mt-sm-0 mt-2 tm-clr">${n.title}</h4>
-                                <p class="duration mt-2"><span class="fa fa-clock-o mr-2"></span><strong>Duration: </strong>${n.date_submitted.date}-${n.date_submitted.month +1}-${n.date_submitted.year + 1900}</p>
+                                <a href="${pageContext.request.contextPath}/newsdetails?newId=${n.newId}">
+                                    <h4 class="mb-2 let mt-sm-0 mt-2 tm-clr " style="color: #007bff">${n.title}</h4>
+                                </a>
+                                <p class=" mt-2"><span class="fa fa-clock-o mr-2"></span><strong>Duration: </strong>
+                                    <fmt:formatDate value='${n.date_submitted}' />
+                                </p>
                                 <div class="annd">
                                     <p class="mt-3">${n.short_description}</p>
                                 </div>

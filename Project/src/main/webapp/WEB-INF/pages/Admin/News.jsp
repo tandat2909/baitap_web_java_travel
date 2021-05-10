@@ -73,7 +73,9 @@
             <div class="card card_border mb-5">
                 <div class="cards__heading" >
                     <h3>Danh sách tin tức</h3>
-                    <button type="button" class="btn btn-primary btn-style" style="float: right;" ><a href="${pageContext.request.contextPath}/admin/addNews" style="color: white;">Thêm tin tức</a></button>
+                    <div class="text-right" ><a class="btn btn-primary" href="${pageContext.request.contextPath}/admin/addNews">
+                        <i class="fa fa-plus"></i>  Thêm Tin Tức</a></div>
+
                 </div>
                 <div class="card-body">
                     <div class="card-columns" >
@@ -81,7 +83,7 @@
                             <div class="card destinations-grids" id="${n.newId}">
                                 <div class="destinations-info">
                                     <div class="caption mb-lg-3">
-                                        <a href="${pageContext.request.contextPath}/admin/new?newId=${n.newId}"
+                                        <a href="${pageContext.request.contextPath}/newsdetails?newId=${n.newId}"
                                            target="_blank"><i class="fa fa-info-circle"></i> Chi tiết</a>
                                         <br>
                                         <a href="${pageContext.request.contextPath}/admin/editNews?newId=${n.newId}"
@@ -96,7 +98,7 @@
                                 <div class="card-body">
                                     <h4 class="card-title">${n.title}</h4>
                                     <p class="card-text mb-4">Mô tả ngắn: ${n.short_description}</p>
-                                    <p class="card-text mt-1"><i class="fa fa-calendar"></i> Ngày đăng: ${n.date_submitted.date}-${n.date_submitted.month +1}-${n.date_submitted.year + 1900}</p>
+                                    <p class="card-text mt-1"><i class="fa fa-calendar"></i> Ngày đăng: <fmt:formatDate value="${n.date_submitted}"/></p>
                                 </div>
                             </div>
                         </c:forEach>

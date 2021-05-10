@@ -35,7 +35,7 @@ public class Comment {
     @JoinColumn(name = "newID",insertable = false, updatable = false)
     private News news;
 
-    @OneToMany(mappedBy = "commentParent")
+    @OneToMany(mappedBy = "commentParent",cascade = CascadeType.ALL)
     private List<Comment> comment_parent;
 
     @ManyToOne(fetch = FetchType.LAZY)
