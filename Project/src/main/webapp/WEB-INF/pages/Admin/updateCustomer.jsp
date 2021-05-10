@@ -16,7 +16,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!-- main content start -->
 <div class="main-content">
-
+    <%@ include file="../Alert.jsp"%>
     <!-- content -->
     <div class="container-fluid content-top-gap">
 
@@ -36,9 +36,13 @@
                         <form action="" method="post" id="view">
                         <!-- usename password-->
                         <div class="form-row">
-                            <div class="form-group">
+                            <div class="form-group col-md-6">
                                 <label class="input__label">UseName</label>
-                                <input type="text" class="form-control input-style" value="${account.userName}" name="userName">
+                                <input type="text" class="form-control input-style" disabled value="${account.userName}" name="userName">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="input__label">address</label>
+                                <input type="text" class="form-control input-style" value="${Customer.address}" name="address">
                             </div>
 
                         </div>
@@ -80,10 +84,10 @@
                             </div>
                             <div class="form-group col-md-4">
                                 <label class="input__label">Gender</label>
-                                <select id="inputState" class="form-control input-style">
-                                    <option selected name="gender">${Customer.gender}</option>
-                                    <option>Nam</option>
-                                    <option>Nữ</option>
+                                <select id="inputState" class="form-control input-style" name="gender">
+                                    <option selected >${Customer.gender}</option>
+                                    <option >Nam</option>
+                                    <option >Nữ</option>
                                     <option>Khác</option>
                                 </select>
                             </div>

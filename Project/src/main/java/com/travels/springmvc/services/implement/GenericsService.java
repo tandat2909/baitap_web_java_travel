@@ -39,7 +39,7 @@ public abstract class GenericsService<T, K> implements IGenericsService<T, K> {
     }
 
     @Override
-    public void update(T entity) {
+    public void update(T entity) throws Exception {
         genericsRepository.update(entity);
     }
 

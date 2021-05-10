@@ -81,7 +81,7 @@ public abstract class GenericsRepository<T, K extends Serializable> implements I
 
     @Transactional
     @Override
-    public void update(T obj) {
+    public void update(T obj)  {
         if (obj == null) {
             throw new NullArgumentException("GenericsRepository -f update -p obj is null");
         }

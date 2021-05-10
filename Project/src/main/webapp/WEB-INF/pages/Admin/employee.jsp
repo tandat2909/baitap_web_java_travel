@@ -24,7 +24,6 @@
 </style>
 <!-- main content start -->
 <div class="main-content">
-
     <!-- content -->
     <div class="container-fluid content-top-gap">
 

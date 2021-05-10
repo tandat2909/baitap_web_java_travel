@@ -2,6 +2,7 @@ package com.travels.springmvc.controller;
 
 import com.travels.springmvc.modelView.TourView;
 import com.travels.springmvc.pojo.Customer;
+import com.travels.springmvc.respository.Enum.EMessages;
 import com.travels.springmvc.services.ICustomerService;
 import com.travels.springmvc.services.IProvinceService;
 import com.travels.springmvc.services.ITourService;
@@ -95,21 +96,25 @@ public class AdminController {
     }
 
     @PostMapping(value = {"/customer/update"})
-    public String updateAndSaveCustomer(@ModelAttribute("view") InforAccount customer, @RequestParam(value = "customerId", required = false) String customerId) {
+    public String updateAndSaveCustomer(@ModelAttribute("view") InforAccount customer,
+                                        @RequestParam(value = "customerId", required = false) String customerId, RedirectAttributes attributes) {
         //gắn cái id cho customer vs acc
-        Customer cus = customer.getCustomer();
-        Account acc = customerService.getElementById(customerId).getAccount();
-        acc.setUserName(customerService.getElementById(customerId).getAccount().getUserName());
-        cus.setAccount(acc);
-        cus.setCustomerId(customerId);
-        customerService.update(cus);
-        accountService.update(acc);
-        System.err.println("==================");
-        System.err.println(cus);
-        System.err.println(acc);
-        System.err.println("==================");
+        try{
+            Customer cus = customer.getCustomer();
+            Account acc = customerService.getElementById(customerId).getAccount();
+            acc.setUserName(customerService.getElementById(customerId).getAccount().getUserName());
+            cus.setAccount(acc);
+            cus.setCustomerId(customerId);
+            customerService.update(cus);
+            accountService.update(acc);
+            attributes.addFlashAttribute("messges", new String[]{EMessages.success.name(), "sửa khách hàng thành công"});
+            return "redirect:/admin/customers";
+        }catch (Exception exception){
+            attributes.addFlashAttribute("messges", new String[]{EMessages.error.name(), exception.getMessage()});
+            exception.printStackTrace();
+        }
 
-        return "redirect:/admin/customers";
+        return "redirect:/admin/customer/update?customerId=" + customerId;
     }
 
 
@@ -131,20 +136,24 @@ public class AdminController {
     }
 
     @PostMapping(value = {"/employee/update"})
-    public String updateAndSaveEmployee(@ModelAttribute("view") InforAccount employee, @RequestParam(value = "employeeId", required = false) String employeeId) {
-        Employees employees = employee.getEmployee();
-        Account acc = employeesService.getElementById(employeeId).getAccount();
-        acc.setUserName(employeesService.getElementById(employeeId).getAccount().getUserName());
-        employees.setAccount(acc);
-        employees.setEmployeeId(employeeId);
-        employeesService.update(employees);
-        accountService.update(acc);
-        System.err.println("==================");
-        System.err.println(employees);
-        System.err.println(acc);
-        System.err.println("==================");
+    public String updateAndSaveEmployee(@ModelAttribute("view") InforAccount employee, @RequestParam(value = "employeeId", required = false) String employeeId,
+                                        RedirectAttributes attributes) {
+        try {
+            Employees employees = employee.getEmployee();
+            Account acc = employeesService.getElementById(employeeId).getAccount();
+            acc.setUserName(employeesService.getElementById(employeeId).getAccount().getUserName());
+            employees.setAccount(acc);
+            employees.setEmployeeId(employeeId);
+            employeesService.update(employees);
+            accountService.update(acc);
+            attributes.addFlashAttribute("messges", new String[]{EMessages.success.name(), "sửa khách hàng thành công"});
+            return "redirect:/admin/employees";
+        }catch (Exception e){
+            attributes.addFlashAttribute("messges", new String[]{EMessages.error.name(), e.getMessage()});
+            e.printStackTrace();
+        }
 
-        return "redirect:/admin/employees";
+        return "redirect:/admin/employee/update?employeeId=" + employeeId;
     }
 
 

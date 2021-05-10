@@ -1,12 +1,14 @@
 package com.travels.springmvc.pojo;
 
 import com.travels.springmvc.Annotation.GeneratedValueUUID;
+import com.travels.springmvc.respository.Enum.ESysconfig;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Collection;
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 @Entity
 @Table(name = "customer")
@@ -184,6 +186,8 @@ public class Customer implements Serializable {
     public void setAddress(String address) {
         this.address = address;
     }
+
+
 
     @Override
     public String toString() {

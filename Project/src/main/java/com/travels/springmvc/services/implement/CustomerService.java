@@ -21,4 +21,10 @@ public class CustomerService extends GenericsService<Customer,String> implements
     public Customer getCustomerByAccountId(String accountId) {
         return customerRepository.getCustomerByAccountId(accountId);
     }
+
+    @Override
+    public void update(Customer entity) throws Exception  {
+        customerRepository.isvalid(entity);
+        super.update(entity);
+    }
 }
