@@ -28,7 +28,7 @@
     <link rel="stylesheet" href="<c:url value="/admin/css/style-starter.css"/>">
 
     <!-- google fonts -->
-    <link href="http://fonts.googleapis.com/css?family=Nunito:300,400,600,700,800,900&display=swap" rel="stylesheet">
+<%--    <link href="http://fonts.googleapis.com/css?family=Nunito:300,400,600,700,800,900&display=swap" rel="stylesheet">--%>
     <link id = "uri" hidden href="${pageContext.request.contextPath}"/>
 </head>
 <body>

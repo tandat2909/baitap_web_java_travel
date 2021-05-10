@@ -6,4 +6,5 @@ public interface IEmployeesRepository extends IGenericsRepository<Employees,Stri
     Employees getEmployeesByUserName(String userName);
     Employees getEmployeesByAccountId(String accountId);
     void removeEmployee(String employeeId) throws Exception;
+    boolean isvalid(Employees employees) throws Exception;
 }

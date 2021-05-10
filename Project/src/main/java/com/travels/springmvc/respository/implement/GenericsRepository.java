@@ -25,7 +25,7 @@ import java.util.UUID;
 
 @Transactional
 @Repository
-abstract class GenericsRepository<T, K extends Serializable> implements IGenericsRepository<T, K> {
+public abstract class GenericsRepository<T, K extends Serializable> implements IGenericsRepository<T, K> {
 
     @Autowired
     private LocalSessionFactoryBean sessionFactory;
@@ -72,7 +72,7 @@ abstract class GenericsRepository<T, K extends Serializable> implements IGeneric
 
     @Transactional
     @Override
-    public void remove(T obj) {
+    public void remove(T obj) throws Exception {
         if (obj == null) {
             throw new NullArgumentException("GenericsRepository -f remove -p obj is null");
         }
@@ -81,7 +81,7 @@ abstract class GenericsRepository<T, K extends Serializable> implements IGeneric
 
     @Transactional
     @Override
-    public void update(T obj) {
+    public void update(T obj)  {
         if (obj == null) {
             throw new NullArgumentException("GenericsRepository -f update -p obj is null");
         }
@@ -114,10 +114,17 @@ abstract class GenericsRepository<T, K extends Serializable> implements IGeneric
     }
 
     @Override
-    public void saveAll(Collection<T> listObject) {
-        if(listObject !=null){
-            listObject.forEach( i->currentSession().save(i));
+    public void saveAll(Collection<T> listObject) throws Exception {
+        try {
+
+            listObject.forEach(i -> currentSession().save(i));
+
+        } catch (Exception e) {
+            System.err.println("========Lỗi Repository saveAll()==========");
+            currentSession().getTransaction().rollback();
+            throw new Exception("Lỗi lưu thông tin");
         }
+
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
@@ -135,7 +142,7 @@ abstract class GenericsRepository<T, K extends Serializable> implements IGeneric
         return list;
     }
 
-    private List<T> executionCriteriaBase(QueryCriteria c, Object... args) throws Exception {
+    public List<T> executionCriteriaBase(QueryCriteria c, Object... args) throws Exception {
         CriteriaBuilder cb = currentSession().getCriteriaBuilder();
         CriteriaQuery<T> cr = cb.createQuery(getClassType());
         Root<T> root = cr.from(getClassType());
@@ -183,10 +190,10 @@ abstract class GenericsRepository<T, K extends Serializable> implements IGeneric
 
     @Override
     public List<T> getBetweenDate(Date fromDate, Date toDate, Field field) throws Exception {
-        if(field == null || !field.getType().equals(Date.class)){
+        if (field == null || !field.getType().equals(Date.class)) {
             throw new Exception("Chỉ định field tìm kiếm không hợp lệ");
         }
-        if(fromDate == null){
+        if (fromDate == null) {
             throw new Exception("From date không được để trống");
         }
 
@@ -194,14 +201,14 @@ abstract class GenericsRepository<T, K extends Serializable> implements IGeneric
 
         return executionCriteriaBase((builder, query, root, args) -> {
 //            Predicate p1 = builder.greaterThanOrEqualTo(, fromDate);
-            System.out.println("vô hàm sau khi check"+(Date)args[0]+" " + fromDate);
+            System.out.println("vô hàm sau khi check" + (Date) args[0] + " " + fromDate);
 //            Predicate p2 = builder.lessThanOrEqualTo(root.get(field.getName()), );
-            query.where(builder.between(root.get(field.getName()).as(Date.class),fromDate, (Date)args[0]));
+            query.where(builder.between(root.get(field.getName()).as(Date.class), fromDate, (Date) args[0]));
             return query;
-        },toDate);
+        }, toDate);
     }
 }
 
- interface QueryCriteria {
+interface QueryCriteria {
     CriteriaQuery getWhere(CriteriaBuilder builder, CriteriaQuery query, Root root, Object... args) throws Exception;
 }

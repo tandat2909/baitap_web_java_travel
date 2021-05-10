@@ -16,7 +16,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!-- main content start -->
 <div class="main-content">
-
+    <%@ include file="../Alert.jsp" %>
     <!-- content -->
     <div class="container-fluid content-top-gap">
 
@@ -33,12 +33,18 @@
             <!-- forms 2 -->
             <div class="card card_border py-2 mb-4">
                 <div class="card-body">
-                        <form action="" method="post" id="view">
+                    <form action="" class="was-validated" method="post" id="view">
                         <!-- usename password-->
                         <div class="form-row">
-                            <div class="form-group">
+                            <div class="form-group col-md-6">
                                 <label class="input__label">UseName</label>
-                                <input type="text" class="form-control input-style" value="${account.userName}" name="userName">
+                                <input type="text" class="form-control input-style" disabled
+                                       value="${account.userName}" <%--name="userName"--%>>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="input__label">address</label>
+                                <input type="text" class="form-control input-style" required value="${Customer.address}"
+                                       name="address">
                             </div>
 
                         </div>
@@ -46,24 +52,29 @@
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label class="input__label">First Name</label>
-                                <input type="text" class="form-control input-style" value="${Customer.firstName}" name="firstName">
+                                <input type="text" class="form-control input-style" value="${Customer.firstName}"
+                                       name="firstName">
                             </div>
                             <div class="form-group col-md-6">
                                 <label class="input__label">Last Name</label>
-                                <input type="text" class="form-control input-style" value="${Customer.lastName}" name="lastName"
-                                       >
+                                <input type="text" class="form-control input-style" required
+                                       value="${Customer.lastName}" name="lastName"
+                                >
                             </div>
                         </div>
                         <!--email birthday-->
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="inputEmail4" class="input__label">Email</label>
-                                <input type="email" class="form-control input-style" id="inputEmail4" value="${Customer.email}" name="email">
+                                <input type="email" pattern="[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required
+                                       class="form-control input-style" id="inputEmail4" value="${Customer.email}"
+                                       name="email">
                             </div>
                             <div class="form-group col-md-6">
                                 <label class="input__label">Birthday</label>
-                                <input type="date" class="form-control input-style"
-                                       value="${fn:substringBefore(Customer.birthDay.toString(), " ")}" name="birthDay">
+                                <input type="date" required class="form-control input-style"
+                                       value="<fmt:formatDate value="${Customer.birthDay}" pattern="yyyy-MM-dd" />"
+                                       name="birthDay">
                             </div>
                         </div>
                         <!--CCID phoneNumber-->
@@ -71,30 +82,36 @@
                             <div class="form-group col-md-4">
                                 <label class="input__label">CCID</label>
                                 <input type="text" class="form-control input-style"
-                                       value="${Customer.ccid}" name="CCID">
+                                       value="${Customer.ccid}" pattern="[0-9]{9}|[0-9]{12}" required name="CCID">
                             </div>
                             <div class="form-group col-md-4">
                                 <label class="input__label">Phone number</label>
-                                <input type="text" class="form-control input-style"
+                                <input type="text" pattern="(84|0[3|2|5|7|8|9])+([0-9]{8})\b"
+                                       class="form-control input-style"
                                        value="${Customer.phoneNumber}" name="phoneNumber">
                             </div>
                             <div class="form-group col-md-4">
                                 <label class="input__label">Gender</label>
-                                <select id="inputState" class="form-control input-style">
-                                    <option selected name="gender">${Customer.gender}</option>
-                                    <option>Nam</option>
-                                    <option>Nữ</option>
-                                    <option>Khác</option>
+                                <select id="inputState" class="custom-select is-valid input-style" name="gender">
+                                    <option selected value="${Customer.gender}">${Customer.gender}</option>
+                                    <c:if test="${Customer.gender == 'Nam'}">
+                                        <option value="Nữ">Nữ</option>
+                                    </c:if>
+                                    <c:if test="${Customer.gender == 'Nữ'}">
+                                        <option value="Nam">Nam</option>
+                                    </c:if>
+
+
                                 </select>
                             </div>
                         </div>
                         <!--file anh-->
-<%--                        <div class="form-group  custom-file">--%>
-<%--                            <label class="input__label">Hình ảnh</label>--%>
-<%--                            <input type="file" class="custom-file-input" id="validatedCustomFile" required>--%>
-<%--                            <label class="custom-file-label">Choose file...</label>--%>
+                        <%--                        <div class="form-group  custom-file">--%>
+                        <%--                            <label class="input__label">Hình ảnh</label>--%>
+                        <%--                            <input type="file" class="custom-file-input" id="validatedCustomFile" required>--%>
+                        <%--                            <label class="custom-file-label">Choose file...</label>--%>
 
-<%--                        </div>--%>
+                        <%--                        </div>--%>
                         <button type="submit" class="btn btn-primary btn-style mt-4">save</button>
                     </form>
                 </div>

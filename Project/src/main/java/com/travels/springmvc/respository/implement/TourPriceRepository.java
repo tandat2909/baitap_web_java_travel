@@ -16,10 +16,15 @@ public class TourPriceRepository extends GenericsRepository<Tourprices,String> i
     public BigDecimal getPriceByAgeTourId(String ageId, String tourId) {
         System.err.println("=========");
         System.err.println("touridsss: "+tourId);
-
-       return (BigDecimal) currentSession().createSQLQuery("Select price From Tourprices where ageId = :aid and tourId = :tid")
-               .setParameter("aid",ageId)
-               .setParameter("tid",tourId)
-               .getResultList().get(0);
+        try {
+            return (BigDecimal) currentSession().createSQLQuery("Select price From Tourprices where ageId = :aid and tourId = :tid")
+                    .setParameter("aid", ageId)
+                    .setParameter("tid", tourId)
+                    .getResultList().get(0);
+        }catch (Exception exception){
+            System.err.println("===========Lỗi getPriceByAgeTourId()");
+            exception.printStackTrace();
+            return new BigDecimal(0);
+        }
     }
 }

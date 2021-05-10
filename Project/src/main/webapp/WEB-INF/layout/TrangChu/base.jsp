@@ -23,6 +23,7 @@
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
     <link id = "uri" hidden href="${pageContext.request.contextPath}"/>
     <script>
+        var uri = '${pageContext.request.contextPath}'
         addEventListener("load", function () {
             setTimeout(hideURLbar, 0);
         }, false);
@@ -40,10 +41,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
     <link href="<c:url value="/TrangChu/css/css_slider.css"/>" type="text/css" rel="stylesheet" media="all">
 
-    <!-- google fonts -->
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
-    <link href="http://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-    <!-- //google fonts -->
+<%--    <!-- google fonts -->--%>
+<%--    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">--%>
+<%--    <link href="http://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">--%>
+<%--    <!-- //google fonts -->--%>
 
 
 

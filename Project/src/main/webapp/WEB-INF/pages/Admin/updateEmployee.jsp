@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="../LibraryJSP.jsp"%>
 <div class="main-content">
-
+    <%@ include file="../Alert.jsp"%>
     <!-- content -->
     <div class="container-fluid content-top-gap">
 
@@ -22,11 +22,14 @@
                     <form action="" method="post" id="view">
                         <!-- usename password-->
                         <div class="form-row">
-                            <div class="form-group">
-                                <label class="input__label">UseName</label>
-                                <input type="text" class="form-control input-style" value="${account.userName}" name="userName">
+                            <div class="form-group col-md-6">
+                                <label class="input__label" >UseName</label>
+                                <input type="text" class="form-control input-style" disabled value="${account.userName}" name="userName">
                             </div>
-
+                            <div class="form-group col-md-6">
+                                <label class="input__label">Address</label>
+                                <input type="text" class="form-control input-style" value="${employee.address}" name="address">
+                            </div>
                         </div>
                         <!--name-->
                         <div class="form-row">
@@ -66,8 +69,8 @@
                             </div>
                             <div class="form-group col-md-4">
                                 <label class="input__label">Gender</label>
-                                <select id="inputState" class="form-control input-style">
-                                    <option selected name="gender">${employee.gender}</option>
+                                <select id="inputState" class="form-control input-style" name="gender">
+                                    <option selected >${employee.gender}</option>
                                     <option>Nam</option>
                                     <option>Nữ</option>
                                     <option>Khác</option>

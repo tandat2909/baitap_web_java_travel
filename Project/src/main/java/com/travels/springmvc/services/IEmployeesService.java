@@ -10,4 +10,7 @@ public interface IEmployeesService extends IGenericsService<Employees, String> {
     Employees getEmployeesByUserName(String userName);
     Employees getEmployeesByAccountId(String accountId);
     void removeEmployee(String employeeId) throws Exception;
+
+    @Override
+    void update(Employees entity) throws Exception;
 }

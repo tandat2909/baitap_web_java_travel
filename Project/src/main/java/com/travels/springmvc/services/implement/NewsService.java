@@ -1,5 +1,6 @@
 package com.travels.springmvc.services.implement;
 
+import com.travels.springmvc.pojo.Customer;
 import com.travels.springmvc.pojo.News;
 import com.travels.springmvc.respository.INewsRepository;
 import com.travels.springmvc.services.INewsService;
@@ -16,5 +17,10 @@ public class NewsService extends GenericsService<News,String> implements INewsSe
     @Override
     public  void add(News news) throws Exception {
         newsRepository.save(news);
+    }
+    @Override
+    public void update(News news) throws Exception  {
+        newsRepository.isvalid(news);
+        super.update(news);
     }
 }

@@ -14,7 +14,7 @@ public class APINewController {
 
     @DeleteMapping("/New")
     @ResponseStatus(HttpStatus.OK)
-    public void deleteTour(@RequestParam(value = "newId", required = false) String newId) {
+    public void deleteTour(@RequestParam(value = "newId", required = false) String newId) throws Exception {
         System.err.println("===================================");
         System.err.println("id tour: " + newId);
         System.err.println("===================================");

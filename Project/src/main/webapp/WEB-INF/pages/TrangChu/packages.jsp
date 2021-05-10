@@ -5,14 +5,11 @@
   Time: 12:24 PM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="form"
-           uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="spring"
-           uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix="tiles"
-           uri="http://tiles.apache.org/tags-tiles" %>
+<%--<jsp:useBean id="tour" scope="request" class="com.travels.springmvc.pojo.Tour"></jsp:useBean>--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@include file="../LibraryJSP.jsp" %>
+
+
 <!-- banner -->
 <section class="banner_inner" id="home">
     <div class="banner_inner_overlay">
@@ -27,120 +24,27 @@
         <h2 class="heading text-capitalize text-center"> Discover our tour packages</h2>
         <p class="text mt-2 mb-5 text-center">Vestibulum tellus neque, sodales vel mauris at, rhoncus finibus augue. Vestibulum urna ligula, molestie at ante ut, finibus vulputate felis.</p>
         <div class="row">
+            <c:forEach items="${tours}" var="tour">
+            <div class="col-lg-3 col-sm-6 mb-5">
+                <div class="image-tour position-relative">
+                    <img src="<c:url value="/TrangChu/images/tours/${tour.image}"/>" alt="" class="img-fluid" />
+                    <p><span class="fa fa-tags"></span> <span>${tour.price}</span></p>
+                </div>
+                <div class="package-info">
 
-            <div class="col-lg-3 col-sm-6 mb-5">
-                <div class="image-tour position-relative">
-                    <img src="<c:url value="/TrangChu/images/p1.jpg"/>" alt="" class="img-fluid" />
-                    <p><span class="fa fa-tags"></span> <span>20$</span></p>
-                </div>
-                <div class="package-info">
-                    <h6 class="mt-1"><span class="fa fa-map-marker mr-2"></span>Paris, France.</h6>
-                    <h5 class="my-2">Sodales vel mauris</h5>
-                    <p class="">Vestibulum tellus neque, et velit mauris at, augue.</p>
+                    <h5 class="my-2">${tour.tourName}</h5>
+                    <p class="">${tour.content}</p>
                     <ul class="listing mt-3">
-                        <li><span class="fa fa-clock-o mr-2"></span>Duration : <span>10 Days</span></li>
+                        <li><span class="fa fa-clock-o mr-2"></span>Thời gian : <span class="duration" data-startday="<fmt:formatDate value='${tour.startDay}' pattern='yyyy-MM-dd'/>"
+                                                                                      data-endday="<fmt:formatDate value='${tour.endDay}' pattern='yyyy-MM-dd'/>"
+                        ></span></li>
+                        <li><span class="fa fa-clock-o mr-2"></span>Phương tiện : <span>${tour.vehicle}</span></li>
+                        <li><span class="fa fa-clock-o mr-2"></span>Chỗ : <span>${tour.maxseats}</span></li>
                     </ul>
                 </div>
             </div>
-            <div class="col-lg-3 col-sm-6 mb-5">
-                <div class="image-tour position-relative">
-                    <img src="<c:url value="/TrangChu/images/p2.jpg"/>" alt="" class="img-fluid" />
-                    <p><span class="fa fa-tags"></span> <span>20$</span></p>
-                </div>
-                <div class="package-info">
-                    <h6 class="mt-1"><span class="fa fa-map-marker mr-2"></span>Los Angles, USA.</h6>
-                    <h5 class="my-2">Sodales vel mauris</h5>
-                    <p class="">Vestibulum tellus neque, et velit mauris at, augue.</p>
-                    <ul class="listing mt-3">
-                        <li><span class="fa fa-clock-o mr-2"></span>Duration : <span>10 Days</span></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-lg-3 col-sm-6 mb-5">
-                <div class="image-tour position-relative">
-                    <img src="<c:url value="/TrangChu/images/p3.jpg"/>" alt="" class="img-fluid" />
-                    <p><span class="fa fa-tags"></span> <span>20$</span></p>
-                </div>
-                <div class="package-info">
-                    <h6 class="mt-1"><span class="fa fa-map-marker mr-2"></span>Agra, India.</h6>
-                    <h5 class="my-2">Sodales vel mauris</h5>
-                    <p class="">Vestibulum tellus neque, et velit mauris at, augue.</p>
-                    <ul class="listing mt-3">
-                        <li><span class="fa fa-clock-o mr-2"></span>Duration : <span>10 Days</span></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-lg-3 col-sm-6 mb-5">
-                <div class="image-tour position-relative">
-                    <img src="<c:url value="/TrangChu/images/p4.jpg"/>" alt="" class="img-fluid" />
-                    <p><span class="fa fa-tags"></span> <span>20$</span></p>
-                </div>
-                <div class="package-info">
-                    <h6 class="mt-1"><span class="fa fa-map-marker mr-2"></span>Paris, France.</h6>
-                    <h5 class="my-2">Sodales vel mauris</h5>
-                    <p class="">Vestibulum tellus neque, et velit mauris at, augue.</p>
-                    <ul class="listing mt-3">
-                        <li><span class="fa fa-clock-o mr-2"></span>Duration : <span>10 Days</span></li>
-                    </ul>
-                </div>
-            </div>
+            </c:forEach>
 
-            <div class="col-lg-3 col-sm-6 mb-5">
-                <div class="image-tour position-relative">
-                    <img src="<c:url value="/TrangChu/images/p1.jpg"/>" alt="" class="img-fluid" />
-                    <p><span class="fa fa-tags"></span> <span>20$</span></p>
-                </div>
-                <div class="package-info">
-                    <h6 class="mt-1"><span class="fa fa-map-marker mr-2"></span>Paris, France.</h6>
-                    <h5 class="my-2">Sodales vel mauris</h5>
-                    <p class="">Vestibulum tellus neque, et velit mauris at, augue.</p>
-                    <ul class="listing mt-3">
-                        <li><span class="fa fa-clock-o mr-2"></span>Duration : <span>10 Days</span></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-lg-3 col-sm-6 mb-5">
-                <div class="image-tour position-relative">
-                    <img src="<c:url value="/TrangChu/images/p2.jpg"/>" alt="" class="img-fluid" />
-                    <p><span class="fa fa-tags"></span> <span>20$</span></p>
-                </div>
-                <div class="package-info">
-                    <h6 class="mt-1"><span class="fa fa-map-marker mr-2"></span>Los Angles, USA.</h6>
-                    <h5 class="my-2">Sodales vel mauris</h5>
-                    <p class="">Vestibulum tellus neque, et velit mauris at, augue.</p>
-                    <ul class="listing mt-3">
-                        <li><span class="fa fa-clock-o mr-2"></span>Duration : <span>10 Days</span></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-lg-3 col-sm-6 mb-5">
-                <div class="image-tour position-relative">
-                    <img src="<c:url value="/TrangChu/images/p3.jpg"/>" alt="" class="img-fluid" />
-                    <p><span class="fa fa-tags"></span> <span>20$</span></p>
-                </div>
-                <div class="package-info">
-                    <h6 class="mt-1"><span class="fa fa-map-marker mr-2"></span>Agra, India.</h6>
-                    <h5 class="my-2">Sodales vel mauris</h5>
-                    <p class="">Vestibulum tellus neque, et velit mauris at, augue.</p>
-                    <ul class="listing mt-3">
-                        <li><span class="fa fa-clock-o mr-2"></span>Duration : <span>10 Days</span></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-lg-3 col-sm-6 mb-5">
-                <div class="image-tour position-relative">
-                    <img src="<c:url value="/TrangChu/images/p4.jpg"/>" alt="" class="img-fluid" />
-                    <p><span class="fa fa-tags"></span> <span>20$</span></p>
-                </div>
-                <div class="package-info">
-                    <h6 class="mt-1"><span class="fa fa-map-marker mr-2"></span>Paris, France.</h6>
-                    <h5 class="my-2">Sodales vel mauris</h5>
-                    <p class="">Vestibulum tellus neque, et velit mauris at, augue.</p>
-                    <ul class="listing mt-3">
-                        <li><span class="fa fa-clock-o mr-2"></span>Duration : <span>10 Days</span></li>
-                    </ul>
-                </div>
-            </div>
         </div>
     </div>
 </section>

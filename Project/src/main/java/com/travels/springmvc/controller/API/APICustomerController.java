@@ -19,7 +19,7 @@ public class APICustomerController {
 
     @DeleteMapping("/customer")
     @ResponseStatus(HttpStatus.OK)
-    public void deleteCustomer(@RequestParam(value = "cusid",required = true) String cusid){
+    public void deleteCustomer(@RequestParam(value = "cusid",required = true) String cusid) throws Exception {
         System.err.println("===================================");
         System.err.println("id khách hàng: "+cusid);
         System.err.println("===================================");

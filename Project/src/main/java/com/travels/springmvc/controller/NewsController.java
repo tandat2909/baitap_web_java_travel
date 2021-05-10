@@ -2,6 +2,7 @@ package com.travels.springmvc.controller;
 
 import com.travels.springmvc.pojo.Account;
 import com.travels.springmvc.pojo.News;
+import com.travels.springmvc.respository.Enum.EMessages;
 import com.travels.springmvc.services.IAccountService;
 import com.travels.springmvc.services.INewsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
@@ -72,7 +74,8 @@ public class NewsController {
     }
 
     @PostMapping(value = {"/admin/editNews", "/employee/editNews"})
-    public String updateAndSave(@ModelAttribute("neww") News news, HttpServletRequest request) {
+    public String updateAndSave(@ModelAttribute("neww") News news, HttpServletRequest request,
+                                RedirectAttributes attributes) {
 //        System.err.println("============dô=");
 //        System.err.println(news.getNewId());
         News current = newsService.getElementById(news.getNewId());
@@ -102,7 +105,13 @@ public class NewsController {
 //        System.err.println("rootdri" + rootDir);
 //        System.err.println(news);
 //        System.err.println("==============");
-        newsService.update(current);
+        try {
+            newsService.update(current);
+            attributes.addFlashAttribute("messges", new String[]{EMessages.success.name(), "sửa news thành công"});
+        } catch (Exception e) {
+            attributes.addFlashAttribute("messges", new String[]{EMessages.error.name(), e.getMessage()});
+            e.printStackTrace();
+        }
 
         return "redirect:/admin/News";
     }
