@@ -11,7 +11,7 @@ public interface IGenericsService<T, K> {
 
     void saveOrUpdate(T obj);
 
-    void remove(T obj);
+    void remove(T obj) throws Exception;
 
     void update(T entity);
 

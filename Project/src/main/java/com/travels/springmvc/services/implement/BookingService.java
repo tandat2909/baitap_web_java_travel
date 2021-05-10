@@ -21,9 +21,30 @@ public class BookingService extends GenericsService<Booking,String> implements I
     IBookingRepository bookingRepository;
     @Override
     public void add(BookingView bookingView,String username) throws Exception {
+
         Customer customer = customerService.getCustomerByUserName(username);
         if(customer == null) throw new Exception("Bạn Không thể đăng ký tour với tài khoản này");
         bookingView.setCustomer(customer);
+        bookingView.getBooking().setCustomer(customer);
         bookingRepository.save(bookingView);
     }
+
+    @Override
+    public void remove(String bookingId) throws Exception {
+        bookingRepository.remove(bookingId);
+    }
+
+    @Override
+    public void comfirmBooking(String bookingId) throws Exception {
+        bookingRepository.comfirmBooking(bookingId);
+    }
+
+    @Override
+    public void comfirmBooking(Booking booking) throws Exception {
+        comfirmBooking(booking.getBookingId());
+    }
+
+
+
+
 }

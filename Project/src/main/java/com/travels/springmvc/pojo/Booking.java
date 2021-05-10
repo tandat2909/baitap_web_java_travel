@@ -48,10 +48,10 @@ public class Booking implements Serializable {
     private Employees employee;
 
 
-    @OneToMany(mappedBy = "booking")
+    @OneToMany(mappedBy = "booking",cascade = CascadeType.ALL)
     private Collection<Pricedetails> pricedetails;
 
-    @OneToMany(mappedBy = "booking")
+    @OneToMany(mappedBy = "booking",cascade = CascadeType.ALL)
     private Collection<Ticket> tickets;
 
 

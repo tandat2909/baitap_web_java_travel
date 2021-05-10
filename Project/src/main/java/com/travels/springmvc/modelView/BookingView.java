@@ -5,6 +5,7 @@ import com.travels.springmvc.pojo.Customer;
 import com.travels.springmvc.pojo.Employees;
 import com.travels.springmvc.pojo.Ticket;
 
+import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -13,7 +14,7 @@ public class BookingView {
    Booking booking = new Booking();
    //định dạng hoten+":"+giotinh+":"+ngaysinh+":"+ages+";"
    String tickets;
-   String tourId;
+
 
 
    public List<Ticket> getTickets(){
@@ -56,6 +57,7 @@ public class BookingView {
    }
 
    public Booking getBooking() {
+      booking.setTotalMoney(new BigDecimal(0));
       return booking;
    }
 
@@ -63,13 +65,7 @@ public class BookingView {
       this.booking = booking;
    }
 
-   public String getTourId() {
-      return tourId;
-   }
 
-   public void setTourId(String tourId) {
-      this.tourId = tourId;
-   }
 
    @Override
    public String toString() {

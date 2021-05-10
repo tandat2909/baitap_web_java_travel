@@ -4,24 +4,6 @@ let lsdotuoi = {
     "children": ["Trẻ nhỏ","bdee5279-4601-484c-8fce-e8f5781deda3"],
     "small_children": ["Em bé","31c75b0d-ec1c-4c39-9caf-5f2e90e7f492"]}
 
-function getThongTinLienLac() {
-    var ho = $("#contact_name").val()
-    var ten = $("#ten").val()
-    var email = $("#email").val()
-    var phonenumber = $("#phone").val()
-    var diachi = $("#address").val()
-    var note = $("#note").val()
-    var soKhach = $("#guests")
-    return '{' +
-        '"ho":"' + ho + '";' +
-        '"ten":"' + ten + '";' +
-        '"email":"' + email + '";' +
-        '"phonenumber":"' + phonenumber + '";' +
-        '"diachi":"' + diachi + '";' +
-        '"note":"' + note + '";' +
-        '"soKhach":"' + soKhach + '"' +
-        '}';
-}
 
 function htmlDSKH(stt, dotuoi,price) {
     var html =
@@ -110,9 +92,8 @@ let totalPrice = ()=>{
     var pricesmall_children=parseFloat($("#31c75b0d-ec1c-4c39-9caf-5f2e90e7f492").data("price"))
     return  adult * priceAdult + children*pricechildren + children11 * pricechildren11 + pricesmall_children * small_children
 
-
 }
-let totalGuests = (input) =>{
+let totalGuests = () =>{
     var maxseats = parseInt($("#max-seats").data("seat"))
     var adult = $("#adult")
     var children11 = $("#children11")
@@ -122,6 +103,7 @@ let totalGuests = (input) =>{
     var total = totalPerson()
 
     var seatConLai = maxseats - total;
+
 
     if(seatConLai<0){
         $(adult).val(1)
@@ -151,6 +133,10 @@ let totalGuests = (input) =>{
     $("#spanTotalPrice").val(totalPrice())
 }
 
+if(!$("#max-seats").data("seat")==="0"){
+    console.log("vô đây")
+    totalGuests()
+}
 
 
 let onsubmitBooking =()=>{

@@ -89,11 +89,8 @@ public class TourRepository extends GenericsRepository<Tour, String> implements 
     public List<Tour> searchTourByDate(Date fromDate, Date toDate) {
         try {
             return getBetweenDate(fromDate,toDate,Tour.class.getDeclaredField("startDay"));
-        } catch (NoSuchFieldException e) {
+        } catch (Exception e) {
             e.printStackTrace();
-            return null;
-        } catch (Exception exception) {
-            exception.printStackTrace();
             return null;
         }
     }
@@ -112,11 +109,12 @@ public class TourRepository extends GenericsRepository<Tour, String> implements 
         try {
             if (tourView == null) throw new Exception("Lỗi không thể thêm tour");
             Tour tour = tourView.getTour();
+            if(tour.getStartDay().getTime() > tour.getEndDay().getTime()) throw new Exception("Ngày Đi nhỏ hơn ngày Về");
+            if(tour.getTourName() == null || tour.getTourName().isBlank()) throw new Exception("Tên tour không được để trống");
+            if(tour.getVehicle() == null || tour.getVehicle().isBlank()) throw new Exception("Phương tiện di chuyển đang để trống");
             List<Tourprices> tourprices = tourView.getTourprices();
             List<Contents> contents = tourView.getListContens();
-
             tour.setTourId(UUID.randomUUID().toString());
-            tour.setContent(contents.get(0).getContent());
             tourprices.forEach(i -> {
                 if (i.getAgeId().equals(EAges.getId(EAges.NGUOILON))) {
                     tour.setPrice(i.getPrice());

@@ -72,8 +72,10 @@
 
             <div class="card card_border mb-5">
                 <div class="cards__heading">
-                    <h3>Danh sách Tour</h3>
-                    <button type="button" class="btn btn-primary btn-style" style="float: right;" ><a href="${pageContext.request.contextPath}/admin/tour/add" style="color: white;">Thêm tour</a></button>
+                    <h3>Danh sách Tour
+                      </h3>
+                    <div class="text-right" ><a class="btn btn-primary" href="${pageContext.request.contextPath}/admin/tour/add">
+                        <i class="fa fa-plus"></i>  Thêm Tour</a></div>
                 </div>
                 <div class="card-body">
                     <div class="row px-2" id="search-element">
@@ -95,16 +97,21 @@
                                                    ><i class="fa fa-trash"></i> Xóa</a>
                                             </div>
                                         </div>
-                                        <img src="<c:url value="/admin/images/cart.jpg"/>" class="card-img-top" alt="...">
+                                        <img src="<c:url value="/TrangChu/images/tours/${i.image}"/>" class="card-img-top"
+                                             alt="...">
                                     </div>
 
                                     <div class="card-body">
                                         <h5 class="card-title">${i.tourName}</h5>
-                                        <p class="card-text mt-1"><i class="fa fa-dollar"></i> Giá: <span class="price">${i.price} VNĐ</span>
-                                            <a href="${pageContext.request.contextPath}/admin/updateTour?tourId=${i.tourId}" target="_blank"> <i class="fa fa-pencil" aria-hidden="true" style="float: right;"></i></a>
+                                        <p class="card-text mt-1"><i class="fa fa-dollar"></i> Giá: <span
+                                                class="price">${i.price} VNĐ</span>
+                                            <a href="${pageContext.request.contextPath}/admin/updateTour?tourid=${i.tourId}"
+                                               target="_blank"> <i class="fa fa-pencil" aria-hidden="true"
+                                                                   style="float: right;"></i></a>
                                         </p>
                                         <p class="card-text mt-1"> Số chỗ: ${i.maxseats}</p>
-                                        <p class="card-text mt-1"><i class="fa fa-calendar"></i> Ngày đi: ${i.startDay.date}-${i.startDay.month +1}-${i.startDay.year + 1900}</p>
+                                        <p class="card-text mt-1"><i class="fa fa-calendar"></i> Ngày
+                                            đi: <fmt:formatDate value="${i.startDay}" pattern="dd-MM-yyyy"/></p>
                                     </div>
                                 </div>
 

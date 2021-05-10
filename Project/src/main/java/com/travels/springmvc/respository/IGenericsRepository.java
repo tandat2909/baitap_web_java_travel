@@ -11,7 +11,7 @@ import java.util.List;
 public interface IGenericsRepository <T,K> {
     List<T> getAll();
     void saveOrUpdate(T obj)throws NullArgumentException;
-    void remove(T obj) throws NullArgumentException;
+    void remove(T obj) throws Exception;
     void update(T entity) throws NullArgumentException;
     void save(T obj) throws Exception;
     void save(T obj, boolean GeneratedValueId);

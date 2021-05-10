@@ -13,6 +13,7 @@ public class InforAccount implements Serializable{
 
    // @Pattern(regexp = "[a-zA-Z0-9]{5,}" , message = "{account.username.error}")
     String userName;
+    String role;
 
    // @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$", message = "{account.password.error}")
     String password;
@@ -28,8 +29,37 @@ public class InforAccount implements Serializable{
     String phoneNumber;
     //@Pattern(regexp = "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$",message = "{account.email.error}")
     String email;
+    String address;
+    String img;
     private String gender;
 
+    public  InforAccount(){}
+    public InforAccount(Customer customer){
+        userName = customer.getAccount().getUserName();
+        lastName = customer.getLastName();
+        firstName = customer.getFirstName();
+        birthDay = customer.getBirthDay().toString();
+        CCID = customer.getCcid();
+        phoneNumber = customer.getPhoneNumber();
+        email = customer.getEmail();
+        address = customer.getAddress();
+        img = customer.getImage();
+    }
+    public InforAccount(Employees customer){
+        userName = customer.getAccount().getUserName();
+        lastName = customer.getLastName();
+        firstName = customer.getFirstName();
+        birthDay = customer.getBirthDay().toString();
+        CCID = customer.getCcid();
+        phoneNumber = customer.getPhoneNumber();
+        email = customer.getEmail();
+        address = customer.getAddress();
+        img = customer.getImage();
+    }
+    public InforAccount(Account customer){
+        userName = customer.getUserName();
+        role = customer.getRoleID();
+    }
     public String getUserName() {
         return userName;
     }
@@ -102,6 +132,30 @@ public class InforAccount implements Serializable{
         this.email = email;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
     public boolean isPassConfirm(){
         return password.equals(confirmPassword);
     }
@@ -125,6 +179,8 @@ public class InforAccount implements Serializable{
         cus.setPhoneNumber(phoneNumber);
         cus.setCcid(CCID);
         cus.setGender(gender);
+        cus.setAddress(address);
+        cus.setImage(img);
         return cus;
     }
     public Employees getEmployee(){
@@ -136,6 +192,8 @@ public class InforAccount implements Serializable{
         emp.setPhoneNumber(phoneNumber);
         emp.setCcid(CCID);
         emp.setGender(gender);
+        emp.setAddress(address);
+        emp.setImage(img);
         return emp;
     }
 

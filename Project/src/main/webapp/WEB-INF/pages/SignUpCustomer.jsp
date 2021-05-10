@@ -18,7 +18,7 @@
 
     <title><tiles:insertAttribute name = "title" /></title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="<c:url value="login/css/bootstrap.min.css"/> ">
+<%--    <link rel="stylesheet" href="<c:url value="login/css/bootstrap.min.css"/> ">--%>
     <link rel="stylesheet" href="<c:url value="login/css/style-starter.css"/>"/>
     <script src="<c:url value="login/js/jquery-3.3.1.min.js"/> "></script>
     <script src="<c:url value="login/js/popper.min.js"/> "></script>
@@ -45,59 +45,68 @@
 
                     <form action="${pageContext.request.contextPath}/SignUp" class="was-validated" method="POST" id="user">
                         <div class="register__header text-center mb-lg-5 mb-4">
-                            <h3 class="register__title mb-2"> Signup</h3>
-                            <p>Create your account here, and continue </p>
+                            <h3 class="register__title mb-2"> Đăng ký</h3>
+                            <p>Tạo tài khoản của bạn tại đây và tiếp tục </p>
                         </div>
                         <div class="form-group">
-                            <label for="firstName" class="input__label">First name</label>
-                            <input name="firstName" value="${users.firstName}" type="text"  class="form-control login_text_field_bg input-style" id="firstName" aria-describedby="emailHelp" placeholder="First name" required="" autofocus="" />
+                            <label for="firstName" class="input__label">Họ</label>
+                            <input name="firstName" value="${users.firstName}" type="text"  class="form-control login_text_field_bg input-style" id="firstName" aria-describedby="emailHelp" placeholder="Họ" autofocus="" />
                         </div>
                         <div class="form-group">
-                            <label for="lastName" class="input__label">Last name</label>
-                            <input name="lastName" value="${users.lastName}" type="text"  class="form-control login_text_field_bg input-style" id="lastName" aria-describedby="emailHelp" placeholder="Last name" required="" autofocus="" />
+                            <label for="lastName" class="input__label">Tên</label>
+                            <input name="lastName" value="${users.lastName}" type="text" data-toggle="tooltip" data-placement="right" title="Không được để trống"  class="form-control login_text_field_bg input-style" id="lastName" aria-describedby="emailHelp" placeholder="Tên" required="" autofocus="" />
                         </div>
                         <div class="form-group">
-                            <label for="username" class="input__label">User name</label>
-                            <input name="userName" data-toggle="tooltip" data-placement="right" title="Tooltip on top" value="${users.userName}" type="text" pattern="[a-zA-Z0-9]{5,}" class="form-control login_text_field_bg input-style" id="username" aria-describedby="emailHelp" placeholder="User name" required="" autofocus="" />
+                            <label class="input__label">Giới tính</label>
+                            <select class="custom-select is-invalid input-style" name="gender" onchange="checkSelect(this)" >
+                                <option disabled selected>Chọn giới tính</option>
+                                <option value="Nam">Nam</option>
+                                <option value="Nữ">Nữ</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="username" class="input__label">Tên đăng nhập</label>
+                            <input name="userName" data-toggle="tooltip" data-placement="right" title="Tên đăng nhập từ 5 đến 50 ký tự" value="${users.userName}" type="text" pattern="[a-zA-Z0-9]{5,50}" class="form-control login_text_field_bg input-style" id="username" aria-describedby="emailHelp" placeholder="Tên đăng nhập" required="" autofocus="" />
                         </div>
                         <div class="form-group">
                             <label for="email" class="input__label">Email</label>
-                            <input name="email"  value="${users.email}" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" type="email" class="form-control login_text_field_bg input-style" id="email" aria-describedby="emailHelp" placeholder="Email" required=""/>
+                            <input name="email"  value="${users.email}" data-toggle="tooltip" data-placement="right" title="ví dụ: nguyenVanA@gmail.com" pattern="[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" type="email" class="form-control login_text_field_bg input-style" id="email" aria-describedby="emailHelp" placeholder="Email" required=""/>
                         </div>
                         <div class="form-group">
-                            <label for="ccid" class="input__label">CCID</label>
-                            <input name="CCID" value="${users.CCID}" pattern="[0-9]{9}|[0-9]{12}" title="căng cước công dân 9 hoặc 12 số" type="text" class="form-control login_text_field_bg input-style" id="ccid" aria-describedby="emailHelp" placeholder="CCID" required=""/>
+                            <label for="ccid" class="input__label">Căng cước công dân</label>
+                            <input name="CCID" value="${users.CCID}" pattern="[0-9]{9}|[0-9]{12}" data-toggle="tooltip" data-placement="right" title="căng cước công dân 9 hoặc 12 số" type="text" class="form-control login_text_field_bg input-style" id="ccid" aria-describedby="emailHelp" placeholder="Căng cước công dân" required=""/>
                         </div>
                         <div class="form-group">
-                            <label for="phoneNumber" class="input__label">Phone Number</label>
-                            <input name="phoneNumber" value="${users.phoneNumber}" pattern="(84|0[3|2|5|7|8|9])+([0-9]{8})\b" title="Số điện thoại bắt đầu (84 , 03 ,05 , 07 , 09, 02) và 9 số tiếp theo" type="text"  class="form-control login_text_field_bg input-style" id="phoneNumber" aria-describedby="emailHelp" placeholder="Phone Number" required="" autofocus="" />
+                            <label for="phoneNumber" class="input__label">Số điện thoại</label>
+                            <input name="phoneNumber" value="${users.phoneNumber}" pattern="(84|0[3|2|5|7|8|9])+([0-9]{8})\b" data-toggle="tooltip" data-placement="right" title="Số điện thoại bắt đầu (84 , 03 ,05 , 07 , 09, 02) và 9 số tiếp theo" type="text"  class="form-control login_text_field_bg input-style" id="phoneNumber" aria-describedby="emailHelp" placeholder="Số điện thoại" required="" autofocus="" />
                         </div>
                         <div class="form-group">
-                            <label for="birthdate" class="input__label">Birth Date</label>
-                            <input name="birthDay"  value="${users.birthDay}" type="date" class="form-control login_text_field_bg input-style" id="birthdate" aria-describedby="emailHelp" placeholder="BirthDate" required=""/>
+                            <label for="birthdate" class="input__label">Năm sinh</label>
+                            <input name="birthDay"  value="${users.birthDay}" data-toggle="tooltip" data-placement="right" title="Bắt buộc trên 18 tuổi" type="date" class="form-control login_text_field_bg input-style" id="birthdate" aria-describedby="emailHelp" placeholder="Năm sinh" required=""/>
                         </div>
 
                         <div class="form-group">
-                            <label for="password" class="input__label">Password</label>
-                            <input name="password" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" type="password" class="form-control login_text_field_bg input-style" id="password" placeholder="Password" required=""/>
+                            <label for="password" class="input__label">Mật khẩu</label>
+                            <input name="password" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" data-toggle="tooltip" data-placement="right" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" type="password" class="form-control login_text_field_bg input-style" id="password" placeholder="Mật khẩu" required=""/>
                         </div>
                         <div class="form-group">
-                            <label for="confirmPw" class="input__label">Confirm Password</label>
-                            <input name="confirmPassword" pattern="" type="password" class="form-control login_text_field_bg input-style" id="confirmPw" placeholder="Confirm Password" required=""/>
+                            <label for="confirmPw" class="input__label">Nhập lại mật khẩu</label>
+                            <input name="confirmPassword" pattern="" type="password" class="form-control login_text_field_bg input-style" id="confirmPw" placeholder="Nhập lại mật khẩu" required=""/>
                         </div>
                         <div class="form-check check-remember check-me-out" >
                             <input type="checkbox"  class="form-check-input checkbox" id="exampleCheck1">
-                            <label class="form-check-label checkmark" for="exampleCheck1" style="color: #5d6b71">I agree to the
-                                <a href="#terms" >Terms of service</a> and <a href="#privacy" style="">Privacy policy</a> </label>
+                            <label class="form-check-label checkmark" for="exampleCheck1" style="color: #5d6b71">Tôi đồng ý với
+                                <a href="#terms" >Điều khoản dịch vụ</a> và <a href="#privacy" style="">chính sách Bảo Mật</a> </label>
                         </div>
                         <div class="d-flex align-items-center flex-wrap justify-content-between">
-                            <button type="submit" class="btn btn-primary btn-style mt-4" disabled>Create Account</button>
-                            <p class="signup mt-4">Already have an account? <a href="${pageContext.request.contextPath}/login" class="signuplink">Login </a>
+                            <button type="submit" class="btn btn-primary btn-style mt-4" disabled>Đăng ký</button>
+
+                            <p  class="signup mt-4">Bạn đã có tài khoản? <a href="${pageContext.request.contextPath}/login" class="signuplink">Đăng nhập</a>
                             </p>
                         </div>
                     </form>
                     <!-- //form -->
-                    <p class="backtohome mt-4"><a href="${pageContext.request.contextPath}/" class="back"><i class="fa fa-chevron-left" aria-hidden="true"></i>Back to Home </a></p>
+                    <p class="backtohome mt-4"><a href="${pageContext.request.contextPath}/" class="back"><i class="fa fa-chevron-left" aria-hidden="true"></i>Trở về Trang Chủ </a></p>
                 </div>
             </div>
         </section>
@@ -125,5 +134,14 @@
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
     })
+    let checkSelect = (select) => {
+        if ($(select).val() === '') {
+            $(select).removeAttr("class").attr("class", "custom-select is-invalid")
+            return false
+        }
+        $(select).removeAttr("class").attr("class", "custom-select is-valid")
+        return true
+    }
+
 </script>
 </html>
