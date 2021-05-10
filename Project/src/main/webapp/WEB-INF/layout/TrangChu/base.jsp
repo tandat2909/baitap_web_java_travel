@@ -23,6 +23,7 @@
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
     <link id = "uri" hidden href="${pageContext.request.contextPath}"/>
     <script>
+        var uri = '${pageContext.request.contextPath}'
         addEventListener("load", function () {
             setTimeout(hideURLbar, 0);
         }, false);

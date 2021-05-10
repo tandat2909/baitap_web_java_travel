@@ -154,3 +154,14 @@ let onsubmitBooking =()=>{
 
     console.log(dataPerson);
 }
+
+
+function addComment (idcomment) {
+    $("#"+idcomment).append(
+        '<form action="'+uri+'/comment" method="post" id="comment">\n' +
+        '            <textarea style="height: 100px; width: 100%;" name="content"></textarea>\n' +
+        '            <input type="hidden" name="newsId" value="'+newid+'"/>\n' +
+        '            <input type="hidden" name="commentParentId" value="'+idcomment+'"/>\n' +
+        '            <button type="submit" class="btn btn-primary btn-style mt-4">Gửi</button>\n' +
+        '        </form>');
+}

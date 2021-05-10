@@ -7,6 +7,7 @@ import com.travels.springmvc.pojo.Customer;
 import com.travels.springmvc.pojo.Tour;
 import com.travels.springmvc.respository.Enum.EAges;
 import com.travels.springmvc.services.IBookingService;
+import com.travels.springmvc.services.ITourService;
 import org.junit.FixMethodOrder;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -29,7 +30,8 @@ class BookingServiceTest {
     BookingView bookingView;
     Booking booking;
     String username = "customer";
-
+    @Autowired
+    ITourService tourService;
 
     @BeforeEach
     void setUp() {
@@ -86,5 +88,23 @@ class BookingServiceTest {
 
     @Test
     void testComfirmBooking() {
+    }
+
+    @Test
+    public void sumOfCustomer() {
+        //List<Employees> employees = employeesService.getAll().stream().filter(employees1 -> employees1.getBookings().isEmpty()).collect(Collectors.toList());
+        //List<Booking> bookings = bookingService.getAll();
+        int dem = 0;
+        int[][] month = null;
+        List<Tour> tours = tourService.getAll();
+        for (Tour t : tours) {
+            t.getStartDay().setHours(0);
+            t.getStartDay().setMinutes(0);
+            t.getStartDay().setSeconds(0);
+            Date date = new Date(t.getStartDay().getTime());
+            System.out.println(date);
+
+        }
+
     }
 }

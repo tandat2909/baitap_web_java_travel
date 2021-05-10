@@ -1,25 +1,48 @@
 package com.travels.springmvc.services.implement;
 
+import com.travels.springmvc.pojo.Ages;
 import com.travels.springmvc.respository.Enum.EAges;
-import org.junit.jupiter.api.AfterEach;
+import com.travels.springmvc.services.IAgesService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Arrays;
 import java.util.Date;
-
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.List;
+import java.util.UUID;
 
 @SpringBootTest
-class AgesServiceTest {
+public class AgesServiceTest {
+    Ages ages;
+    @Autowired
+    IAgesService agesService;
 
     @BeforeEach
-    void setUp() {
+    void setUp(){
+        ages = new Ages();
+        ages.setAgeId(UUID.randomUUID().toString());
+        ages.setName("Người già");
     }
 
-    @AfterEach
-    void tearDown() {
+    @Test
+    void add(){
+        try{
+            agesService.add(ages, true);
+        } catch (Exception ex){
+            ex.printStackTrace();
+        }
+    }
+
+    @Test
+    void getAll(){
+        try{
+            List<Ages> agesList =  agesService.getAll();
+            agesList.forEach(System.out::println);
+        } catch (Exception ex){
+            ex.printStackTrace();
+        }
     }
     @Test
     void getAgeVaildEnum(){
@@ -31,5 +54,4 @@ class AgesServiceTest {
         System.out.println(EAges.getAgeVaild(EAges.TREEM)[0]);
         System.out.println(Arrays.toString(EAges.getAgeVaild(EAges.TREEM)));
     }
-
 }

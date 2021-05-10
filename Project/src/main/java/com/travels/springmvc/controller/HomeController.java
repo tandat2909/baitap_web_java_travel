@@ -3,20 +3,15 @@ package com.travels.springmvc.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.travels.springmvc.modelView.SearchView;
-import com.travels.springmvc.pojo.Landmarks;
-import com.travels.springmvc.pojo.News;
-import com.travels.springmvc.pojo.Province;
-import com.travels.springmvc.pojo.Tour;
-import com.travels.springmvc.services.ILandMarkService;
-import com.travels.springmvc.services.INewsService;
-import com.travels.springmvc.services.IProvinceService;
-import com.travels.springmvc.services.ITourService;
+import com.travels.springmvc.pojo.*;
+import com.travels.springmvc.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -24,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class HomeController {
@@ -37,6 +33,11 @@ public class HomeController {
     IProvinceService provinceService;
     @Autowired
     INewsService newsService;
+    @Autowired
+    ICommentService commentService;
+
+    @Autowired
+    IAccountService accountService;
 
     @RequestMapping(value = {"/", "/home"})
     public String TrangChu(Model model) {
@@ -150,8 +151,22 @@ public class HomeController {
     @RequestMapping(value = "/newsdetails")
     public String newsDetails(Model model, @RequestParam(value = "newId", required = false) String newId){
         News news = newsService.getElementById(newId);
+        List<Comment> commentList = news.getComments()
+                .stream().filter(c->c.getCommentParentId()==null)
+                .collect(Collectors.toList());
+
+        model.addAttribute("commentParent", commentList);
         model.addAttribute("news", news);
         return "newdetail";
+    }
+    @PostMapping(value = "/comment")
+    public String comment(@ModelAttribute(value = "comment") Comment comment, HttpServletRequest request){
+        comment.setDate_comment(new Date());
+        comment.setAccountId(accountService.getAccountByUserName(request.getUserPrincipal().getName()).getAccountId());
+        System.err.println("=================");
+        System.err.println(comment);
+        commentService.add(comment,true);
+        return "redirect:/newsdetails?newId="+comment.getNewsId();
     }
 
 }
