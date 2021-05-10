@@ -51,8 +51,6 @@ class TourServiceTest {
 
     @Test
     void add() {
-
-
         try{
             tourService.addTour(tour);
         } catch (Exception ex){
@@ -121,7 +119,7 @@ class TourServiceTest {
     @Test
     void remove() throws Exception {
         try{
-            //tourService.removeTour("6ab9fbdb-5f89-4a8d-bfbe-51cbce28ae91");
+            tourService.remove(tourService.getElementById("6ab9fbdb-5f89-4a8d-bfbe-51cbce28ae91"));
         } catch (Exception ex){
             System.out.println(ex.getMessage());
             assertTrue(ex.getMessage().equals("Lỗi không xóa tour đã đặt"));

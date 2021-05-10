@@ -73,6 +73,7 @@
             <div class="card card_border mb-5">
                 <div class="cards__heading">
                     <h3>Danh sách Tour</h3>
+                    <button type="button" class="btn btn-primary btn-style" style="float: right;" ><a href="${pageContext.request.contextPath}/admin/tour/add" style="color: white;">Thêm tour</a></button>
                 </div>
                 <div class="card-body">
                     <div class="row px-2" id="search-element">

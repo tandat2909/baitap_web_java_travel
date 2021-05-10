@@ -55,7 +55,23 @@ public class AdminController {
     IProvinceService provinceService;
 
     @RequestMapping(value = {"","/index","/home"})
-    public String index(){
+    public String index(Model model){
+        int sumCustomer = 0;
+        int sumTour = 0;
+        int sumNews = 0;
+        int sumEmployee = 0;
+        List<Customer> customers = customerService.getAll();
+        List<Tour> tours = tourService.getAll();
+        List<News> news = newsService.getAll();
+        List<Employees> employees = employeesService.getAll();
+        for (Customer c: customers) { sumCustomer++; }
+        for (Tour t:tours) {sumTour++; }
+        for (News n:news) {sumNews++; }
+        for (Employees e:employees) {sumEmployee++; }
+        model.addAttribute("sumCustomer", sumCustomer);
+        model.addAttribute("sumTour", sumTour);
+        model.addAttribute("sumNews", sumNews);
+        model.addAttribute("sumEmployee", sumEmployee);
         return "TrangAdmin";
     }
 
