@@ -65,8 +65,8 @@ class BookingServiceTest {
     }
 
     @Test
-    void TC_3_remove() {
-
+    void TC_3_remove() throws Exception {
+        bookingService.remove("94b1edb0-cea0-4f5b-97f5-9df3eb9ff35a");
     }
 
     @Test
@@ -90,21 +90,5 @@ class BookingServiceTest {
     void testComfirmBooking() {
     }
 
-    @Test
-    public void sumOfCustomer() {
-        //List<Employees> employees = employeesService.getAll().stream().filter(employees1 -> employees1.getBookings().isEmpty()).collect(Collectors.toList());
-        //List<Booking> bookings = bookingService.getAll();
-        int dem = 0;
-        int[][] month = null;
-        List<Tour> tours = tourService.getAll();
-        for (Tour t : tours) {
-            t.getStartDay().setHours(0);
-            t.getStartDay().setMinutes(0);
-            t.getStartDay().setSeconds(0);
-            Date date = new Date(t.getStartDay().getTime());
-            System.out.println(date);
 
-        }
-
-    }
 }

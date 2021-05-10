@@ -119,7 +119,7 @@ class TourServiceTest {
     @Test
     void remove() throws Exception {
         try{
-            tourService.remove(tourService.getElementById("6ab9fbdb-5f89-4a8d-bfbe-51cbce28ae91"));
+            tourService.remove(tourService.getElementById("edb68146-7161-4758-932f-35ac7996936c"));
         } catch (Exception ex){
             System.out.println(ex.getMessage());
             assertTrue(ex.getMessage().equals("Lỗi không xóa tour đã đặt"));

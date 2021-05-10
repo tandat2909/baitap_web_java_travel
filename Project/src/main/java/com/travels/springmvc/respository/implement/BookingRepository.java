@@ -150,6 +150,7 @@ public class BookingRepository extends GenericsRepository<Booking, String> imple
     public void remove(Booking booking) throws Exception {
         if(booking != null && !booking.isStatus()){
             super.remove(booking);
+            return;
         }
         throw new Exception("Bạn không thể xóa tour đã xác nhận của nhân viên");
     }

@@ -30,7 +30,7 @@ public class Tour implements Serializable {
     @OneToMany(mappedBy = "tour")
     private List<Booking> booking;
 
-    @OneToMany(mappedBy = "tour")
+    @OneToMany(mappedBy = "tour",cascade = CascadeType.ALL)
     private List<Contents> contents;
 
     @ManyToMany(cascade = CascadeType.ALL)
