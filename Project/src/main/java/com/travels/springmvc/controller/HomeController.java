@@ -130,6 +130,8 @@ public class HomeController {
 
     @RequestMapping("/Packages")
     public String Packages(Model model) {
+        List<Tour> tours = tourService.getAll();
+        model.addAttribute("tours", tours);
         return "Packages";
     }
 

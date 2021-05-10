@@ -168,3 +168,18 @@ function addComment (idcomment) {
             '        </form>');
     }
 }
+var getDays = (a, b) => {
+    return Math.round((Date.parse(b) - Date.parse(a)) * 1.15740741 * Math.pow(10, -8))
+}
+
+$(document).ready(function () {
+    var m = $(".duration")
+    for (let i = 0; i < m.length; i++) {
+        let start = $(m[i]).data("startday");
+        let end = $(m[i]).data("endday");
+        $(m[i]).text((getDays(start, end) + 1) + " ngày");
+        console.log(start, end);
+
+        console.log($(m[i]))
+    }
+});
