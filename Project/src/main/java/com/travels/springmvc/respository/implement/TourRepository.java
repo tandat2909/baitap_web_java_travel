@@ -111,6 +111,7 @@ public class TourRepository extends GenericsRepository<Tour, String> implements 
             Tour tour = tourView.getTour();
             if(tour.getStartDay().getTime() > tour.getEndDay().getTime()) throw new Exception("Ngày Đi nhỏ hơn ngày Về");
             if(tour.getTourName() == null || tour.getTourName().isBlank()) throw new Exception("Tên tour không được để trống");
+            if(tour.getVehicle() == null || tour.getVehicle().isBlank()) throw new Exception("Phương tiện di chuyển đang để trống");
             List<Tourprices> tourprices = tourView.getTourprices();
             List<Contents> contents = tourView.getListContens();
             tour.setTourId(UUID.randomUUID().toString());

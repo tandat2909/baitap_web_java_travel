@@ -28,4 +28,23 @@ public class BookingService extends GenericsService<Booking,String> implements I
         bookingView.getBooking().setCustomer(customer);
         bookingRepository.save(bookingView);
     }
+
+    @Override
+    public void remove(String bookingId) throws Exception {
+        bookingRepository.remove(bookingId);
+    }
+
+    @Override
+    public void comfirmBooking(String bookingId) throws Exception {
+        bookingRepository.comfirmBooking(bookingId);
+    }
+
+    @Override
+    public void comfirmBooking(Booking booking) throws Exception {
+        comfirmBooking(booking.getBookingId());
+    }
+
+
+
+
 }

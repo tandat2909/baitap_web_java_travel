@@ -10,16 +10,8 @@
 <%@include file="../LibraryJSP.jsp" %>
 
 <div class="main-content">
-    <c:if test="${messges != null}">
-        <div class="alert alert-${messges[0] == 'error'?'danger':messges[0]} alert-dismissible  fade show text-center"
-             style="position: absolute; right:0px; width: 30%" role="alert">
-            ${messges[1]}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    </c:if>
 
+    <%@include file="../Alert.jsp" %>
     <!-- content -->
     <div class="container-fluid content-top-gap">
 

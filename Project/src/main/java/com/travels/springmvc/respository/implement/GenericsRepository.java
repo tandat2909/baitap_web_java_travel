@@ -72,7 +72,7 @@ public abstract class GenericsRepository<T, K extends Serializable> implements I
 
     @Transactional
     @Override
-    public void remove(T obj) {
+    public void remove(T obj) throws Exception {
         if (obj == null) {
             throw new NullArgumentException("GenericsRepository -f remove -p obj is null");
         }

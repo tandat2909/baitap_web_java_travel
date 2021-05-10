@@ -49,9 +49,14 @@ public class BookingRepository extends GenericsRepository<Booking, String> imple
 
             Booking booking = bookingView.getBooking();
             if(booking == null) throw new Exception("Vé đặt Tour Trống");
+            Tour tour =null;
+            try{
+                tour = tourRepository.getElementById(booking.getTourId());
+            }catch (Exception e){
+               throw new Exception("Mã Tour không hợp lệ");
+            }
 
-            Tour tour = tourRepository.getElementById(booking.getTourId());
-            if(tour == null) throw new Exception("Mã Tour không hợp lệ");
+
             if(tour.getMaxseats()==0) throw new Exception("Tour đã hết chỗ bạn không thể đặt Tour này");
             if(tour.getMaxseats() - booking.getAmountGuests() <0) throw new Exception("Số lượng khách hàng không hợp lệ");
             tour.setMaxseats(tour.getMaxseats() - booking.getAmountGuests());
@@ -109,11 +114,43 @@ public class BookingRepository extends GenericsRepository<Booking, String> imple
             //cập nhật lại số lượng
             currentSession().update(tour);
 
-        } catch (Exception exception) {
+        }
+        catch (Exception exception) {
             System.err.println("===== lỗi tạo booking ====");
             exception.printStackTrace();
 
             throw new Exception(exception.getMessage());
         }
+    }
+
+    @Override
+    public void remove(String bookingId) throws Exception {
+        if(bookingId != null && !bookingId.isBlank()){
+            remove(getElementById(bookingId));
+        }
+    }
+
+    @Override
+    public void comfirmBooking(String bookingId) throws Exception {
+        try
+        {
+            if(bookingId != null & !bookingId.isBlank()){
+                Booking booking = getElementById(bookingId);
+                if(booking == null) throw new Exception("");
+                booking.setStatus(true);
+                update(booking);
+            }
+        }catch (Exception e){
+            throw new Exception("Booking không hợp lệ");
+        }
+
+    }
+
+    @Override
+    public void remove(Booking booking) throws Exception {
+        if(booking != null && !booking.isStatus()){
+            super.remove(booking);
+        }
+        throw new Exception("Bạn không thể xóa tour đã xác nhận của nhân viên");
     }
 }

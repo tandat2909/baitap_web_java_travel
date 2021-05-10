@@ -15,7 +15,7 @@ public class APIEmployeeController {
 
     @DeleteMapping("/employee")
     @ResponseStatus(HttpStatus.OK)
-    public void deleteCustomer(@RequestParam(value = "employeeId",required = true) String employeeId){
+    public void deleteCustomer(@RequestParam(value = "employeeId",required = true) String employeeId) throws Exception {
         System.err.println("===================================");
         System.err.println("id khách hàng: "+ employeeId);
         System.err.println("===================================");

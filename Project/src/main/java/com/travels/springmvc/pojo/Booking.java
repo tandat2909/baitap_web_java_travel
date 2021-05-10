@@ -35,23 +35,23 @@ public class Booking implements Serializable {
     @Column(name = "tourID")
     private String tourId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name = "tourID",insertable = false,updatable = false)
     private Tour tour;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name = "customerID")
     private Customer customer;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name = "employeesID",insertable = false,updatable = false )
     private Employees employee;
 
 
-    @OneToMany(mappedBy = "booking")
+    @OneToMany(mappedBy = "booking",cascade = CascadeType.ALL)
     private Collection<Pricedetails> pricedetails;
 
-    @OneToMany(mappedBy = "booking")
+    @OneToMany(mappedBy = "booking",cascade = CascadeType.ALL)
     private Collection<Ticket> tickets;
 
 

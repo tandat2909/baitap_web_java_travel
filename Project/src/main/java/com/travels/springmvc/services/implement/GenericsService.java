@@ -34,7 +34,7 @@ public abstract class GenericsService<T, K> implements IGenericsService<T, K> {
     }
 
     @Override
-    public void remove(T obj) {
+    public void remove(T obj) throws Exception {
         genericsRepository.remove(obj);
     }
 

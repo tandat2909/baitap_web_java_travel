@@ -82,7 +82,7 @@ public class TourView {
                     checkValid.put(temp.getAgeId(),temp.getPrice());
                     tourprices.add(temp);
                 }
-                throw new Exception("Thông tin giá không hợp lệ");
+
             }
             if(checkValid.get(EAges.getId(EAges.NGUOILON)).compareTo(checkValid.get(EAges.getId(EAges.TREEM)))> 0)
                 if(checkValid.get(EAges.getId(EAges.TREEM)).compareTo(checkValid.get(EAges.getId(EAges.TRENHO)))> 0)
@@ -91,10 +91,10 @@ public class TourView {
 
             throw new Exception("Thông tin giá không hợp lệ\n Người lớn > Trẻ em > Trẻ nhỏ > Em bé");
         }
-        return null;
+        throw new Exception("Thông tin giá không hợp lệ");
     }
 
-    public List<Contents> getListContens() {
+    public List<Contents> getListContens() throws Exception {
         if (contents != null && !contents.isBlank() && !ngaydi.isBlank() && !ngayve.isBlank()) {
             String[] cnt = contents.split("</end>");
             List<Contents> s = new ArrayList<>();
@@ -102,17 +102,26 @@ public class TourView {
                 String[] data = i.split("<:>");
 //                System.err.println("=============");
 //                System.err.println(data+"+"+i);
-                Date nd = Utils.getDateRequest(ngaydi);
-                nd.setDate((nd.getDate() + Integer.parseInt(data[0])));
-                Contents temp = new Contents();
-                temp.setContent(data[2]);
-                temp.setDate(nd);
-                temp.setLandMarkID(data[1]);
-                s.add(temp);
+                if(data.length==3){
+                    try{
+                    Date nd = Utils.getDateRequest(ngaydi);
+                    nd.setDate((nd.getDate() + Integer.parseInt(data[0])));
+                    Contents temp = new Contents();
+                    temp.setContent(data[2]);
+                    temp.setDate(nd);
+                    if(data[1].equals("null")) throw new Exception("Vui lòng chọn địa điểm đi");
+                    temp.setLandMarkID(data[1]);
+                    s.add(temp);
+                    }catch (IllegalArgumentException exception){
+                        throw new Exception("Lỗi Định dạng ngày");
+                    }catch (Exception e){
+                        throw new Exception(e.getMessage());
+                    }
+                }
             }
             return s;
         }
-        return null;
+        throw new Exception("Nội dung chương trình tour không để trống");
 
     }
 

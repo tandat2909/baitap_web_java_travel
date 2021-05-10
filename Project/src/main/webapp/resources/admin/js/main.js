@@ -153,7 +153,6 @@ let summitFormAddTour = () => {
     let prices = $("#tourprice td input.pricejs")
     let strPrice = ""
 
-    
 
     for (let i = 0; i < prices.length; i++) {
         var d = $(prices[i]).data("id") + ":" + $(prices[i]).val()
@@ -178,7 +177,7 @@ let summitFormAddTour = () => {
     // console.log(getDays(nd,nv)+1)
     $("#contentspost").val(contents)
     // console.log($("#contentspost").val())
-    // console.log(contents)
+    console.log(contents)
     //  $("#test").html(contents)
 }
 
