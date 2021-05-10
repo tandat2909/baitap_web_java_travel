@@ -13,7 +13,7 @@ public interface IGenericsService<T, K> {
 
     void remove(T obj) throws Exception;
 
-    void update(T entity);
+    void update(T entity) throws Exception;
 
     /**
      *

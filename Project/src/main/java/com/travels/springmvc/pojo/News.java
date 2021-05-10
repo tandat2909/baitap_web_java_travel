@@ -42,7 +42,7 @@ public class News implements Serializable {
     @JoinColumn(name = "accountID",insertable = false, updatable = false)
     private Account account;
 
-    @OneToMany(mappedBy = "news")
+    @OneToMany(mappedBy = "news", cascade = CascadeType.ALL)
     private List<Comment> comments;
 
     public List<Comment> getComments() {

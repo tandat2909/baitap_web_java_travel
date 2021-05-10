@@ -141,7 +141,11 @@ public class TourController {
                 String[] a = tu.split(":");
                 if (t.getAges().getAgeId().equals(a[1])) {
                     t.setPrice(new BigDecimal(a[0]));
-                    tourPricesService.update(t);
+                    try {
+                        tourPricesService.update(t);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
 
