@@ -10,6 +10,6 @@ public interface ICustomerRepository extends IGenericsRepository<Customer,String
     Customer getCustomerByUserName(String userName);
     Customer getCustomerByAccountId(String accountId);
 
-    public boolean isvalid(Customer obj) throws Exception;
+    boolean isvalid(Customer obj) throws Exception;
 
 }

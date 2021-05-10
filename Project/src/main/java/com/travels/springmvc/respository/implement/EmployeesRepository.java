@@ -82,10 +82,10 @@ public class EmployeesRepository extends GenericsRepository<Employees,String> im
         if (employees.getBirthDay() == null)
             throw new Exception("Không để trống trường ngày sinh");
         if (timecheck.getTime() - employees.getBirthDay().getTime() < 0)
-            throw new Exception("Ngày sinh nhỏ hơn " + sysConfigRepository.getElementById(ESysconfig.AAR.name()) + " không được đăng ký");
-        if(employees.getGender() == null )
+            throw new Exception("Ngày sinh không nhỏ hơn " + sysConfigRepository.getElementById(ESysconfig.AAR.name()).getValue() +" tuổi");
+        if(employees.getGender() == null || employees.getGender().isBlank())
             throw new Exception("không để trường giới tính");
-        if(employees.getAddress() == null )
+        if(employees.getAddress() == null || employees.getAddress().isBlank() )
             throw new Exception("không để trường địa chỉ");
 
         return true;

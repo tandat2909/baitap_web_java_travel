@@ -9,9 +9,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class CustomerService extends GenericsService<Customer,String> implements ICustomerService {
+public class CustomerService extends GenericsService<Customer, String> implements ICustomerService {
     @Autowired
     ICustomerRepository customerRepository;
+
     @Override
     public Customer getCustomerByUserName(String userName) {
         return customerRepository.getCustomerByUserName(userName);
@@ -23,8 +24,11 @@ public class CustomerService extends GenericsService<Customer,String> implements
     }
 
     @Override
-    public void update(Customer entity) throws Exception  {
+    public void update(Customer entity) throws Exception {
         customerRepository.isvalid(entity);
+
+
+
         super.update(entity);
     }
 }

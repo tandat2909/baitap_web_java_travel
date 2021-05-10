@@ -68,10 +68,10 @@ public class CustomerRepository extends GenericsRepository<Customer,String> impl
         if (customer.getBirthDay() == null)
             throw new Exception("Không để trống trường ngày sinh");
         if (timecheck.getTime() - customer.getBirthDay().getTime() < 0)
-            throw new Exception("Ngày sinh nhỏ hơn " + sysConfigRepository.getElementById(ESysconfig.AAR.name()) + " không được đăng ký");
-        if(customer.getGender() == null )
+            throw new Exception("Ngày sinh nhỏ hơn " + sysConfigRepository.getElementById(ESysconfig.AAR.name()).getValue() + " không được đăng ký");
+        if(customer.getGender() == null || customer.getGender().isBlank())
             throw new Exception("không để trống trường giới tính");
-        if(customer.getAddress() == null )
+        if(customer.getAddress() == null || customer.getAddress().isBlank() )
             throw new Exception("không để trống trường địa chỉ");
 
         return true;

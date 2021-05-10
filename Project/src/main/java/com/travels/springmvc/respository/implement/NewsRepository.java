@@ -30,13 +30,13 @@ public class NewsRepository extends GenericsRepository<News, String> implements 
 
     @Override
     public boolean isvalid(News news) throws Exception {
-        if (news.getImage() == null)
+        if (news.getImage() == null || news.getImage().isBlank())
             throw new Exception("không để trống hình ảnh");
-        if (news.getLong_description() == null)
+        if (news.getLong_description() == null || news.getLong_description().isBlank())
             throw new Exception("không để trống mô tả dài ");
-        if (news.getShort_description() == null)
+        if (news.getShort_description() == null || news.getShort_description().isBlank())
             throw new Exception("không để trống mô tả ngắn");
-        if (news.getTitle() == null)
+        if (news.getTitle() == null || news.getShort_description().isBlank())
             throw new Exception("không để trống tiêu đề");
         return true;
     }

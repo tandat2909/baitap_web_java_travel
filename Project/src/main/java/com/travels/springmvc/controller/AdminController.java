@@ -48,7 +48,6 @@ public class AdminController {
     @Autowired
     INewsService newsService;
 
-
     @Autowired
     TourView tourView;
 
@@ -101,14 +100,16 @@ public class AdminController {
         //gắn cái id cho customer vs acc
         try{
             Customer cus = customer.getCustomer();
-            Account acc = customerService.getElementById(customerId).getAccount();
-            acc.setUserName(customerService.getElementById(customerId).getAccount().getUserName());
-            cus.setAccount(acc);
             cus.setCustomerId(customerId);
+
+            Account acc = customerService.getElementById(customerId).getAccount();
+            //acc.setUserName(customerService.getElementById(customerId).getAccount().getUserName());
+            cus.setAccount(acc);
+
             customerService.update(cus);
-            accountService.update(acc);
-            attributes.addFlashAttribute("messges", new String[]{EMessages.success.name(), "sửa khách hàng thành công"});
-            return "redirect:/admin/customers";
+//            accountService.update(acc);
+            attributes.addFlashAttribute("messges", new String[]{EMessages.success.name(), "Sửa khách hàng thành công"});
+
         }catch (Exception exception){
             attributes.addFlashAttribute("messges", new String[]{EMessages.error.name(), exception.getMessage()});
             exception.printStackTrace();
@@ -120,7 +121,7 @@ public class AdminController {
 
     @RequestMapping(value = "/employees")
     public String pageListEmployees(Model model) {
-        List<Employees> employees = employeesService.getAll().stream().filter(c -> c.getAccount() != null).collect(Collectors.toList());
+        List<Employees> employees = employeesService.getAll();
         model.addAttribute("lsEmployee", employees);
         return "template_employee_admin";
     }
@@ -146,13 +147,12 @@ public class AdminController {
             employees.setEmployeeId(employeeId);
             employeesService.update(employees);
             accountService.update(acc);
-            attributes.addFlashAttribute("messges", new String[]{EMessages.success.name(), "sửa khách hàng thành công"});
-            return "redirect:/admin/employees";
+            attributes.addFlashAttribute("messges", new String[]{EMessages.success.name(), "Sửa khách hàng thành công"});
+
         }catch (Exception e){
             attributes.addFlashAttribute("messges", new String[]{EMessages.error.name(), e.getMessage()});
             e.printStackTrace();
         }
-
         return "redirect:/admin/employee/update?employeeId=" + employeeId;
     }
 

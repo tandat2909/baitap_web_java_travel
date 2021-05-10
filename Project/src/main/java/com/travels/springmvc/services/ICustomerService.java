@@ -12,4 +12,5 @@ public interface ICustomerService extends IGenericsService<Customer,String> {
 
     @Override
     void update(Customer entity) throws Exception;
+
 }
