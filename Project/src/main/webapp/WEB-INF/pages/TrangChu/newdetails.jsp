@@ -69,15 +69,15 @@
         width: 100%;
         position: relative;
     }
-    .sub_comment:before, #box_comment .sub_comment:before {
-        content: '';
-        background: #E5E5E5;
-        width: 2px;
-        height: calc(100% - 20px);
-        position: absolute;
-        top: 20px;
-        left: 46px;
-    }
+    /*.sub_comment:before, #box_comment .sub_comment:before {*/
+    /*    content: '';*/
+    /*    background: #E5E5E5;*/
+    /*    width: 2px;*/
+    /*    height: calc(100% - 20px);*/
+    /*    position: absolute;*/
+    /*    top: 20px;*/
+    /*    left: 46px;*/
+    /*}*/
     .box_comment_vne .sub_comment .sub_comment_item, #box_comment .sub_comment .sub_comment_item {
         padding: 0;
         margin-bottom: 0;
@@ -115,18 +115,19 @@
             <div class="comment_item width_common hight_light_cmt" data-time="1620522933">
             <div class="user_status"><a class="avata_coment" href="javascript:;">${fn:substring(cha.account.userName,0, 1)}</a></div>
             <div class="content-comment">
-                <p class="full_content">
+                <p class="full_content" >
                     <span class="txt-name">
                         <a class="nickname"  title=""><b>${cha.account.userName}</b></a>
-                    </span>${cha.content}
+                    </span>
+                        ${cha.content}
                 </p>
                 <p class="block_like_web width_common">
-                    <a id="39786129" class="link_reply" href="javascript:;" onclick="addComment('${cha.commentId}')">Trả lời</a>
+                    <a id="" class="link_reply" href="javascript:;" onclick="addComment('${cha.commentId}')">Trả lời</a>
                     <span class="time-com"><fmt:formatDate value='${cha.date_comment}' pattern="dd-MM-yyyy"/></span>
                 </p>
-                <div class="sub_comment width_common clearfix ml-4" id="${cha.commentId}" style="border-left-color: white;margin-top: 56px;border-left: 4px solid gray;">
+                <div class="sub_comment width_common clearfix ml-4" style="border-left-color: white;margin-top: 56px;border-left: 4px solid gray;">
                     <c:forEach items="${cha.comment_parent}" var="con">
-                        <div class="sub_comment_item comment_item width_common mt-2">
+                        <div class="sub_comment_item comment_item width_common mt-2 ml-3">
                             <div class="user_status" data-user-type="6">
                                     <%--                        <a class="avata_coment" href="https://my.vnexpress.net/users/feed/1013871031">V--%>
                                     <%--                            <div class="info_avata_cmt">--%>
@@ -159,6 +160,7 @@
                         </div>
                     </c:forEach>
                 </div>
+                <div id="${cha.commentId}"></div>
             </div>
 
 
