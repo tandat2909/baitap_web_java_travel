@@ -159,14 +159,9 @@ public class TourController {
     @RequestMapping(value = "admin/updateTour")
     public String updateTour(Model model, @RequestParam(value = "tourid", required = false) String tourId) {
         Tour tour = tourService.getElementById(tourId);
-        List<Contents> contents = tour.getContents();
-        //contents.stream().filter(c ->c.)
-        List<Tourprices> tourprices = tourPricesService.getAll().stream().filter(t -> t.getTourId().equals(tourId)).collect(Collectors.toList());
-        System.err.println("===================");
-        System.err.println(tourprices);
-        System.err.println("===================");
         model.addAttribute("tour", tour);
-        model.addAttribute("prices", tourprices);
+        model.addAttribute("provinces", provinceService.getAll());
+        model.addAttribute("tourview", new TourView());
         return "updateTour";
     }
 }

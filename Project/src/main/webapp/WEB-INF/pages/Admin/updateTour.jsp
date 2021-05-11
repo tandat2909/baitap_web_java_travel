@@ -1,4 +1,4 @@
-<jsp:useBean id="tour" type="com.travels.springmvc.pojo.Tour"></jsp:useBean>
+<%--<jsp:useBean id="tour" type="com.travels.springmvc.pojo.Tour"></jsp:useBean>--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="../LibraryJSP.jsp" %>
 <div class="main-content">
@@ -48,11 +48,11 @@
 
                     <div class="col-3 mt-3">
                         <label>Ngày đi </label>
-                        <input name="ngaydi" required class="form-control mt-1" type="date" id="ngaydi" value="${tour.startDay}"/>
+                        <input name="ngaydi" required class="form-control mt-1" type="date" id="ngaydis" min="<fmt:formatDate value='${tour.startDay}' pattern="yyyy-MM-dd" />" value="<fmt:formatDate value='${tour.startDay}' pattern="yyyy-MM-dd" />" />
                     </div>
                     <div class="col-3 mt-3">
                         <label class="">Ngày về </label>
-                        <input name="ngayve" required class="form-control mt-1" type="date" id="ngayve" value="${tour.endDay}"/>
+                        <input name="ngayve" required class="form-control mt-1" type="date" id="ngayves" min="<fmt:formatDate value='${tour.startDay}' pattern="yyyy-MM-dd" />" value="<fmt:formatDate value='${tour.endDay}' pattern="yyyy-MM-dd" />" />
                     </div>
 
                     <div class="col-12 mt-3">
@@ -69,30 +69,27 @@
                             </thead>
                             <tbody>
                             <tr id="tourprice">
-
-                                <td class="p-0">
-                                    <c:forEach items="${prices}" var="price">
+                                    <c:forEach items="${tour.tourprices}" var="price">
                                         <c:if test="${price.ageId == 'f53d20c2-7f20-4fad-bab6-76847d102ef9'}">
-                                            <input type="text" data-id="f53d20c2-7f20-4fad-bab6-76847d102ef9"
+                                            <td class="p-0"><input type="text" data-id="f53d20c2-7f20-4fad-bab6-76847d102ef9"
                                                        required pattern="[0-9]{3,20}" value="${price.price}" class="form-control pricejs"></td>
                                         </c:if>
 
                                         <c:if test="${price.ageId == 'c71fb358-c195-4bc4-9e45-004fd8a5ffd2'}">
-                                            <td class="p-0"><input type="text" data-id="c71fb358-c195-4bc4-9e45-004fd8a5ffd2"
-                                                                   required pattern="[0-9]{1,20}" value="${price.price}" class="form-control pricejs"></td>
+                                            <td class="p-0"><input type="text" data-id="f53d20c2-7f20-4fad-bab6-76847d102ef9"
+                                                       required pattern="[0-9]{3,20}" value="${price.price}" class="form-control pricejs"></td>
                                         </c:if>
 
                                         <c:if test="${price.ageId == 'bdee5279-4601-484c-8fce-e8f5781deda3'}">
                                             <td class="p-0"><input type="text" data-id="bdee5279-4601-484c-8fce-e8f5781deda3"
-                                                                   required pattern="[0-9]{1,20}" value="${price.price}" class="form-control pricejs"></td>
+                                                       required pattern="[0-9]{1,20}" value="${price.price}" class="form-control pricejs"></td>
                                         </c:if>
                                         <c:if test="${price.ageId == '31c75b0d-ec1c-4c39-9caf-5f2e90e7f492'}">
                                             <td class="p-0"><input type="text" data-id="31c75b0d-ec1c-4c39-9caf-5f2e90e7f492"
-                                                                   required pattern="[0-9]{1,20}" value="${price.price}" class="form-control pricejs"></td>
+                                                       required pattern="[0-9]{1,20}" value="${price.price}" class="form-control pricejs"></td>
                                         </c:if>
 
-                                        <td class="p-0"><input type="text" required disabled pattern="[0-9]" class="form-control">
-                                        </td>
+
                                     </c:forEach>
                                 <input type="hidden" id="prices" name="prices">
                             </tr>
@@ -115,26 +112,36 @@
                     <div class="col-12" id="cttour">
                         <div class="row mt-3">
                             <div class="col-12 title">
-                                <h5 id="title_1">Ngày thứ ${dem + 1}</h5>
+                                <h5 id="title_1">Ngày thứ ${dem.index + 1}</h5>
                             </div>
                             <div class="col-4 pt-2">
-                                <select id="provice_1" onchange="addOptionLandMark(this);checkSelect(this)" day=1
-                                        class="custom-select is-invalid">
-                                    <option selected disabled>Chọn tỉnh</option>
-                                    <c:forEach items="${tour.contents}" var="p">
+                                <select id="provice_1" onchange="addOptionLandMark(this);checkSelect(this)" onload="addOptionLandMark(this)" day=1
+                                        class="custom-select is-valid">
+<%--                                    <jsp:useBean id="c" scope="request" type="com.travels.springmvc.pojo.Contents"/>--%>
+                                    <option selected value="${c.landmark.province.provinceId}">${c.landmark.province.provinceName}</option>
+                                    <c:forEach items="${provinces}" var="p">
+                                        <c:if test="${p.provinceId != c.landmark.province.provinceId}">
+                                            <option value="${p.provinceId}">${p.provinceName}</option>
+                                        </c:if>
                                         <%--                                <jsp:useBean id="p" scope="request" type="com.travels.springmvc.pojo.Province"/>--%>
-                                        <option value="${p.provinceId}">${p.provinceName}</option>
+
                                     </c:forEach>
                                 </select>
                             </div>
                             <div class="col-4 pt-2">
-                                <select id="landMark_1" day=1 onchange="checkSelect(this)" class="custom-select is-invalid">
-                                    <option disabled selected>Chọn tỉnh trước khi chọn địa danh</option>
+                                <select id="landMark_1" day=1 onchange="checkSelect(this)" class="custom-select is-valid">
+                                    <option value="${c.landmark.landMarkId}">${c.landmark.landMarkName}</option>
+                                    <c:forEach items="${c.landmark.province.landmarks}" var="l">
+                                        <c:if test="${l.landMarkId !=c.landmark.landMarkId}">
+                                            <option value="${l.landMarkId}">${l.landMarkName}</option>
+                                        </c:if>
+                                    </c:forEach>
+
                                 </select>
                             </div>
                             <div class="col-12 pt-2">
                                 <p>Nội dung: </p>
-                                <textarea id="content_1"  day= 1  required class="w-100 form-control"  style="height: 10em;"></textarea>
+                                <textarea id="content_1"  day= 1  required class="w-100 form-control"  style="height: 10em;">${c.content}</textarea>
                             </div>
                         </div>
                     </div>
@@ -142,7 +149,7 @@
                     <input type="hidden" id="contentspost" name="contents">
                     <div class="col-12 text-center mt-3">
                         <button class="btn btn-primary" onclick="summitFormAddTour()"
-                                type="submit">Thêm tour
+                                type="submit">Sửa tour
                         </button>
                         <a class="btn btn-danger" href="${pageContext.request.contextPath}/admin/tours"
                            type="submit">Hủy
