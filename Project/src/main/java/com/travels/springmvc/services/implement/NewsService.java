@@ -16,6 +16,7 @@ public class NewsService extends GenericsService<News,String> implements INewsSe
     INewsRepository newsRepository;
     @Override
     public  void add(News news) throws Exception {
+        newsRepository.isvalid(news);
         newsRepository.save(news);
     }
     @Override

@@ -66,7 +66,13 @@ class BookingServiceTest {
 
     @Test
     void TC_3_remove() throws Exception {
-        bookingService.remove("94b1edb0-cea0-4f5b-97f5-9df3eb9ff35a");
+
+        bookingService.remove("1d177a6f-33a2-4bf4-b066-14f4105d9526");
+        bookingService.remove("56cdc352-d81f-40fe-9617-c01c974d9911");
+        bookingService.remove("b8487483-925d-4913-be5a-848593892026");
+        bookingService.remove("c901a7bb-6cb1-4aaa-b05e-14a0212e816d");
+        bookingService.remove("fb33973c-672e-4c70-9ccc-9256b4552142");
+
     }
 
     @Test

@@ -27,7 +27,7 @@ class CommentServiceTest {
         comment = new Comment();
         comment.setDate_comment(new Date());
         comment.setCommentId(UUID.randomUUID().toString());
-        comment.setContent("bánh bèo bèo nhèo");
+        comment.setContent("TEst 1");
         comment.setAccountId("7f1112ae-65b8-4bd4-817e-399b595c4c98");
         comment.setCommentParentId("2");
         comment.setNewsId("cf6aa1f5-76ec-485c-816d-f8ea3b0a4175");

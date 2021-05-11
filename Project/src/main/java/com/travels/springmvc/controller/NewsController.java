@@ -33,7 +33,7 @@ public class NewsController {
     }
 
     @PostMapping(value = {"/admin/addNews", "/employee/addNews"})
-    public String addNews(@ModelAttribute("addNew") News news, HttpServletRequest request) {
+    public String addNews(@ModelAttribute("addNew") News news, RedirectAttributes attributes,HttpServletRequest request) {
 
         MultipartFile img = news.getImg();
         Account emp = accountService.getAccountByUserName(request.getUserPrincipal().getName());
@@ -56,9 +56,14 @@ public class NewsController {
         try {
             news.setDate_submitted(new Date());
             newsService.add(news);
+            attributes.addFlashAttribute("messges", new String[]{EMessages.success.name(), "Thêm tin tức thành công"});
         } catch (Exception e) {
             e.printStackTrace();
+            attributes.addFlashAttribute("messges", new String[]{EMessages.error.name(), e.getMessage()});
         }
+
+
+
         return "redirect:/admin/News";
     }
     @RequestMapping(value = {"/admin/editNews", "/employee/editNews"})
@@ -107,13 +112,13 @@ public class NewsController {
 //        System.err.println("==============");
         try {
             newsService.update(current);
-            attributes.addFlashAttribute("messges", new String[]{EMessages.success.name(), "sửa news thành công"});
+            attributes.addFlashAttribute("messges", new String[]{EMessages.success.name(), "Sửa tin tức thành công"});
         } catch (Exception e) {
             attributes.addFlashAttribute("messges", new String[]{EMessages.error.name(), e.getMessage()});
             e.printStackTrace();
         }
 
-        return "redirect:/admin/News";
+        return "redirect:/admin/editNews?newId="+news.getNewId();
     }
 
 

@@ -48,8 +48,8 @@ public class AgesServiceTest {
     void getAgeVaildEnum(){
         Date a = new Date();
         Date b= new Date();
-        b.setDate(a.getDate()-1);
-        System.out.println(a.getTime());
+        b.setDate(a.getDate()-2);
+        System.out.println(a.getTime() - b.getTime());
         System.out.println(Math.round(a.getTime() - b.getTime()) *  1.15740741 *Math.pow(10,-8));
         System.out.println(EAges.getAgeVaild(EAges.TREEM)[0]);
         System.out.println(Arrays.toString(EAges.getAgeVaild(EAges.TREEM)));

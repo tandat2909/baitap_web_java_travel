@@ -85,8 +85,6 @@ class TourServiceTest {
     @Test
     void searchTourbyProvince() {
         String provinceId = "0704269f-fb9e-4e01-b0f6-251fd1f2035e";
-        BigDecimal a = new BigDecimal(23);
-        System.out.println(a.compareTo(BigDecimal.valueOf(23)));
         tourService.searchTourByProvince(provinceService.getElementById(provinceId)).forEach(System.out::println);
     }
 
@@ -140,7 +138,6 @@ class TourServiceTest {
             System.out.println(e.getMessage());
             assertEquals(e.getMessage(), "Tên địa danh không được để trống");
         }
-
     }
 
     @Test

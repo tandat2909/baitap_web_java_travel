@@ -68,6 +68,8 @@ public class TourController {
         return "template_tour_admin";
     }
 
+
+
     @RequestMapping(value = "admin/tour/edit")
     public String pageEditTour(Model model) {
         model.addAttribute("lsTour", tourService.getAll());
@@ -117,8 +119,8 @@ public class TourController {
         return "redirect:/admin/tour/add";
     }
 
-    @RequestMapping(value = "admin/updateTour")
-    public String updateTour(Model model, @RequestParam(value = "tourid", required = false) String tourId) {
+    @RequestMapping(value = "admin/updatePriceOfTour")
+    public String updatePriceOfTour(Model model, @RequestParam(value = "tourid", required = false) String tourId) {
         Tour tour = tourService.getElementById(tourId);
         List<Tourprices> prices = (List<Tourprices>) tour.getTourprices();
         System.err.println("======================");
@@ -127,11 +129,11 @@ public class TourController {
         model.addAttribute("tour", tour);
         model.addAttribute("price", prices);
 
-        return "updateTour";
+        return "updatePrice";
     }
 
-    @PostMapping(value = "admin/updateTour")
-    public String updateAndSaveTour(Model model, @ModelAttribute(value = "prices") String prices, @RequestParam(value = "tourId", required = false) String tourId) {
+    @PostMapping(value = "admin/updatePriceOfTour")
+    public String updateAndSavePriceOfTour(Model model, @ModelAttribute(value = "prices") String prices, @RequestParam(value = "tourId", required = false) String tourId) {
         Tour tour = tourService.getElementById(tourId);
         List<Tourprices> priceId = (List<Tourprices>) tour.getTourprices();
         String[] tuoi = prices.split(";");
@@ -154,5 +156,17 @@ public class TourController {
         return "redirect:/admin/tours";
     }
 
-
+    @RequestMapping(value = "admin/updateTour")
+    public String updateTour(Model model, @RequestParam(value = "tourid", required = false) String tourId) {
+        Tour tour = tourService.getElementById(tourId);
+        List<Contents> contents = tour.getContents();
+        //contents.stream().filter(c ->c.)
+        List<Tourprices> tourprices = tourPricesService.getAll().stream().filter(t -> t.getTourId().equals(tourId)).collect(Collectors.toList());
+        System.err.println("===================");
+        System.err.println(tourprices);
+        System.err.println("===================");
+        model.addAttribute("tour", tour);
+        model.addAttribute("prices", tourprices);
+        return "updateTour";
+    }
 }

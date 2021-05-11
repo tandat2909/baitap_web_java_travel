@@ -63,8 +63,10 @@ public class AccountRepository extends GenericsRepository<Account, String> imple
                     throw new Exception("CMND/CCCD/CCID 9 số hoặc 12 số");
                 if (customer.getBirthDay() == null)
                     throw new Exception("Không để trống trường ngày sinh");
+                if(customer.getGender() == null || customer.getGender().isBlank())
+                    throw new Exception("Chưa chọn giới tính");
                 if (timecheck.getTime() - customer.getBirthDay().getTime() < 0)
-                    throw new Exception("Ngày sinh nhỏ hơn " + sysConfigRepository.getElementById(ESysconfig.AAR.name()) + " không được đăng ký");
+                    throw new Exception("Ngày sinh nhỏ hơn " + sysConfigRepository.getElementById(ESysconfig.AAR.name()).getValue() + " không được đăng ký");
                 if (customer.getCustomerId() == null || customer.getCustomerId().isEmpty()) {
                     customer.setCustomerId(UUID.randomUUID().toString());
                 }
@@ -93,6 +95,9 @@ public class AccountRepository extends GenericsRepository<Account, String> imple
                 if (employees.getBirthDay() == null)
                     throw new Exception("Không để trống trường ngày sinh");
 
+                if(employees.getGender() == null || employees.getGender().isBlank())
+                    throw new Exception("Chưa chọn giới tính");
+
                 if (timecheck.getTime() - employees.getBirthDay().getTime() < 0)
                     throw new Exception("Ngày sinh nhỏ hơn " + sysConfigRepository.getElementById(ESysconfig.AAR.name()).getValue() + " không được đăng ký");
 
@@ -104,7 +109,10 @@ public class AccountRepository extends GenericsRepository<Account, String> imple
 
             }
             account.setPw(bCryptPasswordEncoder.encode(account.getPw()));
-            account.setAccountId(UUID.randomUUID().toString());
+            if(account.getAccountId() == null || !account.getAccountId().isBlank()){
+                account.setAccountId(UUID.randomUUID().toString());
+            }
+            //account.setAccountId(UUID.randomUUID().toString());
             // kích hoạt tài khoản
             account.setStatus(true);
             session.save(account);

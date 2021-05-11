@@ -119,10 +119,16 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
         <put-attribute name="adminContent" value="/WEB-INF/pages/Admin/updateEmployee.jsp"/>
     </definition>
 
+    <definition name="updatePrice" extends="adminLayout">
+        <put-attribute name="title" value="update price of Tour"/>
+        <put-attribute name="adminContent" value="/WEB-INF/pages/Admin/updatePriceOfTour.jsp"/>
+    </definition>
+
     <definition name="updateTour" extends="adminLayout">
         <put-attribute name="title" value="update Tour"/>
         <put-attribute name="adminContent" value="/WEB-INF/pages/Admin/updateTour.jsp"/>
     </definition>
+
 <!--    Login, SignUp-->
     <definition name="template_login" template="/WEB-INF/pages/login.jsp" >
         <put-attribute name="title" value="Login"/>

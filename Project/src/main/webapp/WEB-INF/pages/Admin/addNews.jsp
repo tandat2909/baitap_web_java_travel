@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="../LibraryJSP.jsp"%>
 <div class="main-content">
-
+    <%@include file="../Alert.jsp"%>
     <!-- content -->
     <div class="container-fluid content-top-gap">
 

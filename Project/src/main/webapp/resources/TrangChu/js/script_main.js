@@ -179,7 +179,6 @@ $(document).ready(function () {
         let end = $(m[i]).data("endday");
         $(m[i]).text((getDays(start, end) + 1) + " ngày");
         console.log(start, end);
-
         console.log($(m[i]))
     }
 });

@@ -1,11 +1,14 @@
 package com.travels.springmvc.services.implement;
 
 import com.travels.springmvc.modelView.InforAccount;
+import com.travels.springmvc.modelView.Utils;
 import com.travels.springmvc.pojo.Account;
+import com.travels.springmvc.pojo.Employees;
 import com.travels.springmvc.respository.Enum.ERole;
 import com.travels.springmvc.respository.IAccountRepository;
 import com.travels.springmvc.services.IAccountService;
 import com.travels.springmvc.services.ICustomerService;
+import com.travels.springmvc.services.IEmployeesService;
 import com.travels.springmvc.services.IRoleService;
 import org.junit.FixMethodOrder;
 import org.junit.jupiter.api.AfterEach;
@@ -13,6 +16,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -21,6 +26,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -28,7 +34,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 class AccountServiceTest {
-    Account account;
+
     @Autowired
     IAccountService accountService;
 
@@ -38,11 +44,15 @@ class AccountServiceTest {
     @Autowired
     ICustomerService customerService;
 
+    @Autowired
+    IEmployeesService employeesService;
+
 
     @Autowired
     IAccountRepository accountRepository;
     @BeforeEach
     void setUp() {
+
 
     }
 
@@ -94,20 +104,49 @@ class AccountServiceTest {
     void getElementsByKeyWordOnField() {
     }
 
-    @Test
-    void createAccount() throws Exception {
-        InforAccount inforAccount = new InforAccount();
-        inforAccount.setUserName("tandat1234ssss");
-        inforAccount.setEmail("v@s.com");
-        inforAccount.setCCID("093234433");
-        inforAccount.setPhoneNumber("0987652435");
-        inforAccount.setConfirmPassword("Tandat@123");
-        inforAccount.setPassword("Tandat@123");
-        inforAccount.setFirstName("Tan");
-        inforAccount.setLastName("Dat");
-        inforAccount.setBirthDay("2000-10-2");
-        assertTrue(accountService.createAccount(inforAccount.getAccount(),inforAccount.getCustomer()));
-        assertEquals(accountService.getAccountByUserName(inforAccount.getUserName()).getUserName(),inforAccount.getUserName());
+
+    @ParameterizedTest
+    @CsvFileSource(resources="/login_signup.csv")
+    void createAccount(String userName, String email, String ccid, String phoneNumber,
+            String confirm, String pass, String firstName, String lastName, String birthDay,String gender,String image,String messege) throws Exception {
+        try{
+            InforAccount inforAccount = new InforAccount();
+            inforAccount.setUserName(userName);
+            inforAccount.setEmail(email);
+            inforAccount.setCCID(ccid);
+            inforAccount.setPhoneNumber(phoneNumber);
+            inforAccount.setConfirmPassword(confirm);
+            inforAccount.setPassword(pass);
+            inforAccount.setFirstName(firstName);
+            inforAccount.setLastName(lastName);
+            inforAccount.setBirthDay(birthDay);
+            inforAccount.setGender(gender);
+            inforAccount.setImg(image);
+            Account ac = inforAccount.getAccount();
+            ac.setAccountId(UUID.randomUUID().toString());
+            accountService.createAccount(ac,inforAccount.getCustomer());
+
+            //assertEquals(accountService.getAccountByUserName(inforAccount.getUserName()).getUserName(),inforAccount.getUserName());
+
+            Account acSave = accountService.getElementById(ac.getAccountId());
+            System.err.println(gender + " " + image);
+            assertEquals(userName,acSave.getUserName());
+            Employees esave = employeesService.getEmployeesByAccountId(ac.getUserName());
+            assertEquals(email,esave.getEmail());
+            assertEquals(ccid,esave.getCcid());
+            assertEquals(phoneNumber,esave.getPhoneNumber());
+            assertEquals(lastName,esave.getLastName());
+            assertEquals(firstName,esave.getFirstName());
+            assertEquals(Utils.getDateRequest(birthDay),esave.getBirthDay());
+            assertEquals(gender,esave.getGender());
+            assertEquals(image,image);
+
+
+        }catch (Exception exception){
+            //exception.printStackTrace();
+            System.err.println(exception);
+            assertEquals(messege,exception.getMessage());
+        }
     }
 
     @Test

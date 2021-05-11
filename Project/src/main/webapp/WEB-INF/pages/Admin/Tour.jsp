@@ -105,7 +105,7 @@
                                         <h5 class="card-title">${i.tourName}</h5>
                                         <p class="card-text mt-1"><i class="fa fa-dollar"></i> Giá: <span
                                                 class="price">${i.price} VNĐ</span>
-                                            <a href="${pageContext.request.contextPath}/admin/updateTour?tourid=${i.tourId}#updateprice"
+                                            <a href="${pageContext.request.contextPath}/admin/updatePriceOfTour?tourid=${i.tourId}#updateprice"
                                                target="_blank"> <i class="fa fa-pencil" aria-hidden="true"
                                                                    style="float: right;"></i></a>
                                         </p>

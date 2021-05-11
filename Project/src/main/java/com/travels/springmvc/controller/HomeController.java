@@ -130,7 +130,9 @@ public class HomeController {
 
     @RequestMapping("/Packages")
     public String Packages(Model model) {
-        List<Tour> tours = tourService.getAll();
+        List<Tour> tours = tourService.getAll().stream()
+                .filter(i -> Math.round(new Date().getTime() - i.getStartDay().getTime()) *  1.15740741 *Math.pow(10,-8) > 2)
+                .collect(Collectors.toList());
         model.addAttribute("tours", tours);
         return "Packages";
     }
