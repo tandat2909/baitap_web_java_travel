@@ -6,10 +6,7 @@ import com.travels.springmvc.pojo.Account;
 import com.travels.springmvc.pojo.Booking;
 import com.travels.springmvc.pojo.Customer;
 import com.travels.springmvc.respository.ITourPriceRepository;
-import com.travels.springmvc.services.IAccountService;
-import com.travels.springmvc.services.IBookingService;
-import com.travels.springmvc.services.ICustomerService;
-import com.travels.springmvc.services.ITourService;
+import com.travels.springmvc.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,9 +33,12 @@ public class BookingController {
     @Autowired
     ICustomerService customerService;
     @Autowired
-    ITourPriceRepository tourPriceRepository;
+    ITourPricesService tourPricesService;
     @Autowired
     IAccountService accountService;
+
+    @Autowired
+    IEmployeesService employeesService;
 
 
 
@@ -97,6 +97,8 @@ public class BookingController {
         System.err.println(bookings);
         System.err.println("==============");
         model.addAttribute("booking", bookings);
+        model.addAttribute("customerService",customerService);
+        model.addAttribute("employeesService",employeesService);
         return "confirmBooking";
     }
 
@@ -104,26 +106,30 @@ public class BookingController {
     public String bookingDetail(Model model ,@RequestParam("bookingId") String bookingId,  HttpServletRequest request){
         Booking booking = bookingService.getElementById(bookingId);
         model.addAttribute("book", booking);
-        model.addAttribute("tourPriceRepository",tourPriceRepository);
+        model.addAttribute("tourPriceRepository",tourPricesService);
         System.err.println("=========================");
         System.err.println(booking);
         System.err.println("=========================");
         return "confirmBookingDetail";
     }
 
+
+    //todo chưa làm thông báo thành công khi xác nhận
+
     @PostMapping(value = {"/admin/bookings/details"})
     public String confirmOfEmployee( HttpServletRequest request, @RequestParam("bookingId") String bookingId, RedirectAttributes attributes){
-        Booking booking = bookingService.getElementById(bookingId);
-        Account account = accountService.getAccountByUserName(request.getUserPrincipal().getName());
-        booking.setAccountId(account.getAccountId());
+
         try{
+            Booking booking = bookingService.getElementById(bookingId);
+            Account account = accountService.getAccountByUserName(request.getUserPrincipal().getName());
+            booking.setEmployeesID(account.getAccountId());
             System.err.println("=========================");
             System.err.println(booking);
             System.err.println("=========================");
             bookingService.update(booking);
             return "redirect:/admin/bookings";
-
         } catch (Exception ex){
+            System.err.println("============lỗi contoller booking confirmOfEmployee()");
             ex.printStackTrace();
         }
         return "redirect:/admin/bookings/details?bookingId=" + bookingId;

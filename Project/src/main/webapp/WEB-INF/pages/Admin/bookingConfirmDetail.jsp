@@ -80,7 +80,7 @@
                             </div>
                             <div class="form-group col-md-5" style="width: 90%;margin: 0 auto;">
                                 <div class="form-group" >
-                                    <h3><a href="#"> ${book.tour.tourName}
+                                    <h3><a href="${pageContext.request.contextPath}/tour?tourid=${book.tourId}"> ${book.tour.tourName}
                                     </a></h3>
                                 </div>
                                 <div class="form-group">

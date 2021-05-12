@@ -51,7 +51,7 @@ public class TourController {
     IProvinceService provinceService;
 
 
-    @RequestMapping("/admin/tour")
+    @RequestMapping("/tour")
     public String TourDetail(Model model, @RequestParam(value = "tourid") String tourid) {
 
         if (tourid == null || tourid.equals("")) {
@@ -61,6 +61,15 @@ public class TourController {
         model.addAttribute("tour", tourService.getElementById(tourid));
         return "template_tourdetail";
     }
+
+
+    
+
+    /**
+     *
+     * Controller for admin
+     */
+
 
     @RequestMapping(value = "admin/tours")
     public String pageListTour(Model model) {
