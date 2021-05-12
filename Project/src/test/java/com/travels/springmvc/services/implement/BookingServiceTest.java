@@ -2,6 +2,7 @@ package com.travels.springmvc.services.implement;
 
 import com.travels.springmvc.modelView.BookingView;
 import com.travels.springmvc.modelView.TourView;
+import com.travels.springmvc.modelView.Utils;
 import com.travels.springmvc.pojo.Booking;
 import com.travels.springmvc.pojo.Customer;
 import com.travels.springmvc.pojo.Tour;
@@ -93,6 +94,9 @@ class BookingServiceTest {
 
     @Test
     void comfirmBooking() {
+        String date1 = "2000-02-01";
+        System.out.println(new Date().getYear() - Utils.getDateRequest(date1).getYear() );
+
     }
 
     @Test

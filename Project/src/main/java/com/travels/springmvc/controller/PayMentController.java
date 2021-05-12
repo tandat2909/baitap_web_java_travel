@@ -25,26 +25,31 @@ public class PayMentController {
 
     @RequestMapping("/momo")
     public String paymomo(Model model, @RequestParam("bookingId") String bookingId, HttpServletRequest request) {
-        //Booking booking = bookingService.getElementById("22222");
-        String requestId = request.getSession().getId();
-        String orderId = "223";//booking.getBookingId();
-
-        String amount = "10000";//booking.getTotalMoney().toString();
-        String orderInfo = "Pay With MoMo";
-        String returnURL = "http://localhost:8080/Project_war_exploded/pay/momo/result";
-        String notifyURL = "http://localhost:8080/Project_war_explodedpay/momo/result";
-        String extraData = "";
-        String bankCode = "SML";
-
-        CaptureMoMoResponse captureMoMoResponse;
         try {
-            captureMoMoResponse = CaptureMoMo.process(environment, orderId, requestId, amount, orderInfo, returnURL, notifyURL, "");
-           model.addAttribute("urlpayment",captureMoMoResponse.getPayUrl());
-            return "template_payment";
-        } catch (Exception exception) {
+            Booking booking = bookingService.getElementById(bookingId);
+            if(booking == null) throw new Exception("Không có hóa đơn này");
+            String requestId = request.getSession().getId();
+            String orderId =  String.valueOf(System.currentTimeMillis()) ;
+            String amount = booking.getTotalMoney().toString();
+            String orderInfo = "Thanh toán Tour du lịch";
+            String returnURL = "http://localhost:8080/Project_war_exploded/pay/momo/result";
+            String notifyURL = "http://localhost:8080/Project_war_exploded/pay/momo/result";
+            String extraData = booking.getBookingId();
+            String bankCode = "SML";
+            CaptureMoMoResponse captureMoMoResponse;
+            try {
+                captureMoMoResponse = CaptureMoMo.process(environment, orderId, requestId, amount, orderInfo, returnURL, notifyURL, extraData);
+                model.addAttribute("urlpayment",captureMoMoResponse.getPayUrl());
+                return "template_payment";
+            } catch (Exception exception) {
+                exception.printStackTrace();
+                throw new Exception("Cổng thanh toán không hoạt động");
+            }
+
+        }catch (Exception exception){
             exception.printStackTrace();
+            model.addAttribute("messege",new String[]{EMessages.error.name(),exception.getMessage()});
         }
-        model.addAttribute("messege",new String[]{EMessages.error.name(),"Lỗi cổng thanh toán"});
         return "template_payment";
     }
 

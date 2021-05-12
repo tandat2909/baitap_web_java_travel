@@ -5,7 +5,7 @@ import com.travels.springmvc.pojo.Booking;
 import org.apache.commons.lang.NullArgumentException;
 
 public interface IBookingRepository extends IGenericsRepository<Booking,String> {
-    void save(BookingView bookingView) throws Exception;
+    Booking save(BookingView bookingView) throws Exception;
 
     @Override
     void remove(Booking obj) throws Exception;

@@ -22,7 +22,7 @@ public class BookingView {
       if(!tickets.isBlank()){
          String[] datas = tickets.split(";");
          return Arrays.stream(datas).map( i->{
-            System.err.println("===============list");
+            System.err.println("===============list tickets trong model view");
             String[] a = i.split(":");
             Ticket temp = new Ticket();
             Customer cus = new Customer();
@@ -38,6 +38,8 @@ public class BookingView {
             temp.setTicketId(UUID.randomUUID().toString());
             temp.setCustomer(cus);
             temp.setAgesId(a[3]);
+            System.err.println("cutomermodelview: " + temp.getCustomer());
+            System.err.println("ticketmodeview: " + temp);
             return temp;
          }).collect(Collectors.toList());
       }
@@ -57,6 +59,7 @@ public class BookingView {
    }
 
    public Booking getBooking() {
+
       booking.setTotalMoney(new BigDecimal(0));
       return booking;
    }

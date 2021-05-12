@@ -3,6 +3,7 @@ package com.travels.springmvc.controller;
 import com.travels.springmvc.modelView.BookingView;
 import com.travels.springmvc.modelView.InforAccount;
 import com.travels.springmvc.pojo.Account;
+import com.travels.springmvc.pojo.Booking;
 import com.travels.springmvc.pojo.Customer;
 import com.travels.springmvc.services.IBookingService;
 import com.travels.springmvc.services.ICustomerService;
@@ -67,14 +68,16 @@ public class BookingController {
             String username = request.getUserPrincipal().getName();
 //            System.err.println(bookingviews);
 //            System.err.println("username: "+username);
-            bookingService.add(bookingviews,username);
+            Booking result = bookingService.add(bookingviews,username);
             attributes.addFlashAttribute("messges","success");
             attributes.addFlashAttribute("error",false);
-            return "redirect:/";
+            return "redirect:/pay/momo?bookingId="+result.getBookingId();
         }catch (Exception exception){
             attributes.addFlashAttribute("error",true);
             attributes.addFlashAttribute("messges",exception.getMessage());
             attributes.addFlashAttribute("rebookinginfo",bookingviews);
+            System.err.println("========= errro booking controller");
+            exception.printStackTrace();
             return "redirect:/booking?tourid="+tourid +"#bookinginfo";
         }
 
