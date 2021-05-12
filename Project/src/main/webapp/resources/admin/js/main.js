@@ -160,6 +160,37 @@ let addContent = () => {
         $("#cttour").append(ct);
     }
 }
+let summitFormUpdateTour = () => {
+    let prices = $("#tourprice td input.pricejs")
+    let strPrice = ""
+
+
+    for (let i = 0; i < prices.length; i++) {
+        var d = $(prices[i]).data("id") + ":" + $(prices[i]).val()
+        strPrice += d + ";"
+    }
+    $("#prices").val(strPrice);
+    console.log("price: " +strPrice)
+
+    let nd = $("#ngaydis").val()
+    let nv = $("#ngayves").val()
+    let contents = ""
+    for (let i = 1; i <= getDays(nd, nv) + 1; i++) {
+        // console.log("bien i: "+ i)
+        var landMark = $("#landMark_" + i)
+
+        var content = $("#content_" + i).val().replaceAll('\n', "<br />")
+        //console.log(content)
+        contents += $(landMark).attr("day") + "<:>" + $(landMark).val() + "<:>" + content + "</end>"
+        // console.log(contents)
+    }
+
+    // console.log(getDays(nd,nv)+1)
+    $("#contentspost").val(contents)
+    // console.log($("#contentspost").val())
+    console.log(contents)
+    //  $("#test").html(contents)
+}
 
 
 let summitFormAddTour = () => {

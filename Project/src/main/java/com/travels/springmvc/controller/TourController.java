@@ -133,7 +133,7 @@ public class TourController {
     }
 
     @PostMapping(value = "admin/updatePriceOfTour")
-    public String updateAndSavePriceOfTour(Model model, @ModelAttribute(value = "prices") String prices, @RequestParam(value = "tourId", required = false) String tourId) {
+    public String updateAndSavePriceOfTour(Model model, @ModelAttribute(value = "prices") String prices, @RequestParam(value = "tourid", required = false) String tourId) {
         Tour tour = tourService.getElementById(tourId);
         List<Tourprices> priceId = (List<Tourprices>) tour.getTourprices();
         String[] tuoi = prices.split(";");
@@ -160,7 +160,6 @@ public class TourController {
     public String updateTour(Model model, @RequestParam(value = "tourid", required = false) String tourId) {
         Tour tour = tourService.getElementById(tourId);
         List<Contents> contents = tour.getContents();
-
         //contents.stream().filter(c ->c.)
         List<Tourprices> tourprices = tourPricesService.getAll().stream().filter(t -> t.getTourId().equals(tourId)).collect(Collectors.toList());
         System.err.println("===================");

@@ -70,6 +70,8 @@ public class TourView {
     }
 
     public List<Tourprices> getTourprices() throws Exception {
+        System.err.println("==============gettourprice");
+        System.err.println(prices);
         if (!prices.isBlank()) {
             Map<String, BigDecimal> checkValid = new HashMap<>();
             List<Tourprices> tourprices = new ArrayList<>();
@@ -84,6 +86,7 @@ public class TourView {
                 }
 
             }
+
             if (checkValid.get(EAges.getId(EAges.NGUOILON)).compareTo(checkValid.get(EAges.getId(EAges.TREEM))) > 0
             )
                 if (checkValid.get(EAges.getId(EAges.TREEM)).compareTo(checkValid.get(EAges.getId(EAges.TRENHO))) >= 0
