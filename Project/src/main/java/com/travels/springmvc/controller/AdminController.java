@@ -157,7 +157,7 @@ public class AdminController {
         return "redirect:/admin/employee/update?employeeId=" + employeeId;
     }
 
-    @RequestMapping(value = {"/confirmBooking"})
+    @RequestMapping(value = {"/bookings/"})
     public String pageListBooking(Model model) {
         List<Booking> bookings = bookingService.getAll();
         System.err.println("==============");
@@ -167,8 +167,9 @@ public class AdminController {
         return "confirmBooking";
     }
 
-    @RequestMapping(value = {"/confirmBookingDetail"})
-    public String confirmOfEmployee(){
+    @RequestMapping(value = {"/bookings/details"})
+    public String confirmOfEmployee(@RequestParam("bookingId") String bookingId){
+
         return "confirmBookingDetail";
     }
 

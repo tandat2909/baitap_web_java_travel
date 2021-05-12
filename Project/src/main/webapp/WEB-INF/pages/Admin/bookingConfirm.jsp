@@ -29,7 +29,7 @@
 
                     <section class="w3l-pricing1">
                         <div class="row px-2">
-                            <c:forEach items="booking" var="book">
+                            <c:forEach items="${booking}" var="book">
                                 <div class="col-md-4 px-2">
                                     <div class="mb-4 price-card price-card1 p-lg-4 p-md-3 p-4">
                                         <div class="card-header p-0 card-heading">
@@ -52,7 +52,7 @@
 <%--                                                </c:if>--%>
                                             </ul>
                                             <div class="mt-4">
-                                                <a href="${pageContext.request.contextPath}/admin/bookingdetail?bookingId?=${book.bookingId}" class="btn btn-lg btn-outline-primary btn-style border-btn">Confirm</a>
+                                                <a href="${pageContext.request.contextPath}/admin/bookings/details?bookingId?=${book.bookingId}" class="btn btn-lg btn-outline-primary btn-style border-btn">Confirm</a>
                                             </div>
                                         </div>
                                     </div>
