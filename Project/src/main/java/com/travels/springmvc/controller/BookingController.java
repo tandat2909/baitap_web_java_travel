@@ -5,6 +5,8 @@ import com.travels.springmvc.modelView.InforAccount;
 import com.travels.springmvc.pojo.Account;
 import com.travels.springmvc.pojo.Booking;
 import com.travels.springmvc.pojo.Customer;
+import com.travels.springmvc.respository.ITourPriceRepository;
+import com.travels.springmvc.services.IAccountService;
 import com.travels.springmvc.services.IBookingService;
 import com.travels.springmvc.services.ICustomerService;
 import com.travels.springmvc.services.ITourService;
@@ -18,9 +20,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
-@RequestMapping({"/booking","/Booking"})
 public class BookingController {
     @Autowired
     ITourService tourService;
@@ -33,11 +35,15 @@ public class BookingController {
 
     @Autowired
     ICustomerService customerService;
+    @Autowired
+    ITourPriceRepository tourPriceRepository;
+    @Autowired
+    IAccountService accountService;
 
 
 
 
-    @RequestMapping()
+    @RequestMapping(value = {"/booking","/Booking"})
     public String booktour(Model model,
                            @RequestParam(value = "tourid",required = false) String tourid ,
                            HttpServletRequest request){
@@ -54,7 +60,7 @@ public class BookingController {
         return "template_booking";
 
     }
-    @PostMapping()
+    @PostMapping(value = {"/booking","/Booking"})
     public String addBooking(Model model, @RequestParam(value = "tourid") String tourid ,
                              @ModelAttribute("bookinginfo") BookingView bookingviews,
                              HttpServletRequest request,
@@ -84,5 +90,43 @@ public class BookingController {
 
     }
 
+    @RequestMapping(value = {"/admin/bookings"})
+    public String pageListBooking(Model model) {
+        List<Booking> bookings = bookingService.getAll();
+        System.err.println("==============");
+        System.err.println(bookings);
+        System.err.println("==============");
+        model.addAttribute("booking", bookings);
+        return "confirmBooking";
+    }
+
+    @RequestMapping(value = {"/admin/bookings/details"})
+    public String bookingDetail(Model model ,@RequestParam("bookingId") String bookingId,  HttpServletRequest request){
+        Booking booking = bookingService.getElementById(bookingId);
+        model.addAttribute("book", booking);
+        model.addAttribute("tourPriceRepository",tourPriceRepository);
+        System.err.println("=========================");
+        System.err.println(booking);
+        System.err.println("=========================");
+        return "confirmBookingDetail";
+    }
+
+    @PostMapping(value = {"/admin/bookings/details"})
+    public String confirmOfEmployee( HttpServletRequest request, @RequestParam("bookingId") String bookingId, RedirectAttributes attributes){
+        Booking booking = bookingService.getElementById(bookingId);
+        Account account = accountService.getAccountByUserName(request.getUserPrincipal().getName());
+        booking.setAccountId(account.getAccountId());
+        try{
+            System.err.println("=========================");
+            System.err.println(booking);
+            System.err.println("=========================");
+            bookingService.update(booking);
+            return "redirect:/admin/bookings";
+
+        } catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return "redirect:/admin/bookings/details?bookingId=" + bookingId;
+    }
 
 }

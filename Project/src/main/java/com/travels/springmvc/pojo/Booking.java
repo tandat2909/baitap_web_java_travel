@@ -3,7 +3,6 @@ package com.travels.springmvc.pojo;
 import com.travels.springmvc.Annotation.GeneratedValueUUID;
 import com.travels.springmvc.respository.Enum.ERole;
 
-import javax.enterprise.inject.Default;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -38,6 +37,9 @@ public class Booking implements Serializable {
     @Column(name = "note")
     private String note;
 
+    @Column(name = "employeesID")
+    private String employeesID;
+
     /**
      * Trạng thái xác nhận của nhân viên
      */
@@ -66,17 +68,6 @@ public class Booking implements Serializable {
     @OneToMany(mappedBy = "booking",cascade = CascadeType.ALL)
     private Collection<Ticket> tickets;
 
-//    @OneToOne(fetch = FetchType.LAZY)
-//
-//    private PayMent payMent;
-
-//    public PayMent getPayMent() {
-//        return payMent;
-//    }
-//
-//    public void setPayMent(PayMent payMent) {
-//        this.payMent = payMent;
-//    }
 
 
     public String getBookingId() {
@@ -220,7 +211,13 @@ public class Booking implements Serializable {
     public void setNote(String note) {
         this.note = note;
     }
+    public String getEmployeesID() {
+        return employeesID;
+    }
 
+    public void setEmployeesID(String accountId) {
+        this.employeesID = accountId;
+    }
     @Override
     public String toString() {
         return "Booking{" +
@@ -231,6 +228,7 @@ public class Booking implements Serializable {
                 ", typePay='" + typePay + '\'' +
                 ", note='" + note + '\'' +
                 ", status=" + status +
+                ", employeesID=" + employeesID +
                 ", tourId='" + tourId + '\'' +
                 '}';
     }

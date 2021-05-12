@@ -69,6 +69,7 @@
                         <li><a href="${pageContext.request.contextPath}/admin/employees"><i class="fa fa-table"></i> <span>Danh sách nhân viên</span></a></li>
                         <li><a href="${pageContext.request.contextPath}/admin/customers"><i class="fa fa-table"></i> <span>Danh sách khách hàng</span></a></li>
                         <li><a href="${pageContext.request.contextPath}/admin/tours"><i class="fa fa-table"></i> <span>Danh sách tour</span></a></li>
+                        <li><a href="${pageContext.request.contextPath}/admin/bookings"><i class="fa fa-table"></i> <span>Danh sách các booking cần xác nhận</span></a></li>
                     </ul>
                 </li>
                 <li><a href="${pageContext.request.contextPath}/admin/News"><i class="fa fa-newspaper-o"></i> <span>Tin tức</span></a></li>

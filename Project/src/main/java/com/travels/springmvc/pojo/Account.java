@@ -2,7 +2,10 @@ package com.travels.springmvc.pojo;
 
 
 import com.travels.springmvc.Annotation.GeneratedValueUUID;
-
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.io.Serializable;

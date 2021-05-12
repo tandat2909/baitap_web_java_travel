@@ -3,6 +3,7 @@ package com.travels.springmvc.controller;
 import com.travels.springmvc.modelView.TourView;
 import com.travels.springmvc.pojo.Customer;
 import com.travels.springmvc.respository.Enum.EMessages;
+import com.travels.springmvc.respository.ITourPriceRepository;
 import com.travels.springmvc.services.ICustomerService;
 import com.travels.springmvc.services.IProvinceService;
 import com.travels.springmvc.services.ITourService;
@@ -51,6 +52,9 @@ public class AdminController {
     IBookingService bookingService;
     @Autowired
     TourView tourView;
+
+    @Autowired
+    ITourPriceRepository tourPriceRepository;
 
     @Autowired
     IProvinceService provinceService;
@@ -157,21 +161,7 @@ public class AdminController {
         return "redirect:/admin/employee/update?employeeId=" + employeeId;
     }
 
-    @RequestMapping(value = {"/bookings/"})
-    public String pageListBooking(Model model) {
-        List<Booking> bookings = bookingService.getAll();
-        System.err.println("==============");
-        System.err.println(bookings);
-        System.err.println("==============");
-        model.addAttribute("booking", bookings);
-        return "confirmBooking";
-    }
 
-        @RequestMapping(value = {"/bookings/details"})
-    public String confirmOfEmployee(@RequestParam("bookingId") String bookingId){
-
-        return "confirmBookingDetail";
-    }
 
 }
 
