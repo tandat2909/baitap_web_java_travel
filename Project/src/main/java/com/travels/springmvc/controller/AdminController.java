@@ -47,7 +47,8 @@ public class AdminController {
     IEmployeesService employeesService;
     @Autowired
     INewsService newsService;
-
+    @Autowired
+    IBookingService bookingService;
     @Autowired
     TourView tourView;
 
@@ -156,8 +157,20 @@ public class AdminController {
         return "redirect:/admin/employee/update?employeeId=" + employeeId;
     }
 
+    @RequestMapping(value = {"/confirmBooking"})
+    public String pageListBooking(Model model) {
+        List<Booking> bookings = bookingService.getAll();
+        System.err.println("==============");
+        System.err.println(bookings);
+        System.err.println("==============");
+        model.addAttribute("booking", bookings);
+        return "confirmBooking";
+    }
 
-
+    @RequestMapping(value = {"/confirmBookingDetail"})
+    public String confirmOfEmployee(){
+        return "confirmBookingDetail";
+    }
 
 }
 
