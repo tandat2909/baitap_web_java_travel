@@ -2,10 +2,7 @@ package com.travels.springmvc.pojo;
 
 
 import com.travels.springmvc.Annotation.GeneratedValueUUID;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
+
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -47,6 +44,13 @@ public class Account implements Serializable {
 
     @OneToMany(mappedBy = "account")
     private Collection<Employees> employees;
+
+    @OneToMany(mappedBy = "employee")
+    private List<Booking> bookingEmployees;
+
+    @OneToMany(mappedBy = "customer")
+    private List<Booking> bookingCustomer;
+
 
     public boolean isStatus() {
         return status;
@@ -112,6 +116,23 @@ public class Account implements Serializable {
 
     public void setConfirmPw(String confirmPw) {
         this.confirmPw = confirmPw;
+    }
+
+
+    public List<Booking> getBookingEmployees() {
+        return bookingEmployees;
+    }
+
+    public void setBookingEmployees(List<Booking> bookingEmployees) {
+        this.bookingEmployees = bookingEmployees;
+    }
+
+    public List<Booking> getBookingCustomer() {
+        return bookingCustomer;
+    }
+
+    public void setBookingCustomer(List<Booking> bookingCustomer) {
+        this.bookingCustomer = bookingCustomer;
     }
 
     @Override

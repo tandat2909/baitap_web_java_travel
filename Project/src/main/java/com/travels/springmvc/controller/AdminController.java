@@ -167,7 +167,7 @@ public class AdminController {
         return "confirmBooking";
     }
 
-    @RequestMapping(value = {"/bookings/details"})
+        @RequestMapping(value = {"/bookings/details"})
     public String confirmOfEmployee(@RequestParam("bookingId") String bookingId){
 
         return "confirmBookingDetail";

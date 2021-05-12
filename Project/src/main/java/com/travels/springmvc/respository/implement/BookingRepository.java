@@ -7,6 +7,7 @@ import com.travels.springmvc.pojo.Ticket;
 import com.travels.springmvc.pojo.Tour;
 import com.travels.springmvc.respository.*;
 import com.travels.springmvc.respository.Enum.EAges;
+import com.travels.springmvc.respository.Enum.EStatusPay;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
@@ -64,10 +65,11 @@ public class BookingRepository extends GenericsRepository<Booking, String> imple
             if (tour.getMaxseats() - booking.getAmountGuests() < 0)
                 throw new Exception("Số lượng khách hàng không hợp lệ");
 
-            boolean error = false;
+
             booking.setBookingId(UUID.randomUUID().toString());
             booking.setBookingDate(new Date());
             booking.setStatus(false);
+            booking.setStatusPay(EStatusPay.pending.name());
             //booking.setTickets(bookingView.getTickets());
             List<Pricedetails> pricedetails = new ArrayList<>();
 
@@ -93,7 +95,6 @@ public class BookingRepository extends GenericsRepository<Booking, String> imple
             save(booking);
 //            System.err.println("=======for ticket booking repository");
             try {
-
                 for (Ticket t : bookingView.getTickets()) {
                     try {
 //                    System.err.println("time current: "+ t.getCustomer().getBirthDay().getTime()  );
@@ -116,14 +117,13 @@ public class BookingRepository extends GenericsRepository<Booking, String> imple
                         System.err.println("===== lỗi lưu customer ====");
                         exception.printStackTrace();
                         remove(booking);
-                        error = true;
+
                         throw new Exception("Thông tin danh sách khách hàng không hợp lệ\n " + exception.getMessage());
                     }
                 }
 
-
             }catch (Exception exception){
-                throw exception;
+                throw new Exception(exception.getMessage());
             }
 
             priceDetailRepository.saveAll(pricedetails);

@@ -1,9 +1,11 @@
 package com.travels.springmvc.services.implement;
 
 import com.travels.springmvc.modelView.BookingView;
+import com.travels.springmvc.pojo.Account;
 import com.travels.springmvc.pojo.Booking;
 import com.travels.springmvc.pojo.Customer;
 import com.travels.springmvc.respository.IBookingRepository;
+import com.travels.springmvc.services.IAccountService;
 import com.travels.springmvc.services.IBookingService;
 import com.travels.springmvc.services.ICustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +18,15 @@ public class BookingService extends GenericsService<Booking,String> implements I
 
     @Autowired
     ICustomerService customerService;
+    @Autowired
+    IAccountService accountService;
 
     @Autowired
     IBookingRepository bookingRepository;
     @Override
     public Booking add(BookingView bookingView,String username) throws Exception {
 
-        Customer customer = customerService.getCustomerByUserName(username);
+        Account customer = accountService.getAccountByUserName(username);
 //        System.err.println("===== booking user  =");
 //        System.err.println(customer);
 

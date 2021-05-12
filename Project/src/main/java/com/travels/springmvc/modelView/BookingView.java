@@ -1,16 +1,13 @@
 package com.travels.springmvc.modelView;
 
-import com.travels.springmvc.pojo.Booking;
-import com.travels.springmvc.pojo.Customer;
-import com.travels.springmvc.pojo.Employees;
-import com.travels.springmvc.pojo.Ticket;
+import com.travels.springmvc.pojo.*;
 
 import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class BookingView {
-   Customer customer = new Customer();
+   Account customer ;
    Booking booking = new Booking();
    //định dạng hoten+":"+giotinh+":"+ngaysinh+":"+ages+";"
    String tickets;
@@ -46,11 +43,11 @@ public class BookingView {
       return null;
    }
 
-   public Customer getCustomer() {
+   public Account getCustomer() {
       return customer;
    }
 
-   public void setCustomer(Customer customer) {
+   public void setCustomer(Account customer) {
       this.customer = customer;
    }
 

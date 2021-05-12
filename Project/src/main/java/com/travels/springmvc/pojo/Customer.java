@@ -39,8 +39,6 @@ public class Customer implements Serializable {
     @Column(name = "address")
     private String address;
 
-    @OneToMany(mappedBy = "customer")
-    private Collection<Booking> bookings;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "accountID", referencedColumnName = "accountID",unique = true)
@@ -152,13 +150,6 @@ public class Customer implements Serializable {
     }
 
 
-    public Collection<Booking> getBookings() {
-        return bookings;
-    }
-
-    public void setBookings(Collection<Booking> bookings) {
-        this.bookings = bookings;
-    }
 
 
     public Account getAccount() {

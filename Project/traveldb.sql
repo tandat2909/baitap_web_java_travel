@@ -86,12 +86,13 @@ CREATE TABLE `booking` (
                            `amoutGuests` int NOT NULL DEFAULT '1' COMMENT 'số lượng khách hàng',
                            `note` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
                            `typePay` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+                           `statusPay` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
                            PRIMARY KEY (`bookingID`),
                            KEY `fk_booking_customer1_idx` (`customerID`),
                            KEY `fk_booking_employees_idx` (`employeesID`),
                            KEY `fk_booking_tour1_idx` (`tourID`),
-                           CONSTRAINT `fk_booking_customer1` FOREIGN KEY (`customerID`) REFERENCES `customer` (`customerID`),
-                           CONSTRAINT `fk_booking_employees` FOREIGN KEY (`employeesID`) REFERENCES `employees` (`employeeID`),
+                           CONSTRAINT `fk_booking_account_customer` FOREIGN KEY (`customerID`) REFERENCES `account` (`accountID`),
+                           CONSTRAINT `fk_booking_account_employees` FOREIGN KEY (`employeesID`) REFERENCES `account` (`accountID`),
                            CONSTRAINT `fk_booking_tour1` FOREIGN KEY (`tourID`) REFERENCES `tour` (`tourID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -102,7 +103,7 @@ CREATE TABLE `booking` (
 
 LOCK TABLES `booking` WRITE;
 /*!40000 ALTER TABLE `booking` DISABLE KEYS */;
-INSERT INTO `booking` VALUES ('05c92e6c-7507-4130-8f17-619dfb3e1d33','04743663-9cd6-4484-ba71-a6e315c39d86',NULL,'2021-05-12 15:44:26',123123,_binary '0','95e43aea-559f-4e26-8970-9524228c2f9c',1,'','tienmat'),('2a1ae19e-9ba4-4479-b7cc-e6363b6d23c7','04743663-9cd6-4484-ba71-a6e315c39d86',NULL,'2021-05-12 16:28:34',123123,_binary '0','95e43aea-559f-4e26-8970-9524228c2f9c',1,'','momo'),('3c9d9df2-ee71-4306-acef-cbbef2d7566c','04743663-9cd6-4484-ba71-a6e315c39d86',NULL,'2021-05-12 15:13:06',123123,_binary '0','95e43aea-559f-4e26-8970-9524228c2f9c',1,'','tienmat'),('3d808f9e-52df-4e55-ac79-cce1fc68c7ef','04743663-9cd6-4484-ba71-a6e315c39d86',NULL,'2021-05-12 16:18:30',123123,_binary '0','95e43aea-559f-4e26-8970-9524228c2f9c',1,'','momo'),('50bf0a1a-aa33-4607-8824-6fe0f77617a2','04743663-9cd6-4484-ba71-a6e315c39d86',NULL,'2021-05-12 15:49:47',123123,_binary '0','95e43aea-559f-4e26-8970-9524228c2f9c',1,'','momo'),('5841468e-4cc5-4a6b-88f6-5834bb95e919','04743663-9cd6-4484-ba71-a6e315c39d86',NULL,'2021-05-12 13:41:34',123123,_binary '0','95e43aea-559f-4e26-8970-9524228c2f9c',1,'','blockchain'),('64fd72ab-96e8-4303-8305-90aff0cbaa66','04743663-9cd6-4484-ba71-a6e315c39d86',NULL,'2021-05-12 13:40:17',123123,_binary '0','95e43aea-559f-4e26-8970-9524228c2f9c',1,'','tienmat'),('86302395-32b0-4529-b46f-75e7c9b19692','04743663-9cd6-4484-ba71-a6e315c39d86',NULL,'2021-05-12 15:31:14',246246,_binary '0','95e43aea-559f-4e26-8970-9524228c2f9c',2,'','tienmat'),('a538fc14-7feb-4e6e-b19e-b9fae694ad63','04743663-9cd6-4484-ba71-a6e315c39d86',NULL,'2021-05-12 14:47:55',123123,_binary '0','95e43aea-559f-4e26-8970-9524228c2f9c',1,'','tienmat'),('b15b8522-e206-419c-ae06-252a6e907e9a','04743663-9cd6-4484-ba71-a6e315c39d86',NULL,'2021-05-12 13:40:31',123123,_binary '0','95e43aea-559f-4e26-8970-9524228c2f9c',1,'','tienmat'),('d6544f16-195c-4b1f-bc9c-4a983117d9c2','04743663-9cd6-4484-ba71-a6e315c39d86',NULL,'2021-05-12 15:21:06',123123,_binary '0','95e43aea-559f-4e26-8970-9524228c2f9c',4,'adqwd','tienmat'),('fbf6241a-9c70-4a6c-ab59-bbc825004df8','04743663-9cd6-4484-ba71-a6e315c39d86',NULL,'2021-05-12 16:12:23',123123,_binary '0','95e43aea-559f-4e26-8970-9524228c2f9c',2,'','tienmat'),('fde9b8f6-f91c-4a78-863d-246cf0b18fe3','04743663-9cd6-4484-ba71-a6e315c39d86',NULL,'2021-05-12 13:53:45',123123,_binary '0','95e43aea-559f-4e26-8970-9524228c2f9c',1,'','blockchain');
+INSERT INTO `booking` VALUES ('7c8ad31c-dd46-4c75-8be6-5f10dc00d57c','eba2b4b1-719c-4029-a832-40f09b7dba85',NULL,'2021-05-13 00:09:41',123123,_binary '0','95e43aea-559f-4e26-8970-9524228c2f9c',1,'','momo','pending');
 /*!40000 ALTER TABLE `booking` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -136,7 +137,7 @@ CREATE TABLE `comment` (
 
 LOCK TABLES `comment` WRITE;
 /*!40000 ALTER TABLE `comment` DISABLE KEYS */;
-INSERT INTO `comment` VALUES ('34405862-af8d-4340-8d07-3ed825e0cb39',_binary 'ưewe','2021-05-11 01:24:48','4791bf66-93a7-4d28-acaf-de75565190b6','f82920e0-c035-44bf-9667-a1b0709800bf','9c67ad6b-0b39-4266-8fc3-445cee0e3efe'),('56ae3e0a-3c18-453f-971f-83a86f63c55e',_binary 'weeeeeeeeeeee','2021-05-11 01:25:28','4791bf66-93a7-4d28-acaf-de75565190b6',NULL,'9c67ad6b-0b39-4266-8fc3-445cee0e3efe'),('849e7268-8961-4b72-931c-59135f7beaf0',_binary 'ưewe','2021-05-11 01:24:57','4791bf66-93a7-4d28-acaf-de75565190b6','f82920e0-c035-44bf-9667-a1b0709800bf','9c67ad6b-0b39-4266-8fc3-445cee0e3efe'),('b60b5a80-4b24-4013-92ae-f582a9d10bba',_binary 'ew','2021-05-11 01:24:44','4791bf66-93a7-4d28-acaf-de75565190b6','f82920e0-c035-44bf-9667-a1b0709800bf','9c67ad6b-0b39-4266-8fc3-445cee0e3efe'),('f82920e0-c035-44bf-9667-a1b0709800bf',_binary 'etter','2021-05-11 01:24:37','4791bf66-93a7-4d28-acaf-de75565190b6',NULL,'9c67ad6b-0b39-4266-8fc3-445cee0e3efe');
+INSERT INTO `comment` VALUES ('2679a56e-2ab5-4373-85e2-a48e7177b18d',_binary 'nhu','2021-05-12 23:59:17','eba2b4b1-719c-4029-a832-40f09b7dba85','56ae3e0a-3c18-453f-971f-83a86f63c55e','9c67ad6b-0b39-4266-8fc3-445cee0e3efe'),('34405862-af8d-4340-8d07-3ed825e0cb39',_binary 'ưewe','2021-05-11 01:24:48','4791bf66-93a7-4d28-acaf-de75565190b6','f82920e0-c035-44bf-9667-a1b0709800bf','9c67ad6b-0b39-4266-8fc3-445cee0e3efe'),('56ae3e0a-3c18-453f-971f-83a86f63c55e',_binary 'weeeeeeeeeeee','2021-05-11 01:25:28','4791bf66-93a7-4d28-acaf-de75565190b6',NULL,'9c67ad6b-0b39-4266-8fc3-445cee0e3efe'),('849e7268-8961-4b72-931c-59135f7beaf0',_binary 'ưewe','2021-05-11 01:24:57','4791bf66-93a7-4d28-acaf-de75565190b6','f82920e0-c035-44bf-9667-a1b0709800bf','9c67ad6b-0b39-4266-8fc3-445cee0e3efe'),('b60b5a80-4b24-4013-92ae-f582a9d10bba',_binary 'ew','2021-05-11 01:24:44','4791bf66-93a7-4d28-acaf-de75565190b6','f82920e0-c035-44bf-9667-a1b0709800bf','9c67ad6b-0b39-4266-8fc3-445cee0e3efe'),('dde53bd1-8ce3-4baa-9fde-08ec43ef45be',_binary 'Ã¡','2021-05-12 23:59:07','eba2b4b1-719c-4029-a832-40f09b7dba85','56ae3e0a-3c18-453f-971f-83a86f63c55e','9c67ad6b-0b39-4266-8fc3-445cee0e3efe'),('f82920e0-c035-44bf-9667-a1b0709800bf',_binary 'etter','2021-05-11 01:24:37','4791bf66-93a7-4d28-acaf-de75565190b6',NULL,'9c67ad6b-0b39-4266-8fc3-445cee0e3efe');
 /*!40000 ALTER TABLE `comment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -202,7 +203,7 @@ CREATE TABLE `customer` (
 
 LOCK TABLES `customer` WRITE;
 /*!40000 ALTER TABLE `customer` DISABLE KEYS */;
-INSERT INTO `customer` VALUES ('04743663-9cd6-4484-ba71-a6e315c39d86','Tấn','Đạt','vutandat29092000@gmail.com','2003-05-05','223423423332','0965929852','eba2b4b1-719c-4029-a832-40f09b7dba85',NULL,'Nam',NULL),('130da0ed-92d6-425e-b103-a87319ffddf4','Tấn','Đạt','vutandat29092000@gmail.com','2003-05-11','232342342342','0965929852','aa69fbe7-e2c2-4d04-8a72-0b078e6ab6a7',NULL,'Nam',NULL),('2810b0ae-17df-4224-a6af-dd97a049198f','Tấn','Đạt','vutandat29092000@gmail.com','1999-01-04','121231231222','0965929852','18a0a722-c44d-48b1-861e-287027e17882',NULL,'Nam','477/40 Nguyễn Văn Công'),('2c0ca0e3-dca5-4028-b060-62446a4bd386','Tan','Dat','v@s.com','2000-10-02','093234433','0987652435',NULL,NULL,'Nam',NULL),('3b123f58-5080-4e55-82cf-a2a7e6796a85','wfqwfqwf','qừ',NULL,'1999-01-04',NULL,NULL,NULL,NULL,'Nữ',NULL),('44840a76-0fd0-4c43-a904-f7ba39eb41f9',NULL,'123',NULL,'1999-12-27',NULL,NULL,NULL,NULL,'Nữ',NULL),('5716b425-4b43-4346-89e5-fea2e62f4f00','Nguyễn','Trọng',NULL,'2021-05-11',NULL,NULL,'2761744a-0149-46a5-8860-924cc6441592',NULL,'Name',NULL),('58508dc6-9c5b-4c71-8212-71e90a2828e7','Tấn','Đạt',NULL,'1998-12-28',NULL,NULL,NULL,NULL,'Nữ',NULL),('5c72405d-d822-4c71-a22f-4165d603c7b2','Văm','Ba',NULL,'2021-04-27',NULL,NULL,'5c58e63c-5138-49cb-9764-85385eb112cb',NULL,'Name',NULL),('63041eca-060c-424b-982e-7b0b0dae9f95','Vũ','Tấn Đạt',NULL,'2000-02-01',NULL,NULL,NULL,NULL,'Nữ',NULL),('649ec4c5-1e7b-4b1b-8a10-d6a98de1a143',NULL,'qdvder',NULL,'1996-05-13',NULL,NULL,NULL,NULL,'Name',NULL),('653734d0-42b4-480a-a2b6-044423ecae1c',NULL,'123123',NULL,'2020-02-04',NULL,NULL,NULL,NULL,'Nữ',NULL),('75aea740-e9b0-4f61-90c8-8767157d4005','Phan Thị','Quỳnh','quynhquanque0000@gmail.com.vn','2000-01-11','234234232323','0774046060','813a9c36-4453-4dbe-b3fc-e2a0385023b5',NULL,'Nữ',NULL),('776fa00c-04ad-496a-babe-19da0821b879','Tấn Đạt','Vũ','vutandat29092000@gmail.com','2003-04-10','233333332',NULL,'70e81791-ef64-4e6d-913a-474b289bbf2f',NULL,'Nữ',NULL),('7f50e5da-6e25-49d0-b838-84377c52ea15','Tan','Dat','v@s.com','2000-10-02','093234433','0987652435','7f1112ae-65b8-4bd4-817e-399b595c4c98',NULL,'Nam',NULL),('8928e4ef-10d7-42ee-8d81-b80532cd6664','wfqwfqwf','qừ',NULL,'1998-02-09',NULL,NULL,NULL,NULL,'Nữ',NULL),('8c89e268-0d46-4ced-b52d-0352c7f4cdc1','Dương','Tư','vutandat29092000@gmail.com','2003-05-04','234234234233','0965929852','7f54b408-bec4-4745-93b8-9c18ee607f85',NULL,'Nam',NULL),('8e554b45-4846-477f-97a2-fc895ba0253a','Như','Quỳnh',NULL,'2009-02-09',NULL,NULL,NULL,NULL,'Nữ',NULL),('9a292de5-38ac-4a2f-ab57-3daf3fb9d854','Tấn','Đạt','vutandat29092000@gmail.com','2003-04-10','234234234','0965929852','9be1d83f-516d-4eef-94e5-2b3f2ac9f370',NULL,'Nữ',NULL),('9ccdb154-f779-4703-9f4e-ae47e6d7aa87','Tấn','Đạt','vutandat29092000@gmail.com','1998-01-05','233333332','0965929852','a7b25eed-2aad-49a3-8721-927bb81e22ed',NULL,'Nam','477/40 Nguyễn Văn Công'),('9dd0cb33-066f-41f8-8bad-03f3ecb32213','qwfqf','qwfq ư',NULL,'2017-01-02',NULL,NULL,NULL,NULL,'Nữ',NULL),('a45c31b1-98bb-4ed0-bf0f-28796edf88c8','Vũ','Tấn Đạt',NULL,'2021-05-11',NULL,NULL,'b470582c-9d10-41cc-a2f4-c8dd425dec02',NULL,'Nữ',NULL),('abc523e9-3bdd-4781-b52c-6596fa9fb885',NULL,'123',NULL,'2000-01-31',NULL,NULL,NULL,NULL,'Nữ',NULL),('ad7e515d-124d-4563-8478-635b5d99fe81',NULL,'Dat','v@s.com','2000-10-02','093234433','0987652435','5f740d7b-2815-4ae9-ae04-51fd63aab72a','/image','Nữ',NULL),('aeb00244-5372-4f6d-bfe2-c2583bfa5524',NULL,'Dat','v@s.com','2000-10-02','093234433','0987652435','5224c8f5-e49c-4f7a-a1ed-8e94c442fd19','/image','Nữ',NULL),('b4c62559-f154-42c4-ba66-e63e936c5d8c','Tấn','Đạt',NULL,'2021-05-20',NULL,NULL,'eca670bf-68e5-47e1-929e-0a4367424dbe',NULL,'Name',NULL),('bbf45614-db19-4220-8705-6007a3e2f52a',NULL,'123',NULL,'1999-02-08',NULL,NULL,NULL,NULL,'Nữ',NULL),('bea33ffc-36e9-490a-9ad8-d94d26a67a10','wfqwfqwf','qừ',NULL,'2000-02-01',NULL,NULL,NULL,NULL,'Nữ',NULL),('d3b19fbb-859f-4dbf-b414-b3257d4263ba','Tấn','Đạt','vutandat29092000@gmail.com','2000-10-02','093234433','0965929852',NULL,NULL,'Nam','477/40 Nguyễn Văn Công'),('d5182a05-f541-43ba-9b10-69adc4f6ebc2','Tấn','Đạt','vutandat29092000@gmail.com','2003-05-07','234234234233','0965929852',NULL,NULL,'Nam','477/40 Nguyễn Văn Công'),('d8bdb72d-e1bb-4611-af0b-e8eba0bd22b0','Tố','Như',NULL,'2021-06-03',NULL,NULL,NULL,NULL,'Name',NULL),('deeb511a-f679-41ee-b435-d6bdbe529847','Tấn','Đạt','1851050032dat@ou.edu.vn','1999-12-30','234237423847','0965928952',NULL,NULL,'Nam','285822346'),('ecc5bbce-cfd3-43a3-9c7b-646ca6c32565','Tan','Dat','v@s.com','2000-10-02','093234433','0987652435',NULL,NULL,'Name',NULL),('fda40698-5b57-472f-85f0-572dccdbcd87','Huỳnh','Nguyễn Bắc Giang',NULL,'2021-05-05',NULL,NULL,NULL,NULL,'Name',NULL),('fff8b160-1c00-4e7b-bb85-f14be9a30738',NULL,'wr',NULL,'2010-06-14',NULL,NULL,NULL,NULL,'Name',NULL);
+INSERT INTO `customer` VALUES ('04743663-9cd6-4484-ba71-a6e315c39d86','Tấn','Đạt','vutandat29092000@gmail.com','2003-05-05','223423423332','0965929852','eba2b4b1-719c-4029-a832-40f09b7dba85',NULL,'Nam',NULL),('130da0ed-92d6-425e-b103-a87319ffddf4','Tấn','Đạt','vutandat29092000@gmail.com','2003-05-11','232342342342','0965929852','aa69fbe7-e2c2-4d04-8a72-0b078e6ab6a7',NULL,'Nam',NULL),('2810b0ae-17df-4224-a6af-dd97a049198f','Tấn','Đạt','vutandat29092000@gmail.com','1999-01-04','121231231222','0965929852','18a0a722-c44d-48b1-861e-287027e17882',NULL,'Nam','477/40 Nguyễn Văn Công'),('2c0ca0e3-dca5-4028-b060-62446a4bd386','Tan','Dat','v@s.com','2000-10-02','093234433','0987652435',NULL,NULL,'Nam',NULL),('3b123f58-5080-4e55-82cf-a2a7e6796a85','wfqwfqwf','qừ',NULL,'1999-01-04',NULL,NULL,NULL,NULL,'Nữ',NULL),('44840a76-0fd0-4c43-a904-f7ba39eb41f9',NULL,'123',NULL,'1999-12-27',NULL,NULL,NULL,NULL,'Nữ',NULL),('5716b425-4b43-4346-89e5-fea2e62f4f00','Nguyễn','Trọng',NULL,'2021-05-11',NULL,NULL,'2761744a-0149-46a5-8860-924cc6441592',NULL,'Name',NULL),('58508dc6-9c5b-4c71-8212-71e90a2828e7','Tấn','Đạt',NULL,'1998-12-28',NULL,NULL,NULL,NULL,'Nữ',NULL),('5c72405d-d822-4c71-a22f-4165d603c7b2','Văm','Ba',NULL,'2021-04-27',NULL,NULL,'5c58e63c-5138-49cb-9764-85385eb112cb',NULL,'Name',NULL),('63041eca-060c-424b-982e-7b0b0dae9f95','Vũ','Tấn Đạt',NULL,'2000-02-01',NULL,NULL,NULL,NULL,'Nữ',NULL),('649ec4c5-1e7b-4b1b-8a10-d6a98de1a143',NULL,'qdvder',NULL,'1996-05-13',NULL,NULL,NULL,NULL,'Name',NULL),('653734d0-42b4-480a-a2b6-044423ecae1c',NULL,'123123',NULL,'2020-02-04',NULL,NULL,NULL,NULL,'Nữ',NULL),('75aea740-e9b0-4f61-90c8-8767157d4005','Phan Thị','Quỳnh','quynhquanque0000@gmail.com.vn','2000-01-11','234234232323','0774046060','813a9c36-4453-4dbe-b3fc-e2a0385023b5',NULL,'Nữ',NULL),('776fa00c-04ad-496a-babe-19da0821b879','Tấn Đạt','Vũ','vutandat29092000@gmail.com','2003-04-10','233333332',NULL,'70e81791-ef64-4e6d-913a-474b289bbf2f',NULL,'Nữ',NULL),('7f50e5da-6e25-49d0-b838-84377c52ea15','Tan','Dat','v@s.com','2000-10-02','093234433','0987652435','7f1112ae-65b8-4bd4-817e-399b595c4c98',NULL,'Nam',NULL),('8928e4ef-10d7-42ee-8d81-b80532cd6664','wfqwfqwf','qừ',NULL,'1998-02-09',NULL,NULL,NULL,NULL,'Nữ',NULL),('8c89e268-0d46-4ced-b52d-0352c7f4cdc1','Dương','Tư','vutandat29092000@gmail.com','2003-05-04','234234234233','0965929852','7f54b408-bec4-4745-93b8-9c18ee607f85',NULL,'Nam',NULL),('8e554b45-4846-477f-97a2-fc895ba0253a','Như','Quỳnh',NULL,'2009-02-09',NULL,NULL,NULL,NULL,'Nữ',NULL),('9a292de5-38ac-4a2f-ab57-3daf3fb9d854','Tấn','Đạt','vutandat29092000@gmail.com','2003-04-10','234234234','0965929852','9be1d83f-516d-4eef-94e5-2b3f2ac9f370',NULL,'Nữ',NULL),('9ccdb154-f779-4703-9f4e-ae47e6d7aa87','Tấn','Đạt','vutandat29092000@gmail.com','1998-01-05','233333332','0965929852','a7b25eed-2aad-49a3-8721-927bb81e22ed',NULL,'Nam','477/40 Nguyễn Văn Công'),('9dd0cb33-066f-41f8-8bad-03f3ecb32213','qwfqf','qwfq ư',NULL,'2017-01-02',NULL,NULL,NULL,NULL,'Nữ',NULL),('a45c31b1-98bb-4ed0-bf0f-28796edf88c8','Vũ','Tấn Đạt',NULL,'2021-05-11',NULL,NULL,'b470582c-9d10-41cc-a2f4-c8dd425dec02',NULL,'Nữ',NULL),('abc523e9-3bdd-4781-b52c-6596fa9fb885',NULL,'123',NULL,'2000-01-31',NULL,NULL,NULL,NULL,'Nữ',NULL),('ad7e515d-124d-4563-8478-635b5d99fe81',NULL,'Dat','v@s.com','2000-10-02','093234433','0987652435','5f740d7b-2815-4ae9-ae04-51fd63aab72a','/image','Nữ',NULL),('aeb00244-5372-4f6d-bfe2-c2583bfa5524',NULL,'Dat','v@s.com','2000-10-02','093234433','0987652435','5224c8f5-e49c-4f7a-a1ed-8e94c442fd19','/image','Nữ',NULL),('b4c62559-f154-42c4-ba66-e63e936c5d8c','Tấn','Đạt',NULL,'2021-05-20',NULL,NULL,'eca670bf-68e5-47e1-929e-0a4367424dbe',NULL,'Name',NULL),('bbf45614-db19-4220-8705-6007a3e2f52a',NULL,'123',NULL,'1999-02-08',NULL,NULL,NULL,NULL,'Nữ',NULL),('bc980fe2-a8fd-47af-8ef8-c1e8bd81c39c','Tấn','Đạt',NULL,'1996-06-16',NULL,NULL,NULL,NULL,'Nữ',NULL),('bea33ffc-36e9-490a-9ad8-d94d26a67a10','wfqwfqwf','qừ',NULL,'2000-02-01',NULL,NULL,NULL,NULL,'Nữ',NULL),('d3b19fbb-859f-4dbf-b414-b3257d4263ba','Tấn','Đạt','vutandat29092000@gmail.com','2000-10-02','093234433','0965929852',NULL,NULL,'Nam','477/40 Nguyễn Văn Công'),('d5182a05-f541-43ba-9b10-69adc4f6ebc2','Tấn','Đạt','vutandat29092000@gmail.com','2003-05-07','234234234233','0965929852',NULL,NULL,'Nam','477/40 Nguyễn Văn Công'),('d8bdb72d-e1bb-4611-af0b-e8eba0bd22b0','Tố','Như',NULL,'2021-06-03',NULL,NULL,NULL,NULL,'Name',NULL),('deeb511a-f679-41ee-b435-d6bdbe529847','Tấn','Đạt','1851050032dat@ou.edu.vn','1999-12-30','234237423847','0965928952',NULL,NULL,'Nam','285822346'),('ecc5bbce-cfd3-43a3-9c7b-646ca6c32565','Tan','Dat','v@s.com','2000-10-02','093234433','0987652435',NULL,NULL,'Name',NULL),('fda40698-5b57-472f-85f0-572dccdbcd87','Huỳnh','Nguyễn Bắc Giang',NULL,'2021-05-05',NULL,NULL,NULL,NULL,'Name',NULL),('fff8b160-1c00-4e7b-bb85-f14be9a30738',NULL,'wr',NULL,'2010-06-14',NULL,NULL,NULL,NULL,'Name',NULL);
 /*!40000 ALTER TABLE `customer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -329,6 +330,36 @@ INSERT INTO `news` VALUES ('9c67ad6b-0b39-4266-8fc3-445cee0e3efe','/TrangChu/ima
 UNLOCK TABLES;
 
 --
+-- Table structure for table `pay`
+--
+
+DROP TABLE IF EXISTS `pay`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `pay` (
+                       `payId` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'lấy orderid',
+                       `bookingId` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+                       `transId` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+                       `datePay` datetime NOT NULL,
+                       `amountPay` decimal(10,0) NOT NULL,
+                       `orderId` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+                       PRIMARY KEY (`payId`),
+                       KEY `fk_pay_booking_idx` (`bookingId`),
+                       CONSTRAINT `fk_pay_booking` FOREIGN KEY (`bookingId`) REFERENCES `booking` (`bookingID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `pay`
+--
+
+LOCK TABLES `pay` WRITE;
+/*!40000 ALTER TABLE `pay` DISABLE KEYS */;
+INSERT INTO `pay` VALUES ('940c4012-ff92-48a0-bfca-affe1327ab80','7c8ad31c-dd46-4c75-8be6-5f10dc00d57c','123','2021-05-13 00:20:41',123123,'234234'),('bab85cba-7d85-421a-a79a-6c5ae7f43505','7c8ad31c-dd46-4c75-8be6-5f10dc00d57c','123','2021-05-13 00:00:00',123123,'234234');
+/*!40000 ALTER TABLE `pay` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `pricedetails`
 --
 
@@ -356,7 +387,7 @@ CREATE TABLE `pricedetails` (
 
 LOCK TABLES `pricedetails` WRITE;
 /*!40000 ALTER TABLE `pricedetails` DISABLE KEYS */;
-INSERT INTO `pricedetails` VALUES ('1acd5455-3a53-4b95-bfa1-74d68284d3a9','31c75b0d-ec1c-4c39-9caf-5f2e90e7f492',1,0,'d6544f16-195c-4b1f-bc9c-4a983117d9c2'),('3480cd8c-aa64-4345-b077-d0d39f242d95','f53d20c2-7f20-4fad-bab6-76847d102ef9',1,123123,'3d808f9e-52df-4e55-ac79-cce1fc68c7ef'),('36fac75c-36d2-4e7e-919e-61466d9a3d9e','c71fb358-c195-4bc4-9e45-004fd8a5ffd2',1,0,'fbf6241a-9c70-4a6c-ab59-bbc825004df8'),('4263c559-4d7f-45d2-ad35-107af6ab62dd','f53d20c2-7f20-4fad-bab6-76847d102ef9',1,123123,'50bf0a1a-aa33-4607-8824-6fe0f77617a2'),('48ed74cb-e817-413d-b062-ad427a8d9d82','f53d20c2-7f20-4fad-bab6-76847d102ef9',1,123123,'2a1ae19e-9ba4-4479-b7cc-e6363b6d23c7'),('4d84a88b-f686-4322-895d-cca865363b7f','f53d20c2-7f20-4fad-bab6-76847d102ef9',2,123123,'86302395-32b0-4529-b46f-75e7c9b19692'),('54ec6962-3817-4990-90c7-829dcf61bb2c','f53d20c2-7f20-4fad-bab6-76847d102ef9',1,123123,'3c9d9df2-ee71-4306-acef-cbbef2d7566c'),('568a37ed-cd5c-4c18-879d-a1f8aa7a08be','f53d20c2-7f20-4fad-bab6-76847d102ef9',1,123123,'fbf6241a-9c70-4a6c-ab59-bbc825004df8'),('b33ea822-2980-4a08-b5ac-0abbaeda99f6','f53d20c2-7f20-4fad-bab6-76847d102ef9',1,123123,'05c92e6c-7507-4130-8f17-619dfb3e1d33'),('b3559c0c-0770-4621-bacc-a022ee62b6d4','c71fb358-c195-4bc4-9e45-004fd8a5ffd2',1,0,'d6544f16-195c-4b1f-bc9c-4a983117d9c2'),('c0ce6453-2c21-4e79-977c-30a3ef89263e','f53d20c2-7f20-4fad-bab6-76847d102ef9',1,123123,'d6544f16-195c-4b1f-bc9c-4a983117d9c2'),('e04e3994-e040-485b-8aba-7e6312e1a584','bdee5279-4601-484c-8fce-e8f5781deda3',1,0,'d6544f16-195c-4b1f-bc9c-4a983117d9c2');
+INSERT INTO `pricedetails` VALUES ('f91981ce-8129-4450-8388-b90841dce44f','f53d20c2-7f20-4fad-bab6-76847d102ef9',1,123123,'7c8ad31c-dd46-4c75-8be6-5f10dc00d57c');
 /*!40000 ALTER TABLE `pricedetails` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -462,7 +493,7 @@ CREATE TABLE `ticket` (
 
 LOCK TABLES `ticket` WRITE;
 /*!40000 ALTER TABLE `ticket` DISABLE KEYS */;
-INSERT INTO `ticket` VALUES ('009411bf-6e41-4d25-a425-2ffb15b6b71b','86302395-32b0-4529-b46f-75e7c9b19692','44840a76-0fd0-4c43-a904-f7ba39eb41f9','f53d20c2-7f20-4fad-bab6-76847d102ef9'),('009c139b-5811-4d3d-b4c3-1c8678837263','d6544f16-195c-4b1f-bc9c-4a983117d9c2','9dd0cb33-066f-41f8-8bad-03f3ecb32213','bdee5279-4601-484c-8fce-e8f5781deda3'),('13c90281-2df8-4b7c-ab6a-3d6ea2e96e11','d6544f16-195c-4b1f-bc9c-4a983117d9c2','653734d0-42b4-480a-a2b6-044423ecae1c','31c75b0d-ec1c-4c39-9caf-5f2e90e7f492'),('3350922c-2ec1-4e6d-9cde-1f2a489f30c7','fbf6241a-9c70-4a6c-ab59-bbc825004df8','8928e4ef-10d7-42ee-8d81-b80532cd6664','f53d20c2-7f20-4fad-bab6-76847d102ef9'),('4ce6a529-ec86-40cd-b3f4-92e4d9668f72','50bf0a1a-aa33-4607-8824-6fe0f77617a2','bbf45614-db19-4220-8705-6007a3e2f52a','f53d20c2-7f20-4fad-bab6-76847d102ef9'),('52b8e9b6-feed-47a7-a366-50f77e002b59','fbf6241a-9c70-4a6c-ab59-bbc825004df8','8e554b45-4846-477f-97a2-fc895ba0253a','c71fb358-c195-4bc4-9e45-004fd8a5ffd2'),('54a3246a-4ed3-44a7-aca5-44d411649d07','2a1ae19e-9ba4-4479-b7cc-e6363b6d23c7','abc523e9-3bdd-4781-b52c-6596fa9fb885','f53d20c2-7f20-4fad-bab6-76847d102ef9'),('b33a89aa-1995-4d4f-a2d2-963b6ab850fe','05c92e6c-7507-4130-8f17-619dfb3e1d33','63041eca-060c-424b-982e-7b0b0dae9f95','f53d20c2-7f20-4fad-bab6-76847d102ef9'),('b4bf3096-4584-4482-bfbb-fe8145ecbe48','3c9d9df2-ee71-4306-acef-cbbef2d7566c','bea33ffc-36e9-490a-9ad8-d94d26a67a10','f53d20c2-7f20-4fad-bab6-76847d102ef9'),('bc181cc4-8513-4816-a666-9b5dfef9b1b4','d6544f16-195c-4b1f-bc9c-4a983117d9c2','58508dc6-9c5b-4c71-8212-71e90a2828e7','f53d20c2-7f20-4fad-bab6-76847d102ef9'),('eed9de3e-ef8b-4644-b10b-007c218092b2','d6544f16-195c-4b1f-bc9c-4a983117d9c2','fff8b160-1c00-4e7b-bb85-f14be9a30738','c71fb358-c195-4bc4-9e45-004fd8a5ffd2'),('f3d5a969-35f3-45e9-9df4-65e65c54ac10','3d808f9e-52df-4e55-ac79-cce1fc68c7ef','3b123f58-5080-4e55-82cf-a2a7e6796a85','f53d20c2-7f20-4fad-bab6-76847d102ef9'),('f96484ec-f754-4351-a915-702bd0842b5d','86302395-32b0-4529-b46f-75e7c9b19692','649ec4c5-1e7b-4b1b-8a10-d6a98de1a143','f53d20c2-7f20-4fad-bab6-76847d102ef9');
+INSERT INTO `ticket` VALUES ('91d0cacc-d19b-4367-8842-102a6e8b13e2','7c8ad31c-dd46-4c75-8be6-5f10dc00d57c','bc980fe2-a8fd-47af-8ef8-c1e8bd81c39c','f53d20c2-7f20-4fad-bab6-76847d102ef9');
 /*!40000 ALTER TABLE `ticket` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -482,7 +513,7 @@ CREATE TABLE `tour` (
                         `maxseats` int NOT NULL DEFAULT '1' COMMENT 'số người đi tối đa trong 1 tour',
                         `content` longblob NOT NULL,
                         `endDay` datetime NOT NULL,
-                        `image` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+                        `image` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
                         PRIMARY KEY (`tourID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='thông tin tour -- seats người đi trong 1 tour -- startday ngày giời tour bắt đầu';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -493,7 +524,7 @@ CREATE TABLE `tour` (
 
 LOCK TABLES `tour` WRITE;
 /*!40000 ALTER TABLE `tour` DISABLE KEYS */;
-INSERT INTO `tour` VALUES ('8197372d-1d2f-481b-91e6-5c13096a7206','Miền Tây - Châu Đốc - Rừng Tràm Trà Sư - Hà Tiên - Rạch Giá - Cần Thơ','Xe Hơi',6000000,'2021-05-11 00:00:00',5,_binary 'Du lịch » Du lịch trong nước » Tour Miền Bắc » Du lịch Lào Cai » Bay cùng Vietravel Airlines: Hà Nội - Sapa - Fansipan - Lào Cai - Chùa Bái Đính - Tràng An - Tuyệt Tịnh Cốc (Tặng vé xe lửa Mường Hoa)\r\n\r\n','2021-05-14 00:00:00','Miền Tây - Châu Đốc - Rừng Tràm Trà Sư - Hà Tiên - Rạch Giá - Cần Thơ.png'),('95e43aea-559f-4e26-8970-9524228c2f9c','Đà Nẵng - Bà Nà - Cầu Vàng - Sơn Trà - Hội An - Đà Nẵng','Máy Bay',123123,'2021-05-20 00:00:00',40,_binary '12','2021-05-21 00:00:00','Đà Nẵng - Bà Nà - Cầu Vàng - Sơn Trà - Hội An - Đà Nẵng.png');
+INSERT INTO `tour` VALUES ('8197372d-1d2f-481b-91e6-5c13096a7206','Miền Tây - Châu Đốc - Rừng Tràm Trà Sư - Hà Tiên - Rạch Giá - Cần Thơ','Xe Hơi',6000000,'2021-05-11 00:00:00',5,_binary 'Du lịch » Du lịch trong nước » Tour Miền Bắc » Du lịch Lào Cai » Bay cùng Vietravel Airlines: Hà Nội - Sapa - Fansipan - Lào Cai - Chùa Bái Đính - Tràng An - Tuyệt Tịnh Cốc (Tặng vé xe lửa Mường Hoa)\r\n\r\n','2021-05-14 00:00:00','Miền Tây - Châu Đốc - Rừng Tràm Trà Sư - Hà Tiên - Rạch Giá - Cần Thơ.png'),('95e43aea-559f-4e26-8970-9524228c2f9c','Đà Nẵng - Bà Nà - Cầu Vàng - Sơn Trà - Hội An - Đà Nẵng','Máy Bay',123123,'2021-05-20 00:00:00',39,_binary '12','2021-05-21 00:00:00','Đà Nẵng - Bà Nà - Cầu Vàng - Sơn Trà - Hội An - Đà Nẵng.png');
 /*!40000 ALTER TABLE `tour` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -544,7 +575,7 @@ UNLOCK TABLES;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteTourInDiaDiemDi`(IN tourId nvarchar(100))
 begin
-delete from diadiemdi where tour_tourID = tourId;
+    delete from diadiemdi where tour_tourID = tourId;
 end ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -563,11 +594,11 @@ DELIMITER ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getTourByProvinceId`(IN Id nvarchar(100))
 begin
-select t.* from tour t,province pr , landmarks l,diadiemdi dd
-where t.tourID = dd.tour_tourID
-  and l.landMarkID = dd.landMarkID
-  and l.provinceID = pr.provinceID
-  and pr.provinceID = Id;
+    select t.* from tour t,province pr , landmarks l,diadiemdi dd
+    where t.tourID = dd.tour_tourID
+      and l.landMarkID = dd.landMarkID
+      and l.provinceID = pr.provinceID
+      and pr.provinceID = Id;
 end ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -586,11 +617,11 @@ DELIMITER ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getTourByProvinceName`(IN name nvarchar(100))
 begin
-select t.* from tour t,province pr , landmarks l,diadiemdi dd
-where t.tourID = dd.tour_tourID
-  and l.landMarkID = dd.landMarkID
-  and l.provinceID = pr.provinceID
-  and pr.provinceName like concat('%',name,'%');
+    select t.* from tour t,province pr , landmarks l,diadiemdi dd
+    where t.tourID = dd.tour_tourID
+      and l.landMarkID = dd.landMarkID
+      and l.provinceID = pr.provinceID
+      and pr.provinceName like concat('%',name,'%');
 end ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -609,11 +640,11 @@ DELIMITER ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `searchTour`( IN province nvarchar(100), IN diaDiemDi nvarchar(100), IN fromPrice decimal(10,0), IN toPrice decimal(10,0), IN ngayDi DateTime, IN ngayVe DateTime)
 BEGIN
-select t.*
-from tour t inner join diadiemdi d on t.tourID = d.tour_tourID
-            inner join landmarks l on d.landMarkID = l.landMarkID
-            inner join province p on l.provinceID = p.provinceID
-where t.price between fromPrice and toPrice or t.startday between ngayDi and ngayVe or p.provinceName = province or l.landMarkName = diaDiemDi;
+    select t.*
+    from tour t inner join diadiemdi d on t.tourID = d.tour_tourID
+                inner join landmarks l on d.landMarkID = l.landMarkID
+                inner join province p on l.provinceID = p.provinceID
+    where t.price between fromPrice and toPrice or t.startday between ngayDi and ngayVe or p.provinceName = province or l.landMarkName = diaDiemDi;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -630,4 +661,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-05-12 16:48:46
+-- Dump completed on 2021-05-13  1:38:12

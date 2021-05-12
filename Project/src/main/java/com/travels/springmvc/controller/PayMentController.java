@@ -32,8 +32,8 @@ public class PayMentController {
             String orderId =  String.valueOf(System.currentTimeMillis()) ;
             String amount = booking.getTotalMoney().toString();
             String orderInfo = "Thanh toán Tour du lịch";
-            String returnURL = "http://localhost:8080/Project_war_exploded/pay/momo/result";
-            String notifyURL = "http://localhost:8080/Project_war_exploded/pay/momo/result";
+            String returnURL = "localhost:8080/Project_war_exploded/pay/momo/result";
+            String notifyURL = "localhost:8080/Project_war_exploded/pay/momo/result";
             String extraData = booking.getBookingId();
             String bankCode = "SML";
             CaptureMoMoResponse captureMoMoResponse;

@@ -1,7 +1,9 @@
 package com.travels.springmvc.pojo;
 
 import com.travels.springmvc.Annotation.GeneratedValueUUID;
+import com.travels.springmvc.respository.Enum.ERole;
 
+import javax.enterprise.inject.Default;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -26,9 +28,19 @@ public class Booking implements Serializable {
     @Column(name = "typePay")
     private String typePay;
 
+    /**
+     * trạng thái thanh toán của booking
+     * default: pending
+     */
+    @Column(name = "statusPay")
+    private String statusPay;
+
     @Column(name = "note")
     private String note;
 
+    /**
+     * Trạng thái xác nhận của nhân viên
+     */
     @Column(name = "status")
     private boolean status;
 
@@ -41,11 +53,11 @@ public class Booking implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customerID")
-    private Customer customer;
+    private Account customer;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employeesID",insertable = false,updatable = false )
-    private Employees employee;
+    private Account employee;
 
 
     @OneToMany(mappedBy = "booking",cascade = CascadeType.ALL)
@@ -54,6 +66,17 @@ public class Booking implements Serializable {
     @OneToMany(mappedBy = "booking",cascade = CascadeType.ALL)
     private Collection<Ticket> tickets;
 
+//    @OneToOne(fetch = FetchType.LAZY)
+//
+//    private PayMent payMent;
+
+//    public PayMent getPayMent() {
+//        return payMent;
+//    }
+//
+//    public void setPayMent(PayMent payMent) {
+//        this.payMent = payMent;
+//    }
 
 
     public String getBookingId() {
@@ -64,7 +87,13 @@ public class Booking implements Serializable {
         this.bookingId = bookingId;
     }
 
+    public String getStatusPay() {
+        return statusPay;
+    }
 
+    public void setStatusPay(String statusPay) {
+        this.statusPay = statusPay;
+    }
 
     @Basic
     @Column(name = "BookingDate", nullable = false)
@@ -100,22 +129,33 @@ public class Booking implements Serializable {
     }
 
 
-    public Customer getCustomer() {
+    public Account getCustomer() {
         return customer;
     }
 
-    public void setCustomer(Customer customer) {
+    /**
+     *
+     * @param customer type Account
+     * lưu id tài khoản của người dùng
+     * cho phép Employee, Admin, Customer có thể đăng ký tour
+     */
+    public void setCustomer(Account customer) {
         this.customer = customer;
     }
 
-    public Employees getEmployee() {
+    public Account getEmployee() {
         return employee;
     }
 
-    public void setEmployee(Employees employee) {
+    /**
+     *
+     * @param employee type Account
+     *  Chỉ cho phép Employees, Admin xác nhận tour
+     */
+    public void setEmployee(Account employee)  {
         this.employee = employee;
-    }
 
+    }
 
     public Collection<Pricedetails> getPricedetails() {
         return pricedetails;

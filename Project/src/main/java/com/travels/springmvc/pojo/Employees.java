@@ -35,9 +35,6 @@ public class Employees implements Serializable {
     @Column(name = "gender")
     private String gender;
 
-    @OneToMany(mappedBy = "employee")
-    private Collection<Booking> bookings;
-
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "accountID" , nullable = false,unique = true)
@@ -137,14 +134,6 @@ public class Employees implements Serializable {
         return Objects.hash(employeeId, firstName, lastName, email, ccid, birthDay, phoneNumber, address);
     }
 
-
-    public Collection<Booking> getBookings() {
-        return bookings;
-    }
-
-    public void setBookings(Collection<Booking> bookings) {
-        this.bookings = bookings;
-    }
 
 
     public Account getAccount() {
