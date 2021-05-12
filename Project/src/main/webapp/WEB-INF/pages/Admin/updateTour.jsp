@@ -21,25 +21,25 @@
 
         <section class="">
             <form class="was-validated" enctype="multipart/form-data" id="tournew" method="post"
-                  onsubmit="summitFormAddTour()" action="">
+                  onsubmit="summitFormUpdateTour()" action="">
                 <div class="row form-row">
                     <div class="col-6">
                         <label>Tên Tour</label>
-                        <input name="tourName" required class="form-control" type="text" value="${tour.tourName}"/>
+                        <input name="tour.tourName" required class="form-control" type="text" value="${tours.tourName}"/>
                     </div>
                     <div class="col-2">
                         <label>Số chỗ tối đa</label>
-                        <input name="maxseats" min="1" required pattern="[0-9]{1,20}"  class="form-control" value="${tour.maxseats}"
+                        <input name="tour.maxseats" min="1" required pattern="[0-9]{1,20}"  class="form-control" value="${tours.maxseats}"
                                type="number"/>
                     </div>
                     <div class="col-4">
                         <label>Phương tiện</label>
-                        <select name="vehicle" onchange="checkSelect(this)" class="custom-select is-valid" name="vehicle">
-                            <option selected value="${tour.vehicle}">${tour.vehicle}</option>
-                            <c:if test="${tour.vehicle == 'Máy Bay'}">
+                        <select name="tour.vehicle" onchange="checkSelect(this)" class="custom-select is-valid" >
+                            <option selected value="${tours.vehicle}">${tours.vehicle}</option>
+                            <c:if test="${tours.vehicle == 'Máy Bay'}">
                                 <option value="Xe Hơi">Xe Hơi</option>
                             </c:if>
-                            <c:if test="${tour.vehicle == 'Xe Hơi'}">
+                            <c:if test="${tours.vehicle == 'Xe Hơi'}">
                                 <option value="Máy Bay">Máy Bay</option>
                             </c:if>
 
@@ -48,11 +48,11 @@
 
                     <div class="col-3 mt-3">
                         <label>Ngày đi </label>
-                        <input name="ngaydi" required class="form-control mt-1" type="date" id="ngaydis" min="<fmt:formatDate value='${tour.startDay}' pattern="yyyy-MM-dd" />" value="<fmt:formatDate value='${tour.startDay}' pattern="yyyy-MM-dd" />" />
+                        <input name="ngaydi" required class="form-control mt-1" type="date" id="ngaydis" min="<fmt:formatDate value='${tours.startDay}' pattern="yyyy-MM-dd" />" value="<fmt:formatDate value='${tours.startDay}' pattern="yyyy-MM-dd" />" />
                     </div>
                     <div class="col-3 mt-3">
                         <label class="">Ngày về </label>
-                        <input name="ngayve" required class="form-control mt-1" type="date" id="ngayves" min="<fmt:formatDate value='${tour.startDay}' pattern="yyyy-MM-dd" />" value="<fmt:formatDate value='${tour.endDay}' pattern="yyyy-MM-dd" />" />
+                        <input name="ngayve" required class="form-control mt-1" type="date" id="ngayves" min="<fmt:formatDate value='${tours.startDay}' pattern="yyyy-MM-dd" />" value="<fmt:formatDate value='${tours.endDay}' pattern="yyyy-MM-dd" />" />
                     </div>
 
                     <div class="col-12 mt-3">
@@ -69,7 +69,7 @@
                             </thead>
                             <tbody>
                             <tr id="tourprice">
-                                    <c:forEach items="${tour.tourprices}" var="price">
+                                    <c:forEach items="${tours.tourprices}" var="price">
                                         <c:if test="${price.ageId == 'f53d20c2-7f20-4fad-bab6-76847d102ef9'}">
                                             <td class="p-0"><input type="text" data-id="f53d20c2-7f20-4fad-bab6-76847d102ef9"
                                                        required pattern="[0-9]{3,20}" value="${price.price}" class="form-control pricejs"></td>
@@ -104,19 +104,19 @@
                     </div>
                     <div class="col-12 pt-2 mt-3">
                         <label> Mô tả ngắn </label>
-                        <textarea class="w-100 form-control" name="content" required style="height: 10em;">${tour.content}</textarea>
+                        <textarea class="w-100 form-control" name="tour.content" required style="height: 10em;">${tours.content}</textarea>
                     </div>
                     <h3 class="col-12 mt-3">Chương trình Tour</h3>
 
-                    <c:forEach items="${tour.contents}" var="c" varStatus="dem">
+                    <c:forEach items="${tours.contents}" var="c" varStatus="dem">
                     <div class="col-12" id="cttour">
                         <div class="row mt-3">
                             <div class="col-12 title">
                                 <h5 id="title_1">Ngày thứ ${dem.index + 1}</h5>
                             </div>
                             <div class="col-4 pt-2">
-                                <select id="provice_1" onchange="addOptionLandMark(this);checkSelect(this)" onload="addOptionLandMark(this)" day=1
-                                        class="custom-select is-valid">
+                                <select id="provice_${dem.index + 1}" onchange="addOptionLandMark(this);checkSelect(this)" onload="addOptionLandMark(this)" day=${dem.index + 1}
+                                        class="custom-select is-valid" >
 <%--                                    <jsp:useBean id="c" scope="request" type="com.travels.springmvc.pojo.Contents"/>--%>
                                     <option selected value="${c.landmark.province.provinceId}">${c.landmark.province.provinceName}</option>
                                     <c:forEach items="${provinces}" var="p">
@@ -129,7 +129,7 @@
                                 </select>
                             </div>
                             <div class="col-4 pt-2">
-                                <select id="landMark_1" day=1 onchange="checkSelect(this)" class="custom-select is-valid">
+                                <select id="landMark_${dem.index + 1}" day=${dem.index + 1} onchange="checkSelect(this)" class="custom-select is-valid">
                                     <option value="${c.landmark.landMarkId}">${c.landmark.landMarkName}</option>
                                     <c:forEach items="${c.landmark.province.landmarks}" var="l">
                                         <c:if test="${l.landMarkId !=c.landmark.landMarkId}">
@@ -141,14 +141,14 @@
                             </div>
                             <div class="col-12 pt-2">
                                 <p>Nội dung: </p>
-                                <textarea id="content_1"  day= 1  required class="w-100 form-control"  style="height: 10em;">${c.content}</textarea>
+                                <textarea id="content_${dem.index + 1}"  day=${dem.index + 1}  required class="w-100 form-control"  style="height: 10em;">${fn:replace(c.content, "<br />", "\\n")}</textarea>
                             </div>
                         </div>
                     </div>
                     </c:forEach>
                     <input type="hidden" id="contentspost" name="contents">
                     <div class="col-12 text-center mt-3">
-                        <button class="btn btn-primary" onclick="summitFormAddTour()"
+                        <button class="btn btn-primary" onclick="summitFormUpdateTour()"
                                 type="submit">Sửa tour
                         </button>
                         <a class="btn btn-danger" href="${pageContext.request.contextPath}/admin/tours"

@@ -133,7 +133,7 @@ public class TourController {
     }
 
     @PostMapping(value = "admin/updatePriceOfTour")
-    public String updateAndSavePriceOfTour(Model model, @ModelAttribute(value = "prices") String prices, @RequestParam(value = "tourId", required = false) String tourId) {
+    public String updateAndSavePriceOfTour(Model model, @ModelAttribute(value = "prices") String prices, @RequestParam(value = "tourid", required = false) String tourId) {
         Tour tour = tourService.getElementById(tourId);
         List<Tourprices> priceId = (List<Tourprices>) tour.getTourprices();
         String[] tuoi = prices.split(";");
@@ -159,9 +159,29 @@ public class TourController {
     @RequestMapping(value = "admin/updateTour")
     public String updateTour(Model model, @RequestParam(value = "tourid", required = false) String tourId) {
         Tour tour = tourService.getElementById(tourId);
-        model.addAttribute("tour", tour);
+        model.addAttribute("tours", tour);
         model.addAttribute("provinces", provinceService.getAll());
-        model.addAttribute("tourview", new TourView());
+        model.addAttribute("tournew", new TourView());
         return "updateTour";
+    }
+    @PostMapping(value = "admin/updateTour")
+    public String updateAndSaveTour(@ModelAttribute(value = "tournew") TourView tourview, @RequestParam(value = "tourid", required = false) String tourId, RedirectAttributes attributes){
+        try{
+
+            Tour tour = tourview.getTour();
+            List<Tourprices> prices = tourview.getTourprices();
+            List<Contents> contents = tourview.getListContens();
+            tour.setTourprices(prices);
+            tour.setContents(contents);
+            tour.setTourId(tourId);
+            tourService.update(tour);
+        } catch (Exception ex){
+//            attributes.addFlashAttribute("messges", new String[]{EMessages.error.name(), ex.getMessage()});
+            System.err.println("=========update=====");
+            ex.printStackTrace();
+
+        }
+
+        return "redirect:/admin/updateTour?tourid="+tourId;
     }
 }
