@@ -34,6 +34,8 @@ public class Booking implements Serializable {
 
     @Column(name = "tourID")
     private String tourId;
+    @Column(name = "accountID")
+    private String accountId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tourID",insertable = false,updatable = false)
@@ -44,8 +46,8 @@ public class Booking implements Serializable {
     private Customer customer;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "employeesID",insertable = false,updatable = false )
-    private Employees employee;
+    @JoinColumn(name = "accountID",insertable = false,updatable = false )
+    private Account account;
 
 
     @OneToMany(mappedBy = "booking",cascade = CascadeType.ALL)
@@ -108,13 +110,6 @@ public class Booking implements Serializable {
         this.customer = customer;
     }
 
-    public Employees getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(Employees employee) {
-        this.employee = employee;
-    }
 
 
     public Collection<Pricedetails> getPricedetails() {
@@ -191,7 +186,24 @@ public class Booking implements Serializable {
                 ", typePay='" + typePay + '\'' +
                 ", note='" + note + '\'' +
                 ", status=" + status +
+                ", accountId=" + accountId +
                 ", tourId='" + tourId + '\'' +
                 '}';
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
+    public String getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(String accountId) {
+        this.accountId = accountId;
     }
 }

@@ -48,6 +48,9 @@ public class Account implements Serializable {
     @OneToMany(mappedBy = "account")
     private Collection<Employees> employees;
 
+    @OneToMany(mappedBy = "account")
+    private Collection<Booking> bookings;
+
     public boolean isStatus() {
         return status;
     }
@@ -183,5 +186,13 @@ public class Account implements Serializable {
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
+    }
+
+    public Collection<Booking> getBookings() {
+        return bookings;
+    }
+
+    public void setBookings(Collection<Booking> bookings) {
+        this.bookings = bookings;
     }
 }

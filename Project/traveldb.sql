@@ -78,7 +78,7 @@ DROP TABLE IF EXISTS `booking`;
 CREATE TABLE `booking` (
                            `bookingID` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
                            `customerID` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-                           `employeesID` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+                           `accountID` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
                            `BookingDate` datetime NOT NULL,
                            `totalMoney` decimal(10,0) DEFAULT '0',
                            `status` tinyblob NOT NULL,
@@ -88,10 +88,10 @@ CREATE TABLE `booking` (
                            `typePay` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
                            PRIMARY KEY (`bookingID`),
                            KEY `fk_booking_customer1_idx` (`customerID`),
-                           KEY `fk_booking_employees_idx` (`employeesID`),
+                           KEY `fk_booking_account_idx` (`accountID`),
                            KEY `fk_booking_tour1_idx` (`tourID`),
                            CONSTRAINT `fk_booking_customer1` FOREIGN KEY (`customerID`) REFERENCES `customer` (`customerID`),
-                           CONSTRAINT `fk_booking_employees` FOREIGN KEY (`employeesID`) REFERENCES `employees` (`employeeID`),
+                           CONSTRAINT `fk_booking_account` FOREIGN KEY (`accountID`) REFERENCES `account` (`accountID`),
                            CONSTRAINT `fk_booking_tour1` FOREIGN KEY (`tourID`) REFERENCES `tour` (`tourID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;

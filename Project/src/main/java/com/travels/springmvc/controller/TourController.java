@@ -51,7 +51,7 @@ public class TourController {
     IProvinceService provinceService;
 
 
-    @RequestMapping("/tour")
+    @RequestMapping("/admin/tour")
     public String TourDetail(Model model, @RequestParam(value = "tourid") String tourid) {
 
         if (tourid == null || tourid.equals("")) {

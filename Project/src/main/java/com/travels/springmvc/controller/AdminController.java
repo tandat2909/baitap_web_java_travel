@@ -3,6 +3,7 @@ package com.travels.springmvc.controller;
 import com.travels.springmvc.modelView.TourView;
 import com.travels.springmvc.pojo.Customer;
 import com.travels.springmvc.respository.Enum.EMessages;
+import com.travels.springmvc.respository.ITourPriceRepository;
 import com.travels.springmvc.services.ICustomerService;
 import com.travels.springmvc.services.IProvinceService;
 import com.travels.springmvc.services.ITourService;
@@ -51,6 +52,9 @@ public class AdminController {
     IBookingService bookingService;
     @Autowired
     TourView tourView;
+
+    @Autowired
+    ITourPriceRepository tourPriceRepository;
 
     @Autowired
     IProvinceService provinceService;
@@ -157,7 +161,7 @@ public class AdminController {
         return "redirect:/admin/employee/update?employeeId=" + employeeId;
     }
 
-    @RequestMapping(value = {"/bookings/"})
+    @RequestMapping(value = {"/bookings"})
     public String pageListBooking(Model model) {
         List<Booking> bookings = bookingService.getAll();
         System.err.println("==============");
@@ -168,9 +172,31 @@ public class AdminController {
     }
 
     @RequestMapping(value = {"/bookings/details"})
-    public String confirmOfEmployee(@RequestParam("bookingId") String bookingId){
-
+    public String bookingDetail(Model model ,@RequestParam("bookingId") String bookingId,  HttpServletRequest request){
+        Booking booking = bookingService.getElementById(bookingId);
+        model.addAttribute("book", booking);
+        model.addAttribute("tourPriceRepository",tourPriceRepository);
+        System.err.println("=========================");
+        System.err.println(booking);
+        System.err.println("=========================");
         return "confirmBookingDetail";
+    }
+    @PostMapping(value = {"/bookings/details"})
+    public String confirmOfEmployee( HttpServletRequest request, @RequestParam("bookingId") String bookingId, RedirectAttributes attributes){
+        Booking booking = bookingService.getElementById(bookingId);
+        Account account = accountService.getAccountByUserName(request.getUserPrincipal().getName());
+        booking.setAccountId(account.getAccountId());
+        try{
+            System.err.println("=========================");
+            System.err.println(booking);
+            System.err.println("=========================");
+            bookingService.update(booking);
+            return "redirect:/admin/bookings";
+
+        } catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return "redirect:/admin/bookings/details?bookingId=" + bookingId;
     }
 
 }
