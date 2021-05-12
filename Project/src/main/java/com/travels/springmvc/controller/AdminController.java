@@ -161,43 +161,7 @@ public class AdminController {
         return "redirect:/admin/employee/update?employeeId=" + employeeId;
     }
 
-    @RequestMapping(value = {"/bookings"})
-    public String pageListBooking(Model model) {
-        List<Booking> bookings = bookingService.getAll();
-        System.err.println("==============");
-        System.err.println(bookings);
-        System.err.println("==============");
-        model.addAttribute("booking", bookings);
-        return "confirmBooking";
-    }
 
-    @RequestMapping(value = {"/bookings/details"})
-    public String bookingDetail(Model model ,@RequestParam("bookingId") String bookingId,  HttpServletRequest request){
-        Booking booking = bookingService.getElementById(bookingId);
-        model.addAttribute("book", booking);
-        model.addAttribute("tourPriceRepository",tourPriceRepository);
-        System.err.println("=========================");
-        System.err.println(booking);
-        System.err.println("=========================");
-        return "confirmBookingDetail";
-    }
-    @PostMapping(value = {"/bookings/details"})
-    public String confirmOfEmployee( HttpServletRequest request, @RequestParam("bookingId") String bookingId, RedirectAttributes attributes){
-        Booking booking = bookingService.getElementById(bookingId);
-        Account account = accountService.getAccountByUserName(request.getUserPrincipal().getName());
-        booking.setAccountId(account.getAccountId());
-        try{
-            System.err.println("=========================");
-            System.err.println(booking);
-            System.err.println("=========================");
-            bookingService.update(booking);
-            return "redirect:/admin/bookings";
-
-        } catch (Exception ex){
-            ex.printStackTrace();
-        }
-        return "redirect:/admin/bookings/details?bookingId=" + bookingId;
-    }
 
 }
 
