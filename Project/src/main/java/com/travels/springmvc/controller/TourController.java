@@ -160,6 +160,7 @@ public class TourController {
     public String updateTour(Model model, @RequestParam(value = "tourid", required = false) String tourId) {
         Tour tour = tourService.getElementById(tourId);
         List<Contents> contents = tour.getContents();
+
         //contents.stream().filter(c ->c.)
         List<Tourprices> tourprices = tourPricesService.getAll().stream().filter(t -> t.getTourId().equals(tourId)).collect(Collectors.toList());
         System.err.println("===================");

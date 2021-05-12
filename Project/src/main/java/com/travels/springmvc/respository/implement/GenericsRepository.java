@@ -1,6 +1,7 @@
 package com.travels.springmvc.respository.implement;
 
 import com.travels.springmvc.Annotation.GeneratedValueUUID;
+import com.travels.springmvc.pojo.Booking;
 import com.travels.springmvc.respository.IGenericsRepository;
 import org.apache.commons.lang.NullArgumentException;
 import org.hibernate.Session;
@@ -206,6 +207,19 @@ public abstract class GenericsRepository<T, K extends Serializable> implements I
             query.where(builder.between(root.get(field.getName()).as(Date.class), fromDate, (Date) args[0]));
             return query;
         }, toDate);
+    }
+
+    protected long Thongke(QueryCriteria c, Object... args) throws Exception {
+        CriteriaBuilder cb = currentSession().getCriteriaBuilder();
+        CriteriaQuery<Booking> cr = cb.createQuery(getClassType());
+        System.out.println(getClassType());
+        Root<Booking> root = cr.from(getClassType());
+        cr.select(root);
+        cr = c.getWhere(cb, cr, root, args);
+        System.out.println("=====");
+
+        System.out.println(currentSession().createQuery(cr).getResultList().get(0));
+        return  3;
     }
 }
 

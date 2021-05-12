@@ -6,6 +6,7 @@ import com.travels.springmvc.pojo.Booking;
 import com.travels.springmvc.pojo.Customer;
 import com.travels.springmvc.pojo.Tour;
 import com.travels.springmvc.respository.Enum.EAges;
+import com.travels.springmvc.respository.IBookingRepository;
 import com.travels.springmvc.services.IBookingService;
 import com.travels.springmvc.services.ITourService;
 import org.junit.FixMethodOrder;
@@ -27,6 +28,8 @@ class BookingServiceTest {
     @Autowired
     IBookingService bookingService;
 
+    @Autowired
+    IBookingRepository bookingRepository;
     BookingView bookingView;
     Booking booking;
     String username = "customer";
@@ -93,8 +96,11 @@ class BookingServiceTest {
     }
 
     @Test
-    void testComfirmBooking() {
+    void testComfirmBooking() throws Exception {
+        System.out.println(bookingRepository.thongketheonam(2021,2));
     }
+
+
 
 
 }

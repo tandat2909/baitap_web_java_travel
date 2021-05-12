@@ -1,4 +1,4 @@
-<jsp:useBean id="tour" type="com.travels.springmvc.pojo.Tour"></jsp:useBean>
+<%--<jsp:useBean id="tour" type="com.travels.springmvc.pojo.Tour"></jsp:useBean>--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="../LibraryJSP.jsp" %>
 <div class="main-content">

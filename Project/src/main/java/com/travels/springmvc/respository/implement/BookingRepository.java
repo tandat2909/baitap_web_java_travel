@@ -12,6 +12,10 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -36,7 +40,7 @@ public class BookingRepository extends GenericsRepository<Booking, String> imple
     ICustomerRepository customerRepository;
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+
     public void save(BookingView bookingView) throws Exception {
         try {
             /**
@@ -49,6 +53,7 @@ public class BookingRepository extends GenericsRepository<Booking, String> imple
 
             Booking booking = bookingView.getBooking();
             if(booking == null) throw new Exception("Vé đặt Tour Trống");
+
             Tour tour =null;
             try{
                 tour = tourRepository.getElementById(booking.getTourId());
@@ -64,12 +69,12 @@ public class BookingRepository extends GenericsRepository<Booking, String> imple
             booking.setBookingId(UUID.randomUUID().toString());
             booking.setBookingDate(new Date());
             booking.setStatus(false);
-            booking.setTickets(bookingView.getTickets());
+            //booking.setTickets(bookingView.getTickets());
             List<Pricedetails> pricedetails = new ArrayList<>();
 
 
-//            System.err.println("tourid: " + booking.getTourId() + " - ageid: " + EAges.getId(EAges.NGUOILON));
-//            System.err.println("price" + tourPriceRepository.getPriceByAgeTourId(EAges.getId(EAges.NGUOILON), booking.getTourId()));
+            System.err.println("tourid: " + booking.getTourId() + " - ageid: " + EAges.getId(EAges.NGUOILON));
+            System.err.println("price" + tourPriceRepository.getPriceByAgeTourId(EAges.getId(EAges.NGUOILON), booking.getTourId()));
 
             for (EAges eAges : EAges.values()) {
                 long quantity = bookingView.getTickets().stream().filter(ticket -> ticket.getAgesId().equals(EAges.getId(eAges))).count();
@@ -77,16 +82,17 @@ public class BookingRepository extends GenericsRepository<Booking, String> imple
                     Pricedetails nl = new Pricedetails();
                     nl.setPriceDetailsId(UUID.randomUUID().toString());
                     nl.setAgeId(EAges.getId(eAges));
-
                     nl.setQuantity((int) quantity);
-
                     nl.setPrice(tourPriceRepository.getPriceByAgeTourId(EAges.getId(eAges), booking.getTourId()));
                     nl.setBookingId(booking.getBookingId());
+
                     booking.setTotalMoney(booking.getTotalMoney().add(nl.getPrice().multiply(BigDecimal.valueOf(quantity))));
 
                     pricedetails.add(nl);
                 }
             }
+            System.err.println(booking);
+            System.err.println(booking.getCustomer().getCustomerId());
             save(booking);
 
             for(Ticket t : booking.getTickets()){
@@ -118,7 +124,6 @@ public class BookingRepository extends GenericsRepository<Booking, String> imple
         catch (Exception exception) {
             System.err.println("===== lỗi tạo booking ====");
             exception.printStackTrace();
-
             throw new Exception(exception.getMessage());
         }
     }
@@ -127,6 +132,7 @@ public class BookingRepository extends GenericsRepository<Booking, String> imple
     public void remove(String bookingId) throws Exception {
         if(bookingId != null && !bookingId.isBlank()){
             remove(getElementById(bookingId));
+
         }
     }
 
@@ -154,4 +160,20 @@ public class BookingRepository extends GenericsRepository<Booking, String> imple
         }
         throw new Exception("Bạn không thể xóa tour đã xác nhận của nhân viên");
     }
+
+
+    public long thongketheonam(int nam,int month) throws Exception {
+        return super.Thongke((builder, query, root, args) -> {
+
+
+            Predicate year =  builder.equal(builder.function("year", Integer.class, root.get("bookingDate").as(Date.class) ),nam );
+            Predicate months = builder.equal(builder.function("MONTH", Integer.class, root.get("bookingDate")), Integer.parseInt(String.valueOf(args[1])));
+            ;
+            //          Predicate p2 = builder.lessThanOrEqualTo(root.get(field.getName()), b);
+             query.where(year);
+            return query;
+        },nam,month);
+    }
+
+
 }

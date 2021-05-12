@@ -30,7 +30,7 @@ public class BookingView {
             cus.setBirthDay(Utils.getDateRequest(a[2]));
             cus.setGender(a[1]);
             String[] hoten = a[0].split(" ",2);
-            System.err.println(hoten.length);
+            System.err.println("length ho ten ticket: "+hoten.length);
             if(hoten.length == 2){
                cus.setFirstName(hoten[0]);
                cus.setLastName(hoten[1]);

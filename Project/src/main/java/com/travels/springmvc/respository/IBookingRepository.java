@@ -13,5 +13,6 @@ public interface IBookingRepository extends IGenericsRepository<Booking,String> 
     void remove(String bookingId) throws Exception;
 
     void comfirmBooking(String bookingId) throws Exception;
+    long thongketheonam(int nam,int month) throws Exception;
 
 }

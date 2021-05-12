@@ -23,9 +23,14 @@ public class BookingService extends GenericsService<Booking,String> implements I
     public void add(BookingView bookingView,String username) throws Exception {
 
         Customer customer = customerService.getCustomerByUserName(username);
+        System.err.println("===== booking user  =");
+        System.err.println(customer);
+
         if(customer == null) throw new Exception("Bạn Không thể đăng ký tour với tài khoản này");
         bookingView.setCustomer(customer);
         bookingView.getBooking().setCustomer(customer);
+        System.err.println("customer after set");
+        System.err.println(bookingView.getBooking().getCustomer());
         bookingRepository.save(bookingView);
     }
 

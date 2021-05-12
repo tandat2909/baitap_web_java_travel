@@ -1,5 +1,6 @@
 package com.travels.springmvc.services.implement;
 
+import com.travels.springmvc.pojo.Contents;
 import com.travels.springmvc.pojo.Tour;
 import com.travels.springmvc.respository.Enum.EAges;
 import com.travels.springmvc.services.ILandMarkService;
@@ -157,4 +158,34 @@ class TourServiceTest {
         }
     }
 
+    @Test
+    void getContents(){
+        Tour tour = tourService.getElementById("8197372d-1d2f-481b-91e6-5c13096a7206");
+        List<Contents> contents = tour.getContents();
+        contents.forEach(i-> System.out.println(i.getLandmark().getProvince().getProvinceName()));
+
+    }
+
 }
+
+//todo
+// hàm thống kê lấy số lượng booking theo quý, năm, tháng
+// booking xử lý giá trên giao diện, xem lại ticket lưu không được
+// sửa cơ sở dữ liệu booking thay col customerid thành accounid
+// thanh toán =>
+// b1: tạo cơ sở dữ liệu bảng thanh toán
+//      + thanhtoanid
+//      + bookingid (cấu hình khóa ngoại tới booking)
+//      + magiaodich
+//      + ngaythanhtoan
+//      + amountPay
+// b2: tạo pojo
+// b3: tạo repository ,tạo service ( lưu thanh toán, hàm kiểm tra đã thanh toán, requets orderid momo )
+// b4:
+//
+//
+//
+//
+//
+//
+//
