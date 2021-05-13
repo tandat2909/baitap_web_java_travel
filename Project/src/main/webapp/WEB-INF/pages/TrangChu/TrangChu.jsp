@@ -126,16 +126,18 @@
         <form id="abc" action="${pageContext.request.contextPath}/timkiem" method="get" style="display: flex;">
         <div  <%--style="width: 10%; margin: 1%"--%>>
             <select class="form-control" style="width: 90%;" onchange="search(this)" name="diemdi">
+
+                <option selected disabled>Chọn điểm đi</option>
                 <c:forEach items="${tinh}" var="t">
-                    <option value="">Điểm đi</option>
+
                     <option value="${t.provinceId}">${t.provinceName}</option>
                 </c:forEach>
             </select>
         </div>
         <div  <%--style="width: 10%; margin: 1%"--%>>
             <select class="form-control" style="width: 90%;"  onchange="search(this)" name="diemden">
+                <option selected disabled>Chọn điểm đến</option>
                 <c:forEach items="${tinh}" var="t">
-                    <option value="">Điểm đến</option>
                     <option value="${t.provinceId}">${t.provinceName}</option>
                 </c:forEach>
             </select>

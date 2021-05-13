@@ -35,7 +35,7 @@
             <button type="submit" class="btn btn-primary">Tìm Kiếm</button>
         </form>
 
-        <h3 class="heading text-capitalize text-center mb-lg-5 mb-4">Kết quả tìm kiếm</h3>
+        <h3 class="heading text-capitalize text-center mb-lg-5 mb-4 mt-3">Kết quả tìm kiếm</h3>
         <div>
             <c:if test="${diemdi == null && diemden == null}">
                 <h4 class="text-center">Không tìm thấy</h4>
