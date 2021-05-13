@@ -1,4 +1,5 @@
 <%--<jsp:useBean id="b" type="com.travels.springmvc.pojo.Booking" ></jsp:useBean>--%>
+<%--<jsp:useBean id="customer" type="com.travels.springmvc.pojo.Customer"></jsp:useBean>--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="../LibraryJSP.jsp" %>
 <style>
@@ -60,49 +61,19 @@
 <!-- about -->
 <section class="about py-5">
     <div class="container py-lg-5 py-sm-4">
-<%--        <div class="row">--%>
-<%--            <div class="col-lg-6 about-left">--%>
-<%--                <h3 class="mt-lg-3">We will take you to the Top destination in the world, <strong>Explore with us!</strong></h3>--%>
-<%--                <p class="mt-4">Duis nisi sapien, elementum finibus fermentum eget, aliquet leo et. Mauris hendrerit vel ex.--%>
-<%--                    Quisque vitae luctus massa. Phasellus sed aliquam leo. Vestibulum ullamcorper a massa eu fringilla. Integer ultrices finibus sed nisi.--%>
-<%--                    in convallis felis dapibus sit amet.</p>--%>
-<%--                <p class="mt-3"> Donec a arcu et sapien hendrerit accumsan. Pellentesque sit amet eros iac, elementum--%>
-<%--                    urna ipsum accumsan, iaculis ligula. Aenean quam eget maximus in convallis felis dapibus sit amet.</p>--%>
-<%--            </div>--%>
-<%--            <div class="col-lg-6 about-right text-lg-right mt-lg-0 mt-5">--%>
-<%--                <img src="<c:url value="/TrangChu/images/about.jpg"/>" alt="" class="img-fluid abt-image" />--%>
-<%--            </div>--%>
-<%--        </div>--%>
-<%--        <div class="row mt-5 text-center">--%>
-<%--            <div class="col-lg-3 col-6">--%>
-<%--                <div class="counter">--%>
-<%--                    <span class="fa fa-smile-o"></span>--%>
-<%--                    <div class="timer count-title count-number">1000+</div>--%>
-<%--                    <p class="count-text text-uppercase">Chờ xác nhận</p>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--            <div class="col-lg-3 col-6">--%>
-<%--                <div class="counter">--%>
-<%--                    <span class="fa fa-ship"></span>--%>
-<%--                    <div class="timer count-title count-number">2271</div>--%>
-<%--                    <p class="count-text text-uppercase">Đã book thành công </p>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--            <div class="col-lg-3 col-6 mt-lg-0 mt-5">--%>
-<%--                <div class="counter">--%>
-<%--                    <span class="fa fa-users"></span>--%>
-<%--                    <div class="timer count-title count-number">200</div>--%>
-<%--                    <p class="count-text text-uppercase">Book không thành công</p>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--            <div class="col-lg-3 col-6 mt-lg-0 mt-5">--%>
-<%--                <div class="counter">--%>
-<%--                    <span class="fa fa-gift"></span>--%>
-<%--                    <div class="timer count-title count-number">20+<span>years</span></div>--%>
-<%--                    <p class="count-text text-uppercase">book lỗi</p>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--        </div>--%>
+        <div class="row">
+            <div class="col-lg-12">
+                <h5>Thông tin cá nhân</h5>
+                <h5>Họ và tên: ${customer.firstName} ${customer.lastName}</h5>
+                <h5>ngày sinh: <fmt:formatDate value="${customer.birthDay}" pattern="dd-MM-yyyy"/></h5>
+                <h5>email: ${customer.email}</h5>
+                <h5>CCID: ${customer.ccid}</h5>
+                <h5>Gender: ${customer.gender}</h5>
+                <h5>address: ${customer.address}</h5>
+                <h5>SDT: ${customer.phoneNumber}</h5>
+            </div>
+        </div>
+
     <c:forEach items="${book}" var="b">
         <c:if test="${bookingService.isComfirmBookking(b.bookingId)}">
             <h3 class=" text-capitalize text-center  mb-3" style="color: red"> Thông tin booking đã được xác nhận </h3>

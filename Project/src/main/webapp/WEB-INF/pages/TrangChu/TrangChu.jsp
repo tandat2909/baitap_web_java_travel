@@ -125,36 +125,22 @@
     <div  style="width: 100%; margin: 10px 0 ;">
         <form id="abc" action="${pageContext.request.contextPath}/timkiem" method="get" style="display: flex;">
         <div  <%--style="width: 10%; margin: 1%"--%>>
-            <select class="form-control" style="width: 90%;" typesearch = "province" onchange="search(this)" name="province">
+            <select class="form-control" style="width: 90%;" onchange="search(this)" name="diemdi">
                 <c:forEach items="${tinh}" var="t">
-                    <option value="">Tỉnh</option>
+                    <option value="">Điểm đi</option>
                     <option value="${t.provinceId}">${t.provinceName}</option>
                 </c:forEach>
             </select>
         </div>
         <div  <%--style="width: 10%; margin: 1%"--%>>
-            <select class="form-control" style="width: 90%;" typesearch = "diadiemdi" <%--onchange="search(this)"--%> id="ddd" name="diadiemdi">
-                <option value="">Các điểm địa đi</option>
-<%--                <c:forEach items="${diadiemdi}" var="dd">--%>
-<%--                    <option value="${dd.landMarkId}">${dd.landMarkName}</option>--%>
-<%--                </c:forEach>--%>
-            </select>
-        </div>
-        <div  <%--style="width: 10%; margin: 1%"--%>>
-            <select class="form-control" style="width: 90%;" typesearch = "price" <%--onchange="search(this)"--%> name="price">
-                <option value="0-0">Price</option>
-                <option value="0-1">dưới 1 triệu</option>
-                <c:forEach var="to" begin="1" end="9">
-                    <option value="${to}-${to+1}">${to} - ${to+1} triệu</option>
+            <select class="form-control" style="width: 90%;"  onchange="search(this)" name="diemden">
+                <c:forEach items="${tinh}" var="t">
+                    <option value="">Điểm đến</option>
+                    <option value="${t.provinceId}">${t.provinceName}</option>
                 </c:forEach>
             </select>
         </div>
-        <div <%--style="width: 10%; margin: 1%"--%>>
-           <input type="date" class="form-control" style="width: 90%;"  typesearch = "ngaydi" id="ngaydi" name="ngaydi">
-        </div>
-        <div <%--style="width: 10%; margin: 1%"--%>>
-            <input type="date" class="form-control" style="width: 90%;"  typesearch = "ngayve" id="ngayve" name="ngayve">
-        </div>
+
         <button type="submit" class="btn btn-primary">Tìm Kiếm</button>
         </form>
     </div>

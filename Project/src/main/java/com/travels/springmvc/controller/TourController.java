@@ -174,8 +174,18 @@ public class TourController {
         System.err.println("===================");
         System.err.println(tourprices);
         System.err.println("===================");
-        model.addAttribute("tour", tour);
+        model.addAttribute("tours", tour);
         model.addAttribute("prices", tourprices);
+        model.addAttribute("tournew", tourView);
         return "updateTour";
+    }
+    @PostMapping(value = "admin/updateTour")
+    public String updateAndSaveTour(@ModelAttribute(value = "tournew") TourView tour, @RequestParam(value = "tourid", required = false) String tourId){
+        try {
+            tourService.update(tourService.getElementById(tourId));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "redirect:/admin/tours";
     }
 }
