@@ -75,7 +75,7 @@ public class BookingController {
             Booking result = bookingService.add(bookingviews,username);
             attributes.addFlashAttribute("messges","success");
             attributes.addFlashAttribute("error",false);
-            return "redirect:/pay/momo?bookingId="+result.getBookingId();
+            return "redirect:/Packages";
         }catch (Exception exception){
             attributes.addFlashAttribute("error",true);
             attributes.addFlashAttribute("messges",exception.getMessage());

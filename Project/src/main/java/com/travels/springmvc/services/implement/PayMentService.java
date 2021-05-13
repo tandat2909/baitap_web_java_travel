@@ -22,18 +22,17 @@ public class PayMentService extends GenericsService<PayMent,String> implements I
 
     @Autowired
     IBookingService bookingService;
-
     public String getUrlPayMent(String bookingId, HttpServletRequest request) throws Exception {
         Booking booking = bookingService.getElementById(bookingId);
-        if(booking == null) throw new Exception("Không có hóa đơn này");
+        if (booking == null) throw new Exception("Không có hóa đơn này");
         String requestId = request.getSession().getId();
-        String orderId =  String.valueOf(System.currentTimeMillis()) ;
+        String orderId = String.valueOf(System.currentTimeMillis());
         String amount = booking.getTotalMoney().toString();
 
         Tour tour = booking.getTour();
-        String orderInfo = "Tour " + tour.getTourName() +"\n Mã tour: " + tour.getTourId();
-        String returnURL = "localhost:8080/Project_war_exploded/pay/momo/result";
-        String notifyURL = "localhost:8080/Project_war_exploded/pay/momo/result";
+        String orderInfo = "Tour " + tour.getTourName() + "\n Mã tour: " + tour.getTourId();
+        String returnURL = "http://localhost:8080/Project_war_exploded/pay/momo/check";
+        String notifyURL = "http://localhost:8080/Project_war_exploded/pay/momo/check";
         String extraData = booking.getBookingId();
         String bankCode = "SML";
         CaptureMoMoResponse captureMoMoResponse;
@@ -47,4 +46,5 @@ public class PayMentService extends GenericsService<PayMent,String> implements I
             throw new Exception("Cổng thanh toán không hoạt động");
         }
     }
+
 }

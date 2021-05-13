@@ -1,7 +1,9 @@
 package com.mservice.allinone;
 
 import com.mservice.allinone.models.CaptureMoMoResponse;
+import com.mservice.allinone.models.PayGateResponse;
 import com.mservice.allinone.processor.allinone.CaptureMoMo;
+import com.mservice.allinone.processor.allinone.PaymentResult;
 import com.mservice.shared.sharedmodels.Environment;
 //import com.mservice.shared.utils.LogUtils;
 
@@ -43,7 +45,7 @@ public class AllInOne {
         //QueryStatusTransactionResponse queryStatusTransactionResponse = QueryStatusTransaction.process(environment, orderId, requestId);
 
 //      Process Payment Result - Xử lý kết quả thanh toán
-        //PayGateResponse payGateResponse = PaymentResult.process(environment,new PayGateResponse());
+        PayGateResponse payGateResponse = PaymentResult.process(environment,new PayGateResponse());
 
     }
 

@@ -1,11 +1,16 @@
 package com.travels.springmvc.controller;
 
 import com.mservice.allinone.models.CaptureMoMoResponse;
+import com.mservice.allinone.models.PayGateResponse;
 import com.mservice.allinone.processor.allinone.CaptureMoMo;
+import com.mservice.allinone.processor.allinone.PaymentResult;
 import com.mservice.shared.sharedmodels.Environment;
 import com.travels.springmvc.pojo.Booking;
+import com.travels.springmvc.pojo.PayMent;
+import com.travels.springmvc.pojo.Tour;
 import com.travels.springmvc.respository.Enum.EMessages;
 import com.travels.springmvc.services.IBookingService;
+import com.travels.springmvc.services.IPayMentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.math.BigDecimal;
+import java.util.Date;
 
 
 @Controller
@@ -23,48 +30,34 @@ public class PayMentController {
     Environment environment;
     @Autowired
     IBookingService bookingService;
+    @Autowired
+    IPayMentService payMentService;
 
     @RequestMapping("/momo")
-    public String paymomo(Model model, @RequestParam("bookingId") String bookingId, HttpServletRequest request , HttpServletResponse response) {
+    public String paymomo(Model model, @RequestParam("bookingId") String bookingId, HttpServletRequest request, HttpServletResponse response) {
         try {
-            Booking booking = bookingService.getElementById(bookingId);
-            if(booking == null) throw new Exception("Không có hóa đơn này");
-            String requestId = request.getSession().getId();
-            String orderId =  String.valueOf(System.currentTimeMillis()) ;
-            String amount = booking.getTotalMoney().toString();
-            String orderInfo = "Thanh toán Tour du lịch";
-            String returnURL = "http://localhost:8080/Project_war_exploded/pay/momo/result";
-            String notifyURL = "http://localhost:8080/Project_war_exploded/pay/momo/result";
-            String extraData = booking.getBookingId();
-            String bankCode = "SML";
-            CaptureMoMoResponse captureMoMoResponse;
-            try {
-                captureMoMoResponse = CaptureMoMo.process(environment, orderId, requestId, amount, orderInfo, returnURL, notifyURL, extraData);
-                model.addAttribute("urlpayment",captureMoMoResponse.getPayUrl());
-                response.sendRedirect(captureMoMoResponse.getPayUrl());
-                //return "template_payment";
-            } catch (Exception exception) {
-                exception.printStackTrace();
-                throw new Exception("Cổng thanh toán không hoạt động");
-            }
-
-        }catch (Exception exception){
+            String urlpay = payMentService.getUrlPayMent(bookingId, request);
+            response.sendRedirect(urlpay);
+        } catch (Exception exception) {
+            System.err.println("==============paymomo");
             exception.printStackTrace();
-            model.addAttribute("messege",new String[]{EMessages.error.name(),exception.getMessage()});
+            model.addAttribute("messege", new String[]{EMessages.error.name(), exception.getMessage()});
         }
         return "template_payment";
     }
 
-    @RequestMapping("/momo/result")
+    @RequestMapping("/momo/check")
     public String checkPayMent(@RequestParam("accessKey") String accessKey,
                                @RequestParam("partnerCode") String partnerCode,
                                @RequestParam("requestId") String requestId,
                                @RequestParam("orderId") String orderId,
                                @RequestParam("transId") String transId,
                                @RequestParam("localMessage") String localMessage,
-                               @RequestParam(value = "errorCode",required = false) String errorCode,
-                               @RequestParam("extraData") String extraData
-                               ){
+                               @RequestParam(value = "errorCode", required = false) String errorCode,
+                               @RequestParam("extraData") String extraData,
+                               @RequestParam("amount") String amount,
+
+    HttpServletRequest request ) throws Exception {
 
         System.err.println("=====Thông tin thanh toán trả về==");
         System.err.println(accessKey);
@@ -75,12 +68,28 @@ public class PayMentController {
         System.err.println(localMessage);
         System.err.println(errorCode);
         System.err.println(extraData);
+        System.err.println("==== responese");
+        PayGateResponse payGateResponse = PaymentResult.process(environment,new PayGateResponse());
+        System.err.println(payGateResponse.getTransId());
 
+        if(accessKey.equals(environment.getPartnerInfo().getAccessKey()))
+            if(partnerCode.equals(environment.getPartnerInfo().getPartnerCode()))
+                if(requestId.equals(request.getSession().getId()))
+                    if(errorCode.equals("0"))
+                    {
+                        PayMent payMent = new PayMent();
+                        payMent.setOrderId(orderId);
+                        payMent.setPayId(orderId);
+                        payMent.setAmountPay(new BigDecimal(amount));
+                        payMent.setDatePay(new Date());
+                        payMent.setTransId(transId);
+                        payMent.setBookingId(extraData);
+                        payMentService.add(payMent);
 
-
-        return "redirect:/pay/momo";
+                    }
+        return "redirect:/";
     }
-}
+
 
 //
 // http://localhost:8080/Project_war_exploded/?
@@ -114,3 +123,5 @@ public class PayMentController {
 //        &responseTime=2021-05-12%2003:42:02&errorCode=0
 //        &payType=qr&extraData=
 //        &signature=94845b545530f0d1f2eddc5e0215d121156a2d1a48c00f248b9bbf9efae5bb6c
+
+}

@@ -12,7 +12,7 @@ public class Todo {
     // chưa làm lưu ảnh lên server
     // chưa làm khách hàng đã thanh toán thì không tạo mã thanh toán xuất thông báo or xuất lỗi error
     //
-
+    //todo (new) thêm thông báo thêm booking thành cong ở Packages, lưu ảnh server
 
 
 }

@@ -16,10 +16,12 @@
 <!-- newsdetail-->
 
 <section >
+
     <div class="container py-xl-5 py-lg-3">
        <div class="row">
+           <%@include file="../Alert.jsp"%>
            <div class="col">
-               <iframe src="${urlpayment}" width="100%" style="height: 60em"></iframe>
+<%--               <iframe src="${urlpayment}" width="100%" style="height: 60em"></iframe>--%>
            </div>
 
        </div>
