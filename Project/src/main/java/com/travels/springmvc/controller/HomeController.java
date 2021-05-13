@@ -173,5 +173,10 @@ public class HomeController {
         return "redirect:/newsdetails?newId="+comment.getNewsId();
     }
 
+    @RequestMapping(value = {"/history"})
+    public String listBookingOfCustomer(){
+        return "history";
+    }
+
 }
 

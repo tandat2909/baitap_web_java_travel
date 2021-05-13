@@ -48,7 +48,7 @@
                             </a>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="${pageContext.request.contextPath}/profile">Profile</a>
-                                <a class="dropdown-item" href="#">Order</a>
+                                <a class="dropdown-item" href="${pageContext.request.contextPath}/history">History</a>
                                 <a class="dropdown-item" href="#">Something else here</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="${pageContext.request.contextPath}/logout"><i

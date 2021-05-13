@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class BookingService extends GenericsService<Booking,String> implements IBookingService {
@@ -49,7 +51,13 @@ public class BookingService extends GenericsService<Booking,String> implements I
         comfirmBooking(booking.getBookingId());
     }
 
-
-
+    @Override
+    public List<Booking> thongketheonam(int nam) throws Exception{
+         return bookingRepository.thongketheonam(nam);
+    }
+    @Override
+    public List<Booking> thongketheothang(int nam, int month) throws Exception{
+        return bookingRepository.thongketheothang(nam,month);
+    }
 
 }

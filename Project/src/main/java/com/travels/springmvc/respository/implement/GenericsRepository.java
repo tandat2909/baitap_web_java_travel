@@ -209,7 +209,7 @@ public abstract class GenericsRepository<T, K extends Serializable> implements I
         }, toDate);
     }
 
-    protected long Thongke(QueryCriteria c, Object... args) throws Exception {
+    protected List<T> Thongke(QueryCriteria c, Object... args) throws Exception {
         CriteriaBuilder cb = currentSession().getCriteriaBuilder();
         CriteriaQuery<Booking> cr = cb.createQuery(getClassType());
         System.out.println(getClassType());
@@ -218,8 +218,7 @@ public abstract class GenericsRepository<T, K extends Serializable> implements I
         cr = c.getWhere(cb, cr, root, args);
         System.out.println("=====");
 
-        System.out.println(currentSession().createQuery(cr).getResultList().get(0));
-        return  3;
+        return (List<T>) currentSession().createQuery(cr).getResultList();
     }
 }
 
