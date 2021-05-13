@@ -146,6 +146,7 @@ public class TourController {
         Tour tour = tourService.getElementById(tourId);
         List<Tourprices> priceId = (List<Tourprices>) tour.getTourprices();
         String[] tuoi = prices.split(";");
+
         for (Tourprices t : priceId) {
             for (String tu : tuoi) {
                 String[] a = tu.split(":");

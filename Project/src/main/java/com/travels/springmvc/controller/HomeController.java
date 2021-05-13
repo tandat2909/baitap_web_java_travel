@@ -35,7 +35,10 @@ public class HomeController {
     INewsService newsService;
     @Autowired
     ICommentService commentService;
-
+    @Autowired
+    IBookingService bookingService;
+    @Autowired
+    ICustomerService customerService;
     @Autowired
     IAccountService accountService;
 
@@ -72,49 +75,56 @@ public class HomeController {
     }
 
     @RequestMapping({"/timkiem"})
-    public String timKiemDiaDiemDi(Model model,@RequestParam(value = "ngayve", required = false) String ngayve,
-                                   @RequestParam(value = "ngaydi", required = false) String ngaydi,
-                                   @RequestParam(value = "province", required = false) String province,
-                                   @RequestParam(value = "diadiemdi", required = false) String diadiemdi,
-                                   @RequestParam(value = "price", required = false) String price,
-                                   RedirectAttributes redirectAttributes){
-
-        String[] chuoi = null;
-        chuoi = price.split("-");
-        String fprice = chuoi[0].toString() + "000000";
-        String tprice = chuoi[1].toString() + "000000";
-        BigDecimal fromPrice = new BigDecimal(fprice) ;
-        BigDecimal toPrice = new BigDecimal(tprice);
-        SimpleDateFormat fDate = new SimpleDateFormat("yyyy-MM-dd");
-        Date fromDate = new Date();
-        Date toDate = new Date();
+    public String timKiemDiaDiemDi(Model model,@RequestParam(value = "diemdi", required = false) String diemdi,
+                                   @RequestParam(value = "diemden", required = false) String diemden
+                                   ){
         try {
-            if(ngaydi == null || ngaydi.isEmpty() || ngayve == null || ngayve.isEmpty()){
-                fromDate = new java.util.Date();
-                toDate = new java.util.Date();
-                List<Tour> tour = tourService.searchAll(province, diadiemdi, fromPrice, toPrice, fromDate, toDate);
-                model.addAttribute("tours",tour);
-            }
-            else{
-                fromDate = fDate.parse(ngaydi);
-                toDate = fDate.parse(ngayve);
-            }
-        } catch (ParseException e) {
+            List<Tour> toursdi = tourService.searchTourByProvinceName(diemdi);
+            List<Tour> toursdem = tourService.searchTourByProvinceName(diemden);
+            model.addAttribute("diemdi", toursdi);
+            model.addAttribute("diemden", toursdem);
+            model.addAttribute("tourService", tourService);
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
-        try{
-            if(tourService.checkEmpty(province) && tourService.checkEmpty(diadiemdi) && tourService.checkEmpty(price) &&
-                    tourService.checkEmpty(ngaydi) && tourService.checkEmpty(ngayve))
-            { throw new Exception("Không tìm thấy tour"); }
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-        List<Tour> tour = tourService.searchAll(province, diadiemdi, fromPrice, toPrice, fromDate, toDate);
-        model.addAttribute("tours",tour);
-        System.err.println("================================");
-        System.err.println(tour);
-        System.err.println("================================");
+
+//        String[] chuoi = null;
+//        chuoi = price.split("-");
+//        String fprice = chuoi[0].toString() + "000000";
+//        String tprice = chuoi[1].toString() + "000000";
+//        BigDecimal fromPrice = new BigDecimal(fprice) ;
+//        BigDecimal toPrice = new BigDecimal(tprice);
+//        SimpleDateFormat fDate = new SimpleDateFormat("yyyy-MM-dd");
+//        Date fromDate = new Date();
+//        Date toDate = new Date();
+//        try {
+//            if(ngaydi == null || ngaydi.isEmpty() || ngayve == null || ngayve.isEmpty()){
+//                fromDate = new java.util.Date();
+//                toDate = new java.util.Date();
+//                List<Tour> tour = tourService.searchAll(province, diadiemdi, fromPrice, toPrice, fromDate, toDate);
+//                model.addAttribute("tours",tour);
+//            }
+//            else{
+//                fromDate = fDate.parse(ngaydi);
+//                toDate = fDate.parse(ngayve);
+//            }
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//
+//        try{
+//            if(tourService.checkEmpty(province) && tourService.checkEmpty(diadiemdi) && tourService.checkEmpty(price) &&
+//                    tourService.checkEmpty(ngaydi) && tourService.checkEmpty(ngayve))
+//            { throw new Exception("Không tìm thấy tour"); }
+//        } catch (Exception e){
+//            e.printStackTrace();
+//        }
+//        List<Tour> tour = tourService.searchAll(province, diadiemdi, fromPrice, toPrice, fromDate, toDate);
+//        model.addAttribute("tours",tour);
+//        System.err.println("================================");
+//        System.err.println(tour);
+//        System.err.println("================================");
         return "Search";
     }
 
@@ -174,7 +184,14 @@ public class HomeController {
     }
 
     @RequestMapping(value = {"/history"})
-    public String listBookingOfCustomer(){
+    public String listBookingOfCustomer(Model model, HttpServletRequest request){
+        //Customer customer = customerService.getCustomerByUserName(request.getUserPrincipal().getName());
+        Account account = accountService.getAccountByUserName(request.getUserPrincipal().getName());
+        List<Booking> bookings = account.getBookingCustomer();
+        Customer customer = customerService.getCustomerByUserName(request.getUserPrincipal().getName());
+        model.addAttribute("bookingService", bookingService);
+        model.addAttribute("book", bookings);
+        model.addAttribute("customer", customer);
         return "history";
     }
 
