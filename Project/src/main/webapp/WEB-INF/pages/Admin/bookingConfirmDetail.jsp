@@ -53,6 +53,7 @@
 </style>
 <!-- main content start -->
 <div class="main-content">
+    <%@ include file="../Alert.jsp"%>
 
     <!-- content -->
     <div class="container-fluid content-top-gap">
@@ -151,32 +152,33 @@
                 <div class="card-body">
                     <form action="#" method="post">
                         <div class="form-row">
+                            <c:set var="customer" value='${customerService.getCustomerByAccountId(book.customer.accountId)}'/>
                             <div class="form-group col-md-6">
                                 <label  class="input__label">First Name</label>
-                                <input type="text" class="form-control input-style" value="${book.customer.firstName}" disabled
+                                <input type="text" class="form-control input-style" value="${customer.firstName}" disabled
                                        >
                             </div>
                             <div class="form-group col-md-6">
                                 <label class="input__label">Last Name</label>
-                                <input type="text" class="form-control input-style" value="${book.customer.lastName}" disabled
+                                <input type="text" class="form-control input-style" value="${customer.lastName}" disabled
                                 >
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label class="input__label">Email</label>
-                                <input type="text" class="form-control input-style" value="${book.customer.email}" disabled
+                                <input type="text" class="form-control input-style" value="${customer.email}" disabled
                                 >
                             </div>
                             <div class="form-group col-md-6">
                                 <label class="input__label">Phone number</label>
-                                <input type="text" class="form-control input-style" value="${book.customer.phoneNumber}" disabled
+                                <input type="text" class="form-control input-style" value="${customer.phoneNumber}" disabled
                                 >
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="input__label">Address</label>
-                            <input type="text" class="form-control input-style" value="${book.customer.address}" disabled>
+                            <input type="text" class="form-control input-style" value="${customer.address}" disabled>
                         </div>
                         <div class="form-group">
                             <label class="input__label">Note</label>
@@ -346,11 +348,15 @@
 <%--                </div>--%>
             </div>
             <!-- Danh sach ticket-->
-        <form action="" method="post">
-            <div style="margin: 0 auto;width: 20%;">
-                <button type="submit" class="btn btn-primary btn-style mt-4" >Confirm</button>
-            </div>
-        </form>
+            <c:if test="${!book.status}">
+                <form action="" method="post">
+                    <div style="margin: 0 auto;width: 20%;">
+                        <button type="submit" class="btn btn-primary btn-style mt-4" >Xác nhận</button>
+                        <a  class="btn btn-danger btn-style mt-4 ml-2" style="color: white" >Hủy</a>
+                    </div>
+                </form>
+
+            </c:if>
 
 
         </section>

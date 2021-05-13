@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 
 @Controller
@@ -24,7 +25,7 @@ public class PayMentController {
     IBookingService bookingService;
 
     @RequestMapping("/momo")
-    public String paymomo(Model model, @RequestParam("bookingId") String bookingId, HttpServletRequest request) {
+    public String paymomo(Model model, @RequestParam("bookingId") String bookingId, HttpServletRequest request , HttpServletResponse response) {
         try {
             Booking booking = bookingService.getElementById(bookingId);
             if(booking == null) throw new Exception("Không có hóa đơn này");
@@ -32,15 +33,16 @@ public class PayMentController {
             String orderId =  String.valueOf(System.currentTimeMillis()) ;
             String amount = booking.getTotalMoney().toString();
             String orderInfo = "Thanh toán Tour du lịch";
-            String returnURL = "localhost:8080/Project_war_exploded/pay/momo/result";
-            String notifyURL = "localhost:8080/Project_war_exploded/pay/momo/result";
+            String returnURL = "http://localhost:8080/Project_war_exploded/pay/momo/result";
+            String notifyURL = "http://localhost:8080/Project_war_exploded/pay/momo/result";
             String extraData = booking.getBookingId();
             String bankCode = "SML";
             CaptureMoMoResponse captureMoMoResponse;
             try {
                 captureMoMoResponse = CaptureMoMo.process(environment, orderId, requestId, amount, orderInfo, returnURL, notifyURL, extraData);
                 model.addAttribute("urlpayment",captureMoMoResponse.getPayUrl());
-                return "template_payment";
+                response.sendRedirect(captureMoMoResponse.getPayUrl());
+                //return "template_payment";
             } catch (Exception exception) {
                 exception.printStackTrace();
                 throw new Exception("Cổng thanh toán không hoạt động");
@@ -60,7 +62,8 @@ public class PayMentController {
                                @RequestParam("orderId") String orderId,
                                @RequestParam("transId") String transId,
                                @RequestParam("localMessage") String localMessage,
-                               @RequestParam(value = "errorCode",required = false) String errorCode
+                               @RequestParam(value = "errorCode",required = false) String errorCode,
+                               @RequestParam("extraData") String extraData
                                ){
 
         System.err.println("=====Thông tin thanh toán trả về==");
@@ -71,6 +74,10 @@ public class PayMentController {
         System.err.println(transId);
         System.err.println(localMessage);
         System.err.println(errorCode);
+        System.err.println(extraData);
+
+
+
         return "redirect:/pay/momo";
     }
 }

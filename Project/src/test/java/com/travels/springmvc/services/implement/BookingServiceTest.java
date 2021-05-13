@@ -101,6 +101,13 @@ class BookingServiceTest {
         System.out.println(bookingRepository.thongketheonam(2021,2));
     }
 
+    @Test
+    void isComfirmBooking(){
+        System.out.println(bookingService.isComfirmBookking("f5113f74-82cc-48fe-b192-fdcd339d7835"));
+
+        System.out.println(bookingService.isComfirmBookking("82c452da-27da-44c1-a50c-a80b43fa8f2b"));
+    }
+
 
 
 

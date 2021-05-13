@@ -5,6 +5,7 @@ import com.travels.springmvc.modelView.InforAccount;
 import com.travels.springmvc.pojo.Account;
 import com.travels.springmvc.pojo.Booking;
 import com.travels.springmvc.pojo.Customer;
+import com.travels.springmvc.respository.Enum.EMessages;
 import com.travels.springmvc.respository.ITourPriceRepository;
 import com.travels.springmvc.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -107,6 +108,7 @@ public class BookingController {
         Booking booking = bookingService.getElementById(bookingId);
         model.addAttribute("book", booking);
         model.addAttribute("tourPriceRepository",tourPricesService);
+        model.addAttribute("customerService",customerService);
         System.err.println("=========================");
         System.err.println(booking);
         System.err.println("=========================");
@@ -117,20 +119,23 @@ public class BookingController {
     //todo chưa làm thông báo thành công khi xác nhận
 
     @PostMapping(value = {"/admin/bookings/details"})
-    public String confirmOfEmployee( HttpServletRequest request, @RequestParam("bookingId") String bookingId, RedirectAttributes attributes){
+    public String confirmOfEmployee(Model model, HttpServletRequest request, @RequestParam("bookingId") String bookingId, RedirectAttributes attributes){
 
         try{
-            Booking booking = bookingService.getElementById(bookingId);
-            Account account = accountService.getAccountByUserName(request.getUserPrincipal().getName());
-            booking.setEmployeesID(account.getAccountId());
+
+            String username = request.getUserPrincipal().getName();
             System.err.println("=========================");
-            System.err.println(booking);
+            System.err.println("bookingid" + bookingId);
+            System.err.println("username" + username);
             System.err.println("=========================");
-            bookingService.update(booking);
-            return "redirect:/admin/bookings";
+            //model.addAttribute("employeesService", accountService.getAccountByUserName(username));
+            bookingService.comfirmBooking(bookingId,username);
+            attributes.addFlashAttribute("messges",new String[]{EMessages.success.name(),"Xác nhận thành công"});
+
         } catch (Exception ex){
             System.err.println("============lỗi contoller booking confirmOfEmployee()");
             ex.printStackTrace();
+            attributes.addFlashAttribute("messges",new String[]{EMessages.error.name(),ex.getMessage()});
         }
         return "redirect:/admin/bookings/details?bookingId=" + bookingId;
     }

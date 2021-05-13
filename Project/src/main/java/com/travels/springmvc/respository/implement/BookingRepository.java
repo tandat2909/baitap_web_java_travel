@@ -8,6 +8,7 @@ import com.travels.springmvc.pojo.Tour;
 import com.travels.springmvc.respository.*;
 import com.travels.springmvc.respository.Enum.EAges;
 import com.travels.springmvc.respository.Enum.EStatusPay;
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
@@ -38,9 +39,10 @@ public class BookingRepository extends GenericsRepository<Booking, String> imple
     ICustomerRepository customerRepository;
 
     @Override
-
+    @Transactional(propagation = Propagation.REQUIRES_NEW,rollbackFor = Exception.class)
     public Booking save(BookingView bookingView) throws Exception {
-
+        Session session= currentSession().getSession();
+       // session.beginTransaction().begin();
         try {
             /**
              * 1. Lưu thông tin booking
@@ -48,6 +50,7 @@ public class BookingRepository extends GenericsRepository<Booking, String> imple
              * 3. Lưu pricedetails
              *
              */
+
             System.err.println("=================Bookingrepository=====");
 
             Booking booking = bookingView.getBooking();
@@ -92,50 +95,50 @@ public class BookingRepository extends GenericsRepository<Booking, String> imple
             }
 //            System.err.println(booking);
 //            System.err.println(booking.getCustomer().getCustomerId());
-            save(booking);
+            session.save(booking);
+            //save(booking);
+            String mserr = "";
 //            System.err.println("=======for ticket booking repository");
-            try {
-                for (Ticket t : bookingView.getTickets()) {
-                    try {
+
+            for (Ticket t : bookingView.getTickets()) {
+
 //                    System.err.println("time current: "+ t.getCustomer().getBirthDay().getTime()  );
 //                    System.err.println("time now: "+ new Date().getTime()  );
-                        int ageCurrent = new Date().getYear() - t.getCustomer().getBirthDay().getYear();
-                        int[] ageValidDate = EAges.getAgeVaildById(t.getAgesId());
-//                    System.err.println("ageCurrent: "+ageCurrent+" ageValidDate: " + Arrays.toString(ageValidDate));
-                        assert ageValidDate != null;
-                        if (ageCurrent >= ageValidDate[0] && ageCurrent <= ageValidDate[1]) {
+                int ageCurrent = new Date().getYear() - t.getCustomer().getBirthDay().getYear();
+                int[] ageValidDate = EAges.getAgeVaildById(t.getAgesId());
+                System.err.println("ageCurrent: " + ageCurrent + " ageValidDate: " + Arrays.toString(ageValidDate));
+                assert ageValidDate != null;
+                if (ageCurrent >= ageValidDate[0] && ageCurrent <= ageValidDate[1]) {
 //                        System.err.println(t);
 //                        System.err.println(t.getCustomer());
-                            currentSession().save(t.getCustomer());
-                            t.setBooking(booking);
-                            currentSession().save(t);
-                        } else {
 
-                            throw new Exception("Tuổi khách hàng " + (t.getCustomer().getFirstName() != null ? t.getCustomer().getFirstName() : "") + " " + t.getCustomer().getLastName() + " không đúng quy định");
-                        }
-                    } catch (Exception exception) {
-                        System.err.println("===== lỗi lưu customer ====");
-                        exception.printStackTrace();
-                        remove(booking);
-
-                        throw new Exception("Thông tin danh sách khách hàng không hợp lệ\n " + exception.getMessage());
-                    }
+                    session.save(t.getCustomer());
+                    t.setBooking(booking);
+                    session.save(t);
+                } else {
+                    mserr = "Thông tin danh sách khách hàng không hợp lệ tuổi khách hàng " + (t.getCustomer().getFirstName() != null ? t.getCustomer().getFirstName() : "") +
+                            " " + t.getCustomer().getLastName() + " không đúng quy định";
+                    break;
                 }
-
-            }catch (Exception exception){
-                throw new Exception(exception.getMessage());
             }
+            if (!mserr.isBlank()) {
+               // currentSession().getTransaction().rollback();
+                //remove(booking);
+                throw new Exception(mserr);
+            }
+
 
             priceDetailRepository.saveAll(pricedetails);
             //cập nhật lại số lượng
             tour.setMaxseats(tour.getMaxseats() - booking.getAmountGuests());
-            currentSession().update(tour);
+            session.update(tour);
+            //session.getTransaction().commit();
             return getElementById(booking.getBookingId());
-
 
         } catch (Exception exception) {
             System.err.println("===== lỗi tạo booking ====");
             exception.printStackTrace();
+           // session.getTransaction().rollback();
             throw new Exception(exception.getMessage());
         }
     }
@@ -148,20 +151,6 @@ public class BookingRepository extends GenericsRepository<Booking, String> imple
         }
     }
 
-    @Override
-    public void comfirmBooking(String bookingId) throws Exception {
-        try {
-            if (bookingId != null & !bookingId.isBlank()) {
-                Booking booking = getElementById(bookingId);
-                if (booking == null) throw new Exception("");
-                booking.setStatus(true);
-                update(booking);
-            }
-        } catch (Exception e) {
-            throw new Exception("Booking không hợp lệ");
-        }
-
-    }
 
     @Override
     public void remove(Booking booking) throws Exception {

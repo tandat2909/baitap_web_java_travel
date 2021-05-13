@@ -15,12 +15,12 @@ public class EmployeesService extends GenericsService<Employees, String> impleme
 
     @Override
     public Employees getEmployeesByUserName(String userName) {
-        return null;
+        return employeesRepository.getEmployeesByUserName(userName);
     }
 
     @Override
     public Employees getEmployeesByAccountId(String accountId) {
-        return null;
+        return employeesRepository.getEmployeesByAccountId(accountId);
     }
 
     @Override
