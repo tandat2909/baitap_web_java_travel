@@ -79,6 +79,7 @@ class AccountServiceTest {
 
     @Test
     void update() {
+        accountService.getAccountByUserName("customerQ").getBookingEmployees().forEach(System.err::println);
     }
 
     @Test

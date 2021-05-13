@@ -35,7 +35,10 @@ public class HomeController {
     INewsService newsService;
     @Autowired
     ICommentService commentService;
-
+    @Autowired
+    IBookingService bookingService;
+    @Autowired
+    ICustomerService customerService;
     @Autowired
     IAccountService accountService;
 
@@ -174,7 +177,12 @@ public class HomeController {
     }
 
     @RequestMapping(value = {"/history"})
-    public String listBookingOfCustomer(){
+    public String listBookingOfCustomer(Model model, HttpServletRequest request){
+        //Customer customer = customerService.getCustomerByUserName(request.getUserPrincipal().getName());
+        Account account = accountService.getAccountByUserName(request.getUserPrincipal().getName());
+        List<Booking> bookings = account.getBookingCustomer();
+        model.addAttribute("bookingService", bookingService);
+        model.addAttribute("book", bookings);
         return "history";
     }
 
