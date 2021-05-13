@@ -29,7 +29,9 @@
 
     <!-- google fonts -->
 <%--    <link href="http://fonts.googleapis.com/css?family=Nunito:300,400,600,700,800,900&display=swap" rel="stylesheet">--%>
-    <link id = "uri" hidden href="${pageContext.request.contextPath}"/>
+    <script>
+        var uri = "${pageContext.request.contextPath}"
+    </script>
 </head>
 <body>
 
@@ -130,6 +132,7 @@
     <!-- Different scripts of charts.  Ex.Barchart, Linechart -->
     <script src="<c:url value="/admin/js/bar.js"/>"></script>
     <script src="<c:url value="/admin/js/linechart.js"/>"></script>
+    <script src="<c:url value="/admin/js/events.js"/>"></script>
     <!-- //Different scripts of charts.  Ex.Barchart, Linechart -->
 
 

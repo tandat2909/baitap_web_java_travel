@@ -69,6 +69,11 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
         <put-attribute name="content" value="/WEB-INF/pages/TrangChu/payment.jsp"/>
     </definition>
 
+    <definition name="history" extends="baseLayout" >
+        <put-attribute name="title" value="Lịch sử người dùng"/>
+        <put-attribute name="content" value="/WEB-INF/pages/TrangChu/history.jsp"/>
+    </definition>
+
    <!-- template admin-->
     <definition name="adminLayout"
                 template="/WEB-INF/layout/Admin/admin.jsp">

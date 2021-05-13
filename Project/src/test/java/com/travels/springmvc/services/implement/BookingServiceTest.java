@@ -98,7 +98,8 @@ class BookingServiceTest {
 
     @Test
     void testComfirmBooking() throws Exception {
-        System.out.println(bookingRepository.thongketheonam(2021,2));
+        System.out.println(bookingRepository.thongketheonam(2021).size());
+        System.out.println(bookingRepository.thongketheothang(2021, 6).size());
     }
 
     @Test

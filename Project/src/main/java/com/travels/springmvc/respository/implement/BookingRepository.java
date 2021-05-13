@@ -162,18 +162,21 @@ public class BookingRepository extends GenericsRepository<Booking, String> imple
     }
 
 
-    public long thongketheonam(int nam, int month) throws Exception {
+    public List<Booking> thongketheonam(int nam) throws Exception {
         return super.Thongke((builder, query, root, args) -> {
-
-
             Predicate year = builder.equal(builder.function("year", Integer.class, root.get("bookingDate").as(Date.class)), nam);
-            Predicate months = builder.equal(builder.function("MONTH", Integer.class, root.get("bookingDate")), Integer.parseInt(String.valueOf(args[1])));
-            ;
-            //          Predicate p2 = builder.lessThanOrEqualTo(root.get(field.getName()), b);
             query.where(year);
             return query;
-        }, nam, month);
+        }, nam);
     }
-
+    public List<Booking> thongketheothang(int nam, int month) throws Exception {
+        return super.Thongke((builder, query, root, args) -> {
+            Predicate year = builder.equal(builder.function("year", Integer.class, root.get("bookingDate").as(Date.class)), nam);
+            Predicate months = builder.equal(builder.function("month", Integer.class, root.get("bookingDate")), month);
+            //Predicate prices = builder.equal(builder.function("prices", BigDecimal.class, root.get("totalMoney")),month);
+            query.where(builder.and(year, months));
+            return query;
+        });
+    }
 
 }
