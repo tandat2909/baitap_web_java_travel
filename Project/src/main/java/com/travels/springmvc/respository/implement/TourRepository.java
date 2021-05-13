@@ -8,12 +8,10 @@ import com.travels.springmvc.respository.Enum.EAges;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.math.BigDecimal;
-import java.util.Date;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Transactional
 @Repository
@@ -151,6 +149,46 @@ public class TourRepository extends GenericsRepository<Tour, String> implements 
         } catch (Exception ex){
             throw new Exception(ex.getMessage());
         }
+    }
+
+    @Override
+    public void update(TourView tourView) throws Exception {
+        Tour current = getElementById(tourView.getTour().getTourId());
+
+        Tour tournew = tourView.getTour();
+
+        current.setImage(tournew.getImage());
+        current.setContent(tournew.getContent());
+        current.setEndDay(tournew.getEndDay());
+        current.setTourName(tournew.getTourName());
+        current.setVehicle(tournew.getVehicle());
+        current.setMaxseats(tournew.getMaxseats());
+        current.setStartDay(tournew.getStartDay());
+
+
+        tourView.getTourprices().forEach(i->{
+            Tourprices a = tourPriceRepository.getTourPriceByAgeTourId(i.getAgeId(),current.getTourId());
+            a.setPrice(i.getPrice());
+            if(a.getAgeId().equals(EAges.getId(EAges.NGUOILON))) current.setPrice(a.getPrice());
+            //a.setTourId(current.getTourId());
+            currentSession().update(a);
+        });
+
+       List<String> conid = new ArrayList<>();
+       for(Contents con : current.getContents()){
+           conid.add(con.getContentId());
+       }
+
+        //thêm nội dung mới cho tour
+        tourView.getListContens().forEach(i->{
+            i.setContentId(UUID.randomUUID().toString());
+            i.setTourID(current.getTourId());
+            currentSession().update(i);
+        });
+        update(current);
+        //xóa nội dung
+        conid.forEach(i->currentSession().remove(contentsRepository.getElementById(i)));
+
     }
 //    @Override
 //    public boolean checkContentInTour(Tour tour) {

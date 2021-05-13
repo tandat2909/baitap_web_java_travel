@@ -357,12 +357,14 @@
                 <form action="" method="post">
                     <div style="margin: 0 auto;width: 20%;">
                         <button type="submit" class="btn btn-primary btn-style mt-4" >Xác nhận</button>
-                        <a  class="btn btn-danger btn-style mt-4 ml-2" style="color: white" >Hủy</a>
                     </div>
+                </form>
+                <form action="${pageContext.request.contextPath}/admin/bookings/details/delete" method="post">
+                    <input type="hidden" value="${book.bookingId}" name="bookingId">
+                    <button class="btn btn-danger btn-style mt-4 ml-2" type="submit" style="color: white" >Hủy</button>
                 </form>
 
             </c:if>
-
 
         </section>
         <!-- //forms -->

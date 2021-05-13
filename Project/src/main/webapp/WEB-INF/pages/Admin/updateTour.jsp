@@ -60,24 +60,25 @@
                         <table class="table table-bordered" style="">
                             <thead>
                             <tr class="tb-title">
-                                <td class="text-center">Người lớn</td>
-                                <td class="text-center">Trẻ em</td>
-                                <td class="text-center">Trẻ nhỏ</td>
                                 <td class="text-center">Em bé</td>
-                                <td class="text-center">Phụ thu phòng đơn</td>
+                                <td class="text-center">Trẻ nhỏ</td>
+                                <td class="text-center">Trẻ em</td>
+                                <td class="text-center">Người lớn</td>
+
                             </tr>
                             </thead>
                             <tbody>
                             <tr id="tourprice">
                                     <c:forEach items="${tours.tourprices}" var="price">
+
                                         <c:if test="${price.ageId == 'f53d20c2-7f20-4fad-bab6-76847d102ef9'}">
                                             <td class="p-0"><input type="text" data-id="f53d20c2-7f20-4fad-bab6-76847d102ef9"
                                                        required pattern="[0-9]{3,20}" value="${price.price}" class="form-control pricejs"></td>
                                         </c:if>
 
                                         <c:if test="${price.ageId == 'c71fb358-c195-4bc4-9e45-004fd8a5ffd2'}">
-                                            <td class="p-0"><input type="text" data-id="f53d20c2-7f20-4fad-bab6-76847d102ef9"
-                                                       required pattern="[0-9]{3,20}" value="${price.price}" class="form-control pricejs"></td>
+                                            <td class="p-0"><input type="text" data-id="c71fb358-c195-4bc4-9e45-004fd8a5ffd2"
+                                                       required pattern="[0-9]{1,20}" value="${price.price}" class="form-control pricejs"></td>
                                         </c:if>
 
                                         <c:if test="${price.ageId == 'bdee5279-4601-484c-8fce-e8f5781deda3'}">
@@ -99,8 +100,8 @@
                     <label>Hình ảnh</label>
                     <div class=" col-12 custom-file mt-2" style="z-index: 0">
                         <input type="file" class="custom-file-input" id="imgjs" onchange="setNameFile()" name="img"
-                               required="" >
-                        <label class="custom-file-label" id="imgname" onchange="setNameFile()">Choose file...</label>
+                              value="${tours.image}" >
+                        <label class="custom-file-label" id="imgname" onchange="setNameFile()">${tours.image}</label>
                     </div>
                     <div class="col-12 pt-2 mt-3">
                         <label> Mô tả ngắn </label>
@@ -115,7 +116,7 @@
                                 <h5 id="title_1">Ngày thứ ${dem.index + 1}</h5>
                             </div>
                             <div class="col-4 pt-2">
-                                <select id="provice_${dem.index + 1}" onchange="addOptionLandMark(this);checkSelect(this)" onload="addOptionLandMark(this)" day=${dem.index + 1}
+                                <select id="provice_${dem.index + 1}" onchange="addOptionLandMark(this);checkSelect(this)" <%--onload="addOptionLandMark(this)"--%> day=${dem.index + 1}
                                         class="custom-select is-valid" >
 <%--                                    <jsp:useBean id="c" scope="request" type="com.travels.springmvc.pojo.Contents"/>--%>
                                     <option selected value="${c.landmark.province.provinceId}">${c.landmark.province.provinceName}</option>
@@ -152,7 +153,7 @@
                                 type="submit">Sửa tour
                         </button>
                         <a class="btn btn-danger" href="${pageContext.request.contextPath}/admin/tours"
-                           type="submit">Hủy
+                          >Hủy
                         </a>
                     </div>
 

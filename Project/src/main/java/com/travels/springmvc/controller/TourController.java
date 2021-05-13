@@ -146,7 +146,6 @@ public class TourController {
         Tour tour = tourService.getElementById(tourId);
         List<Tourprices> priceId = (List<Tourprices>) tour.getTourprices();
         String[] tuoi = prices.split(";");
-
         for (Tourprices t : priceId) {
             for (String tu : tuoi) {
                 String[] a = tu.split(":");
@@ -166,16 +165,54 @@ public class TourController {
     }
 
     @RequestMapping(value = "admin/updateTour")
-    public String updateTour(Model model, @RequestParam(value = "tourid", required = false) String tourId) {
+    public String updateTour(Model model, @RequestParam(value = "tourid") String tourId,RedirectAttributes attributes) {
         Tour tour = tourService.getElementById(tourId);
-        List<Contents> contents = tour.getContents();
-        //contents.stream().filter(c ->c.)
+        if(tour == null ){
+            attributes.addFlashAttribute("messges",new String[]{EMessages.error.name(),"Tour không tồn tại"});
+            return "redirect:/admin/tours";
+        }
         List<Tourprices> tourprices = tourPricesService.getAll().stream().filter(t -> t.getTourId().equals(tourId)).collect(Collectors.toList());
         System.err.println("===================");
         System.err.println(tourprices);
         System.err.println("===================");
-        model.addAttribute("tour", tour);
-        model.addAttribute("prices", tourprices);
+        model.addAttribute("tours", tour);
+        //model.addAttribute("prices", tourprices);
+        model.addAttribute("tournew",tourView);
         return "updateTour";
+    }
+    @PostMapping("admin/updateTour")
+    public String updateTour(
+            @RequestParam(value = "tourid") String tourid,
+            @ModelAttribute("tournew") TourView tourView,
+            HttpServletRequest request,
+            RedirectAttributes attributes){
+        try {
+
+            // lấy tour db =>
+            System.err.println("=================update");
+            System.err.println(tourView);
+            System.err.println(tourView.getTour());
+            tourView.getTour().setTourId(tourid);
+            String rootDir = request.getSession().getServletContext().getRealPath("/");
+            if (tourView.getImg() != null && !tourView.getImg().isEmpty()) {
+                try {
+                    String nameImg = tourView.getTour().getTourName() + ".png";
+                    System.err.println("nameimag: " + nameImg);
+                    tourView.getImg().transferTo(new File(rootDir + "resources/TrangChu/images/tours/" + nameImg));
+                    tourView.getTour().setImage(nameImg);
+                } catch (IOException | IllegalStateException ex) {
+                    System.err.println("=========lỗi======");
+                    System.err.println(ex.getMessage());
+                    throw new Exception("Lỗi lưu hình ảnh");
+                }
+            }
+            tourService.update(tourView);
+            attributes.addFlashAttribute("messges", new String[]{EMessages.success.name(), "Sửa tour thành công"});
+        } catch (Exception exception) {
+            attributes.addFlashAttribute("messges", new String[]{EMessages.error.name(), exception.getMessage()});
+            attributes.addFlashAttribute("tournewFlash", tourView);
+            exception.printStackTrace();
+        }
+        return "redirect:/admin/updateTour?tourid="+tourid;
     }
 }

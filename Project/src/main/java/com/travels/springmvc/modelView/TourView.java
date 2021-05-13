@@ -86,7 +86,7 @@ public class TourView {
                 }
 
             }
-
+            checkValid.forEach((s, decimal) -> System.err.println(s +"-" +decimal));
             if (checkValid.get(EAges.getId(EAges.NGUOILON)).compareTo(checkValid.get(EAges.getId(EAges.TREEM))) > 0
             )
                 if (checkValid.get(EAges.getId(EAges.TREEM)).compareTo(checkValid.get(EAges.getId(EAges.TRENHO))) >= 0

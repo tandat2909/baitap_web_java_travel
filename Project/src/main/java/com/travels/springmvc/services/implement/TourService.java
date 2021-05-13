@@ -1,6 +1,7 @@
 package com.travels.springmvc.services.implement;
 
 import com.travels.springmvc.modelView.TourView;
+import com.travels.springmvc.pojo.Contents;
 import com.travels.springmvc.pojo.Province;
 import com.travels.springmvc.pojo.Tour;
 
@@ -20,6 +21,8 @@ public class TourService extends GenericsService<Tour,String> implements ITourSe
 
     @Autowired
     ITourRepository tourRepository;
+
+
 
 
     @Override
@@ -118,6 +121,13 @@ public class TourService extends GenericsService<Tour,String> implements ITourSe
         } catch (Exception ex){
             throw new Exception("chuỗi rỗng");
         }
+
+    }
+
+    @Override
+    public void update(TourView tourView) throws Exception {
+
+        tourRepository.update(tourView);
 
     }
 

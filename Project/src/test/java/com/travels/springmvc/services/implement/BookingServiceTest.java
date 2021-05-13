@@ -85,7 +85,8 @@ class BookingServiceTest {
     }
 
     @Test
-    void testRemove() {
+    void testRemove() throws Exception {
+        bookingService.remove("855b5943-c00e-4b43-a3d7-341b5606b4e3");
 
     }
 

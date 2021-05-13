@@ -11,10 +11,7 @@ import com.travels.springmvc.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
@@ -87,8 +84,6 @@ public class BookingController {
             exception.printStackTrace();
             return "redirect:/booking?tourid="+tourid +"#bookinginfo";
         }
-
-
     }
 
     @RequestMapping(value = {"/admin/bookings"})
@@ -104,8 +99,12 @@ public class BookingController {
     }
 
     @RequestMapping(value = {"/admin/bookings/details"})
-    public String bookingDetail(Model model ,@RequestParam("bookingId") String bookingId,  HttpServletRequest request){
+    public String bookingDetail(Model model ,@RequestParam("bookingId") String bookingId,RedirectAttributes attributes,  HttpServletRequest request){
         Booking booking = bookingService.getElementById(bookingId);
+        if(booking == null ) {
+            attributes.addFlashAttribute("messges",new String[]{EMessages.error.name(),"Booking không tồn tại"});
+            return "redirect:/admin/bookings";
+        }
         model.addAttribute("book", booking);
         model.addAttribute("tourPriceRepository",tourPricesService);
         model.addAttribute("customerService",customerService);
@@ -115,14 +114,10 @@ public class BookingController {
         return "confirmBookingDetail";
     }
 
-
-    //todo chưa làm thông báo thành công khi xác nhận
-
     @PostMapping(value = {"/admin/bookings/details"})
     public String confirmOfEmployee(Model model, HttpServletRequest request, @RequestParam("bookingId") String bookingId, RedirectAttributes attributes){
 
         try{
-
             String username = request.getUserPrincipal().getName();
             System.err.println("=========================");
             System.err.println("bookingid" + bookingId);
@@ -136,6 +131,20 @@ public class BookingController {
             System.err.println("============lỗi contoller booking confirmOfEmployee()");
             ex.printStackTrace();
             attributes.addFlashAttribute("messges",new String[]{EMessages.error.name(),ex.getMessage()});
+        }
+        return "redirect:/admin/bookings/details?bookingId=" + bookingId;
+    }
+
+    @PostMapping("/admin/bookings/details/delete")
+    public String delectBooking(@RequestParam("bookingId") String bookingId,
+                                HttpServletRequest request,
+                                RedirectAttributes attributes){
+        try{
+            bookingService.remove(bookingId);
+            attributes.addFlashAttribute("messges",new String[]{EMessages.success.name(),"Xóa Booking thành công"});
+            return "redirect:/admin/bookings";
+        }catch (Exception exception){
+            attributes.addFlashAttribute("messges",new String[]{EMessages.error.name(),exception.getMessage()});
         }
         return "redirect:/admin/bookings/details?bookingId=" + bookingId;
     }

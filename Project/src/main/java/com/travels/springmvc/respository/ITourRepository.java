@@ -24,5 +24,7 @@ public interface ITourRepository extends IGenericsRepository<Tour,String> {
 
 
     void addTour(Tour tour) throws Exception;
+
+    void update(TourView tourView) throws Exception;
     //boolean checkContentInTour(Tour tour);
 }

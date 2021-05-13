@@ -154,11 +154,10 @@ public class BookingRepository extends GenericsRepository<Booking, String> imple
 
     @Override
     public void remove(Booking booking) throws Exception {
-        if (booking != null && !booking.isStatus()) {
-            super.remove(booking);
-            return;
-        }
-        throw new Exception("Bạn không thể xóa tour đã xác nhận của nhân viên");
+        if (booking == null) throw new Exception("Booking không hợp lệ");
+        if (booking.getStatusPay().equals(EStatusPay.success.name()))
+            throw new Exception("Bạn không thể xóa booking đã thanh toán thành công");
+        super.remove(booking);
     }
 
 

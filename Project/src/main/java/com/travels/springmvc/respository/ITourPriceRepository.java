@@ -8,4 +8,5 @@ import java.math.BigDecimal;
 
 public interface ITourPriceRepository  extends IGenericsRepository<Tourprices,String> {
     BigDecimal getPriceByAgeTourId(String AgeId, String tourId);
+    Tourprices getTourPriceByAgeTourId(String ageId,String tourId);
 }

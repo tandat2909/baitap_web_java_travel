@@ -34,4 +34,8 @@ class TourPriceRepositoryTest {
          * */
         assertEquals(new BigDecimal(123123),tourPriceRepository.getPriceByAgeTourId("f53d20c2-7f20-4fad-bab6-76847d102ef9","95e43aea-559f-4e26-8970-9524228c2f9c"));
     }
+    @Test
+    void getTourPricebyAgeTourId(){
+        System.out.println(tourPriceRepository.getTourPriceByAgeTourId("f53d20c2-7f20-4fad-bab6-76847d102ef9","95e43aea-559f-4e26-8970-9524228c2f9c"));
+    }
 }

@@ -26,4 +26,6 @@ public interface ITourService extends IGenericsService<Tour,String> {
     void addTour(Tour tour) throws Exception;
     void updateTour(Tour tour) throws Exception;
     public boolean checkEmpty(String chuoi) throws Exception;
+
+    void update(TourView tourView) throws Exception;
 }

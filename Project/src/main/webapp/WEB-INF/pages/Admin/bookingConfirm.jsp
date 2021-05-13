@@ -3,6 +3,7 @@
 <%@include file="../LibraryJSP.jsp" %>
 <!-- main content start -->
 <div class="main-content">
+    <%@include file="../Alert.jsp"%>
 
     <!-- content -->
     <div class="container-fluid content-top-gap">
