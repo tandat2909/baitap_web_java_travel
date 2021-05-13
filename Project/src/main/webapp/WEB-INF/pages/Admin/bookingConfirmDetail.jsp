@@ -232,18 +232,23 @@
                                             <input class="form-control" disabled  value="${ticket.ages.name}">
                                         </div>
                                     </div>
-                                    <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 mg-bot10">
-                                        <label class="mg-bot5">Phòng đơn</label>
-                                        <div>
-                                            <select class="form-control" id="loaiphuthuphongdon0">
-                                                <option selected="selected" value="0">Không</option>
-                                                <option value="1">Có</option>
-                                            </select></div>
-                                    </div>
+<%--                                    <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 mg-bot10">--%>
+<%--                                        <label class="mg-bot5">Phòng đơn</label>--%>
+<%--                                        <div>--%>
+<%--                                            <select class="form-control" id="loaiphuthuphongdon0">--%>
+<%--                                                <option selected="selected" value="0">Không</option>--%>
+<%--                                                <option value="1">Có</option>--%>
+<%--                                            </select></div>--%>
+<%--                                    </div>--%>
                                 </div>
                                 <div class="row total">
                                     <div class="col-md-12 col-sm-12 text-right">
-                                        Trị giá: <span class="price" id="spanprice_0">${tourPriceRepository.getPriceByAgeTourId(ticket.agesId, book.tourId)}</span>
+                                        Trị giá: <span class="price" id="spanprice_0">
+                                            <fmt:formatNumber type = "number"
+                                                              maxFractionDigits = "3"
+                                                              value = "${tourPriceRepository.getPriceByAgeTourId(ticket.agesId, book.tourId)}" />
+
+                                             VNĐ</span>
                                         <input class="form-control" disabled="disabled" id="price_0" type="hidden" value="0">           </div>       </div>   </div></div>
                     </div>
                 </c:forEach>

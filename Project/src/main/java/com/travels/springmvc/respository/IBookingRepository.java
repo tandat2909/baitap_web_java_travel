@@ -14,7 +14,6 @@ public interface IBookingRepository extends IGenericsRepository<Booking,String> 
 
     void remove(String bookingId) throws Exception;
 
-    void comfirmBooking(String bookingId) throws Exception;
     List<Booking> thongketheonam(int nam) throws Exception;
     List<Booking> thongketheothang(int nam, int month) throws Exception;
 

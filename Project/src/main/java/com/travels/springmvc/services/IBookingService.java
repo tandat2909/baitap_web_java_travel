@@ -11,8 +11,7 @@ public interface IBookingService extends IGenericsService<Booking,String> {
     void comfirmBooking(String bookingId,String userName) throws Exception;
     void comfirmBooking(Booking booking,String userName) throws Exception;
     boolean isComfirmBookking(String bookingId);
-    void comfirmBooking(String bookingId) throws Exception;
-    void comfirmBooking(Booking booking) throws Exception;
+
     List<Booking> thongketheonam(int nam) throws Exception;
     List<Booking> thongketheothang(int nam, int month) throws Exception;
 

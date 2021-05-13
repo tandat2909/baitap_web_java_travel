@@ -140,12 +140,12 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
     </definition>
 
     <definition name="confirmBooking" extends="adminLayout">
-        <put-attribute name="title" value="Confirm Tour"/>
+        <put-attribute name="title" value="Booking"/>
         <put-attribute name="adminContent" value="/WEB-INF/pages/Admin/bookingConfirm.jsp"/>
     </definition>
 
     <definition name="confirmBookingDetail" extends="adminLayout">
-        <put-attribute name="title" value="Confirm Of Employee"/>
+        <put-attribute name="title" value="Booking details"/>
         <put-attribute name="adminContent" value="/WEB-INF/pages/Admin/bookingConfirmDetail.jsp"/>
     </definition>
 
