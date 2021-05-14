@@ -84,10 +84,10 @@
                 <h5>SDT: ${customer.phoneNumber}</h5>
             </div>
         </div >
-
+        <h3 class=" text-capitalize text-center  mb-3" style="color: red"> Thông tin booking đã được xác nhận </h3>
     <c:forEach items="${book}" var="b">
         <c:if test="${bookingService.isComfirmBookking(b.bookingId)}">
-            <h3 class=" text-capitalize text-center  mb-3" style="color: red"> Thông tin booking đã được xác nhận </h3>
+
             <div class="row" style="padding: 45px; padding-top: 5px;">
                 <div class="col-lg-3">
                     <a href="">
@@ -106,41 +106,64 @@
                         <div class="col-lg-6 mt-1">Chú thích:  ${b.note}</div>
                         <div class="col-lg-6 mt-1">Ngày book: <fmt:formatDate value="${b.bookingDate}" pattern="dd-MM-yyyy"/></div>
                         <div class="col-lg-6 mt-1">Tổng số khách: ${b.amountGuests}</div>
-                        <div class="col-lg-6 mt-1">Loại thanh toán: ${b.statusPay} </div>
+                        <div class="col-lg-6 mt-1">Trạng thái thanh toán: ${b.statusPay} </div>
+                        <div class="col-lg-6 mt-1">Nhân viên đã xác nhận</div>
                         <div class="clearfix"></div>
                     </div>
 
                 </div>
             </div>
+            <c:if test="${b.status}">
+                <div class="col-lg-6 mt-1">Nhân viên đã xác nhận </div>
+                <div class="col-lg-6 mt-1"><a class="btn btn-danger" href="${pageContext.request.contextPath}/pay/momo?bookingId=${b.bookingId}"></a> </div>
+            </c:if>
+            <c:if test="${!b.status}">
+                <div class="col-lg-6 mt-1">Nhân viên chưa xác nhận </div>
+                <div class="col-lg-6 mt-1" style="color: red">Chờ nhân viên gọi xác nhận</div>
+            </c:if>
         </c:if>
-        <c:if test="${!bookingService.isComfirmBookking(b.bookingId)}">
-            <h3 class=" text-capitalize text-center  mb-3" style="color: red"> Thông tin booking chưa xác nhận </h3>
-            <div class="row" style="padding: 45px; padding-top: 5px;">
-                <div class="col-lg-3">
-                    <a href="">
-                        <img src="<c:url value="/TrangChu/images/${b.tour.image}"/>" class="img-responsive pic-bt">
-                    </a>
-                </div>
-                <div class="col-lg-9">
-                    <div class="tour-name">
-                        <a target="_blank">
-                            <h3> ${b.tour.tourName}</h3></a>
-                    </div>
 
-                    <div class="row mt-3">
-                        <div class="col-lg-12 mt-1">Mã booking: ${b.bookingId}</div>
-                        <div class="col-lg-6 mt-1">Tổng tiền : ${b.totalMoney}</div>
-                        <div class="col-lg-6 mt-1">Chú thích:  ${b.note}</div>
-                        <div class="col-lg-6 mt-1">Ngày book: <fmt:formatDate value="${b.bookingDate}" pattern="dd-MM-yyyy"/></div>
-                        <div class="col-lg-6 mt-1">Tổng số khách: ${b.amountGuests}</div>
-                        <div class="col-lg-6 mt-1">Loại thanh toán: ${b.statusPay} </div>
-                        <div class="clearfix"></div>
-                    </div>
 
-                </div>
-            </div>
-        </c:if>
     </c:forEach>
+        <h3 class=" text-capitalize text-center  mb-3" style="color: red"> Thông tin booking chưa xác nhận </h3>
+        <c:forEach items="${book}" var="b">
+            <c:if test="${!bookingService.isComfirmBookking(b.bookingId)}">
+                <div class="row" style="padding: 45px; padding-top: 5px;">
+                    <div class="col-lg-3">
+                        <a href="">
+                            <img src="<c:url value='/TrangChu/images/tours/${b.tour.image}'/>" class="img-responsive pic-bt">
+                        </a>
+                    </div>
+                    <div class="col-lg-9">
+                        <div class="tour-name">
+                            <a target="_blank">
+                                <h3> ${b.tour.tourName}</h3></a>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="col-lg-12 mt-1">Mã booking: ${b.bookingId}</div>
+                            <div class="col-lg-6 mt-1">Tổng tiền : ${b.totalMoney}</div>
+                            <div class="col-lg-6 mt-1">Chú thích:  ${b.note}</div>
+                            <div class="col-lg-6 mt-1">Ngày book: <fmt:formatDate value="${b.bookingDate}" pattern="dd-MM-yyyy"/></div>
+                            <div class="col-lg-6 mt-1">Tổng số khách: ${b.amountGuests}</div>
+                            <div class="col-lg-6 mt-1">Trạng thái thanh toán: ${b.statusPay} </div>
+                            <c:if test="${b.status}">
+                                <div class="col-lg-6 mt-1">Nhân viên đã xác nhận </div>
+                                <div class="col-lg-6 mt-1"><a class="btn btn-danger" href="${pageContext.request.contextPath}/pay/momo?bookingId=${b.bookingId}"></a> </div>
+                            </c:if>
+                            <c:if test="${!b.status}">
+                                <div class="col-lg-6 mt-1">Nhân viên chưa xác nhận </div>
+                                <div class="col-lg-6 mt-1" style="color: red">Chờ nhân viên gọi xác nhận</div>
+                            </c:if>
+
+                            <div class="clearfix"></div>
+                        </div>
+
+                    </div>
+                </div>
+            </c:if>
+
+        </c:forEach>
     </div>
 
 <%--    <jsp:useBean id="bookingService" type="com.travels.springmvc.services.IBookingService"></jsp:useBean>--%>

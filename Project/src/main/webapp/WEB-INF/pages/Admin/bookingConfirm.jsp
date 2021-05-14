@@ -37,7 +37,7 @@
                                     <div class="col-md-4 px-2">
                                         <div class="mb-4 price-card price-card1 p-lg-4 p-md-3 p-4">
                                             <div class="card-header p-0 card-heading">
-                                                <h4 class="mb-4">${book.tour.tourName}</h4>
+                                                <a href="${pageContext.request.contextPath}/admin/bookings/details?bookingId=${book.bookingId}"> <h4 class="mb-4">${book.tour.tourName}</h4></a>
                                             </div>
                                             <div class="card-body p-0">
                                                 <h5 class="card-title pricing-card-title my-price-title">Total money: $${book.totalMoney}

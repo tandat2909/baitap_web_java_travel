@@ -174,10 +174,10 @@ public class TourRepository extends GenericsRepository<Tour, String> implements 
             currentSession().update(a);
         });
 
-       List<String> conid = new ArrayList<>();
-       for(Contents con : current.getContents()){
-           conid.add(con.getContentId());
-       }
+       //List<String> conid = new ArrayList<>();
+//       for(Contents con : current.getContents()){
+//           conid.add(con.getContentId());
+//       }
 
         //thêm nội dung mới cho tour
         tourView.getListContens().forEach(i->{
@@ -187,7 +187,7 @@ public class TourRepository extends GenericsRepository<Tour, String> implements 
         });
         update(current);
         //xóa nội dung
-        conid.forEach(i->currentSession().remove(contentsRepository.getElementById(i)));
+       // conid.forEach(i->currentSession().remove(contentsRepository.getElementById(i)));
 
     }
 //    @Override

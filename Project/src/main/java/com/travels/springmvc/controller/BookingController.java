@@ -5,6 +5,7 @@ import com.travels.springmvc.modelView.InforAccount;
 import com.travels.springmvc.pojo.Account;
 import com.travels.springmvc.pojo.Booking;
 import com.travels.springmvc.pojo.Customer;
+import com.travels.springmvc.pojo.Employees;
 import com.travels.springmvc.respository.Enum.EMessages;
 import com.travels.springmvc.respository.ITourPriceRepository;
 import com.travels.springmvc.services.*;
@@ -45,12 +46,23 @@ public class BookingController {
     public String booktour(Model model,
                            @RequestParam(value = "tourid",required = false) String tourid ,
                            HttpServletRequest request){
-        String username = request.getUserPrincipal().getName();
-        Customer customer = customerService.getCustomerByUserName(username);
-        InforAccount info = new InforAccount(customer);
+
         if(tourid == null){
             return "redirect:/Packages";
         }
+
+        String username = request.getUserPrincipal().getName();
+
+
+        InforAccount info ;
+        try{
+            Customer customer = customerService.getCustomerByUserName(username);
+            info = new InforAccount(customer);
+        }catch (NullPointerException exception){
+            Employees employees = employeesService.getEmployeesByUserName(username);
+            info= new InforAccount(employees);
+        }
+
 
         model.addAttribute("tour",tourService.getElementById(tourid));
         model.addAttribute("bookinginfo", bookingView);

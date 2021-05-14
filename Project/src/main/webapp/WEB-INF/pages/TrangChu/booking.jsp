@@ -129,6 +129,7 @@
                             </table>
                         </div>
                     </div>
+                    <c:if test="${tour.maxseats!=0}">
                     <form id="bookinginfo" action="" method="post" onsubmit="onsubmitBooking()">
                         <div class="row">
                         <div class="col-lg-12">
@@ -340,6 +341,17 @@
 
                     </div>
                     </form>
+                    </c:if>
+                    <c:if test="${tour.maxseats == 0}">
+                        <div class="col-12"> <h3 class="text-center " style="color: red" >Tour đã hết chỗ</h3></div>
+
+                        <div class=" col-12 text-center mt-5"><a href="${pageContext.request.contextPath}/Packages"  class="btn btn-md btn-book"
+                                                    style="color: white;background: red">
+                            <i class="fa fa-arrow-left" style="color: white"></i>
+                            Quay Lại
+                        </a></div>
+
+                    </c:if>
                 </div>
 
             </div>

@@ -51,6 +51,8 @@
         color: red;
     }
 
+
+
 </style>
 <div class="main-content">
 
@@ -85,7 +87,7 @@
 
                             <div class="col-lg-4 col-md-6 mb-4 search-tour " id="${i.tourId}"  >
                                 <div class="card card_border" <%--onclick="openLink('${pageContext.request.contextPath}/tour?tourid=${i.tourId}','_blank')" title="Click để xem chi tiết"--%> >
-                                    <div class="card-img-top destinations-grids">
+                                    <div class="card-img-top destinations-grids" style="height: 250px">
                                         <div class="destinations-info">
                                             <div class="caption mb-lg-3">
                                                 <a href="${pageContext.request.contextPath}/tour?tourid=${i.tourId}"

@@ -9,6 +9,7 @@ import com.travels.springmvc.pojo.Booking;
 import com.travels.springmvc.pojo.PayMent;
 import com.travels.springmvc.pojo.Tour;
 import com.travels.springmvc.respository.Enum.EMessages;
+import com.travels.springmvc.respository.Enum.EStatusPay;
 import com.travels.springmvc.services.IBookingService;
 import com.travels.springmvc.services.IPayMentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,6 +86,9 @@ public class PayMentController {
                         payMent.setTransId(transId);
                         payMent.setBookingId(extraData);
                         payMentService.add(payMent);
+                        Booking booking = bookingService.getElementById(extraData);
+                        booking.setStatusPay(EStatusPay.success.name());
+                        bookingService.update(booking);
 
                     }
         return "redirect:/";

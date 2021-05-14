@@ -5,6 +5,7 @@ import com.travels.springmvc.pojo.Contents;
 import com.travels.springmvc.pojo.Province;
 import com.travels.springmvc.pojo.Tour;
 
+import com.travels.springmvc.respository.IContentsRepository;
 import com.travels.springmvc.respository.ITourRepository;
 import com.travels.springmvc.services.ITourService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -21,6 +23,9 @@ public class TourService extends GenericsService<Tour,String> implements ITourSe
 
     @Autowired
     ITourRepository tourRepository;
+
+    @Autowired
+    IContentsRepository contentsRepository;
 
 
 
@@ -126,8 +131,22 @@ public class TourService extends GenericsService<Tour,String> implements ITourSe
 
     @Override
     public void update(TourView tourView) throws Exception {
-
+        List<String> contentCurrent= new ArrayList<>();
+        getElementById(tourView.getTour().getTourId()).getContents().forEach(i->{
+            contentCurrent.add(i.getContentId());
+        });
         tourRepository.update(tourView);
+
+        contentCurrent.forEach(i-> {
+            try {
+                contentsRepository.remove(contentsRepository.getElementById(i));
+            } catch (Exception exception) {
+                System.err.println("====== looxi xoas conente update service booking");
+                exception.printStackTrace();
+            }
+        });
+
+
 
     }
 
