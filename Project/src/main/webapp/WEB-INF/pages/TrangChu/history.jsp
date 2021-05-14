@@ -50,7 +50,12 @@
         border-bottom: 1px dashed #ccc;
         padding-bottom: 10px;
     }
-
+    .col-lg-12{
+        font-size: larger;
+    }
+    .col-lg-6{
+        font-size: larger;
+    }
 </style>
 <!-- banner -->
 <section class="banner_inner" id="home">
@@ -61,9 +66,15 @@
 <!-- about -->
 <section class="about py-5">
     <div class="container py-lg-5 py-sm-4">
-        <div class="row">
-            <div class="col-lg-12">
-                <h5>Thông tin cá nhân</h5>
+
+        <div class="row" style="padding: 45px;">
+            <div class="col-lg-3">
+                <img src="<c:url value="/TrangChu/images/p1.jpg"/>" class="img-responsive pic-bt">
+            </div>
+            <div class="col-lg-9">
+
+                <h3 style="color: red;">Thông tin cá nhân</h3>
+
                 <h5>Họ và tên: ${customer.firstName} ${customer.lastName}</h5>
                 <h5>ngày sinh: <fmt:formatDate value="${customer.birthDay}" pattern="dd-MM-yyyy"/></h5>
                 <h5>email: ${customer.email}</h5>
@@ -72,12 +83,12 @@
                 <h5>address: ${customer.address}</h5>
                 <h5>SDT: ${customer.phoneNumber}</h5>
             </div>
-        </div>
+        </div >
 
     <c:forEach items="${book}" var="b">
         <c:if test="${bookingService.isComfirmBookking(b.bookingId)}">
             <h3 class=" text-capitalize text-center  mb-3" style="color: red"> Thông tin booking đã được xác nhận </h3>
-            <div class="row">
+            <div class="row" style="padding: 45px; padding-top: 5px;">
                 <div class="col-lg-3">
                     <a href="">
                         <img src="<c:url value='/TrangChu/images/tours/${b.tour.image}'/>" class="img-responsive pic-bt">
@@ -90,7 +101,7 @@
                     </div>
 
                     <div class="row mt-3">
-                        <div class="col-lg-6 mt-1">Mã booking: ${b.bookingId}</div>
+                        <div class="col-lg-12 mt-1">Mã booking: ${b.bookingId}</div>
                         <div class="col-lg-6 mt-1">Tổng tiền : ${b.totalMoney}</div>
                         <div class="col-lg-6 mt-1">Chú thích:  ${b.note}</div>
                         <div class="col-lg-6 mt-1">Ngày book: <fmt:formatDate value="${b.bookingDate}" pattern="dd-MM-yyyy"/></div>
@@ -104,10 +115,10 @@
         </c:if>
         <c:if test="${!bookingService.isComfirmBookking(b.bookingId)}">
             <h3 class=" text-capitalize text-center  mb-3" style="color: red"> Thông tin booking chưa xác nhận </h3>
-            <div class="row">
+            <div class="row" style="padding: 45px; padding-top: 5px;">
                 <div class="col-lg-3">
                     <a href="">
-                        <img src="<c:url value='/TrangChu/images/tours/${b.tour.image}'/>" class="img-responsive pic-bt">
+                        <img src="<c:url value="/TrangChu/images/${b.tour.image}"/>" class="img-responsive pic-bt">
                     </a>
                 </div>
                 <div class="col-lg-9">
@@ -117,7 +128,7 @@
                     </div>
 
                     <div class="row mt-3">
-                        <div class="col-lg-6 mt-1">Mã booking: ${b.bookingId}</div>
+                        <div class="col-lg-12 mt-1">Mã booking: ${b.bookingId}</div>
                         <div class="col-lg-6 mt-1">Tổng tiền : ${b.totalMoney}</div>
                         <div class="col-lg-6 mt-1">Chú thích:  ${b.note}</div>
                         <div class="col-lg-6 mt-1">Ngày book: <fmt:formatDate value="${b.bookingDate}" pattern="dd-MM-yyyy"/></div>

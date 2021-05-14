@@ -3,6 +3,7 @@ package com.travels.springmvc.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.travels.springmvc.modelView.SearchView;
+import com.travels.springmvc.modelView.Utils;
 import com.travels.springmvc.pojo.*;
 import com.travels.springmvc.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
@@ -76,13 +74,27 @@ public class HomeController {
 
     @RequestMapping({"/timkiem"})
     public String timKiemDiaDiemDi(Model model,@RequestParam(value = "diemdi", required = false) String diemdi,
-                                   @RequestParam(value = "diemden", required = false) String diemden
+                                   @RequestParam(value = "diemden", required = false) String diemden,
+                                   @RequestParam(value = "ngaydi", required = false) String ngaydi,
+                                   @RequestParam(value = "ngayve", required = false) String ngayve
                                    ){
         try {
-            List<Tour> toursdi = tourService.searchTourByProvinceName(diemdi);
-            List<Tour> toursdem = tourService.searchTourByProvinceName(diemden);
-            model.addAttribute("diemdi", toursdi);
-            model.addAttribute("diemden", toursdem);
+            Set<Tour> tourssss = new HashSet<>();
+            tourssss.addAll(tourService.searchTourByProvince(diemdi));
+            tourssss.addAll(tourService.searchTourByProvince(diemden));
+            if(ngaydi != null && ngayve != null){
+                Date nds = Utils.getDateRequest(ngaydi);
+                Date nvs = Utils.getDateRequest(ngayve);
+                tourssss = tourssss.stream().filter(i->
+                        i.getStartDay().getTime() >= nds.getTime() && i.getEndDay().getTime() <= nvs.getTime())
+                        .collect(Collectors.toSet());
+            }
+
+//            List<Tour> toursdi = ;
+//            List<Tour> toursdem = tourService.searchTourByProvinceName(diemden);
+
+
+            model.addAttribute("tours",tourssss);
             model.addAttribute("tourService", tourService);
         } catch (Exception e) {
             e.printStackTrace();
